@@ -214,12 +214,25 @@ void Optarg::opt(char ch, std::vector<unsigned int>& value, const char *desc)
     {
         value.clear();
 
-        char *rem = (char *)(it->second.c_str()[-1]);
+        string s = it->second;
+
+        char *rem = (char *)s.c_str();
+        rem--;
         do
         {
             rem++;
-            value.push_back((unsigned int)strtoul(rem, &rem, 10));
-        } while (*rem == ',');
+            char *tmp;
+            unsigned int v = (unsigned int)strtoul(rem, &tmp, 10);
+            if (tmp == rem)
+            {
+                break;
+            }
+            else
+            {
+                value.push_back(v);
+                rem = tmp;
+            }
+        } while (rem == NULL || *rem == ',' || *rem == ':' || *rem == ';');
     }
 
     updateHelp(ch, desc, "uint-list");

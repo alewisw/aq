@@ -14,6 +14,7 @@
     <ClCompile Include="windows\WorkerThread.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="TestJUnitXmlReport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQStrawMan.h" />
@@ -38,6 +39,7 @@
     <ClInclude Include="windows\WorkerThread.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="TestJUnitXmlReport.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

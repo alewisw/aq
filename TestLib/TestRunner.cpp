@@ -12,10 +12,12 @@
 #include "TestRunner.h"
 
 #include "TestAssert.h"
+#include "TestJUnitXmlReport.h"
 #include "TestTag.h"
 #include "TestSuite.h"
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -57,6 +59,8 @@ using namespace std;
 TestRunner::TestRunner(int argc, char* argv[])
     : m_stopOnError(true)
 {
+    parseArguments(argc, argv);
+
     // Get all the suites.
     map<string, vector<TestSuite *> > fileToSuite;
     for (const TestSuite::Tag *suiteTag = TestSuite::Tag::first(); suiteTag != NULL; suiteTag = suiteTag->next())
@@ -79,6 +83,28 @@ TestRunner::~TestRunner(void)
     for (size_t i = 0; i < m_suites.size(); ++i)
     {
         delete m_suites[i];
+    }
+}
+
+//------------------------------------------------------------------------------
+void TestRunner::parseArguments(int argc, char* argv[])
+{
+    int i = 1;
+    while (i < argc)
+    {
+        if (strcmp(argv[i], "-c") == 0)
+        {
+            setStopOnError(false);
+        }
+        else if (i + 1 < argc && strlen(argv[i + 1]) > 0)
+        {
+            if (strcmp(argv[i], "-j") == 0)
+            {
+                setJUnitXmlFile(argv[i + 1]);
+                i++;
+            }
+        }
+        i++;
     }
 }
 
@@ -187,6 +213,7 @@ int TestRunner::run(void)
 
             if (m_stopOnError && m_fail.size() > 0)
             {
+                exec.clearExecuted();
                 m_notExecuted.push_back(&exec);
             }
             else
@@ -217,6 +244,16 @@ int TestRunner::run(void)
     }
 
     renderAfterRunner();
+
+    if (m_junitXmlFile.size() > 0)
+    {
+        TestJUnitXmlReport report(*this);
+
+        ofstream os(m_junitXmlFile.c_str(), ofstream::out);
+        report.publish(os);
+        os.close();
+    }
+
     return m_fail.size() == 0 ? 0 : 1;
 }
 

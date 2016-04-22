@@ -36,6 +36,7 @@ class TestSuite;
 
 
 
+
 //------------------------------------------------------------------------------
 // Exported Variable Declarations
 //------------------------------------------------------------------------------
@@ -54,7 +55,9 @@ class TestRunner
 
 public:
 
-    // Constructs a new test runner.
+    // Constructs a new test runner. The command line arguments are:
+    //  -c        = Keep on running even when a test fails.
+    //  -j <file> = Write a JUnit XML report file named <file>.
     TestRunner(int argc, char* argv[]);
 
     // Copy and assignment not supported - not implemented.
@@ -65,6 +68,9 @@ public:
     virtual ~TestRunner(void);
 
 private:
+
+    // Parses the command line arguments for this test runner.
+    void parseArguments(int argc, char* argv[]);
 
     // Adds the passed 'suite' to the 'm_suites' vector and the 'm_fileToSuite' map.
     void addSuite(TestSuite *suite);
@@ -83,10 +89,22 @@ private:
     // Enables or disables immediatly termination on error.
     bool m_stopOnError;
 
+    // The name of the file to write for JUnit XML output.
+    std::string m_junitXmlFile;
+
 public:
 
     // Enables or disable stop on test error.
     void setStopOnError(bool stopOnError) { m_stopOnError = stopOnError; }
+
+    // Sets the JUnit XML file to write the results into.
+    void setJUnitXmlFile(const std::string& name) { m_junitXmlFile = name; }
+
+    // The number of suites in this runner.
+    size_t suiteCount(void) const { return m_suites.size(); }
+
+    // A single test suite in this runner.
+    const TestSuite& suite(size_t idx) const { return *m_suites[idx]; }
 
 public:
 

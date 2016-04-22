@@ -100,6 +100,9 @@ private:
     // Set to true if a fatal exception is being thrown.
     static bool m_throwing;
 
+    // Set to true if this test was executed.
+    bool m_executed;
+
     // The list of assertions that were raised during this test execution.
     std::vector<TestAssert> m_assertionFailure;
 
@@ -133,6 +136,9 @@ public:
     // Executes this test.
     void execute(void);
 
+    // Clears the executed flag for this test execution.
+    void clearExecuted(void) { m_executed = false; }
+
     // Adds the assertion failure 'ast' to the list of assertion failures
     // for the current test.
     static void addAssertion(TestAssert& ast);
@@ -158,6 +164,9 @@ public:
 
     // Returns true if this test passed.
     bool isPass(void) const { return m_assertionFailure.size() == 0; }
+
+    // Returns true if this test was executed.
+    bool isExecuted(void) const { return m_executed; }
 
     // Returns true if this test failed.
     bool isFail(void) const { return !isPass(); }

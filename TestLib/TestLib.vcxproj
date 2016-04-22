@@ -18,6 +18,7 @@
     <ClCompile Include="AQStrawMan.cpp" />
     <ClCompile Include="Prng.cpp" />
     <ClCompile Include="TestAssert.cpp" />
+    <ClCompile Include="TestJUnitXmlReport.cpp" />
     <ClCompile Include="TestTag.cpp" />
     <ClCompile Include="TestExecution.cpp" />
     <ClCompile Include="TestRunner.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Prng.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestAssert.h" />
+    <ClInclude Include="TestJUnitXmlReport.h" />
     <ClInclude Include="TestTag.h" />
     <ClInclude Include="TestExecution.h" />
     <ClInclude Include="TestRunner.h" />

@@ -167,6 +167,7 @@ public:
 
     // Gets one of the executions from this test suite.
     TestExecution& execution(size_t idx) { return m_executions[idx]; }
+    const TestExecution& execution(size_t idx) const { return m_executions[idx]; }
 
 private:
 

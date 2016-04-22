@@ -27,5 +27,13 @@
 *.out
 *.app
 
+# Visual Studio created files
+*.suo
+*.sdf
+*.opensdf
+*/ipch/
+*.ipch
+*.vcxproj.user
+
 # Anything in a build directory.
 */_Build/

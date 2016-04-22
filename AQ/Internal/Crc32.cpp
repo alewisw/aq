@@ -43,7 +43,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 // CRC-32 calculation routine.
-static uint32_t crc32(uint32_t crc, const void *data, size_t size)
+static uint32_t crc32(uint32_t crc, const void *data, size_t size);
 
 
 
@@ -86,7 +86,7 @@ uint32_t aq::CalculateItemCrc32(const AQItem& item, uint32_t options)
         prefix[10] = (lkid >> 0) & 0xFF;
     }
 
-    uint32_t crc = crc32(crc32(prefix, prefixSize, 0xFFFFFFFF), data, size);
+    uint32_t crc = crc32(crc32(0xFFFFFFFF, prefix, prefixSize), data, size);
 
 #ifdef CRC_DEBUG
     ostringstream ss;

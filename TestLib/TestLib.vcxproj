@@ -31,6 +31,7 @@
     <ClInclude Include="IAQReader.h" />
     <ClInclude Include="IAQWriter.h" />
     <ClInclude Include="Prng.h" />
+    <ClInclude Include="Stopwatch.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="TestAssert.h" />
     <ClInclude Include="TestJUnitXmlReport.h" />

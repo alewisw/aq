@@ -103,6 +103,9 @@ private:
     // Set to true if this test was executed.
     bool m_executed;
 
+    // The duration of this execution in seconds.
+    double m_durationSecs;
+
     // The list of assertions that were raised during this test execution.
     std::vector<TestAssert> m_assertionFailure;
 
@@ -137,7 +140,7 @@ public:
     void execute(void);
 
     // Clears the executed flag for this test execution.
-    void clearExecuted(void) { m_executed = false; }
+    void clearExecuted(void) { m_executed = false; m_durationSecs = 0.0; }
 
     // Adds the assertion failure 'ast' to the list of assertion failures
     // for the current test.
@@ -161,6 +164,9 @@ private:
     void handleAssertion(const TestAssert& ast);
 
 public:
+
+    // Returns the run duration of this test.
+    double durationSecs(void) const { return m_durationSecs; }
 
     // Returns true if this test passed.
     bool isPass(void) const { return m_assertionFailure.size() == 0; }

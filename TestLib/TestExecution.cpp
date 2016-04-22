@@ -14,6 +14,8 @@
 #include "TestRunner.h"
 #include "TestSuite.h"
 
+#include "Stopwatch.h"
+
 #include <stdexcept>
 
 using namespace std;
@@ -64,6 +66,7 @@ TestExecution::TestExecution(TestSuite *suite, const TestTag *tag)
     : m_suite(suite)
     , m_tag(tag)
     , m_executed(false)
+    , m_durationSecs(0.0)
     , m_assertionCount(0)
 {
 }
@@ -73,6 +76,7 @@ TestExecution::TestExecution(const TestExecution& other)
     : m_suite(other.m_suite)
     , m_tag(other.m_tag)
     , m_executed(other.m_executed)
+    , m_durationSecs(other.m_durationSecs)
     , m_assertionFailure(other.m_assertionFailure)
     , m_assertionCount(other.m_assertionCount)
 {
@@ -87,6 +91,7 @@ TestExecution& TestExecution::operator=(const TestExecution& other)
         m_suite = other.m_suite;
         m_tag = other.m_tag;
         m_executed = other.m_executed;
+        m_durationSecs = other.m_durationSecs;
         m_assertionFailure = other.m_assertionFailure;
         m_assertionCount = other.m_assertionCount;
     }
@@ -101,6 +106,8 @@ TestExecution::~TestExecution(void)
 //------------------------------------------------------------------------------
 void TestExecution::execute(void)
 {
+    Stopwatch sw;
+
     m_executed = true;
     try
     {
@@ -124,6 +131,7 @@ void TestExecution::execute(void)
 
     // Stop any exceptions from being thrown.
     markThrowing();
+    m_durationSecs = sw.elapsedSecs();
 }
 
 //------------------------------------------------------------------------------

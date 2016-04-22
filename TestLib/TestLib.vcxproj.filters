@@ -40,6 +40,9 @@
       <Filter>Windows</Filter>
     </ClInclude>
     <ClInclude Include="TestJUnitXmlReport.h" />
+    <ClInclude Include="Stopwatch.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

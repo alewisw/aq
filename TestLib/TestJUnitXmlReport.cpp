@@ -102,8 +102,6 @@ void TestJUnitXmlReport::publishSuite(std::ostream& os, const TestSuite& suite)
         << encodeAttribute("tests", suite.executionCount())
         << encodeAttribute("skipped", skipped)
         << encodeAttribute("failures", failures)
-        << encodeAttribute("time", 0.0)
-        << encodeAttribute("timestamp", (time_t)0)
         << ">" << endl;
 
     for (size_t i = 0; i < suite.executionCount(); ++i)
@@ -120,7 +118,7 @@ void TestJUnitXmlReport::publishExecution(std::ostream& os, const TestExecution&
     os << "        <testcase"
         << encodeAttribute("classname", exec.suite().name())
         << encodeAttribute("name", exec.name())
-        << encodeAttribute("time", 0.0)
+        << encodeAttribute("time", exec.durationSecs())
         << ">" << endl;
 
     // Skipped tests have no additional information.
@@ -188,7 +186,11 @@ string TestJUnitXmlReport::encodeAttribute(const char *name, size_t value)
 //------------------------------------------------------------------------------
 string TestJUnitXmlReport::encodeAttribute(const char *name, double value)
 {
-    return encodeAttribute(name, "0.000");
+    ostringstream ss;
+
+    ss << " " << name << "=\"" << fixed << setprecision(3) << value << "\"";
+
+    return ss.str();
 }
 
 //------------------------------------------------------------------------------

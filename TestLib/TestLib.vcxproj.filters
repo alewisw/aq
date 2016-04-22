@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AQStrawMan.cpp" />
+    <ClCompile Include="Prng.cpp" />
+    <ClCompile Include="TestAssert.cpp" />
+    <ClCompile Include="TestTag.cpp" />
+    <ClCompile Include="TestExecution.cpp" />
+    <ClCompile Include="TestRunner.cpp" />
+    <ClCompile Include="TestSuite.cpp" />
+    <ClCompile Include="windows\Event.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\WorkerThread.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AQStrawMan.h" />
+    <ClInclude Include="IAQReader.h" />
+    <ClInclude Include="IAQWriter.h" />
+    <ClInclude Include="Prng.h" />
+    <ClInclude Include="Test.h" />
+    <ClInclude Include="TestAssert.h" />
+    <ClInclude Include="TestTag.h" />
+    <ClInclude Include="TestExecution.h" />
+    <ClInclude Include="TestRunner.h" />
+    <ClInclude Include="TestSuite.h" />
+    <ClInclude Include="windows\CriticalSection.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\Event.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\Mutex.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\WorkerThread.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{3dc9a6ed-208c-4f89-923f-bf7b8ca238b7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

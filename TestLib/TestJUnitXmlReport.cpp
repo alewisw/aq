@@ -117,9 +117,13 @@ void TestJUnitXmlReport::publishSuite(std::ostream& os, const TestSuite& suite)
 //------------------------------------------------------------------------------
 void TestJUnitXmlReport::publishExecution(std::ostream& os, const TestExecution& exec)
 {
+    // Use the full name as the test name so they appear nicely in AppVeyor.
+    ostringstream testName;
+    testName << exec.suite().name() << "::" << exec.name();
+
     os << "        <testcase"
         << encodeAttribute("classname", exec.suite().name())
-        << encodeAttribute("name", exec.name())
+        << encodeAttribute("name", testName.str())
         << encodeAttribute("time", 0.0)
         << ">" << endl;
 

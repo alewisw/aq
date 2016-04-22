@@ -21,6 +21,8 @@
 #include "Timer.h"
 #include "TraceManager.h"
 
+#include "Optarg.h"
+
 #include <ctime>
 #include <cstdio>
 #include <iostream>
@@ -130,6 +132,9 @@ static void logAssertFailed(ostream& out, const string &msg, TraceManager *tm);
 // Allocates a new reader item for processing.
 static AQItem *allocReaderItem(void);
 
+// Configures the stress test run using the passed options.
+static void configure(Optarg &cfg);
+
 
 
 
@@ -138,7 +143,7 @@ static AQItem *allocReaderItem(void);
 //------------------------------------------------------------------------------
 
 // The run time for each produce/consume cycle.
-static time_t RunTimeSecs = DEFAULT_RUN_TIME_SECS;
+static uint32_t RunTimeSecs = DEFAULT_RUN_TIME_SECS;
 
 // The number of loops through the produce/consume cycle.
 static size_t RunLoops = DEFAULT_RUN_LOOPS;
@@ -157,9 +162,6 @@ static int PageSizeShift = 5;
 
 // The page sizes to allocate to test runs.
 static std::vector<size_t> PageSizeAlloc;
-
-// The default page size allocation.
-static const size_t PageSizeAllocDefault[] = DEFAULT_PAGE_COUNT_ALLOC;
 
 // The maximum time for a produce to spend waiting to commit.
 static unsigned int CommitTimeoutMs = DEFAULT_COMMIT_TIMEOUT_MS;
@@ -215,17 +217,17 @@ static vector<AQItem *> FreeReaderItems;
 //------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
-    // Could allow command line argument parsing here.
-
     // Fill in the defaults for the page size allocation vector.
-    if (PageSizeAlloc.size() == 0)
+    static const size_t pageSizeAllocDefault[] = DEFAULT_PAGE_COUNT_ALLOC;
+    for (size_t i = 0; i < sizeof(pageSizeAllocDefault)
+        / sizeof(pageSizeAllocDefault[0]); ++i)
     {
-        for (size_t i = 0; i <   sizeof(PageSizeAllocDefault) 
-                               / sizeof(PageSizeAllocDefault[0]); ++i)
-        {
-            PageSizeAlloc.push_back(PageSizeAllocDefault[i]);
-        }
+        PageSizeAlloc.push_back(pageSizeAllocDefault[i]);
     }
+
+    // Configures the test case.
+    Optarg optarg(argc, argv);
+    configure(optarg);
 
     // Create the shared memory region and initialize.
     Shm = new unsigned char[SHM_GUARD_SIZE + ShmSize + SHM_GUARD_SIZE];
@@ -687,6 +689,26 @@ void freeReaderItem(AQItem *item)
 {
     FreeReaderItems.push_back(item);
 }
+
+//------------------------------------------------------------------------------
+static void configure(Optarg &cfg)
+{
+    cfg.opt('t', RunTimeSecs, "The duration of each stress loop in seconds");
+    cfg.opt('l', RunLoops, "The number of test loops to perform; a value of 0 loops forever");
+    cfg.opt('p', ProducerCount, "The number of producer threads to create and write into the queue");
+    cfg.opt('s', SnapshotTakerCount, "The number of snapshot taking threads to create and write into the queue");
+    cfg.opt('M', ShmSize, "The size of the shared memory region");
+    cfg.opt('P', PageSizeShift, "The size of each AQ page expressed as 2^(this value)");
+    cfg.opt('A', PageSizeAlloc, "Each allocation consists of a number of pages; this is a comma separated list of page counts that are valid allocation sizes");
+    cfg.opt('T', CommitTimeoutMs, "The commit timeout in milliseconds");
+    cfg.opt('C', AQ::OPTION_CRC32, FormatOptions, "Enables the CRC-32 queue formatting option");
+    cfg.opt('L', AQ::OPTION_LINK_IDENTIFIER, FormatOptions, "Enables the link identifier queue formatting option");
+    cfg.opt('E', AQ::OPTION_EXTENDABLE, FormatOptions, "Enables the extendable queue formatting option");
+    cfg.opt('O', MaxOutstanding, "The maximum number of items that a produce may hold outstanding without committing them");
+    cfg.opt('W', MaxPagesPerAppend, "The maximum number of pages to write in any one append operation when running with the extendable option");
+    cfg.opt('S', MaxSnapshotPeriodMs, "The maximum amount of time (in milliseconds) between snapshot capture");
+}
+
 
 
 

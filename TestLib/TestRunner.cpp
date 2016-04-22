@@ -11,6 +11,7 @@
 
 #include "TestRunner.h"
 
+#include "Optarg.h"
 #include "TestAssert.h"
 #include "TestJUnitXmlReport.h"
 #include "TestTag.h"
@@ -89,23 +90,10 @@ TestRunner::~TestRunner(void)
 //------------------------------------------------------------------------------
 void TestRunner::parseArguments(int argc, char* argv[])
 {
-    int i = 1;
-    while (i < argc)
-    {
-        if (strcmp(argv[i], "-c") == 0)
-        {
-            setStopOnError(false);
-        }
-        else if (i + 1 < argc && strlen(argv[i + 1]) > 0)
-        {
-            if (strcmp(argv[i], "-j") == 0)
-            {
-                setJUnitXmlFile(argv[i + 1]);
-                i++;
-            }
-        }
-        i++;
-    }
+    Optarg cfg(argc, argv);
+
+    cfg.opt('c', m_stopOnError, "Continue even when a test fails (stops on error by default)");
+    cfg.opt('j', m_junitXmlFile, "The name of the JUnit XML file to write with the test results");
 }
 
 //------------------------------------------------------------------------------

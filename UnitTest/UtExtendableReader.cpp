@@ -178,6 +178,7 @@ AQTEST_FORMAT(given_CrashBeforeCommit_when_Timeout_then_ItemDiscarded, AQ::OPTIO
 }
 
 //------------------------------------------------------------------------------
+#ifdef AQ_TEST_POINT
 AQTEST_FORMAT(given_CommitMidItemInterruptsRetrieve_when_Retrieve_then_ItemRetrieved, AQ::OPTION_EXTENDABLE)
 {
     AQWriterItem witem;
@@ -195,8 +196,10 @@ AQTEST_FORMAT(given_CommitMidItemInterruptsRetrieve_when_Retrieve_then_ItemRetri
     REQUIRE(aq.reader.retrieve(ritem));
     REQUIRE(aq.isItemData(ritem, 0, 3 * aq.pageSize()));
 }
+#endif
 
 //------------------------------------------------------------------------------
+#ifdef AQ_TEST_POINT
 AQTEST_FORMAT(given_CommitLastOfTwoItemsInterruptsRetrieve_when_Retrieve_then_ItemRetrieved, AQ::OPTION_EXTENDABLE)
 {
     AQWriterItem witem;
@@ -212,8 +215,10 @@ AQTEST_FORMAT(given_CommitLastOfTwoItemsInterruptsRetrieve_when_Retrieve_then_It
     REQUIRE(aq.reader.retrieve(ritem));
     REQUIRE(aq.isItemData(ritem, 0, 2 * aq.pageSize()));
 }
+#endif
 
 //------------------------------------------------------------------------------
+#ifdef AQ_TEST_POINT
 AQTEST_FORMAT(given_CommitLastOfThreeItemsInterruptsRetrieve_when_Retrieve_then_ItemRetrieved, AQ::OPTION_EXTENDABLE)
 {
     AQWriterItem witem;
@@ -230,6 +235,7 @@ AQTEST_FORMAT(given_CommitLastOfThreeItemsInterruptsRetrieve_when_Retrieve_then_
     REQUIRE(aq.reader.retrieve(ritem));
     REQUIRE(aq.isItemData(ritem, 0, 3 * aq.pageSize()));
 }
+#endif
 
 
 

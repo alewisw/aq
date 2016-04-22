@@ -1135,6 +1135,7 @@ AQTEST(given_IncompleteRecordRetrieved_when_CommitRelease_ReleaseCorrectly)
 }
 
 //------------------------------------------------------------------------------
+#ifdef AQ_TEST_POINT
 static void corruptCtrlqIndex0(AQ *queue, void *context)
 {
     AQTest& aq = *((AQTest *)context);
@@ -1164,6 +1165,7 @@ AQTEST(given_IncompleteRecordRetrieved_when_CommitReleaseCorruptCtrlqBeforeSecon
         corruptCtrlqIndex0, NULL, &aq);
     REQUIRE_EXCEPTION(aq.reader.release(ritem), invalid_argument);
 }
+#endif
 
 
 

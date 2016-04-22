@@ -5,3 +5,4 @@
 3. Link identifier validation in StressTest
 4. Buffer overrun on bad CRC?
 5. Corruption resilience - esp. in snapshot
+6. StressTest command line arguments.

@@ -15,6 +15,7 @@
       <Filter>Windows</Filter>
     </ClCompile>
     <ClCompile Include="TestJUnitXmlReport.cpp" />
+    <ClCompile Include="Optarg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQStrawMan.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Stopwatch.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="Optarg.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

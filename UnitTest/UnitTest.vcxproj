@@ -54,6 +54,7 @@
     <ClCompile Include="UtRelease.cpp" />
     <ClCompile Include="UtRetrieve.cpp" />
     <ClCompile Include="UtSnapshot.cpp" />
+    <ClCompile Include="UtTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{191B8237-6766-4B5C-8B2A-3B5B1B7E0069}</ProjectGuid>

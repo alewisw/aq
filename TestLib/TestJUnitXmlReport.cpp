@@ -136,27 +136,42 @@ void TestJUnitXmlReport::publishExecution(std::ostream& os, const TestExecution&
 
         const char *tagStr;
         const char *typeStr;
+        ostringstream message;
         if (ast.type() == TestAssert::UNEXPECTED_EXCEPTION)
         {
             tagStr = "error";
             typeStr = "UNEXPECTED_EXCEPTION";
+            message << "Exception: " << ast.exceptionName();
+            if (ast.exceptionMessage().size() > 0)
+            {
+                message << "; Message: \"" << ast.exceptionMessage() << "\"";
+            }
         }
         else
         {
             tagStr = "failure";
+
+            message << "Location: " << ast.function() << " at " << ast.file() << ":" << ast.line();
+            message << "; Expresion: (" << ast.expr() << ")";
+
             if (ast.type() == TestAssert::EXPECTED_EXCEPTION)
             {
                 typeStr = "EXPECTED_EXCEPTION";
+                message << "; Exception: " << ast.exceptionName();
             }
             else
             {
                 typeStr = "ASSERT";
+                if (ast.exprDecomp().size() > 0)
+                {
+                    message << "; Evaluation: (" << ast.exprDecomp() << ")";
+                }
             }
         }
 
         os << "           <" << tagStr
             << encodeAttribute("type", typeStr)
-            << encodeAttribute("message", ast.expr())
+            << encodeAttribute("message", message.str())
             << " />" << endl;
     }
 

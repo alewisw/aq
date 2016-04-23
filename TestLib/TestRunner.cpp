@@ -278,12 +278,37 @@ void TestRunner::renderAssertion(const TestAssert& ast)
     }
 
     cout << endl;
+    cout << "        Test:       " << ast.execution().suite().name() << "::" << ast.execution().name() << endl;
+    cout << "                      declared at " << ast.execution().file() << ":" << ast.execution().line() << ")" << endl;
     if (ast.type() != TestAssert::UNEXPECTED_EXCEPTION)
     {
         cout << "        Function:   " << ast.function() << endl;
         cout << "        Location:   " << ast.file() << ":" << ast.line() << endl;
     }
-    cout << "        Expression: " << ast.expr() << endl;
+
+    switch (ast.type())
+    {
+    default:
+        cout << "        Expression: " << ast.expr() << endl;
+        if (ast.exprDecomp().size() > 0)
+        {
+            cout << "        Evalulated: " << ast.exprDecomp() << endl;
+        }
+        break;
+
+    case TestAssert::EXPECTED_EXCEPTION:
+        cout << "        Exception:  " << ast.exceptionName() << endl;
+        cout << "        Expression: " << ast.expr() << endl;
+        break;
+
+    case TestAssert::UNEXPECTED_EXCEPTION:
+        cout << "        Exception:  " << ast.exceptionName() << endl;
+        if (ast.exceptionMessage().size() > 0)
+        {
+            cout << "        Message:    " << ast.exceptionMessage() << endl;
+        }
+        break;
+    }
 }
 
 //------------------------------------------------------------------------------

@@ -9,9 +9,7 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "TestAssert.h"
-
-using namespace std;
+#include "Main.h"
 
 
 
@@ -38,64 +36,63 @@ using namespace std;
 
 
 //------------------------------------------------------------------------------
-// Variable Declarations
+// Test Cases
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-string TestAssert::m_emptyString;
-
-
-
+TEST_SUITE(UtTest);
 
 //------------------------------------------------------------------------------
-// Function and Class Implementation
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
-TestAssert::TestAssert(const char *file, const char *func, int line, Type type, 
-    const std::string& expr, const std::string& decomp)
-    : m_file(file)
-    , m_func(func)
-    , m_line(line)
-    , m_type(type)
-    , m_expr(expr)
-    , m_decomp(decomp)
-    , m_exec(NULL)
+TEST(give_X50Y20_when_DecomposeXOpY_then_StringValid)
 {
+    int x = 50;
+    int y = 20;
+
+    TestAssert::Decomposer d;
+
+    d >= x > y;
+    REQUIRE(d.str() == "50 > 20");
+
+    d >= x < y;
+    REQUIRE(d.str() == "50 < 20");
+
+    d >= x >= y;
+    REQUIRE(d.str() == "50 >= 20");
+
+    d >= x <= y;
+    REQUIRE(d.str() == "50 <= 20");
+
+    d >= x == y;
+    REQUIRE(d.str() == "50 == 20");
+
+    d >= x != y;
+    REQUIRE(d.str() == "50 != 20");
 }
 
 //------------------------------------------------------------------------------
-TestAssert::TestAssert(const TestAssert& other)
-    : m_file(other.m_file)
-    , m_func(other.m_func)
-    , m_line(other.m_line)
-    , m_type(other.m_type)
-    , m_expr(other.m_expr)
-    , m_decomp(other.m_decomp)
-    , m_exec(other.m_exec)
+TEST(give_X50Y20_when_DecomposeBracketedXOpY_then_StringEmpty)
 {
+    int x = 50;
+    int y = 20;
+
+    TestAssert::Decomposer d;
+
+    d >= (x > y);
+    REQUIRE(d.str() == "");
 }
 
 //------------------------------------------------------------------------------
-TestAssert& TestAssert::operator=(const TestAssert& other)
+TEST(give_BoolTest_when_Decompose_then_StringEmpty)
 {
-    if (this != &other)
-    {
-        m_file = other.m_file;
-        m_func = other.m_func;
-        m_line = other.m_line;
-        m_type = other.m_type;
-        m_expr = other.m_expr;
-        m_decomp = other.m_decomp;
-        m_exec = other.m_exec;
-    }
-    return *this;
+    bool b = true;
 
-}
+    TestAssert::Decomposer d;
 
-//------------------------------------------------------------------------------
-TestAssert::~TestAssert(void)
-{
+    d >= b;
+    REQUIRE(d.str() == "");
+
+    d >= !b;
+    REQUIRE(d.str() == "");
 }
 
 

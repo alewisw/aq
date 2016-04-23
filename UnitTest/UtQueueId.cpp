@@ -63,7 +63,7 @@ AQTEST(given_QueueFullyPopulatedTenTimes_when_QueueIdRead_then_AllUnique)
         {
             AQItem ritem;
             REQUIRE(aq.reader.retrieve(ritem));
-            REQUIRE(s.find(ritem.queueIdentifier()) == s.end());
+            REQUIRE((s.find(ritem.queueIdentifier()) == s.end()));
             s.insert(ritem.queueIdentifier());
             aq.reader.release(ritem);
         }

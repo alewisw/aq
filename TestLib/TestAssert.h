@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------
 
 #include <string>
+#include <sstream>
 
 
 
@@ -33,15 +34,19 @@
 #define TEST_EXCEPTION(__throwIfFalse, __expr, __exception)                     \
 do                                                                              \
 {                                                                               \
+    bool __thrown = false;                                                      \
     try                                                                         \
     {                                                                           \
         __expr;                                                                 \
-        TEST_ASSERT_FAILED(EXPECTED_EXCEPTION, __throwIfFalse,                  \
-          "Exception " #__exception " must be thrown as a result of ("          \
-          #__expr ")");                                                         \
     }                                                                           \
     catch (const __exception&)                                                  \
     {                                                                           \
+        __thrown = true;                                                        \
+    }                                                                           \
+    if (!__thrown)                                                              \
+    {                                                                           \
+        TEST_ASSERT_FAILED(EXPECTED_EXCEPTION, __throwIfFalse,                  \
+          #__expr, #__exception);                                               \
     }                                                                           \
 } while(0)
 
@@ -58,16 +63,26 @@ do                                                                              
     TestExecution::incrementAssertionCounter();                                 \
     if (!(__expr))                                                              \
     {                                                                           \
-        TEST_ASSERT_FAILED(ASSERT, __throwIfFalse, #__expr);                    \
+        std::string exp;                                                        \
+        try                                                                     \
+        {                                                                       \
+            TestAssert::Decomposer __decomposer;                                \
+            __decomposer >= __expr;                                             \
+            exp = __decomposer.str();                                           \
+        }                                                                       \
+        catch (...)                                                             \
+        {                                                                       \
+        }                                                                       \
+        TEST_ASSERT_FAILED(ASSERT, __throwIfFalse, #__expr, exp.c_str());       \
     }                                                                           \
 } while (0)
 
 // Used internally when an assertion fails.
-#define TEST_ASSERT_FAILED(__type, __throwIfFailed, __exprStr)                  \
+#define TEST_ASSERT_FAILED(__type, __throwIfFailed, __exprStr, __exOrDecompStr) \
 do                                                                              \
 {                                                                               \
     TestAssert ast(__FILE__, __FUNCTION__, __LINE__, TestAssert::__type,        \
-                   __exprStr);                                                  \
+                   __exprStr, __exOrDecompStr);                                 \
     TestExecution::addAssertion(ast);                                           \
     if (__throwIfFailed && !TestExecution::isThrowing())                        \
     {                                                                           \
@@ -103,6 +118,108 @@ class TestAssert
 {
 public:
 
+    // Forward declaration required for the Lhs class.
+    class Decomposer;
+
+    // Representing the LHS of an expression this is used to extract the RHS of 
+    // the expression.
+    template<typename T> class Lhs
+    {
+    public:
+        // Constructs a new LHS object owned by 'owner' with the given initial
+        // LHS value.
+        Lhs(Decomposer& owner, T const &lhs) : m_owner(owner)
+        {
+            m_ss << lhs;
+        }
+
+    private:
+        // Holds the owner of this LHS.
+        Decomposer& m_owner;
+
+        // Holds the decomposed string.
+        std::ostringstream m_ss;
+
+    public:
+        // Decomposer for the '==' operator.
+        Decomposer& operator==(T const& rhs)
+        {
+            m_ss << " == " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+        // Decomposer for the '!=' operator.
+        Decomposer& operator!=(T const& rhs)
+        {
+            m_ss << " != " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+        // Decomposer for the '<' operator.
+        Decomposer& operator<(T const& rhs)
+        {
+            m_ss << " < " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+        // Decomposer for the '>' operator.
+        Decomposer& operator>(T const& rhs)
+        {
+            m_ss << " > " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+        // Decomposer for the '<=' operator.
+        Decomposer& operator<=(T const& rhs)
+        {
+            m_ss << " <= " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+        // Decomposer for the '>=' operator.
+        Decomposer& operator>=(T const& rhs)
+        {
+            m_ss << " >= " << rhs;
+            m_owner.store(m_ss);
+            return m_owner;
+        }
+
+    };
+
+    // Used to decompose an expression LHS and RHS.
+    class Decomposer
+    {
+    public:
+
+        // Stores the outcome of the decomposition, called by the LHS object.
+        void store(const std::ostringstream& ss)
+        {
+            m_str = ss.str();
+        }
+
+    private:
+
+        // The outcome of the decomposition.
+        std::string m_str;
+
+    public:
+
+        // Operator used to trigger the decomposition operation.
+        template<typename T> Lhs<T> operator>=(T const& operand)
+        {
+            return Lhs<T>(*this, operand);
+        }
+
+        // Returns the decomposed string.
+        const std::string &str(void) const { return m_str; }
+
+    };
+
     // The types of assertion failures.
     enum Type
     {
@@ -117,10 +234,18 @@ public:
     };
 
     // Constructs a new test assertion failure at the specified location.
-    // The 'expr' argument is the string expression that failed or a description
-    // thereof.
+    //
+    // 'expr':
+    //   ASSERT -> The expression that failed to evaluate to 'TRUE'.
+    //   EXPECTED_EXCEPTION -> The expression that failed to throw the exception.
+    //   UNEXPECTED_EXCEPTION -> The exception text, if it could be found.
+    //
+    // 'decomp':
+    //   ASSERT -> The decomposed expression, if available.
+    //   EXPECTED_EXCEPTION -> The name of the exception.
+    //   UNEXPECTED_EXCEPTION -> The name of the exception, if known.
     TestAssert(const char *file, const char *func, int line,
-        Type type, const std::string& expr);
+        Type type, const std::string& expr, const std::string& decomp);
 
     // Creates an exact copy of this test assertion failure.
     TestAssert(const TestAssert& other);
@@ -148,8 +273,14 @@ private:
     // The expression that failed.
     std::string m_expr;
 
+    // The decomposed expression or Exception type that was thrown.
+    std::string m_decomp;
+
     // The execution, attached to this assertion.
     const TestExecution *m_exec;
+
+    // An empty string.
+    static std::string m_emptyString;
 
 public:
 
@@ -166,7 +297,28 @@ public:
     Type type(void) const { return m_type; }
 
     // The expression related to the failure.
-    const std::string& expr(void) const { return m_expr; }
+    const std::string& expr(void) const 
+    { 
+        return type() == UNEXPECTED_EXCEPTION ? m_emptyString : m_expr; 
+    }
+
+    // The decomposition of the expression related to the failure.
+    const std::string& exprDecomp(void) const 
+    {
+        return type() == ASSERT ? m_decomp : m_emptyString; 
+    }
+
+    // The name of the exception, if any, related to this assetion failure.
+    const std::string& exceptionName(void) const 
+    { 
+        return type() == ASSERT ? m_emptyString : m_decomp; 
+    }
+
+    // The name of the exception, if any, related to this assetion failure.
+    const std::string& exceptionMessage(void) const
+    {
+        return type() == UNEXPECTED_EXCEPTION ? m_expr : m_emptyString;
+    }
 
     // The execution attached to this exception.
     const TestExecution& execution(void) const { return *m_exec; }

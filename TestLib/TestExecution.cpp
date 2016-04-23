@@ -121,12 +121,12 @@ void TestExecution::execute(void)
     catch (const exception& ex)
     {
         // Unhandled standard C++ exception - log this in a new test assertion.
-        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, string("std::exception: ") + ex.what());
+        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, ex.what(), "std::exception");
     }
     catch (...)
     {
         // Unhandled exception of another type - log this in a new test assertion.
-        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, "Unidentified exception");
+        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, "Unidentified exception", "");
     }
 
     // Stop any exceptions from being thrown.

@@ -372,7 +372,7 @@ bool AQWriter::commitSingle(AQItem& item)
     uint32_t extPageNum = pageNum;
 
     // Store the link ID if link IDs are enabled.
-    if (m_ctrl->options & OPTION_LINK_IDENTIFIER)
+    if (m_ctrl->options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
     {
         extPageNum += c->pageCount;
 

@@ -77,7 +77,7 @@ protected:
     //
     // The 'trace' argument is used for tracing and logging queue access.
     AQ(int testPointCount, void *mem, size_t memSize, 
-              aq::TraceBuffer *trace = NULL);
+       aq::TraceBuffer *trace = NULL);
 
     // Constructs this queue as an exact copy of another queue.
     AQ(const AQ& other);
@@ -102,7 +102,7 @@ public:
     static const unsigned int OPTION_LINK_IDENTIFIER = 1 << 1;
 
     // The extendable items control word option flag.  Implies 
-    // (and sets) OPTION_LINK_IDENTIFIER.
+    // OPTION_LINK_IDENTIFIER. 
     static const unsigned int OPTION_EXTENDABLE = 1 << 2;
 
 public:

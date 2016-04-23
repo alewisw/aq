@@ -174,7 +174,7 @@ bool AQReader::format(int pageSizeShift, unsigned int commitTimeoutMs,
     {
         return false;
     }
-    options = options & (OPTION_CRC32 | OPTION_LINK_IDENTIFIER | OPTION_EXTENDABLE);
+    options = options & CtrlOverlay::OPTION_VALID_MASK;
     
     // Make the control overlay completly invalid before modifying anything else.
     Atomic::write(&c->formatVersion, CtrlOverlay::FORMAT_VERSION_INVALID);
@@ -182,15 +182,12 @@ bool AQReader::format(int pageSizeShift, unsigned int commitTimeoutMs,
     Atomic::write(&c->headerXref, 0);
 
     uint32_t ctrlqMultiplier = 1;
-    if (options & OPTION_EXTENDABLE)
-    {
-        options |= OPTION_LINK_IDENTIFIER;
-    }
+    
     if (options & OPTION_CRC32)
     {
         ctrlqMultiplier++;
     }
-    if (options & OPTION_LINK_IDENTIFIER)
+    if (options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
     {
         ctrlqMultiplier++;
     }
@@ -694,7 +691,7 @@ bool AQReader::walkEnd(AQItem *item, uint32_t ref,
     item->m_quid = ref & AQItem::QUEUE_IDENTIFIER_MASK;
 
     // Get the link ID if link IDs are enabled.
-    if (m_ctrl->options & OPTION_LINK_IDENTIFIER)
+    if (m_ctrl->options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
     {
         pageNum += m_ctrl->pageCount;
 

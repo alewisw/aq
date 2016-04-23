@@ -23,10 +23,6 @@ namespace aq {
 // Private Macros
 //------------------------------------------------------------------------------
 
-// If any of these bits are set in the 'options' field then the flags are invalid.
-#define OPTIONS_INVALID_MASK            (~((uint32_t)(                     \
-    AQ::OPTION_CRC32 | AQ::OPTION_LINK_IDENTIFIER | AQ::OPTION_EXTENDABLE)))
-
 
 
 
@@ -71,7 +67,7 @@ bool CtrlOverlay::isFormatted(size_t memSize) const
         return memSize >= size 
             && magic == headerXref 
             && formatVersion == FORMAT_VERSION_1 
-            && !(options & OPTIONS_INVALID_MASK);
+            && !(options & OPTION_INVALID_MASK);
     }
 }
 

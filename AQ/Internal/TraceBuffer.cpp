@@ -228,7 +228,7 @@ void TraceBuffer::printItem(size_t& pos, aq::CtrlOverlay *ctrl,
                 (lkid & AQItem::LINK_IDENTIFIER_LAST) ? 'L' : '-',
                 (lkid & AQItem::QUEUE_IDENTIFIER_MASK));
         }
-        else if (ctrl->options & AQ::OPTION_LINK_IDENTIFIER)
+        else if (ctrl->options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
         {
             sprintfRecord(pos, rec, ":%08X", lkid);
         }

@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 
 #include "Crc32.h"
+#include "CtrlOverlay.h"
 
 #include "AQ.h"
 #include "AQItem.h"
@@ -75,7 +76,7 @@ uint32_t aq::CalculateItemCrc32(const AQItem& item, uint32_t options)
     prefix[4] = (size >> 16) & 0xFF;
     prefix[5] = (size >>  8) & 0xFF;
     prefix[6] = (size >>  0) & 0xFF;
-    if (options & AQ::OPTION_LINK_IDENTIFIER)
+    if (options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
     {
         uint32_t lkid = item.linkIdentifier();
 

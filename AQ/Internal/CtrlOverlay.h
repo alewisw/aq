@@ -11,6 +11,8 @@
 // Includes
 //------------------------------------------------------------------------------
 
+#include "AQ.h"
+
 #include "Atomic.h"
 
 
@@ -190,7 +192,14 @@ public:
     //--------------------------------------------------------------------------
 
 
+    // Bit-mask of all options that have the link identifier present.
+    static const uint32_t OPTION_HAS_LINK_IDENTIFIER = AQ::OPTION_LINK_IDENTIFIER | AQ::OPTION_EXTENDABLE;
 
+    // Bit-mask of all valid options.
+    static const uint32_t OPTION_VALID_MASK = AQ::OPTION_CRC32 | AQ::OPTION_LINK_IDENTIFIER | AQ::OPTION_EXTENDABLE;
+
+    // Bit-mask of all invalid options.
+    static const uint32_t OPTION_INVALID_MASK = ~OPTION_VALID_MASK;
 
     // Used in the 'formatVersion' field to indicate that this memory is not
     // formatted.

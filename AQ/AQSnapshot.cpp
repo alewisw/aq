@@ -167,7 +167,7 @@ void AQSnapshot::snap2InitialCtrlq(void)
     {
         mul++;
     }
-    if (dstCtrl->options & AQ::OPTION_LINK_IDENTIFIER)
+    if (dstCtrl->options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
     {
         mul++;
     }
@@ -327,7 +327,7 @@ void AQSnapshot::snap4FinalHead(void)
             item.m_quid = tailRef & AQItem::QUEUE_IDENTIFIER_MASK;
 
             uint32_t extPageNum = tail;
-            if (dstCtrl->options & AQ::OPTION_LINK_IDENTIFIER)
+            if (dstCtrl->options & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)
             {
                 extPageNum += dstCtrl->pageCount;
                 item.m_lkid = dstCtrl->ctrlq[extPageNum];

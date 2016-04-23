@@ -92,8 +92,8 @@ void TestRunner::parseArguments(int argc, char* argv[])
 {
     Optarg cfg(argc, argv);
 
-    cfg.opt('c', m_stopOnError, "Continue even when a test fails (stops on error by default)");
-    cfg.opt('j', m_junitXmlFile, "The name of the JUnit XML file to write with the test results");
+    cfg.opt('c', m_stopOnError, "Continue even when a test fails (stops on error by default).");
+    cfg.opt('j', m_junitXmlFile, "The name of the JUnit XML file to write with the test results.");
 }
 
 //------------------------------------------------------------------------------

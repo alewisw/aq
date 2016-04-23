@@ -78,8 +78,10 @@ private:
     std::ostringstream m_help;
 
     // Updates the help message for an option 'ch' with description 'desc'
-    // of type 'type'.  If 'hasValue' is true then the option has a value.
-    void updateHelp(char ch, const char *desc, const char *type, bool hasValue = true);
+    // of type 'type'.  If 'type' is NULL the the option does not have a value
+    // associated with it and def' is ignore.  If 'type' is non-NULL then
+    // 'def' is the default value.
+    void updateHelp(char ch, const char *desc, const char *type, const std::string def = "");
 
 public:
 
@@ -87,7 +89,7 @@ public:
     std::string helpMessage(void) const { return m_help.str(); }
 
     // Returns true if the passed option exists.
-    bool hasOpt(char ch) const;
+    bool hasOpt(char ch, const char *desc = NULL);
 
     // Updates the field 'value' with the option configured for 'ch' if
     // it exists.  If a description is provided it is used to update the

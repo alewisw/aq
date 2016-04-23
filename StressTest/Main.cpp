@@ -693,20 +693,25 @@ void freeReaderItem(AQItem *item)
 //------------------------------------------------------------------------------
 static void configure(Optarg &cfg)
 {
-    cfg.opt('t', RunTimeSecs, "The duration of each stress loop in seconds");
-    cfg.opt('l', RunLoops, "The number of test loops to perform; a value of 0 loops forever");
-    cfg.opt('p', ProducerCount, "The number of producer threads to create and write into the queue");
-    cfg.opt('s', SnapshotTakerCount, "The number of snapshot taking threads to create and write into the queue");
-    cfg.opt('M', ShmSize, "The size of the shared memory region");
-    cfg.opt('P', PageSizeShift, "The size of each AQ page expressed as 2^(this value)");
-    cfg.opt('A', PageSizeAlloc, "Each allocation consists of a number of pages; this is a colon separated list of page counts that are valid allocation sizes");
-    cfg.opt('T', CommitTimeoutMs, "The commit timeout in milliseconds");
-    cfg.opt('C', AQ::OPTION_CRC32, FormatOptions, "Enables the CRC-32 queue formatting option");
-    cfg.opt('L', AQ::OPTION_LINK_IDENTIFIER, FormatOptions, "Enables the link identifier queue formatting option");
-    cfg.opt('E', AQ::OPTION_EXTENDABLE, FormatOptions, "Enables the extendable queue formatting option");
-    cfg.opt('O', MaxOutstanding, "The maximum number of items that a produce may hold outstanding without committing them");
-    cfg.opt('W', MaxPagesPerAppend, "The maximum number of pages to write in any one append operation when running with the extendable option");
-    cfg.opt('S', MaxSnapshotPeriodMs, "The maximum amount of time (in milliseconds) between snapshot capture");
+    cfg.opt('t', RunTimeSecs, "The duration of each stress loop in seconds.");
+    cfg.opt('l', RunLoops, "The number of test loops to perform; a value of 0 loops forever.");
+    cfg.opt('p', ProducerCount, "The number of producer threads to create and write into the queue.");
+    cfg.opt('s', SnapshotTakerCount, "The number of snapshot taking threads to create and write into the queue.");
+    cfg.opt('M', ShmSize, "The size of the shared memory region.");
+    cfg.opt('P', PageSizeShift, "The size of each AQ page expressed as 2^(this value).");
+    cfg.opt('A', PageSizeAlloc, "Each allocation consists of a number of pages; this is a colon separated list of page counts that are valid allocation sizes.");
+    cfg.opt('T', CommitTimeoutMs, "The commit timeout in milliseconds.");
+    cfg.opt('C', AQ::OPTION_CRC32, FormatOptions, "Enables the CRC-32 queue formatting option.");
+    cfg.opt('L', AQ::OPTION_LINK_IDENTIFIER, FormatOptions, "Enables the link identifier queue formatting option.");
+    cfg.opt('E', AQ::OPTION_EXTENDABLE, FormatOptions, "Enables the extendable queue formatting option.");
+    cfg.opt('O', MaxOutstanding, "The maximum number of items that a produce may hold outstanding without committing them.");
+    cfg.opt('W', MaxPagesPerAppend, "The maximum number of pages to write in any one append operation when running with the extendable option.");
+    cfg.opt('S', MaxSnapshotPeriodMs, "The maximum amount of time (in milliseconds) between snapshot capture.");
+    if (cfg.hasOpt('h', "Show the command line option help."))
+    {
+        cout << endl << cfg.helpMessage() << endl;
+        exit(0);
+    }
 }
 
 

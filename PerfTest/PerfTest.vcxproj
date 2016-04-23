@@ -116,6 +116,7 @@
       <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +142,7 @@
       <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,6 +170,7 @@
       <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -17,6 +17,7 @@
 #include "Stopwatch.h"
 
 #include <stdexcept>
+#include <typeinfo>
 
 using namespace std;
 
@@ -121,7 +122,15 @@ void TestExecution::execute(void)
     catch (const exception& ex)
     {
         // Unhandled standard C++ exception - log this in a new test assertion.
-        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, ex.what(), "std::exception");
+        string exName = "std::exception";
+        try
+        {
+            exName = typeid(ex).name();
+        }
+        catch (...)
+        {
+        }
+        TEST_ASSERT_FAILED(UNEXPECTED_EXCEPTION, false, ex.what(), exName);
     }
     catch (...)
     {

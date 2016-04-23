@@ -210,6 +210,9 @@ private:
 
 public:
 
+    // Sets the test duration in milliseconds.
+    void setDurationMs(aq::Timer::Ms_t ms) { m_minDurationMs = ms; }
+
     // Runs this test.
     void run(void);
 

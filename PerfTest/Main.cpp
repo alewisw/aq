@@ -22,6 +22,8 @@
 #include "AQProvider.h"
 #include "ThreadOverheadTest.h"
 
+#include "Optarg.h"
+
 #include <iomanip>
 #include <iostream>
 
@@ -34,8 +36,17 @@ using namespace std;
 // Private Macros
 //------------------------------------------------------------------------------
 
-// The number if items in the thread counts array.
-#define THREAD_COUNTS                   (sizeof(ThreadCounts) / sizeof(int))
+// We run for this many seconds in each produce/consume window.
+#define DEFAULT_TEST_DURATION_SECS      5
+
+// The default set of pages to allocate.
+#define DEFAULT_THREAD_COUNTS           {1, 2, 3}
+
+// Default enable option for the straw-man queue with a Mutex used for concurrency protection.
+#define DEFAULT_STRAW_MUTEX             false
+
+// Default enable option for the straw-man queue with a CriticalSection used for concurrency protection.
+#define DEFAULT_STRAW_CRITSEC           false
 
 // The widths of each column.
 #define THREAD_COUNT_WIDTH              3
@@ -94,6 +105,9 @@ static void printTestConfig(size_t nameWidth, PerfTest& test);
 // Prints the test results.
 static void printTestResults(PerfTest& test);
 
+// Configures the performance test run using the passed options.
+static void configure(Optarg &cfg);
+
 
 
 
@@ -101,9 +115,30 @@ static void printTestResults(PerfTest& test);
 // Variable Declarations
 //------------------------------------------------------------------------------
 
-// The thread counts to use.
-static const int ThreadCounts[] = { 1 };//, 2, 3, 5, 8, 16 };
+// The test duration, in seconds.
+static uint32_t TestDurationSecs = DEFAULT_TEST_DURATION_SECS;
 
+// The thread counts to use.
+static std::vector<unsigned int> ThreadCounts;
+
+// If true, enable the Mutex-based Straw Man for performance comparison.
+static bool StrawMutex = DEFAULT_STRAW_MUTEX;
+
+// If true, enable the CriticalSection-based Straw Man for performance comparison.
+static bool StrawCritSec = DEFAULT_STRAW_CRITSEC;
+
+// The thread overhead test thread count, 0 to disable.
+static uint32_t ThreadOverheadThreadCount = 0;
+
+// The tests to execute.
+static bool TestClaim = false;
+static bool TestCommit = false;
+static bool TestClaimCommit = false;
+static bool TestRetrieve = false;
+static bool TestRelease = false;
+static bool TestRetrieveRelease = false;
+static bool TestFull = false;
+static bool TestFullMemcpy = false;
 
 
 
@@ -114,6 +149,15 @@ static const int ThreadCounts[] = { 1 };//, 2, 3, 5, 8, 16 };
 //------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
+    const int defaultThreadCounts[] = DEFAULT_THREAD_COUNTS;
+    for (size_t i = 0; i < sizeof(defaultThreadCounts) / sizeof(defaultThreadCounts[0]); ++i)
+    {
+        ThreadCounts.push_back(defaultThreadCounts[i]);
+    }
+    Optarg opt(argc, argv);
+    configure(opt);
+
+
     std::vector<PerfTest *> m_tests;
 
     // Queue providers.
@@ -122,63 +166,159 @@ int main(int argc, char* argv[])
     AQStrawManProvider<Mutex> aqReferenceMutex(2, (1 << 20) - 1);
 
     // Build the list of tests.
-
-    // Build the list of tests.
-    //m_tests.push_back(new ThreadOverheadTest(30));
-    //m_tests.push_back(NULL);
-
-    for (int i = 0; i < THREAD_COUNTS; ++i)
+    if (ThreadOverheadThreadCount > 0)
     {
-        m_tests.push_back(new ClaimTest("AQ-Claim", aqProvider, ThreadCounts[i]));
-        //m_tests.push_back(new ClaimTest("AQ-Claim[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
-        //m_tests.push_back(new ClaimTest("AQ-Claim[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
-        //m_tests.push_back(NULL);
-    }
-    for (int i = 0; i < THREAD_COUNTS; ++i)
-    {
-        m_tests.push_back(new CommitTest("AQ-Commit", aqProvider, ThreadCounts[i]));
-        //m_tests.push_back(new CommitTest("AQ-Commit[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
-        //m_tests.push_back(new CommitTest("AQ-Commit[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
-        //m_tests.push_back(NULL);
-    }
-    for (int i = 0; i < THREAD_COUNTS; ++i)
-    {
-        m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit", aqProvider, ThreadCounts[i]));
-        //m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
-        //m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
-        //m_tests.push_back(NULL);
+        m_tests.push_back(new ThreadOverheadTest(ThreadOverheadThreadCount));
+        m_tests.push_back(NULL);
     }
 
-    m_tests.push_back(new RetrieveTest("AQ-Retrieve", aqProvider));
-    //m_tests.push_back(new RetrieveTest("AQ-Retrieve[Ref-CS]", aqReferenceCS));
-    //m_tests.push_back(new RetrieveTest("AQ-Retrieve[Ref-Mutex]", aqReferenceMutex));
-    //m_tests.push_back(NULL);
-
-    m_tests.push_back(new ReleaseTest("AQ-Release", aqProvider));
-    //m_tests.push_back(new ReleaseTest("AQ-Release[Ref-CS]", aqReferenceCS));
-    //m_tests.push_back(new ReleaseTest("AQ-Release[Ref-Mutex]", aqReferenceMutex));
-    //m_tests.push_back(NULL);
-
-    m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease", aqProvider));
-    //m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease[Ref-CS]", aqReferenceCS));
-    //m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease[Ref-Mutex]", aqReferenceMutex));
-    //m_tests.push_back(NULL);
-
-    for (int i = 0; i < THREAD_COUNTS; ++i)
+    if (TestClaim)
     {
-        m_tests.push_back(new FullQueueTest("AQ-Full", aqProvider, ThreadCounts[i]));
-        //m_tests.push_back(new FullQueueTest("AQ-Full[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
-        //m_tests.push_back(new FullQueueTest("AQ-Full[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
-        //m_tests.push_back(NULL);
+        for (size_t i = 0; i < ThreadCounts.size(); ++i)
+        {
+            m_tests.push_back(new ClaimTest("AQ-Claim", aqProvider, ThreadCounts[i]));
+            if (StrawCritSec)
+            {
+                m_tests.push_back(new ClaimTest("AQ-Claim[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
+            }
+            if (StrawMutex)
+            {
+                m_tests.push_back(new ClaimTest("AQ-Claim[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
+            }
+            if (StrawCritSec || StrawMutex)
+            {
+                m_tests.push_back(NULL);
+            }
+        }
+    }
+    if (TestCommit)
+    {
+        for (size_t i = 0; i < ThreadCounts.size(); ++i)
+        {
+            m_tests.push_back(new CommitTest("AQ-Commit", aqProvider, ThreadCounts[i]));
+            if (StrawCritSec)
+            {
+                m_tests.push_back(new CommitTest("AQ-Commit[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
+            }
+            if (StrawMutex)
+            {
+                m_tests.push_back(new CommitTest("AQ-Commit[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
+            }
+            if (StrawCritSec || StrawMutex)
+            {
+                m_tests.push_back(NULL);
+            }
+        }
+    }
+    if (TestClaimCommit)
+    {
+        for (size_t i = 0; i < ThreadCounts.size(); ++i)
+        {
+            m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit", aqProvider, ThreadCounts[i]));
+            if (StrawCritSec)
+            {
+                m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
+            }
+            if (StrawMutex)
+            {
+                m_tests.push_back(new ClaimCommitTest("AQ-ClaimCommit[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
+            }
+            if (StrawCritSec || StrawMutex)
+            {
+                m_tests.push_back(NULL);
+            }
+        }
     }
 
-
-    for (int i = 0; i < THREAD_COUNTS; ++i)
+    if (TestRetrieve)
     {
-        m_tests.push_back(new FullQueueTest("AQ-FullMemCpy", aqProvider, ThreadCounts[i], true));
-        //m_tests.push_back(new FullQueueTest("AQ-FullMemCpy[Ref-CS]", aqReferenceCS, ThreadCounts[i], true));
-        //m_tests.push_back(new FullQueueTest("AQ-FullMemCpy[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i], true));
-        //m_tests.push_back(NULL);
+        m_tests.push_back(new RetrieveTest("AQ-Retrieve", aqProvider));
+        if (StrawCritSec)
+        {
+            m_tests.push_back(new RetrieveTest("AQ-Retrieve[Ref-CS]", aqReferenceCS));
+        }
+        if (StrawMutex)
+        {
+            m_tests.push_back(new RetrieveTest("AQ-Retrieve[Ref-Mutex]", aqReferenceMutex));
+        }
+        if (StrawCritSec || StrawMutex)
+        {
+            m_tests.push_back(NULL);
+        }
+    }
+
+    if (TestRelease)
+    {
+        m_tests.push_back(new ReleaseTest("AQ-Release", aqProvider));
+        if (StrawCritSec)
+        {
+            m_tests.push_back(new ReleaseTest("AQ-Release[Ref-CS]", aqReferenceCS));
+        }
+        if (StrawMutex)
+        {
+            m_tests.push_back(new ReleaseTest("AQ-Release[Ref-Mutex]", aqReferenceMutex));
+        }
+        if (StrawCritSec || StrawMutex)
+        {
+            m_tests.push_back(NULL);
+        }
+    }
+
+    if (TestRetrieveRelease)
+    {
+        m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease", aqProvider));
+        if (StrawCritSec)
+        {
+            m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease[Ref-CS]", aqReferenceCS));
+        }
+        if (StrawMutex)
+        {
+            m_tests.push_back(new RetrieveReleaseTest("AQ-RetrieveRelease[Ref-Mutex]", aqReferenceMutex));
+        }
+        if (StrawCritSec || StrawMutex)
+        {
+            m_tests.push_back(NULL);
+        }
+    }
+
+    if (TestFull)
+    {
+        for (size_t i = 0; i < ThreadCounts.size(); ++i)
+        {
+            m_tests.push_back(new FullQueueTest("AQ-Full", aqProvider, ThreadCounts[i]));
+            if (StrawCritSec)
+            {
+                m_tests.push_back(new FullQueueTest("AQ-Full[Ref-CS]", aqReferenceCS, ThreadCounts[i]));
+            }
+            if (StrawMutex)
+            {
+                m_tests.push_back(new FullQueueTest("AQ-Full[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i]));
+            }
+            if (StrawCritSec || StrawMutex)
+            {
+                m_tests.push_back(NULL);
+            }
+        }
+    }
+
+    if (TestFullMemcpy)
+    {
+        for (size_t i = 0; i < ThreadCounts.size(); ++i)
+        {
+            m_tests.push_back(new FullQueueTest("AQ-FullMemCpy", aqProvider, ThreadCounts[i], true));
+            if (StrawCritSec)
+            {
+                m_tests.push_back(new FullQueueTest("AQ-FullMemCpy[Ref-CS]", aqReferenceCS, ThreadCounts[i], true));
+            }
+            if (StrawMutex)
+            {
+                m_tests.push_back(new FullQueueTest("AQ-FullMemCpy[Ref-Mutex]", aqReferenceMutex, ThreadCounts[i], true));
+            }
+            if (StrawCritSec || StrawMutex)
+            {
+                m_tests.push_back(NULL);
+            }
+        }
     }
 
     // Run each test, then publish its results.
@@ -187,6 +327,7 @@ int main(int argc, char* argv[])
     {
         if (m_tests[i])
         {
+            m_tests[i]->setDurationMs(TestDurationSecs * 1000);
             size_t width = m_tests[i]->name().size();
             if (width > nameWidth)
             {
@@ -259,6 +400,31 @@ static void printTestResults(PerfTest& test)
          << right << setw(OPERATION_COUNT_WIDTH) << test.totalOperationCount() << setw(1) << "|"
          << right << setw(OPERATIONS_PER_SEC_WIDTH) << fixed << setprecision(0) << opsPerSec << setw(1) << "|"
          << left << setw(RESULTS_WIDTH) << test.results() << setw(1) << "|" << endl;
+}
+
+//------------------------------------------------------------------------------
+static void configure(Optarg &cfg)
+{
+    cfg.opt('d', TestDurationSecs, "The minimum duration of each test execution in seconds.");
+    cfg.opt('t', ThreadCounts, "A comma-separated list of thread counts; that is the number of concurrent producers threads to use for each test case.  Test cases are run separatly for each entry in the list.");
+    cfg.opt('c', StrawCritSec, "Enables a straw-man comparison queue that uses critical sections for concurrency protection.");
+    cfg.opt('m', StrawMutex, "Enables a straw-man comparison queue that uses mutexes for concurrency protection.");
+    cfg.opt('T', ThreadOverheadThreadCount, "Enables the thread overhead test with a configured number of threads or 0 to disable the test.");
+
+    cfg.opt('A', TestClaim, "Enables the AQWriter::claim() test.");
+    cfg.opt('O', TestCommit, "Enables the AQWriter::commit() test.");
+    cfg.opt('C', TestClaimCommit, "Enables the AQWriter::claim() followed by AQWriter::commit() combination test.");
+    cfg.opt('E', TestRetrieve, "Enables the AQReader::retrieve() test.");
+    cfg.opt('L', TestRelease, "Enables the AQReader::release() test.");
+    cfg.opt('R', TestRetrieveRelease, "Enables the AQReader::retrieve() followed by AQReader::release() combination test.");
+    cfg.opt('F', TestFull, "Enables the full multi-producer / single consumer queue test.");
+    cfg.opt('M', TestFullMemcpy, "Enables the full multi-producer / single consumer queue test with additional memcpy() over all data regions.");
+
+    if (cfg.hasOpt('h', "Show the command line option help."))
+    {
+        cout << endl << cfg.helpMessage() << endl;
+        exit(0);
+    }
 }
 
 

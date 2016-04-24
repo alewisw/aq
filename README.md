@@ -5,16 +5,16 @@
 * Access to the queue (for any number of producers and a single consumer) is fully thread-safe using a lock-free algorithm.
 * The queue allocates memory for each item from its internal shared memory pool.
 * Two modes of operation are supported for memory allocation:
-  1. Fixed length items consisting of a single contiguous memory regions.
-  2. Variable length items consisting of a linked-list of contiguous memory regions.
+  * Fixed length items consisting of a single contiguous memory regions.
+  * Variable length items consisting of a linked-list of contiguous memory regions.
 
 ## Current Status
 WARNING: AQ is under ACTIVE DEVELOPMENT.  The APIs may change dramatically.  There may be serious bugs.  Use at your own risk.
 
 ## Continuous Integration / Automated Testing
 AQ incorporates two main validation test reigimes:
-1. Unit tests covering the full functionality of the list, including validating the lock-free algorithm under pre-emption conditions.
-2. Stress tests that aggressivly access the queue to validate real-world behavior for various queue configurations.
+* Unit tests covering the full functionality of the list, including validating the lock-free algorithm under pre-emption conditions.
+* Stress tests that aggressivly access the queue to validate real-world behavior for various queue configurations.
 
 These tests are run automatically through online CI services:
 * [Appveyor Windows Unit Test Resuts](https://ci.appveyor.com/project/alewisw/aq)
@@ -24,7 +24,6 @@ These tests are run automatically through online CI services:
 AQ is licensed under the Mozilla Public License Version 2.0; see the [LICENSE FILE](https://github.com/alewisw/aq/blob/master/LICENSE) for details.
 
 ## Contact
-
 * For general issues and requests, please raise them on the [Github Issue Tracker](https://github.com/alewisw/aq/issues).
 * For all other requests I can be contacted directly at alewis.sw@gmail.com.
 

@@ -369,9 +369,6 @@ int main(int argc, char* argv[])
         }
     }
     m_tests.clear();
-    
-    cout << endl << endl << "*** PRESS ANY KEY" << endl;
-    getchar();
 
     return 0;
 }

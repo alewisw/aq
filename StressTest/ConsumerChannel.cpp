@@ -56,11 +56,12 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 ConsumerChannel::ConsumerChannel(AQReader& reader,
-    const ItemGenerator& producerGen, unsigned int maxOutstanding, 
-    TraceBuffer *trace)
+    const ItemGenerator& producerGen, bool checkLinkId,
+    unsigned int maxOutstanding, TraceBuffer *trace)
     : m_trace(trace)
     , m_reader(reader)
     , m_producerGen(producerGen)
+    , m_checkLinkId(checkLinkId)
     , m_maxOutstanding(maxOutstanding)
     , m_consumerGen(producerGen)
     , m_prng((unsigned int)(&producerGen))
@@ -149,7 +150,17 @@ void ConsumerChannel::process(AQItem *item, unsigned int recLen, unsigned long l
         recLen = m_items[i].recLen;
 
         size_t cmpSize = 0;
-        const unsigned char *cmp = (const unsigned char *)m_consumerGen.next(cmpSize);
+        uint32_t linkId = 0;
+        const unsigned char *cmp = (const unsigned char *)m_consumerGen.next(cmpSize, linkId);
+
+        if (m_checkLinkId && linkId != m_items[i].item->linkIdentifier())
+        {
+            ostringstream ss;
+            ss << endl << endl << "### INVALID_LINK_ID found    " << m_items[i].item->linkIdentifier()
+                       << endl << "                    expected " << linkId << endl;
+            dumpRecordQueue(ss);
+            assertFailed(ss.str());
+        }
 
         size_t itemPos = 0;
         size_t pos = 0;

@@ -131,9 +131,12 @@ ItemGenerator::~ItemGenerator(void)
 }
 
 //------------------------------------------------------------------------------
-const unsigned char *ItemGenerator::get(size_t& memSize) const
+const unsigned char *ItemGenerator::get(size_t& memSize, uint32_t& linkId) const
 {
     unsigned int r = m_prng.get();
+
+    // Use the random number as the link identifier.
+    linkId = r;
 
     // Generate three random numbers based on the PRNG
     size_t x = r / m_itemPages.size();
@@ -183,9 +186,9 @@ void ItemGenerator::next(void)
 }
 
 //------------------------------------------------------------------------------
-const unsigned char *ItemGenerator::next(size_t& memSize)
+const unsigned char *ItemGenerator::next(size_t& memSize, uint32_t& linkId)
 {
-    const unsigned char *rec = get(memSize);
+    const unsigned char *rec = get(memSize, linkId);
     next();
     return rec;
 }

@@ -13,6 +13,7 @@
 
 #include "Prng.h"
 
+#include <cstdint>
 #include <vector>
 
 
@@ -118,11 +119,11 @@ public:
 
     // Generates and returns a pointer to the next item.  The item size
     // is placed in 'memSize'.
-    const unsigned char *next(size_t& memSize);
+    const unsigned char *next(size_t& memSize, uint32_t& linkId);
 
     // Gets and returns a pointer to the current item.  The item size
     // is placed in 'memSize'.
-    const unsigned char *get(size_t& memSize) const;
+    const unsigned char *get(size_t& memSize, uint32_t& linkId) const;
 
     // Moves back to the previous state.  This can only be called once after
     // 'next' is called.

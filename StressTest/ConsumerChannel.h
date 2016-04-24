@@ -59,7 +59,7 @@ public:
     // Constructs a new reader channel with the given thread identifier for
     // the specified producer.
     ConsumerChannel(AQReader& reader, const ItemGenerator& producerGen,
-                    unsigned int maxOutstanding, TraceBuffer *trace);
+                    bool checkLinkId, unsigned int maxOutstanding, TraceBuffer *trace);
 
     // Destroys this thread.
     virtual ~ConsumerChannel(void);
@@ -96,6 +96,9 @@ private:
 
     // The producer generator for this channel.
     const ItemGenerator& m_producerGen;
+
+    // Set to true to check the link identifier.
+    const bool m_checkLinkId;
 
     // The maximum number of outstanding records.
     const unsigned int m_maxOutstanding;

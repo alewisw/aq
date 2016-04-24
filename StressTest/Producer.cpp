@@ -59,15 +59,15 @@ using namespace std;
 //------------------------------------------------------------------------------
 Producer::Producer(AQReader &reader, int threadNum, void *shm, 
                    size_t shmSize, const vector<size_t> &itemPages, 
-                   unsigned int maxOutstanding, size_t maxPagesPerAppend,
-                   TraceManager *trace)
+                   bool checkLinkId, unsigned int maxOutstanding, 
+                   size_t maxPagesPerAppend, TraceManager *trace)
     : m_writer(shm, shmSize, createTrace(trace, threadNum, "p"))
     , m_producerGen(threadNum, m_writer.pageSize(), itemPages)
     , m_maxOutstanding(maxOutstanding)
     , m_items(new AQWriterItem*[maxOutstanding])
     , m_prng(threadNum)
     , m_maxPagesPerAppend(maxPagesPerAppend)
-    , m_consumerChannel(reader, m_producerGen, maxOutstanding, createTrace(trace, threadNum, "c"))
+    , m_consumerChannel(reader, m_producerGen, checkLinkId, maxOutstanding, createTrace(trace, threadNum, "c"))
 {
     memset(m_stats, 0, sizeof(m_stats));
     for (unsigned int i = 0; i < maxOutstanding; ++i)
@@ -138,7 +138,8 @@ void Producer::writeItem(void)
         // Generate the item.
         size_t recSize;
         size_t recPos = 0;
-        const unsigned char *rec = m_producerGen.get(recSize);
+        uint32_t linkId = 0;
+        const unsigned char *rec = m_producerGen.get(recSize, linkId);
         size_t initialRecSize = recSize;
 
         if (m_writer.isExtendable())
@@ -159,6 +160,7 @@ void Producer::writeItem(void)
                 // Copy in the value for normal mode - but in extendable
                 // mode we use append below.
                 incrementStat(StatisticClaimSuccess);
+                m_items[i]->setLinkIdentifier(linkId);
                 if (m_writer.isExtendable())
                 {
                     claimed = true;

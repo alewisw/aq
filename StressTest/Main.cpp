@@ -62,7 +62,7 @@ using namespace std;
 #define DEFAULT_COMMIT_TIMEOUT_MS       1000
 
 // The default formatting options.
-#define DEFAULT_FORMAT_OPTIONS          (0)//(AQ::OPTION_CRC32)// | AQ::OPTION_LINK_IDENTIFIER)// | AQ::OPTION_EXTENDABLE)
+#define DEFAULT_FORMAT_OPTIONS          (0)//(AQ::OPTION_LINK_IDENTIFIER)//(AQ::OPTION_CRC32)// | AQ::OPTION_LINK_IDENTIFIER)// | AQ::OPTION_EXTENDABLE)
 
 // The default maximum number of outstanding records for each producer.
 #define DEFAULT_MAX_OUTSTANDING         30
@@ -274,10 +274,11 @@ int main(int argc, char* argv[])
     assertShmGuard();
 
     // Create and start the producers.
+    bool checkLinkId = (FormatOptions & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER) == AQ::OPTION_LINK_IDENTIFIER;
     for (int i = 0; i < ProducerCount; ++i)
     {
         Producers.push_back(new Producer(consumer, i + 1, &Shm[SHM_GUARD_SIZE], 
-            ShmSize, PageSizeAlloc, MaxOutstanding, MaxPagesPerAppend,
+            ShmSize, PageSizeAlloc, checkLinkId, MaxOutstanding, MaxPagesPerAppend,
             TraceEnableProducer ? Trace : NULL));
 #ifdef AQ_TEST_POINT
         if (TpDelayClaimBeforeWriteHeadRef)
@@ -615,6 +616,9 @@ string itemToString(const AQItem *item)
     string rstr = str;
 
     _snprintf(str, len, "@%p", item);
+    rstr += str;
+
+    _snprintf(str, len, " [quid=%08X, lkid=%08X]", item->queueIdentifier(), item->linkIdentifier());
     rstr += str;
 
     delete[] str;

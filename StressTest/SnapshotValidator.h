@@ -109,6 +109,12 @@ private:
         // The data for the record.
         std::vector<char> m_data;
 
+        // The queue identifier for this record.
+        uint32_t m_queueId;
+
+        // The link identifier for this record.
+        uint32_t m_linkId;
+
     };
 
     // The circular list of records for snapshot comparison.

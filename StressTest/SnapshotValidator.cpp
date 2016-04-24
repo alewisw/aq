@@ -77,6 +77,8 @@ void SnapshotValidator::add(const string &tag, const AQItem *rec)
     ReferenceRecord *rr = new ReferenceRecord();
 
     rr->m_tag = tag;
+    rr->m_linkId = rec->linkIdentifier();
+    rr->m_queueId = rec->queueIdentifier();
     for (const AQItem *it = rec; it != NULL; it = it->next())
     {
         size_t off = rr->m_data.size();
@@ -236,6 +238,23 @@ void SnapshotValidator::validateRecordContent(const AQSnapshot& snap, size_t i,
             assertFailed(ss.str());
         }
         pos += it->size();
+    }
+
+    if (rr->m_queueId != rec.queueIdentifier())
+    {
+        ostringstream ss;
+
+        ss << "Tag \"" << tag << "\" queue identifier mismatch encountered in snapshot" << endl;
+        dumpSnapshot(ss, snap, i);
+        assertFailed(ss.str());
+    }
+    if (rr->m_linkId != rec.linkIdentifier())
+    {
+        ostringstream ss;
+
+        ss << "Tag \"" << tag << "\" link identifier mismatch encountered in snapshot" << endl;
+        dumpSnapshot(ss, snap, i);
+        assertFailed(ss.str());
     }
 }
 

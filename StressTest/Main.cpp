@@ -62,7 +62,7 @@ using namespace std;
 #define DEFAULT_COMMIT_TIMEOUT_MS       1000
 
 // The default formatting options.
-#define DEFAULT_FORMAT_OPTIONS          (AQ::OPTION_CRC32)// | AQ::OPTION_LINK_IDENTIFIER)// | AQ::OPTION_EXTENDABLE)
+#define DEFAULT_FORMAT_OPTIONS          (0)//(AQ::OPTION_CRC32)// | AQ::OPTION_LINK_IDENTIFIER)// | AQ::OPTION_EXTENDABLE)
 
 // The default maximum number of outstanding records for each producer.
 #define DEFAULT_MAX_OUTSTANDING         30

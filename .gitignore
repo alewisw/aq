@@ -34,6 +34,8 @@
 */ipch/
 *.ipch
 *.vcxproj.user
+*.psess
+*.vspx
 
 # Anything in a build directory.
 */_Build/

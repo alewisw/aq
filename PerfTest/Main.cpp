@@ -37,7 +37,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 // We run for this many seconds in each produce/consume window.
-#define DEFAULT_TEST_DURATION_SECS      5
+#define DEFAULT_TEST_DURATION_SECS      10
 
 // The default set of pages to allocate.
 #define DEFAULT_THREAD_COUNTS           {1, 2, 3}
@@ -64,32 +64,7 @@ using namespace std;
 // Private Type Definitions
 //------------------------------------------------------------------------------
 
-/*
-Name                    |Th#|Configuration           |#Iter|  ms/Iter|     #Ops|  Ops/sec|Results                 |
-AQ-FullMemCpy           |  2|1048575 pages @ 4 bytes |    5|  253.000|  5242870|  4144561|contention[0]           |
-AQ-FullMemCpy[Ref-CS]   |  2|1048575 pages @ 4 bytes |    3|  343.333|  3145725|  3054102|                        |
-AQ-FullMemCpy[Ref-Mutex]|  2|1048575 pages @ 4 bytes |    1| 4493.000|  1048575|   233380|                        |
 
-AQ-FullMemCpy           |  3|1048575 pages @ 4 bytes |    4|  327.500|  4194296|  3201753|contention[765091]      |
-AQ-FullMemCpy[Ref-CS]   |  3|1048575 pages @ 4 bytes |    5|  246.400|  5242870|  4255576|                        |
-AQ-FullMemCpy[Ref-Mutex]|  3|1048575 pages @ 4 bytes |    1|18237.000|  1048574|    57497|                        |
-
-AQ-FullMemCpy           |  4|1048575 pages @ 4 bytes |    3|  379.333|  3145716|  2764250|contention[1588263]     |
-AQ-FullMemCpy[Ref-CS]   |  4|1048575 pages @ 4 bytes |    5|  234.200|  5242875|  4477263|                        |
-AQ-FullMemCpy[Ref-Mutex]|  4|1048575 pages @ 4 bytes |    1| 4259.000|  1048575|   246202|                        |
-
-AQ-FullMemCpy           |  6|1048575 pages @ 4 bytes |    3|  436.667|  3145710|  2401305|contention[2744364]     |
-AQ-FullMemCpy[Ref-CS]   |  6|1048575 pages @ 4 bytes |    4|  292.750|  4194300|  3581810|                        |
-AQ-FullMemCpy[Ref-Mutex]|  6|1048575 pages @ 4 bytes |    1| 3416.000|  1048575|   306960|                        |
-
-AQ-FullMemCpy           |  9|1048575 pages @ 4 bytes |    2|  538.500|  2097136|  1947201|contention[5099088]     |
-AQ-FullMemCpy[Ref-CS]   |  9|1048575 pages @ 4 bytes |    4|  288.750|  4194272|  3631404|                        |
-AQ-FullMemCpy[Ref-Mutex]|  9|1048575 pages @ 4 bytes |    1| 3354.000|  1048568|   312632|                        |
-
-AQ-FullMemCpy           | 17|1048575 pages @ 4 bytes |    2|  562.000|  2097120|  1865765|contention[5380773]     |
-AQ-FullMemCpy[Ref-CS]   | 17|1048575 pages @ 4 bytes |    4|  288.750|  4194240|  3631377|                        |
-AQ-FullMemCpy[Ref-Mutex]| 17|1048575 pages @ 4 bytes |    1| 3354.000|  1048560|   312630|                        |
-*/
 
 
 //------------------------------------------------------------------------------
@@ -137,7 +112,7 @@ static bool TestClaimCommit = false;
 static bool TestRetrieve = false;
 static bool TestRelease = false;
 static bool TestRetrieveRelease = false;
-static bool TestFull = false;
+static bool TestFull = true;
 static bool TestFullMemcpy = false;
 
 

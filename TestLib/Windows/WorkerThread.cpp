@@ -201,6 +201,28 @@ void WorkerThread::abortIfStopImmediate(void)
     }
 }
 
+//------------------------------------------------------------------------------
+int WorkerThread::numberOfProcessors(void)
+{
+    BOOL isWow64 = FALSE;
+
+    if (!IsWow64Process(GetCurrentProcess(), &isWow64))
+    {
+        isWow64 = FALSE;
+    }
+
+    SYSTEM_INFO info;
+    if (isWow64)
+    {
+        GetNativeSystemInfo(&info);
+    }
+    else
+    {
+        GetSystemInfo(&info);
+    }
+    return (int)info.dwNumberOfProcessors;
+}
+
 
 
 

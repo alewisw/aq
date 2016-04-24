@@ -156,6 +156,17 @@ int main(int argc, char* argv[])
     }
     Optarg opt(argc, argv);
     configure(opt);
+    int nProcessors = WorkerThread::numberOfProcessors();
+    cout << endl << endl << "Running Performance Test: ";
+    if (nProcessors == 1)
+    {
+        cout << "1 processor available";
+    }
+    else if (nProcessors > 1)
+    {
+        cout << nProcessors << " processors available";
+    }
+    cout << endl;
 
 
     std::vector<PerfTest *> m_tests;

@@ -15,6 +15,7 @@
 
 
 
+
 //------------------------------------------------------------------------------
 // Exported Macros
 //------------------------------------------------------------------------------
@@ -114,6 +115,12 @@ private:
     // Protects m_stop for this thread.  Can also be used by sub-classes to protect
     // their internal data by using the lock() and unlock() methods.
     Mutex m_lock;
+
+public:
+
+    // Gets the number of processors available on this machine or -1 if the 
+    // number of processors could not be determined.
+    static int numberOfProcessors(void);
 
 };
 

@@ -228,6 +228,18 @@ int main(int argc, char* argv[])
     // Configures the test case.
     Optarg optarg(argc, argv);
     configure(optarg);
+    int nProcessors = WorkerThread::numberOfProcessors();
+    cout << endl << endl << "Running Stress Test: ";
+    if (nProcessors == 1)
+    {
+        cout << "1 processor available";
+    }
+    else if (nProcessors > 1)
+    {
+        cout << nProcessors << " processors available";
+    }
+    cout << endl;
+
 
     // Create the shared memory region and initialize.
     Shm = new unsigned char[SHM_GUARD_SIZE + ShmSize + SHM_GUARD_SIZE];

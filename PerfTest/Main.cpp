@@ -112,7 +112,7 @@ static bool TestClaimCommit = false;
 static bool TestRetrieve = false;
 static bool TestRelease = false;
 static bool TestRetrieveRelease = false;
-static bool TestFull = true;
+static bool TestFull = false;
 static bool TestFullMemcpy = false;
 
 

@@ -166,6 +166,17 @@ public:
     // Obtains a reference to the consumer channel.
     ConsumerChannel& consumerChannel(void) { return m_consumerChannel; }
 
+#ifdef AQ_TEST_POINT
+
+public:
+    // Causes a delay to be injected at test point 'tp'.
+    void injectTestPointDelay(int tp);
+
+    // The actual test point where the delay is inserted.
+    static void testPointDelay(AQ *queue, void *context);
+
+#endif
+
 };
 
 

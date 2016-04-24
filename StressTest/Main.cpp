@@ -74,8 +74,13 @@ using namespace std;
 #define DEFAULT_MAX_SNAPSHOT_PERIOD_MS  1000
 
 // The default for tracing enable/disable.
-#define DEFAULT_TRACE_ENABLE_PRODUCER   true
-#define DEFAULT_TRACE_ENABLE_CONSUMER   true
+#define DEFAULT_TRACE_ENABLE_PRODUCER   false
+#define DEFAULT_TRACE_ENABLE_CONSUMER   false
+
+// The default delay introduction settings; set to true to introduce delays.
+#define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_HEAD_REF         false
+#define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL_SKIP_PAGES  false
+#define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL             false
 
 // The number of bytes to allocate to shared memory guard regions.
 #define SHM_GUARD_SIZE                  8
@@ -182,6 +187,12 @@ static unsigned int MaxSnapshotPeriodMs = DEFAULT_MAX_SNAPSHOT_PERIOD_MS;
 static bool TraceEnableConsumer = DEFAULT_TRACE_ENABLE_CONSUMER;
 static bool TraceEnableProducer = DEFAULT_TRACE_ENABLE_PRODUCER;
 
+#ifdef AQ_TEST_POINT
+static bool TpDelayClaimBeforeWriteHeadRef = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_HEAD_REF;
+static bool TpDelayClaimBeforeWriteCtrlSkipPages = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL_SKIP_PAGES;
+static bool TpDelayClaimBeforeWriteCtrl = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL;
+#endif
+
 // The shared memory.
 static unsigned char *Shm = NULL;
 
@@ -268,6 +279,20 @@ int main(int argc, char* argv[])
         Producers.push_back(new Producer(consumer, i + 1, &Shm[SHM_GUARD_SIZE], 
             ShmSize, PageSizeAlloc, MaxOutstanding, MaxPagesPerAppend,
             TraceEnableProducer ? Trace : NULL));
+#ifdef AQ_TEST_POINT
+        if (TpDelayClaimBeforeWriteHeadRef)
+        {
+            Producers[i]->injectTestPointDelay(AQWriter::ClaimBeforeWriteHeadRef);
+        }
+        if (TpDelayClaimBeforeWriteCtrlSkipPages)
+        {
+            Producers[i]->injectTestPointDelay(AQWriter::ClaimBeforeWriteCtrlSkipPages);
+        }
+        if (TpDelayClaimBeforeWriteCtrl)
+        {
+            Producers[i]->injectTestPointDelay(AQWriter::ClaimBeforeWriteCtrl);
+        }
+#endif
     }
     assertShmGuard();
 
@@ -719,6 +744,13 @@ static void configure(Optarg &cfg)
     cfg.opt('O', MaxOutstanding, "The maximum number of items that a produce may hold outstanding without committing them.");
     cfg.opt('W', MaxPagesPerAppend, "The maximum number of pages to write in any one append operation when running with the extendable option.");
     cfg.opt('S', MaxSnapshotPeriodMs, "The maximum amount of time (in milliseconds) between snapshot capture.");
+
+#ifdef AQ_TEST_POINT
+    cfg.opt('1', TpDelayClaimBeforeWriteHeadRef, "If set then a 1ms sleep is introduced immediatly before each head reference is written in AQWriter::commit().");
+    cfg.opt('2', TpDelayClaimBeforeWriteCtrlSkipPages, "If set then a 1ms sleep is introduced immediatly before the control register for wasted pages is written in AQWriter::commit().");
+    cfg.opt('3', TpDelayClaimBeforeWriteCtrl, "If set then a 1ms sleep is introduced immediatly before the control register is written in AQWriter::commit().");
+#endif
+
     if (cfg.hasOpt('h', "Show the command line option help."))
     {
         cout << endl << cfg.helpMessage() << endl;

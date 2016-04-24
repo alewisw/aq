@@ -13,6 +13,7 @@
 
 #include "AQWriterItem.h"
 
+#include "TestPointNotifier.h"
 #include "Timer.h"
 
 #include <algorithm>
@@ -275,6 +276,33 @@ void Producer::shuffleItems(unsigned int count)
         m_items[i] = temp;
     }
 }
+
+#ifdef AQ_TEST_POINT
+
+//------------------------------------------------------------------------------
+void Producer::injectTestPointDelay(int tp)
+{
+    TestPointNotifier *tpn = m_writer.testPointNotifier();
+
+    if (tpn != NULL)
+    {
+        tpn->registerTestPoint(tp, testPointDelay, &m_writer, (void *)tp);
+    }
+}
+
+//------------------------------------------------------------------------------
+void Producer::testPointDelay(AQ *queue, void *context)
+{
+    TestPointNotifier *tpn = queue->testPointNotifier();
+    if (tpn != NULL)
+    {
+        tpn->registerTestPoint((int)context, testPointDelay, queue, context);
+    }
+    Timer::sleep(1);
+}
+
+#endif
+
 
 
 

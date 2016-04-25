@@ -49,8 +49,10 @@ class AQReferenceBase;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Encapsulates an item that resides with a Multi-Producer Allocating Concurrent
-// queue.
+/**
+ * Encapsulates the memory for an item that resides with a Multi-Producer 
+ * Concurrent Allocating Queue.
+ */
 class AQItem
 {
     // Fields are set directly from the MPAC objects.
@@ -71,7 +73,9 @@ class AQItem
     friend class AQStrawManBase;
 
 public:
-    // Constructs a new item with no initial values.
+    /**
+     * Constructs a new item with no initial allocation.
+     */
     AQItem(void) 
         : m_first(this)
         , m_prev(this)
@@ -85,7 +89,11 @@ public:
     {
     }
 
-    // Copy contructor - constructs this item as an exact copy of another item.
+    /**
+     * Constructs a new item so that it is an exact copy of another item.
+     *
+     * @param other The other item to copy.
+     */
     AQItem(const AQItem& other) 
         : m_first(this)
         , m_prev(this)
@@ -94,7 +102,11 @@ public:
         cloneFrom(other);
     }
 
-    // Assigns the value of this item to exactly match another.
+    /**
+     * Assigns this item so that it is an exact copy of another item.
+     *
+     * @param other The other item to copy.
+     */
     AQItem& operator=(const AQItem& other)
     {
         if (this != &other)
@@ -104,7 +116,12 @@ public:
         return *this;
     }
 
-    // Destructor for this item; does nothing.
+    /**
+     * Destroys this item.  This will not take any action on the underlying
+     * queue such as calling AQWriter::commit() or AQReader::release().  It
+     * is entirely up to the application to ensure that each item that must
+     * be committed or released has the appropriate action taken.
+     */
     virtual ~AQItem(void)
     {
         clearList();
@@ -163,18 +180,30 @@ protected:
 
 public:
 
-    // The mask for all queue identifiers; the top 3 bits are always
-    // cleared.
+    /**
+     * The AQItem::queueIdentifier() will always return a value that fits
+     * within this bitmask.  The bitmask has the top 3 bits clear, thus
+     * all queue identifiers fall into the range 0 - AQ::QUEUE_IDENTIFIER_MASK.
+     */
     static const uint32_t QUEUE_IDENTIFIER_MASK = 0x1FFFFFFF;
 
-    // The mask for the user identifiabe bits of the queue identifier.
+    /**
+     * The AQItem::queueIdentifier() will always have the bits in this mask
+     * set to 0.  This is the inverse of AQ::QUEUE_IDENTIFIER_MASK.
+    */
     static const uint32_t QUEUE_IDENTIFIER_USER_MASK = 0xE0000000;
 
-    // The bottom bit for the queue identifier free bits.
+    /**
+     * The first unused bit in the AQItem::queueIdentifier().  The queue
+     * identifier will never set this bit or an higher bit.
+     */
     static const uint32_t QUEUE_IDENTIFIER_USER_BIT = 29;
 
-    // The value indicating that a queue identifier is invalid or has
-    // not been set.
+    /**
+     * If a queue identifier is not known or has not been allocated this
+     * value will be stored in AQItem::queueIdentifier() or 
+     * AQItem::linkIdentifier().
+     */
     static const uint32_t QUEUE_IDENTIFIER_INVALID = 0xFFFFFFFF;
     
 private:
@@ -188,7 +217,14 @@ private:
     
 public:
 
-    // Clears the content of this item back to its defaults.
+    /**
+     * Clears the content of this item so that it is no longer allocated.  
+     * AQItem::isAllocated() now returns false.  When this item is the first
+     * entry in a linked list this has the effect of deleting all the other
+     * links in the list such that AQItem::next() now returns NULL.  When this
+     * item is part of a linked list, but no the first item, it just clears 
+     * the state of this item without impacting the list itself.
+     */
     void clear(void)
     {
         clearList();
@@ -200,15 +236,43 @@ public:
         m_lkid = QUEUE_IDENTIFIER_INVALID;
     }
 
-    // Returns the queue unique identifier for this item.
+    /**
+     * Determins if this item has been allocated to part of a queue.  This only
+     * returns true if there is a backing item within the queue that has provided
+     * memory that can be read (and written in the case of AQWriterItem).
+     * @returns True if this item has been allocated, false if it has not been 
+     * allocated.  Note that after AQWriter::commit() and AQReader::release() are
+     * called the items passed to those functions are automatically deallocated.
+     */
+    bool isAllocated(void) const { return m_mem != NULL; }
+
+    /**
+     * Obtains the unique queue identifier for this item.  The queue identifier
+     * is a a number in the range 0 - AQItem::QUEUE_IDENTIFIER_MASK that
+     * uniquely identifies this item within the current queue state.  So long as
+     * this item is not released from the queue, it is guarnteed that no
+     * other item will have the same queue identifier.
+     * @returns The queue identifier for this item.  If this item is not allocated
+     * the returned value is undefined.
+     */
     uint32_t queueIdentifier(void) const { return m_quid; }
 
-    // Returns the link identifier for this item.
+    /**
+     * Obtains the link identifier for this item.  When the queue is formatted
+     * with AQ::OPTION_EXTENDABLE this is used internally to track the linked
+     * list of items.  In this case applications should not inspect nor rely
+     * on this value having any particular meaning.
+     *
+     * When AQ::OPTION_EXTENDABLE is not set, but AQ::OPTION_LINK_IDENTIFIER
+     * has been set then applications can set the link identifier when writing 
+     * an item using AQWriterItem::setLinkIdentifier() and have the same value
+     * make available through this function when the item is read.
+     *
+     * In all other cases this will return AQ::QUEUE_IDENTIFIER_INVALID.
+     * @returns The link identifier for this item.  If this item is not allocated
+     * the returned value is undefined.
+     */
     uint32_t linkIdentifier(void) const { return m_lkid; }
-
-    // Returns true if and only if this item exists in the sense that backing
-    // memory has been allocated to this item.
-    bool isAllocated(void) const { return m_mem != NULL; }
 
     // Returns true if this item was committed to the queue; if this is false then
     // the item should be considered potentially incomplete.

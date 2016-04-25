@@ -1,5 +1,5 @@
-# AQ: A Concurrent Multi-Producer / Single Consumer Allocating Queue
-'AQ' is a queue data structure intended for use as an inter-thread and inter-process communications mechanism.  The features of AQ include:
+# AQ: A Multi-Producer Concurrent Allocating Queue
+AQ is a queue data structure intended for use as an inter-thread and inter-process communications mechanism.  The features of AQ include:
 * Multiple producers can write into the queue concurrently.
 * A single consumer may read from the queue with its reads can be fully concurrent with the producers.
 * Access to the queue (for any number of producers and a single consumer) is fully thread-safe using a lock-free algorithm.

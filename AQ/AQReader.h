@@ -48,10 +48,12 @@ class AQItem;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Implements the reader side of a Multi-Producer Allocating Concurrent queue.
-// Given a single memory region only a single reader may read from the queue at
-// any one time.  Moreover an object of this class can only be accessed from a
-// single thread at any one time - it is not reentrant.
+/**
+ * Implements the reader side of a Multi-Producer Concurrent Allocating Queue.
+ * Given a single memory region only a single reader may read from the queue at
+ * any one time.  Moreover an object of this class can only be accessed from a
+ * single thread at any one time - it is not reentrant.
+ */
 class AQReader : public AQ
 {
 public:

@@ -24,6 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AQ", "AQ\AQ.vcxproj", "{083
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{BD4EA6A1-734E-43F5-8CD9-6A047929A457}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\Doxyfile = Documentation\Doxyfile
 		README.md = README.md
 		Documentation\TODO.md = Documentation\TODO.md
 	EndProjectSection

@@ -44,12 +44,14 @@ class AQWriterItem;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Implements the writer side of a Multi-Producer Allocating Concurrent queue.
-// Given a single memory region any number of writers in any number of threads
-// may write into the queue at the same time.  The claim() and commit() 
-// functions are thread-safe with respect to both reading and writing the queue
-// with one exception.  If the queue is concurrently formatted by the reader
-// then the behavior is undefined.
+/**
+ * Implements the writer side of a Multi-Producer Concurrent Allocating Queue.
+ * Given a single memory region any number of writers in any number of threads
+ * may write into the queue at the same time.  The claim() and commit() 
+ * functions are thread-safe with respect to both reading and writing the queue
+ * with one exception.  If the queue is concurrently formatted by the reader
+ * then the behavior is undefined.
+ */
 class AQWriter : public AQ
 {
 public:
@@ -81,23 +83,42 @@ private:
 
 public:
 
-    // Claims an item that can be written into by the producer.  The item 
-    // consists of a memory region of size 'memSize' bytes.  If the region 
-    // could be claimed then true is returned and 'item' updated to contain
-    // the valid memory.  If the item could not be claimed then 'false' is 
-    // returned and 'item' is marked invalid (exists() returns false).
-    //
-    // The value stored in the returned memory becomes available to the 
-    // reader once the returned item is passed to commit().  It must be 
-    // committed within the commit timeout period of the queue or it
-    // is automatically reclaimed.  Writes to the item after the commit
-    // timeout has expired can result in data corruption for other items.
-    //
-    // If the passed memory size is less than 1 or greater than 1 MB then
-    // allocation is impossible and an invalid_argument exception is thrown.
-    //
-    // If the queue is not formatted then a AQUnformattedException is 
-    // thrown.
+    /**
+     * Claims an item to be stored in the queue.  The item consists of a 
+     * memory region of size memSize bytes that is written into by the
+     * caller.  
+     *
+     * The value stored in the returned memory becomes available to the 
+     * reader once the returned item is passed to commit().  It must be 
+     * committed within the commit timeout period of the queue or it
+     * is automatically reclaimed.  Writes to the item after the commit
+     * timeout has expired can result in data corruption for other items.
+     *
+     * @param item The writer item, supplied by the caller, which is
+     * updated with the allocated memory and related parameters.
+     * @param memSize The minimum amount of memory that is required
+     * for this allocation.  This field is treated slightly differently
+     * depending on the formatting options for the queue:
+     *  * If AQ::OPTION_EXTENDABLE is not set this represents exactly
+     *    the number of bytes occupied by this item.  It cannot be 
+     *    subsequetly changed or altered in any way.  AQWriterItem::size() 
+     *    and AQWriterItem::capacity() will always return this value.
+     *  * If AQ::OPTION_EXTENDABLE is set then this is the minimum size
+     *    for the first item in the linked-list of extendable items.
+     *    The AQWriteItem::size() will initially be set to 0, while
+     *    the AQWriteItem::capacity() will be at least memSize although
+     *    it may be more.
+     *
+     * @returns If the region could be claimed then true is returned and 
+     * item updated to contain the valid memory.  If the item could not be
+     * claimed then false is returned and item is marked as not allocated 
+     * (AQItem::isAllocated() returns false).
+     * @throws std::invalid_argument When the memSize parameter is greater than
+     * the maximum allocation size for an AQ (1 MB) or when the queue is not
+     * extendable (AQ::OPTION_EXTENDABLE is not set) and the memSize 
+     * parameter was 0.
+     * @throws AQUnformattedException When the queue is not formatted.
+     */
     bool claim(AQWriterItem& item, size_t memSize);
 
     // Commits an item previously obtained via a call to claim() to

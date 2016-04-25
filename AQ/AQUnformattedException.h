@@ -41,22 +41,36 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// The exception that is thrown when an attempt is made to access an unformatted
-// queue.
+/**
+ * The exception that is thrown when an attempt is made to access an unformatted
+ * queue.
+ */
 class AQUnformattedException : public std::runtime_error
 {
 public:
 
-    // Constructs a new exception with the given message.
+    /**
+     * Constructs a new exception with the given message.
+     */
     AQUnformattedException(const std::string& msg);
 
-    // Constructs this exception as an exact copy of another exception.
+    /**
+     * Constructs this exception as an exact copy of another exception.
+     * 
+     * @params other The other exception to copy.
+     */
     AQUnformattedException(const AQUnformattedException& other);
 
-    // Assigns the value of this exception to exactly match another.
+    /**
+     * Assigns the value of this exception to exactly match another.
+     *
+     * @params other The other exception to copy.
+     */
     AQUnformattedException& operator=(const AQUnformattedException& other);
 
-    // Destroys this exception.
+    /**
+     * Destroys this exception.
+     */
     virtual ~AQUnformattedException(void);
 
 };

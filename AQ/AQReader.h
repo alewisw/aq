@@ -58,11 +58,27 @@ class AQReader : public AQ
 {
 public:
 
-    // Constructs a queue reader object that uses the passed shared memory 
-    // region 'mem' of total size 'memSize' bytes.
-    //
-    // The 'trace' argument is used for tracing and logging queue access.
-    AQReader(void *mem, size_t memSz, aq::TraceBuffer *trace = NULL);
+    /**
+     * Constructs a queue reader object that uses the passed shared memory region mem
+     * of total size memSize bytes.  This does not read or write the memory -
+     * it just sets up the internal pointers and references.
+     *
+     * Only a single AQReader object can be constructed for any one shared memory
+     * region.  Having more than one AQReader object results in undefined behavior.
+     *
+     * Before the queue can be accesed it must be formatted with AQReader::format().
+     *
+     * @param mem The memory address where the queue is stored.
+     * @param memSize The total size of the memory region where the queue is stored.
+     */
+    AQReader(void *mem, size_t memSz);
+
+    // As above with the addition of a tracing buffer that holds all queue access logs.
+    // This is only used in the unit and stress tests to track queue accesses and help
+    // debug issues.
+    AQReader(void *mem, size_t memSz, aq::TraceBuffer *trace);
+
+private:
 
     // No implementation is defined for this function - readers must
     // never be copied as only one may ever exist for a given shared
@@ -74,43 +90,100 @@ public:
     // memory region.
     AQReader& operator=(const AQReader& other);
 
-    // Destroys this queue reader.
+public:
+
+    /**
+     * Destroys this queue reader.  Any outstanding AQItem objects otained by
+     * calling retrieve() but not yet released through release() remain
+     * as unreleased in the queue.  Accessing any of these objects result in
+     * undefined behavior.
+     *
+     * The underlying memory of the queue is not impacted by this operation.
+     */
     virtual ~AQReader(void);
 
-    // Formats this shared memory using the page size (1 << 'pageSizeShift')
-    // and the specified commit timeout 'commitTimeoutMs' measured in 
-    // milliseconds.
-    //
-    // The 'options' field is a bit-mask that enables configurable options
-    // on the format of the queue.  The options available are:
-    //  OPTION_FLAG_CRC32 = protect each item with a CRC-32.
+    /**
+     * Formats the shared memory for this queue so it can be used by the reader
+     * and writers.
+     *
+     * @param pageSizeShift Configures the page size for the queue.  The page
+     * size is set to 2^pageSizeShift; for example if pageSizeShift is 7 then 
+     * the page size is 128 bytes.
+     * @param commitTimeoutMs The maximum amount of time that an AQWriterItem
+     * obtained from AQWriter::claim() can be held before calling 
+     * AQWriter::commit().  This time window is how the queue handles writers
+     * that terminate (i.e., crash or otherwise) while olding uncommitted
+     * AQWriterItem objects.  Holding an item for long than this time can result
+     * in it being returned as uncommitted (AQItem::isCommitted() returns false).
+     * An application that writes to the memory of an AQWriterItem that was 
+     * returned as uncommitted causes undefined behavior.  As such, for reliable
+     * operation, writers must commit their items within the commitTimeoutMs 
+     * time window after AQWriter::claim() returns the item.
+     * @param options The set of options for this queue.  This is a bit-mask 
+     * where the options are joined together by a logical OR operation.
+     * Refer to the descriptions of AQ::OPTION_CRC3, AQ::OPTION_LINK_IDENTIFIER, 
+     * and AQ::OPTION_EXTENDABLE for more information.
+     * @returns True if the queue was formatted or false if it could not be formatted.
+     * The queue formatting operation fails when there is not enough space in the queue
+     * to setup for the specified configuration.
+     */
     bool format(int pageSizeShift, unsigned int commitTimeoutMs, unsigned int options = 0);
 
-    // Returns a reference to an integer that changes as values are committed
-    // into the queue.
+    /**
+     * Obtains a reference to a memory address that changes whenever an item is 
+     * committed to the queue.  This can be used as a cheap method of polling for 
+     * 'item available'.
+     *
+     * The main purpose of this is to implement efficient polling:
+     * ~~~
+     * void pollRetrieve(AQReader& reader, AQItem& item)
+     * {
+     *     const volatile uint32_t& commitCounter = reader.commitCounter();
+     *     uint32_t count = commitCounter;
+     *     while (!reader.retrieve(item))
+     *     {
+     *         while (count == commitCounter)
+     *         {
+     *             ... perform some other processing, sleep, etc ...
+     *         }
+     *         count = commitCounter;
+     *     }
+     * }
+     * ~~~
+     *
+     * @returns A reference to an integer whose value changes whenever an item
+     * is committed to the queue.
+     */
     const volatile uint32_t& commitCounter(void) const;
 
-    // Obtains the next item from the queue.  If there are no items in the 
-    // queue available for processing then 'false' is returned.  If an item
-    // is available its details are placed in 'item' and 'true' is returned.
-    //
-    // Once an item is returned it remains valid until release() is called
-    // for the item.  If retreive() is called again before release() then
-    // the next available item is returned (given that queue contains any
-    // items).
-    //
-    // If the queue is not formatted then a AQUnformattedException is 
-    // thrown.
+    /**
+     * Obtains the next item from the queue.  The item argument is populated
+     * with the details of the returned item.  Once an item is returned it
+     * remains valid until release() is called for the item.  If retreive() 
+     * is called again before release() then/ the next available item is 
+     * returned (given that queue contains any items).
+     *
+     * @param item The item object to fill with the detail of the retrieved
+     * item.
+     * @returns True if an item was obtained or false if no item was available
+     * in the queue.If there are no items in the 
+     * @throws AQUnformattedException When the queue is not formatted.
+     */
     bool retrieve(AQItem& item);
 
-    // Releases the passed item so that it can be discarded from the queue.
-    //
-    // If the passed item is invalid (i.e., was not obtained via retrieve(),
-    // or has already been released) then a std::invalid_argument exception is
-    // thrown.
-    //
-    // If the queue is not formatted then a AQUnformattedException is 
-    // thrown.
+    /**
+     * Releases the passed item so that it can be discarded from the queue.
+     * The item must have been previously obtained via a call to retrieve() and
+     * not yet been released.
+     *
+     * Accessing any of the item memory once release() is called results in 
+     * undefined behavior.
+     * 
+     * @param item The item to release.  When this function returns this item
+     * is marked as not allocated (AQItem::isAllocated() returns false).
+     * @throws std::invalid_argument The passed item was not obtained by
+     * retrieve() or has already been released.
+     */
     void release(AQItem& item);
 
 private:

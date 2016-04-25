@@ -61,6 +61,16 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+AQSnapshot::AQSnapshot(void)
+    : m_trace(NULL)
+    , m_mem(NULL)
+    , m_memSize(0)
+    , m_items(NULL)
+    , m_itemCount(0)
+{
+}
+
+//------------------------------------------------------------------------------
 AQSnapshot::AQSnapshot(TraceBuffer *trace)
     : m_trace(trace)
     , m_mem(NULL)
@@ -68,6 +78,17 @@ AQSnapshot::AQSnapshot(TraceBuffer *trace)
     , m_items(NULL)
     , m_itemCount(0)
 {
+}
+
+//------------------------------------------------------------------------------
+AQSnapshot::AQSnapshot(const AQ& queue)
+    : m_trace(NULL)
+    , m_mem(NULL)
+    , m_memSize(0)
+    , m_items(NULL)
+    , m_itemCount(0)
+{
+    snap(queue);
 }
 
 //------------------------------------------------------------------------------

@@ -7,6 +7,7 @@ AQ is a queue data structure intended for use as an inter-thread and inter-proce
 * Two modes of operation are supported for memory allocation:
   * Fixed length items consisting of a single contiguous memory regions.
   * Variable length items consisting of a linked-list of contiguous memory regions.
+* The queue content can be fully captured and examined by taking a snapshot-in-time.  This allow for recovery of previously processed items.
 
 ## Current Status
 WARNING: AQ is under ACTIVE DEVELOPMENT.  The APIs may change dramatically.  There may be serious bugs.  Use at your own risk.

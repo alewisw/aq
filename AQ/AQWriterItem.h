@@ -41,36 +41,44 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Encapsulates an item is being written to a Multi-Producer Allocating 
-// Concurrent queue.
-//
-// The AQWriterItem can be either accessed directly and written with, e.g., 
-// memcpy() or alternatly it can be appended to use the AQWriter::append() 
-// function.  The AQWriterItem and this function behave differently depending
-// on the options of the queue:
-//  - When the queue is OPTION_EXTENDABLE appending bytes to the item results
-//    in the size of the item increasing, and new items being allocated as
-//    required.
-//  - When the queue does *NOT* have OPTION_EXTENDABLE the size of the item is
-//    fixed at allocation time.  The item contains a hidden position that
-//    starts at 0.  As data is appended the position increments.  The size
-//    of the item never changes, nor is the position impacted by direct writes
-//    into the memory buffer (e.g., via memcpy()).
+/**
+ * Encapsulates an item is being written to a Multi-Producer Concurrent 
+ * Allocating Queue.
+ *
+ * The AQWriterItem can be either accessed directly and written with, e.g., 
+ * memcpy() or alternatly it can be written to using the 
+ * write(const void *, size_t) or similar functions.  When the 
+ * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t)
+ * functions are the main mechanism for extending the length of the item
+ * by appending new items to the end of the linked list.
+ */
 class AQWriterItem : public AQItem
 {
     // Fields are set directly from the MPAC queue objects.
     friend class AQWriter;
 
 public:
-    // Constructs a new item with no initial values.
-    AQWriterItem(void) 
+
+    /**
+     * Constructs a new item with no initial allocation.
+     */
+    AQWriterItem(void)
         : AQItem()
         , m_writer(NULL) 
         , m_accumulator(0)
     {
     }
 
-    // Copy contructor - constructs this item as an exact copy of another item.
+    /**
+     * Constructs a new item so that it is an exact copy of another item.  Note
+     * that this does not create a new entry in the queue - it just copies the
+     * reference to the existing item.  Regardless of how many copies are made
+     * only a single call to AQWriter::commit() may be made.  Accessing the
+     * memory of an item that has been committed elsewhere results in undefined
+     * behavior.
+     *
+     * @param other The other item to copy.
+     */
     AQWriterItem(const AQWriterItem& other)
         : AQItem(other)
         , m_writer(other.m_writer)
@@ -78,7 +86,16 @@ public:
     {
     }
 
-    // Assigns the value of this item to exactly match another.
+    /**
+     * Assigns this item so that it is an exact copy of another item. Note
+     * that this does not create a new entry in the queue - it just copies the
+     * reference to the existing item.  Regardless of how many copies are made
+     * only a single call to AQWriter::commit() may be made.  Accessing the
+     * memory of an item that has been committed elsewhere results in undefined
+     * behavior.
+     *
+     * @param other The other item to copy.
+     */
     AQWriterItem& operator=(const AQWriterItem& other)
     {
         if (this != &other)
@@ -90,7 +107,12 @@ public:
         return *this;
     };
 
-    // Destructor for this item; does nothing.
+    /**
+     * Destroys this item.  This will not take any action on the underlying
+     * queue such as calling AQWriter::commit() or AQReader::release().  It
+     * is entirely up to the application to ensure that each item that must
+     * be committed or released has the appropriate action taken.
+     */
     virtual ~AQWriterItem(void) { }
 
 protected:
@@ -112,60 +134,120 @@ private:
 
 public:
 
-    // Sets the link identifier for this item.
+    /**
+     * Sets the link identifier for this item.  Setting the link identifier
+     * only makes sense when AQ::OPTION_LINK_IDENTIFIER has been set on the
+     * queue and AQ::OPTION_EXTENDABLE is not set.  In all other situations
+     * the link identifier set here will not propogate through to the item
+     * reader via AQReader::retrieve().  See AQItem::linkIdentifier() for
+     * more information on why this is the case.
+     *
+     * @param lkid The link identifier value to set for this item.
+     */
     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }
 
-    // Provides a reference to one of the bytes in this item.  The address of
-    // the memory can be taken in order to obtain the fixed size array for
-    // reading.
+    /**
+     * Obtains a reference to one of the bytes within this item.  This
+     * reference is only to be used for reading; writing the byte results
+     * in undefined behavior.  The bytes in this item are allocated
+     * contiguously which means applications can do:
+     * ~~~
+     *     unsigned char *ptr = &item[0];
+     * ~~~
+     * In order to obtain a pointer to the underlying array.
+     *
+     * No bounds checking is performed on access via this operator.  As such the
+     * caller must ensure that idx is in the range 0 to (size() - 1) inclusive.
+     * The effect of accessing a byte outside of this range, even through
+     * the pointer taken in the example above, is undefined.
+     *
+     * @param idx The index of the byte to retreive.  Must be in the range of 0 to
+     * (size() - 1).
+     * @returns A read-only reference to the specified byte.  If this item is not allocated
+     * or the provided index is outside the range of bytes in this item than the
+     * returned value is undefined.
+     */
     const unsigned char& operator[](size_t idx) const { return mem()[idx]; }
 
-    // Provides a reference to one of the bytes in this item.  The address of
-    // the memory can be taken in order to obtain the fixed size array for
-    // reading.
+    /**
+     * Obtains a reference to one of the bytes within this item.  This
+     * reference can be used for both reading and writing.  The bytes in this 
+     * item are allocated contiguously which means applications can do:
+     * ~~~
+     *     unsigned char *ptr = &item[0];
+     * ~~~
+     * In order to obtain a pointer to the underlying array.
+     *
+     * No bounds checking is performed on access via this operator.  As such the
+     * caller must ensure that idx is in the range 0 to (size() - 1) inclusive.
+     * The effect of accessing a byte outside of this range, even through
+     * the pointer taken in the example above, is undefined.
+     *
+     * @param idx The index of the byte to retreive.  Must be in the range of 0 to
+     * (size() - 1).
+     * @returns A read-write reference to the specified byte.  If this item is not allocated
+     * or the provided index is outside the range of bytes in this item than the
+     * returned value is undefined.
+     */
     unsigned char& operator[](size_t idx) { return mem()[idx]; }
 
-    // Writes 'memSize' bytes from 'mem' into this item at the current write 
-    // position of this item.  If the write succeeds the write position is 
-    // incremented by 'memSize'.  If the write fails then the write position
-    // remains unchanged.
-    //
-    // If this writer item is not an uncommited claimed item from a queue then
-    // a domain_error is thrown.
-    //
-    // If mem is NULL and memSize is non-zero then an invalid_argument exception
-    // is thrown.
-    //
-    // In non-EXTENDABLE mode (that is OPTION_EXTENDABLE is not set) this throws
-    // an out_of_range exception if the offse is greater than or equal to the size,
-    // or a length_error exception if this would result in a write beyond the 
-    // available size of the item.
-    //
-    // In EXTENDABLE mode new items are created to be able to contain the 
-    // off + memSize bytes.  If they cannot be created then the write fails and
-    // false is returned.
-    //
-    // If the data was written the write succeeds and true is returned.
+    /**
+     * Writes data into this item at its current write position.  The write
+     * position differs depending on whether AQ::OPTION_EXTENDABLE has been
+     * configured:
+     *  * When AQ::OPTION_EXTENDABLE is not set then the item internaly tracks
+     *    the highest index where no write operation has been performed.  The
+     *    write occurs at that index.
+     *  * When AQ::OPTION_EXTENDABLE is set then the write occurs at the very
+     *    end of the item, essentially appending and possibly extending the
+     *    size of the item by adding to the linked list.
+     * If the write succeeds then the write position is incremented by the 
+     * number of bytes written.  If this fail (an exception is thrown or more
+     * items could not be allocated) no changes are made to this item.
+     *
+     * @param mem The buffer that contains the memory to write into this item.
+     * @param memSize The number of bytes to write into this item.
+     * @returns True if the write succeeded or false if the write failed because
+     * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+     * @throws std::domain_error If this item was not populated by a successful 
+     * call to AQWriter::claim() or if it has been committed with a call to 
+     * AQWriter::commit().
+     * @throws std::invalid_argument If the mem argument was NULL and memSize was
+     * any value other than 0.
+     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+     * option set and the current position is at the end of the item.
+     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+     * option set and there is not enough space left in the queue to store the 
+     * requested number of bytes.
+     */
     bool write(const void *mem, size_t memSize);
 
-    // Writes 'memSize' bytes from 'mem' into this item at position 'off'.
-    //
-    // If this writer item is not an uncommited claimed item from a queue then
-    // a domain_error is thrown.
-    //
-    // If mem is NULL and memSize is non-zero then an invalid_argument exception
-    // is thrown.
-    //
-    // In non-EXTENDABLE mode (that is OPTION_EXTENDABLE is not set) this throws
-    // an out_of_range exception if the offse is greater than or equal to the size,
-    // or a length_error exception if this would result in a write beyond the 
-    // available size of the item.
-    //
-    // In EXTENDABLE mode new items are created to be able to contain the 
-    // off + memSize bytes.  If they cannot be created then the write fails and
-    // false is returned.
-    //
-    // If the data was written the write succeeds and true is returned.
+    /**
+    * Writes data into this item at a selected position.  If the write succeeds 
+    * then the write position as used by write(const void *, size_t) is set to 
+    * the maximum of its current value and off + memSize.  If the write fails
+    * (an exception is thrown or more items could not be allocated) no changes
+    * are made to this item.
+    *
+    * @param off The offset from this item where the write is to be performed.
+    * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+    * of this item in which case it finds the item that contains that offset
+    * and starts the write there.
+    * @param mem The buffer that contains the memory to write into this item.
+    * @param memSize The number of bytes to write into this item.
+    * @returns True if the write succeeded or false if the write failed because
+    * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+    * @throws std::domain_error If this item was not populated by a successful
+    * call to AQWriter::claim() or if it has been committed with a call to
+    * AQWriter::commit().
+    * @throws std::invalid_argument If the mem argument was NULL and memSize was
+    * any value other than 0.
+    * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+    * option set and the offest is at the end, or beyond the end, of the item.
+    * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+    * option set and there is not enough space left in the queue to store the
+    * requested number of bytes at the given offset.
+    */
     bool write(size_t off, const void *mem, size_t memSize);
 
 private:
@@ -188,15 +270,76 @@ private:
 
 public:
 
-    // Linked list iterators for the AQWriterItem.
+    /**
+     * Obtains a pointer to the first item in the linked list of items.  The 
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+     * has been set for the queue.
+     *
+     * @returns The first item.  This is never NULL.
+     */
     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }
+
+    /**
+     * Obtains a pointer to the last item in the linked list of items.  The 
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+     * has been set for the queue.
+     *
+     * @returns The last item.  This is never NULL.
+     */
     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }
+
+    /**
+     * Obtains a pointer to the next item in the linked list of items.  If this
+     * is the last item in the list then NULL is returned.
+     *
+     * @returns The next item or NULL if there are no further items.  NULL is always
+     * returned unless AQ::OPTION_EXTENDABLE is set.
+     */
     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }
+
+    /**
+     * Obtains a pointer to the previous item in the linked list of items.  If this
+     * is the first item in the list then NULL is returned.
+     *
+     * @returns The previous item or NULL if there are no further items.  NULL is always
+     * returned unless AQ::OPTION_EXTENDABLE is set.
+     */
     AQWriterItem *prev(void) { return (AQWriterItem *)AQItem::prev(); }
 
+    /**
+     * Obtains a read-only pointer to the first item in the linked list of items.  The
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+     * has been set for the queue.
+     *
+     * @returns The first item.  This is never NULL.
+     */
     const AQWriterItem *first(void) const { return (const AQWriterItem *)AQItem::first(); }
+
+    /**
+     * Obtains a read-only pointer to the last item in the linked list of items.  The
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+     * has been set for the queue.
+     *
+     * @returns The last item.  This is never NULL.
+     */
     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }
+    
+    /**
+     * Obtains a read-only pointer to the next item in the linked list of items.  If this
+     * is the last item in the list then NULL is returned.
+     *
+     * @returns The next item or NULL if there are no further items.  NULL is always
+     * returned unless AQ::OPTION_EXTENDABLE is set.
+     */
     const AQWriterItem *next(void) const { return (const AQWriterItem *)AQItem::next(); }
+    
+    /**
+     * Obtains a read-only pointer to the previous item in the linked list of items.  If this
+     * is the first item in the list then NULL is returned.
+     *
+     * @returns The previous item or NULL if there are no further items.  NULL is always
+     * returned unless AQ::OPTION_EXTENDABLE is set.
+     */
     const AQWriterItem *prev(void) const { return (const AQWriterItem *)AQItem::prev(); }
 
 };

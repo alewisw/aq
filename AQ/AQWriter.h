@@ -56,23 +56,74 @@ class AQWriter : public AQ
 {
 public:
 
-    // Constructs a queue reader object that uses the passed shared memory 
-    // region 'mem' of total size 'memSize' bytes.
-    //
-    // The 'trace' argument is used for tracing and logging queue access.
-    AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace = NULL);
+    /**
+     * Constructs a queue writer object that uses the passed shared memory region mem
+     * of total size memSize bytes.  This does not read or write the memory -
+     * it just sets up the internal pointers and references.
+     *
+     * Before the queue can be accesed it must be formatted with AQReader::format().
+     *
+     * @param mem The memory address where the queue is stored.
+     * @param memSize The total size of the memory region where the queue is stored.
+     */
+    AQWriter(void *mem, size_t memSize);
 
-    // Constructs this queue producer as an exact copy of another queue.
+    // As above with the addition of a tracing buffer that holds all queue access logs.
+    // This is only used in the unit and stress tests to track queue accesses and help
+    // debug issues.
+    AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace);
+
+    /**
+     * Constructs this queue writer such that it references exactly the same underlying
+     * memory range as another queue writer.
+     *
+     * @param other The other queue writer whose memory range is to be used by this queue.
+     */
     AQWriter(const AQWriter& other);
 
-    // Assigns the value of this queue producer to exactly match another.
+    /**
+    * Assigns the underlying memory range of this queue writer to exactly match the shared
+    * memory range of another queue writer.
+    *
+    * @param other The other queue writer whose memory range is to be used by this queue.
+    */
     AQWriter& operator=(const AQWriter& other);
 
-    // Destroys this queue.
+    /**
+     * Destroys this queue writer.  Any outstanding AQWriterItem objects otained by
+     * calling AQWriter::claim() but not yet committed through AQWriter::commit() 
+     * may no longer be accessed; accessing these objects results in undefined
+     * behavior.
+     *
+     * The underlying memory of the queue is not impacted by this operation.
+     */
     virtual ~AQWriter(void);
 
-    // Returns a reference to an integer that changes as values are free'd
-    // from the queue.
+    /**
+     * Obtains a reference to a memory address that changes whenever space is made
+     * available in the queue for further write operations.  This can be used as
+     * a cheap method of polling for 'space available'.
+     *
+     * The main purpose of this is to implement efficient polling:
+     * ~~~
+     * void pollClaim(AQWriter& writer, AQWriterItem& item, size_t memSize)
+     * {
+     *     const volatile uint32_t& freeCounter = writer.freeCounter();
+     *     uint32_t count = freeCounter;
+     *     while (!writer.claim(item, memSize))
+     *     {
+     *         while (count == freeCounter)
+     *         {
+     *             ... perform some other processing, sleep, etc ...
+     *         }
+     *         count = freeCounter;
+     *     }
+     * }
+     * ~~~
+     *
+     * @returns A reference to an integer whose value changes whenever space is
+     * made available in the queue.
+     */
     const volatile uint32_t& freeCounter(void) const;
 
 private:
@@ -121,20 +172,20 @@ public:
      */
     bool claim(AQWriterItem& item, size_t memSize);
 
-    // Commits an item previously obtained via a call to claim() to
-    // the queue so that it is available for consumption.  The caller must no 
-    // longer access the originally claimed memory.
-    //
-    // Returns true if the commit succeeded or false if it fails; the commit
-    // fails if the claimed item was treated as lost by the reader due
-    // to begin held for an excessive period.
-    //
-    // If the passed item is invalid (i.e., is not currently claimed, is
-    // no in the queue, is already committed) then an invalid_argument 
-    // exception is thrown.
-    //
-    // If the queue is not formatted then a AQUnformattedException is 
-    // thrown.
+    /**
+     * Commits an item previously obtained via a claim() call to
+     * the queue so that it is available for consumption by the AQReader.
+     * Once this function is called the claimed memory must no longer be
+     * accessed or the results are undefined.
+     *
+     * @param item The item to commit.  When this function returns this item
+     * is marked as not allocated (AQWriterItem::isAllocated() returns false).
+     * @returns True if the commit succeeded or false if it fails; the commit
+     * fails if the claimed item was treated as incomplete by the reader due
+     * to begin held for a period longer than the commit timeout.
+     * @throws invalid_argument If the passed item is invalid (i.e., is not 
+     * currently claimed, is not in the queue, or is already committed).
+     */
     bool commit(AQWriterItem& item);
 
 private:

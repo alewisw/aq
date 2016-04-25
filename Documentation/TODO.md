@@ -5,3 +5,4 @@
 4. Corruption resilience - esp. in snapshot
 5. Add built-in support for formatted printing into normal and extendable items.
 6. Add built-in support for streaming into normal and extendable items.
+7. commitCounter() is not sufficient for reader polling - also need a timer due to commit timeouts.

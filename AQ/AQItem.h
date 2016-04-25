@@ -91,6 +91,11 @@ public:
 
     /**
      * Constructs a new item so that it is an exact copy of another item.
+     * Note that this does not create a new entry in the queue - it just copies the
+     * reference to the existing item.  Regardless of how many copies are made
+     * only a single call to AQWriter::commit() or AQReader::release() may be made.  
+     * Accessing the memory of an item that has been committed or released elsewhere
+     * results in undefined behavior.
      *
      * @param other The other item to copy.
      */
@@ -104,6 +109,11 @@ public:
 
     /**
      * Assigns this item so that it is an exact copy of another item.
+     * Note that this does not create a new entry in the queue - it just copies the
+     * reference to the existing item.  Regardless of how many copies are made
+     * only a single call to AQWriter::commit() or AQReader::release() may be made.
+     * Accessing the memory of an item that has been committed or released elsewhere
+     * results in undefined behavior.
      *
      * @param other The other item to copy.
      */
@@ -268,41 +278,149 @@ public:
      * an item using AQWriterItem::setLinkIdentifier() and have the same value
      * make available through this function when the item is read.
      *
-     * In all other cases this will return AQ::QUEUE_IDENTIFIER_INVALID.
+     * In all other cases this will return AQItem::QUEUE_IDENTIFIER_INVALID.
      * @returns The link identifier for this item.  If this item is not allocated
      * the returned value is undefined.
      */
     uint32_t linkIdentifier(void) const { return m_lkid; }
 
-    // Returns true if this item was committed to the queue; if this is false then
-    // the item should be considered potentially incomplete.
+    /**
+     * Determines if this item was committed to the queue with a call to 
+     * AQWriter::commit().  There are a number of situations to consider when
+     * inspecting this value:
+     *  * For items claimed by calling AQWriter::claim() this always returns false. 
+     *  * When an item is retrieved from AQReader::retrieve() this indicates whether 
+     *    the item was actually successfully committed.  Items might not have been 
+     *    commited if, for example, the process that claimed the item was terminated 
+     *    before it was able to call AQWriter::commit().
+     *  * When an item is retrieved from AQSnapshot::operator[] this indicates whether
+     *    the item was committed at the time the snapshot taken.
+     *
+     * When processing a retrieved item that has isCommitted() as false the application
+     * shoud either discard the item entirely, or use some application-specific method
+     * to determine if the item is valid.
+     *
+     * Note that in the case of queues with the AQ::OPTION_EXTENDABLE format option
+     * set if any one of the items was not committed then all the items in the linked
+     * list are maked as not committed.
+     *
+     * @returns True if the item was committed to the queue or false if it was not 
+     * committed.  If this item is not allocated the returned value is undefined.
+     */
     bool isCommitted(void) const;
 
-    // Returns true if this item was released at the time the snapshot was taken.
+    /**
+     * Determines if this item has been released from the queue with a call to
+     * AQReader::release().  This can only occur when an item is retrieved from 
+     * AQSnapshot::operator[] where the AQReader::release() had been called on that
+     * particular item.
+     *
+     * @returns True if this item has been released through AQReader::release() and
+     * false in all other cases.  If this item is not allocated the returned value 
+     * is undefined.
+     */
     bool isReleased(void) const;
 
-    // Returns true if this item's checksum was valid (i.e., the stored value
-    // matched the calculated value).  If there are no checksums enabled then
-    // this always returns 'true'.
+    /**
+     * Determies if the checksum for this item is valid when AQ::OPTION_CRC32 is
+     * set for this queue.  When AQ::OPTION_CRC32 is not set then this always
+     * return true.
+     *
+     * Note that in the case of queues with the AQ::OPTION_EXTENDABLE format option
+     * set if any one of the items had an invalid checksum then all the items in the 
+     * linked are maked as with invalid checksums.
+     *
+     * @returns False if AQ::OPTION_CRC32 is enabled and the checksum calculated 
+     * did not match the one stored in the.  Returns true in all other cases 
+     * except where this item is not allocated in which case the returned value is 
+     * undefined.
+     */
     bool isChecksumValid(void) const { return m_checksumValid; }
 
-    // Gets the size, in bytes, of this item.
-    size_t size(void) const { return m_memSize; }
-
-    // Gets the capacity of this item - that is number of bytes that can be stored
-    // in this item.
+    /**
+     * Obtains the total number of bytes that can be stored in this item.  This
+     * only ever refers to this particular item - when AQ::OPTION_EXTENDABLE is
+     * set each individual AQItem in the linked list has its own capacity value.
+     *
+     * @returns The capacity of this item in bytes.  If this item is not allocated
+     * the returned value is undefined.
+     */
     size_t capacity(void) const;
 
-    // Provides a reference to one of the bytes in this item.  The address of
-    // the memory can be taken in order to obtain the fixed size array for
-    // reading.
+    /**
+     * Obtains the total number of bytes that have been stored by the user into
+     * this item.  This is the same as capacity() unless AQ::OPTION_EXTENDABLE
+     * has been configured for this queue.  In that case the following rules
+     * apply:
+     *  * For each item in the linked list, except the last, size() exactly
+     *    matches capacity().
+     *  * For the last item in the linked list size() represents the highest
+     *    byte that has been written into the item.
+     *
+     * @returns The size of this item in bytes.  If this item is not allocated
+     * the returned value is undefined.
+     */
+    size_t size(void) const { return m_memSize; }
+
+    /**
+     * Obtains a reference to one of the bytes within this item.  This 
+     * reference is only to be used for reading; writing the byte results
+     * in undefined behavior.  The bytes in this item are allocated 
+     * contiguously which means applications can do:
+     * ~~~
+     *     unsigned char *ptr = &item[0];
+     * ~~~
+     * In order to obtain a pointer to the underlying array.
+     *
+     * No bounds checking is performed on access via this operator.  As such the
+     * caller must ensure that idx is in the range 0 to (size() - 1) inclusive. 
+     * The effect of accessing a byte outside of this range, even through
+     * the pointer taken in the example above, is undefined.
+     *
+     * @param idx The index of the byte to retreive.  Must be in the range of 0 to
+     * (size() - 1).
+     * @returns A read-only reference to the specified byte.  If this item is not allocated
+     * or the provided index is outside the range of bytes in this item than the 
+     * returned value is undefined.
+     */
     const unsigned char& operator[](size_t idx) const { return m_mem[idx]; }
     
-    // Linked list iterators for the AQItem.
+    /**
+     * Obtains a pointer to the first item in the linked list of items.  The 
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+     * has been set for the queue.
+     *
+     * @returns The first item.  This is never NULL.
+     */
     const AQItem *first(void) const { return m_first; }
+
+    /**
+     * Obtains a pointer to the last item in the linked list of items.  The 
+     * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+     * has been set for the queue.
+     *
+     * @returns The last item.  This is never NULL.
+     */
     const AQItem *last(void) const { return m_first->m_prev; }
+
+    /**
+     * Obtains a pointer to the next item in the linked list of items.  If this
+     * is the last item in the list then NULL is returned.
+     *
+     * @returns The next item or NULL if there are no further items.  NULL is always
+     * returned unless AQ::OPTION_EXTENDABLE is set.
+     */
     const AQItem *next(void) const { return m_next; }
+
+    /**
+    * Obtains a pointer to the previous item in the linked list of items.  If this
+    * is the first item in the list then NULL is returned.
+    *
+    * @returns The previous item or NULL if there are no further items.  NULL is always
+    * returned unless AQ::OPTION_EXTENDABLE is set.
+    */
     const AQItem *prev(void) const { return m_first == this ? NULL : m_prev; }
+
 };
 
 

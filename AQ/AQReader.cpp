@@ -113,8 +113,16 @@ do                                                                              
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQReader::AQReader(void *mem, size_t memSize, 
-        TraceBuffer *trace)
+AQReader::AQReader(void *mem, size_t memSize)
+    : AQ(TestPointCount, mem, memSize)
+    , m_pstate(NULL)
+    , m_linkProcessor(NULL)
+{
+}
+
+//------------------------------------------------------------------------------
+AQReader::AQReader(void *mem, size_t memSize,
+    TraceBuffer *trace)
     : AQ(TestPointCount, mem, memSize, trace)
     , m_pstate(NULL)
     , m_linkProcessor(NULL)

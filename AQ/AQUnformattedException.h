@@ -51,6 +51,9 @@ public:
 
     /**
      * Constructs a new exception with the given message.
+     *
+     * @param msg The message; this will be available through 
+     * the std::exception::what() function.
      */
     AQUnformattedException(const std::string& msg);
 

@@ -58,6 +58,12 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
+AQWriter::AQWriter(void *mem, size_t memSize)
+    : AQ(TestPointCount, mem, memSize)
+{
+}
+
+//------------------------------------------------------------------------------
 AQWriter::AQWriter(void *mem, size_t memSize, TraceBuffer *trace)
     : AQ(TestPointCount, mem, memSize, trace)
 {

@@ -69,40 +69,25 @@ class AQ
 
 protected:
 
-    /**
-     * Constructs a queue object that uses the passed shared memory region mem
-     * of total size memSize bytes.  This does not read or write the memory -
-     * it just sets up the internal pointers and references.
-     *
-     * @param testPointCount This argument specifies the number of test points
-     * used by the automated unit tests availableSize for this particular interface
-     * to the queue.
-     * @param mem The memory address where the queue is stored.
-     * @param memSize The total size of the memory region where the queue is stored.
-     * @param trace An optional tracing buffer that holds all queue access logs.  This
-     * is only used in the unit and stress tests to track queue accesses and help
-     * debug issues.
-     */
+    // Constructs a queue object that uses the passed shared memory region mem
+    // of total size memSize bytes.  This does not read or write the memory -
+    // it just sets up the internal pointers and references.
+    //
+    // The trace argument is an optional tracing buffer that holds all queue 
+    // access logs.  This is only used in the unit and stress tests to track 
+    // queue accesses and help debug issues.
     AQ(int testPointCount, void *mem, size_t memSize, 
        aq::TraceBuffer *trace = NULL);
 
-    /**
-     * Constructs this queue such that it references exactly the same underlying
-     * memory range as another queue.
-     * @param other The other queue whose memory range is to be used by this queue.
-     */
+    // Constructs this queue such that it references exactly the same underlying
+    // memory range as another queue.
     AQ(const AQ& other);
 
-    /**
-     * Assigns the underlying memory range of this queue to exactly match the shared
-     * memory range of another queue.
-     * @param other The other queue whose memory range is to be used by this queue.
-     */
+    // Assigns the underlying memory range of this queue to exactly match the shared
+    // memory range of another queue.
     AQ& operator=(const AQ& other);
 
-    /**
-     * Destroys this queue.  The underlying memory is not impacted by this operation.
-     */
+    // Destroys this queue.  The underlying memory is not impacted by this operation.
     virtual ~AQ(void);
 
 protected:

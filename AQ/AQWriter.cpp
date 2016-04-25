@@ -268,6 +268,8 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
     item.m_memSize = (c->options & AQ::OPTION_EXTENDABLE) ? 0 : memSize;
     item.m_quid = currHeadRef & AQItem::QUEUE_IDENTIFIER_MASK;
     item.m_lkid = AQItem::QUEUE_IDENTIFIER_INVALID;
+    item.m_writer = this;
+    item.m_accumulator = 0;
 
     if (skipPages == 0)
     {
@@ -276,66 +278,6 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
     else
     {
         TRACE_1ITEM_EXIT(c, &item, "skip<%u>", skipPages);
-    }
-    return true;
-}
-
-//------------------------------------------------------------------------------
-bool AQWriter::append(AQWriterItem& item, const void *mem, size_t memSize)
-{
-    // Append only works on extendable queues.
-    if (!(m_ctrl->options & AQ::OPTION_EXTENDABLE))
-    {
-        return false;
-    }
-
-    // Get the last item in the linked list.
-    AQItem &last = *item.m_first->m_prev;
-
-    size_t off = last.size();
-    size_t avail = (CtrlOverlay::CTRLQ_SIZE_MASK & last.m_ctrl) - off;
-
-    if (avail >= memSize)
-    {
-        // Covered by existing capacity - copy it in.
-        memcpy(&last.m_mem[off], mem, memSize);
-        last.m_memSize += memSize;
-        TRACE_ITEMDATA_ENTRYEXIT(m_ctrl, &item, "appended[%u]", (unsigned int)memSize);
-    }
-    else
-    {
-        TRACE_ITEM_ENTRY(m_ctrl, &item, "appending[%u]", (unsigned int)memSize);
-
-        // Must extend - do it first an if it fails then take no action.
-        size_t requiredSize = memSize - avail;
-        AQWriterItem *newItem = new AQWriterItem;
-        if (!claim(*newItem, requiredSize))
-        {
-            // Not enough space available.
-            delete newItem;
-            TRACE_ITEM_EXIT(m_ctrl, &item, "claim failed");
-            return false;
-        }
-
-        // Update the now next-to-last buffer and advance the memory
-        // pointer.
-        if (avail > 0)
-        {
-            memcpy(&last.m_mem[off], mem, avail);
-            last.m_memSize += avail;
-            mem = (const unsigned char *)mem + avail;
-        }
-
-        // Attach the new item to the end of the list.
-        newItem->m_first = last.m_first;
-        newItem->m_prev = &last;
-        last.m_next = newItem;
-        item.m_prev = newItem;
-
-        // Update the new item.
-        newItem->m_memSize = requiredSize;
-        memcpy(newItem->m_mem, mem, requiredSize);
-        TRACE_ITEMDATA_EXIT(m_ctrl, &item, "appended[%u]", (unsigned int)memSize);
     }
     return true;
 }

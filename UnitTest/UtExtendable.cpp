@@ -63,16 +63,6 @@ static void quidWrapTest(AQTest& aq, size_t bufferCount, size_t offsetBeforeWrap
 TEST_SUITE(UtExtendable);
 
 //------------------------------------------------------------------------------
-AQTEST_FORMAT(given_NonExtendableQueue_when_Append_then_AppendFails, AQ::OPTION_LINK_IDENTIFIER)
-{
-    char mem[1];
-    mem[0] = 'f';
-    AQWriterItem witem;
-    CHECK(aq.writer.claim(witem, 1));
-    REQUIRE(!aq.writer.append(witem, mem, sizeof(mem)));
-}
-
-//------------------------------------------------------------------------------
 AQTEST_FORMAT(given_EmptyBuffer_when_AppendLessThanPageSize_then_RetrieveDataMatches, AQ::OPTION_EXTENDABLE)
 {
     basicTest(aq, 1 * aq.pageSize(), 1, aq.pageSize(), aq.pageSize() - 1);

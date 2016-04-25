@@ -332,19 +332,7 @@ bool AQTest::areIdenticalAllocatedItems(const AQItem& a, const AQItem& b, bool f
 //------------------------------------------------------------------------------
 bool AQTest::appendData(AQWriterItem& item, size_t off, size_t size)
 {
-    if (writer.isExtendable())
-    {
-        return writer.append(item, &m_data[off], size);
-    }
-    else
-    {
-        if (size > item.size())
-        {
-            return false;
-        }
-        memcpy(&item[0], &m_data[off], size);
-        return true;
-    }
+    return item.write(&m_data[off], size);
 }
 
 //------------------------------------------------------------------------------

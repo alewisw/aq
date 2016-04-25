@@ -195,7 +195,7 @@ void Producer::writeItem(void)
                 // Try to write, tracking successful claim operations based on 
                 // whether the list was updated.
                 AQWriterItem *last = m_items[i]->last();
-                if (m_writer.append(*m_items[i], &rec[recPos], appendSize))
+                if (m_items[i]->write(&rec[recPos], appendSize))
                 {
                     recPos += appendSize;
                     if (last != m_items[i]->last())
@@ -233,7 +233,7 @@ void Producer::writeItem(void)
                         size_t avail = last->capacity() - last->size();
                         if (avail > 0)
                         {
-                            m_writer.append(*m_items[i], &rec[recPos], avail);
+                            m_items[i]->write(&rec[recPos], avail);
                             recPos += avail;
                         }
 

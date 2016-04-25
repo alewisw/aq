@@ -124,12 +124,6 @@ private:
     // Clears the linked list if this is the first item in the list.
     void clearList();
 
-    // The memory in this item.
-    unsigned char *m_mem;
-
-    // The size of the memory region.
-    size_t m_memSize;
-
     // The control field data for this item.
     uint32_t m_ctrl;
 
@@ -140,6 +134,12 @@ private:
     bool m_checksumValid;
 
 protected:
+
+    // The memory in this item.
+    unsigned char *m_mem;
+
+    // The size of the memory region.
+    size_t m_memSize;
 
     // When used in a linked list of items this points to the first item
     // in the list.

@@ -100,13 +100,6 @@ public:
     // thrown.
     bool claim(AQWriterItem& item, size_t memSize);
 
-    // Appends a series of bytes to the passed writer item.  The bytes are
-    // given in 'mem' of length 'memSize'.  If more space needs to be allocated
-    // it is; if the allocation fails then false is returned.
-    //
-    // In the event of a failure no changes are made to the item.
-    bool append(AQWriterItem& item, const void *mem, size_t memSize);
-
     // Commits an item previously obtained via a call to claim() to
     // the queue so that it is available for consumption.  The caller must no 
     // longer access the originally claimed memory.

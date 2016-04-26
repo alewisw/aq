@@ -71,7 +71,7 @@ AQSnapshot::AQSnapshot(void)
 }
 
 //------------------------------------------------------------------------------
-AQSnapshot::AQSnapshot(TraceBuffer *trace)
+AQSnapshot::AQSnapshot(aq::TraceBuffer *trace)
     : m_trace(trace)
     , m_mem(NULL)
     , m_memSize(0)
@@ -92,7 +92,7 @@ AQSnapshot::AQSnapshot(const AQ& queue)
 }
 
 //------------------------------------------------------------------------------
-AQSnapshot::AQSnapshot(const AQ& queue, TraceBuffer *trace)
+AQSnapshot::AQSnapshot(const AQ& queue, aq::TraceBuffer *trace)
     : m_trace(trace)
     , m_mem(NULL)
     , m_memSize(0)

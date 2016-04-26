@@ -121,8 +121,7 @@ AQReader::AQReader(void *mem, size_t memSize)
 }
 
 //------------------------------------------------------------------------------
-AQReader::AQReader(void *mem, size_t memSize,
-    TraceBuffer *trace)
+AQReader::AQReader(void *mem, size_t memSize, aq::TraceBuffer *trace)
     : AQ(TestPointCount, mem, memSize, trace)
     , m_pstate(NULL)
     , m_linkProcessor(NULL)
@@ -144,8 +143,8 @@ AQReader::~AQReader(void)
 }
 
 //------------------------------------------------------------------------------
-bool AQReader::format(int pageSizeShift, unsigned int commitTimeoutMs,
-                             unsigned int options)
+bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
+                      uint32_t options)
 {
     // The memory layout is as follows:
     //

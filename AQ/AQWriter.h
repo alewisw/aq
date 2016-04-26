@@ -86,6 +86,7 @@ public:
     * memory range of another queue writer.
     *
     * @param other The other queue writer whose memory range is to be used by this queue.
+    * @return A reference to this object.
     */
     AQWriter& operator=(const AQWriter& other);
 

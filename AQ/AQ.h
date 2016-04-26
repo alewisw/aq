@@ -52,7 +52,7 @@ class AQItem;
 //------------------------------------------------------------------------------
 
 /**
- * Base class for a Multi-Producer Allocating Concurrent Queue.  This gives 
+ * Represents a Multi-Producer Concurrent Allocating Queue.  This gives 
  * basic information about the queue and encapsulates its memory, however it 
  * does not provide any mechanism to read or write the queue.  This is done by
  * constructing any number of AQWriter objects for writing, and one
@@ -101,24 +101,26 @@ public:
      * When formatting a queue set this flag to enable CRC-32 checksum calculation
      * and validation over each item in the queue.
      */
-    static const unsigned int OPTION_CRC32 = 1 << 0;
+    static const uint32_t OPTION_CRC32 = 1 << 0;
 
     /**
      * When formatting a queue set this flag to attach a link identifier to each item.
      * This allows the AQWriterItem::setLinkIdentifier() function to be called, and it
      * value to be available on the retreived item via AQItem::linkIdentifier().  This
-     * functionality is only available if OPTION_EXPANDABLE is not also configured as
-     * OPTION_EXPANDABLE uses the link identifier to manage its linked-list of items.
+     * functionality is only available if OPTION_EXTENDABLE is not also configured as
+     * OPTION_EXTENDABLE uses the link identifier to manage its linked-list of items.
      */
-    static const unsigned int OPTION_LINK_IDENTIFIER = 1 << 1;
+    static const uint32_t OPTION_LINK_IDENTIFIER = 1 << 1;
 
     /**
      * When formatting a queue set this flag to allow items to be extended in a linked
      * list.  This is generally only suitable when the full length of the item cannot
-     * be known when AQWriter::claim() is called.  This function uses the link identifier
-     * and will override any value set with AQWriterItem::setLinkIdentifier().
+     * be known when AQWriter::claim() is called.  When this option is enable the 
+     * AQItem::linkIdentifier() is used to track the linked-list of items.  As such the
+     * application can no longer use AQWriterItem::setLinkIdentifier() as any value set
+     * there will be overridden when the item is committed to the queue.
      */
-    static const unsigned int OPTION_EXTENDABLE = 1 << 2;
+    static const uint32_t OPTION_EXTENDABLE = 1 << 2;
 
 public:
 
@@ -132,26 +134,21 @@ public:
     bool isFormatted(void) const;
 
     /**
-     * Determines if this queue has been formatted in extendable mode.  In extendable 
-     * mode (AQ::OPTION_EXTENDABLE set when AQReader::format() was called) items can be 
-     * extended in a linked-list arrangement.
+     * Determines if this queue has been formatted with the extendable option.  
+     * In extendable mode (AQ::OPTION_EXTENDABLE set when AQReader::format() was 
+     * called) items can be extended in a linked-list arrangement.
      *
      * @returns True if the queue is formatted in extendable mode, false if it is not
      * formatted or was not formatted in extendable mode.
      */
     bool isExtendable(void) const;
 
-    /**
-     * Obtains the size of the memory region containing the queue.
-     *
-     * @returns The size, in bytes, of the memory region that conatins the queue.
-     */
+    // Obtains the size of the memory region containing the queue.
     size_t memorySize(void) const { return m_memSize;  }
 
     /**
-     * Obtains the size of each page in the queue.  When allocating memory 
-     * from the queue using an integer multiple of pageSize() provides the most efficient 
-     * allocation policy.
+     * Obtains the size of each page in the queue.  Using an integer multiple of pageSize()
+     * for memory allocation results in the most efficient use of the queue memory.
      *
      * @returns The size, in bytes, of each page in the queue.  If the queue
      * is not formatted then 0 is returned.
@@ -168,10 +165,10 @@ public:
 
     /**
      * Obtains the current maximum size of a single AQWriter::claim() request.
-     * This may be less than the actual amount of space avaiable in the queue
+     * This may be less than the actual amount of space available in the queue
      * because this returns the maximum contiguous allocation.  If the queue
-     * has been split (i.e, there are two unused sections) it will be the largest
-     * of the two sections.
+     * has been split (i.e, there are two unused sections) it will be the size
+     * of the largest of the two sections.
      *
      * @returns The maximum number of contiguous bytes that can be allocated from
      * the queue at the current time.
@@ -181,13 +178,13 @@ public:
     /**
      * Obtains the number of times contention has occurred during AQWriter::claim()
      * calls.  Contention occurs when two threads call AQWriter::claim() at the 
-     * same time resulting in only one thread succeeding, and the second thread
+     * same time resulting in only one thread succeeding and the second thread
      * needing to perform a retry.  Contention can be seen as wasted time - so the
      * higher the contention the more wasted CPU cycles are occuring when claiming
      * items from the queue.
      *
      * @returns The monotonically increasing contention counter.  When the counter
-     * reaches its limit (4,294,967,295) it rotates back to 0.
+     * reaches its limit (4,294,967,295) it wraps back to 0.
      */
     uint32_t claimContentionCount(void) const;
 

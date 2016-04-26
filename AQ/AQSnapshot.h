@@ -75,6 +75,8 @@ public:
      * Constructs a new snapshot containing all the valid items in the queue.
      * For a description of what constitutes a valid item see the snap() 
      * function.
+     *
+     * @param queue The queue to capture in this snapshot.
      */
     AQSnapshot(const AQ &queue);
 
@@ -98,6 +100,7 @@ public:
      *
      * @param other The other snapshot to copy.  All items are copied from that
      * snapshot into the new object.
+     * @returns A reference to this object.
      */
     AQSnapshot& operator=(const AQSnapshot& other);
 

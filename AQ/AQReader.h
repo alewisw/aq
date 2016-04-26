@@ -71,12 +71,12 @@ public:
      * @param mem The memory address where the queue is stored.
      * @param memSize The total size of the memory region where the queue is stored.
      */
-    AQReader(void *mem, size_t memSz);
+    AQReader(void *mem, size_t memSize);
 
     // As above with the addition of a tracing buffer that holds all queue access logs.
     // This is only used in the unit and stress tests to track queue accesses and help
     // debug issues.
-    AQReader(void *mem, size_t memSz, aq::TraceBuffer *trace);
+    AQReader(void *mem, size_t memSize, aq::TraceBuffer *trace);
 
 private:
 
@@ -127,7 +127,7 @@ public:
      * The queue formatting operation fails when there is not enough space in the queue
      * to setup for the specified configuration.
      */
-    bool format(int pageSizeShift, unsigned int commitTimeoutMs, unsigned int options = 0);
+    bool format(uint32_t pageSizeShift, uint32_t commitTimeoutMs, uint32_t options = 0);
 
     /**
      * Obtains a reference to a memory address that changes whenever an item is 

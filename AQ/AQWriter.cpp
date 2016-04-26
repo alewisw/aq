@@ -64,7 +64,7 @@ AQWriter::AQWriter(void *mem, size_t memSize)
 }
 
 //------------------------------------------------------------------------------
-AQWriter::AQWriter(void *mem, size_t memSize, TraceBuffer *trace)
+AQWriter::AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace)
     : AQ(TestPointCount, mem, memSize, trace)
 {
 }

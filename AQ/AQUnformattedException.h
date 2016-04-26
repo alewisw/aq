@@ -60,14 +60,15 @@ public:
     /**
      * Constructs this exception as an exact copy of another exception.
      * 
-     * @params other The other exception to copy.
+     * @param other The other exception to copy.
      */
     AQUnformattedException(const AQUnformattedException& other);
 
     /**
      * Assigns the value of this exception to exactly match another.
      *
-     * @params other The other exception to copy.
+     * @param other The other exception to copy.
+     * @return A reference to this object.
      */
     AQUnformattedException& operator=(const AQUnformattedException& other);
 

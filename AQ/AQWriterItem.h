@@ -72,7 +72,7 @@ public:
     /**
      * Constructs a new item so that it is an exact copy of another item.  Note
      * that this does not create a new entry in the queue - it just copies the
-     * reference to the existing item.  Regardless of how many copies are made
+     * references from the other item.  Regardless of how many copies are made
      * only a single call to AQWriter::commit() may be made.  Accessing the
      * memory of an item that has been committed elsewhere results in undefined
      * behavior.
@@ -89,12 +89,13 @@ public:
     /**
      * Assigns this item so that it is an exact copy of another item. Note
      * that this does not create a new entry in the queue - it just copies the
-     * reference to the existing item.  Regardless of how many copies are made
+     * references from the other item.  Regardless of how many copies are made
      * only a single call to AQWriter::commit() may be made.  Accessing the
      * memory of an item that has been committed elsewhere results in undefined
      * behavior.
      *
      * @param other The other item to copy.
+     * @returns A reference to this object.
      */
     AQWriterItem& operator=(const AQWriterItem& other)
     {
@@ -164,7 +165,7 @@ public:
      * @param idx The index of the byte to retreive.  Must be in the range of 0 to
      * (size() - 1).
      * @returns A read-only reference to the specified byte.  If this item is not allocated
-     * or the provided index is outside the range of bytes in this item than the
+     * or the provided index is outside the range of bytes in this item then the
      * returned value is undefined.
      */
     const unsigned char& operator[](size_t idx) const { return mem()[idx]; }
@@ -186,7 +187,7 @@ public:
      * @param idx The index of the byte to retreive.  Must be in the range of 0 to
      * (size() - 1).
      * @returns A read-write reference to the specified byte.  If this item is not allocated
-     * or the provided index is outside the range of bytes in this item than the
+     * or the provided index is outside the range of bytes in this item then the
      * returned value is undefined.
      */
     unsigned char& operator[](size_t idx) { return mem()[idx]; }

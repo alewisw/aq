@@ -57,10 +57,9 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQ::AQ(int testPointCount, void *mem, size_t memSz, 
-                           TraceBuffer *trace)
+AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
     : m_ctrl((CtrlOverlay *)mem)
-    , m_memSize(memSz)
+    , m_memSize(memSize)
     , m_trace(trace)
 #ifdef AQ_TEST_POINT
     , m_tpn(NULL)

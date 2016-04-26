@@ -9,6 +9,9 @@ AQ is a queue data structure intended for use as an inter-thread and inter-proce
   * Variable length items consisting of a linked-list of contiguous memory regions.
 * The queue content can be fully captured and examined by taking a snapshot-in-time.  This allow for recovery of previously processed items.
 
+## Usage and Documentation
+Full API documentation including usage and examples can be found [on the github pages project page](http://alewisw.github.io/aq/).
+
 ## Current Status
 WARNING: AQ is under ACTIVE DEVELOPMENT.  The APIs may change dramatically.  There may be serious bugs.  Use at your own risk.
 

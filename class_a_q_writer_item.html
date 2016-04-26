@@ -26,7 +26,7 @@
    <div id="projectname">AQ
    &#160;<span id="projectnumber">0.0</span>
    </div>
-   <div id="projectbrief">projectbriefhere.</div>
+   <div id="projectbrief">Multi-ProducerConcurrentAllocatingQueue</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -95,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue.  
  <a href="class_a_q_writer_item.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_a_q_writer_item_8h_source.html">AQWriterItem.h</a>&gt;</code></p>
+<p><code>#include &lt;AQWriterItem.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AQWriterItem:</div>
 <div class="dyncontent">
@@ -191,7 +190,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac3eb62c6b4c6dee0c2afafafd8bea06f inherit pub_methods_class_a_q_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this item has been released from the queue with a call to <a class="el" href="class_a_q_reader.html#aad5233986e056a2da7f23e282b7a2596" title="Releases the passed item so that it can be discarded from the queue. ">AQReader::release()</a>.  <a href="#ac3eb62c6b4c6dee0c2afafafd8bea06f">More...</a><br /></td></tr>
 <tr class="separator:ac3eb62c6b4c6dee0c2afafafd8bea06f inherit pub_methods_class_a_q_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2313675d412d90c4b54da718dbd487fc inherit pub_methods_class_a_q_item"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_item.html#a2313675d412d90c4b54da718dbd487fc">isChecksumValid</a> (void) const </td></tr>
-<tr class="memdesc:a2313675d412d90c4b54da718dbd487fc inherit pub_methods_class_a_q_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determies if the checksum for this item is valid when <a class="el" href="class_a_q.html#a101384170c5d0275284c17e058ba17bb" title="When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each ...">AQ::OPTION_CRC32</a> is set for this queue.  <a href="#a2313675d412d90c4b54da718dbd487fc">More...</a><br /></td></tr>
+<tr class="memdesc:a2313675d412d90c4b54da718dbd487fc inherit pub_methods_class_a_q_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determies if the checksum for this item is valid when <a class="el" href="class_a_q.html#ae5926cd2aa448ec7963d49c91fe0b0aa" title="When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each ...">AQ::OPTION_CRC32</a> is set for this queue.  <a href="#a2313675d412d90c4b54da718dbd487fc">More...</a><br /></td></tr>
 <tr class="separator:a2313675d412d90c4b54da718dbd487fc inherit pub_methods_class_a_q_item"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba43b837efe456e423cf290b7bdae608 inherit pub_methods_class_a_q_item"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_item.html#aba43b837efe456e423cf290b7bdae608">capacity</a> (void) const </td></tr>
 <tr class="memdesc:aba43b837efe456e423cf290b7bdae608 inherit pub_methods_class_a_q_item"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the total number of bytes that can be stored in this item.  <a href="#aba43b837efe456e423cf290b7bdae608">More...</a><br /></td></tr>
@@ -233,7 +232,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. </p>
-<p>The <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> can be either accessed directly and written with, e.g., memcpy() or alternatly it can be written to using the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> or similar functions. When the <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option has been set the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> functions are the main mechanism for extending the length of the item by appending new items to the end of the linked list. </p>
+<p>The <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> can be either accessed directly and written with, e.g., memcpy() or alternatly it can be written to using the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> or similar functions. When the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option has been set the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> functions are the main mechanism for extending the length of the item by appending new items to the end of the linked list. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afdcdefe235f169332e99ea46160f4445"></a>
 <div class="memitem">
@@ -284,7 +283,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs a new item so that it is an exact copy of another item. </p>
-<p>Note that this does not create a new entry in the queue - it just copies the reference to the existing item. Regardless of how many copies are made only a single call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may be made. Accessing the memory of an item that has been committed elsewhere results in undefined behavior.</p>
+<p>Note that this does not create a new entry in the queue - it just copies the references from the other item. Regardless of how many copies are made only a single call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may be made. Accessing the memory of an item that has been committed elsewhere results in undefined behavior.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>The other item to copy. </td></tr>
@@ -345,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtains a pointer to the first item in the linked list of items. </p>
-<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
+<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The first item. This is never NULL. </dd></dl>
 
 </div>
@@ -373,7 +372,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtains a read-only pointer to the first item in the linked list of items. </p>
-<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
+<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The first item. This is never NULL. </dd></dl>
 
 </div>
@@ -401,7 +400,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtains a pointer to the last item in the linked list of items. </p>
-<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
+<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The last item. This is never NULL. </dd></dl>
 
 </div>
@@ -429,7 +428,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtains a read-only pointer to the last item in the linked list of items. </p>
-<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
+<p>The returned pointer is always identical to this unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been set for the queue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The last item. This is never NULL. </dd></dl>
 
 </div>
@@ -458,7 +457,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Obtains a pointer to the next item in the linked list of items. </p>
 <p>If this is the last item in the list then NULL is returned.</p>
-<dl class="section return"><dt>Returns</dt><dd>The next item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The next item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
 
 </div>
 </div>
@@ -486,7 +485,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Obtains a read-only pointer to the next item in the linked list of items. </p>
 <p>If this is the last item in the list then NULL is returned.</p>
-<dl class="section return"><dt>Returns</dt><dd>The next item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The next item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
 
 </div>
 </div>
@@ -513,13 +512,14 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Assigns this item so that it is an exact copy of another item. </p>
-<p>Note that this does not create a new entry in the queue - it just copies the reference to the existing item. Regardless of how many copies are made only a single call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may be made. Accessing the memory of an item that has been committed elsewhere results in undefined behavior.</p>
+<p>Note that this does not create a new entry in the queue - it just copies the references from the other item. Regardless of how many copies are made only a single call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may be made. Accessing the memory of an item that has been committed elsewhere results in undefined behavior.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>The other item to copy. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object. </dd></dl>
 
 </div>
 </div>
@@ -554,7 +554,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A read-only reference to the specified byte. If this item is not allocated or the provided index is outside the range of bytes in this item than the returned value is undefined. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A read-only reference to the specified byte. If this item is not allocated or the provided index is outside the range of bytes in this item then the returned value is undefined. </dd></dl>
 
 </div>
 </div>
@@ -589,7 +589,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A read-write reference to the specified byte. If this item is not allocated or the provided index is outside the range of bytes in this item than the returned value is undefined. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A read-write reference to the specified byte. If this item is not allocated or the provided index is outside the range of bytes in this item then the returned value is undefined. </dd></dl>
 
 </div>
 </div>
@@ -617,7 +617,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Obtains a pointer to the previous item in the linked list of items. </p>
 <p>If this is the first item in the list then NULL is returned.</p>
-<dl class="section return"><dt>Returns</dt><dd>The previous item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The previous item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
 
 </div>
 </div>
@@ -645,7 +645,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Obtains a read-only pointer to the previous item in the linked list of items. </p>
 <p>If this is the first item in the list then NULL is returned.</p>
-<dl class="section return"><dt>Returns</dt><dd>The previous item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The previous item or NULL if there are no further items. NULL is always returned unless <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set. </dd></dl>
 
 </div>
 </div>
@@ -672,7 +672,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the link identifier for this item. </p>
-<p>Setting the link identifier only makes sense when <a class="el" href="class_a_q.html#ac5589df9ddcdc04100228b318b330cfa" title="When formatting a queue set this flag to attach a link identifier to each item. ">AQ::OPTION_LINK_IDENTIFIER</a> has been set on the queue and <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set. In all other situations the link identifier set here will not propogate through to the item reader via <a class="el" href="class_a_q_reader.html#a6746d86b29c04ff19032106323cdef6f" title="Obtains the next item from the queue. ">AQReader::retrieve()</a>. See <a class="el" href="class_a_q_item.html#a8e2e1414d09863cf3b733119a068dbb8" title="Obtains the link identifier for this item. ">AQItem::linkIdentifier()</a> for more information on why this is the case.</p>
+<p>Setting the link identifier only makes sense when <a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745" title="When formatting a queue set this flag to attach a link identifier to each item. ">AQ::OPTION_LINK_IDENTIFIER</a> has been set on the queue and <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set. In all other situations the link identifier set here will not propogate through to the item reader via <a class="el" href="class_a_q_reader.html#a6746d86b29c04ff19032106323cdef6f" title="Obtains the next item from the queue. ">AQReader::retrieve()</a>. See <a class="el" href="class_a_q_item.html#a8e2e1414d09863cf3b733119a068dbb8" title="Obtains the link identifier for this item. ">AQItem::linkIdentifier()</a> for more information on why this is the case.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lkid</td><td>The link identifier value to set for this item. </td></tr>
@@ -707,9 +707,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Writes data into this item at its current write position. </p>
-<p>The write position differs depending on whether <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been configured:</p><ul>
-<li>When <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set then the item internaly tracks the highest index where no write operation has been performed. The write occurs at that index.</li>
-<li>When <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then the write occurs at the very end of the item, essentially appending and possibly extending the size of the item by adding to the linked list. If the write succeeds then the write position is incremented by the number of bytes written. If this fail (an exception is thrown or more items could not be allocated) no changes are made to this item.</li>
+<p>The write position differs depending on whether <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been configured:</p><ul>
+<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set then the item internaly tracks the highest index where no write operation has been performed. The write occurs at that index.</li>
+<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then the write occurs at the very end of the item, essentially appending and possibly extending the size of the item by adding to the linked list. If the write succeeds then the write position is incremented by the number of bytes written. If this fail (an exception is thrown or more items could not be allocated) no changes are made to this item.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -723,8 +723,8 @@ Additional Inherited Members</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
     <tr><td class="paramname">std::invalid_argument</td><td>If the mem argument was NULL and memSize was any value other than 0. </td></tr>
-    <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the current position is at the end of the item. </td></tr>
-    <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the current position is at the end of the item. </td></tr>
+    <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,7 +765,7 @@ Additional Inherited Members</h2></td></tr>
 <p>If the write succeeds then the write position as used by <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> is set to the maximum of its current value and off + memSize. If the write fails (an exception is thrown or more items could not be allocated) no changes are made to this item.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">off</td><td>The offset from this item where the write is to be performed. For <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> items this offset may be larger than the <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">size()</a> of this item in which case it finds the item that contains that offset and starts the write there. </td></tr>
+    <tr><td class="paramname">off</td><td>The offset from this item where the write is to be performed. For <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> items this offset may be larger than the <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">size()</a> of this item in which case it finds the item that contains that offset and starts the write there. </td></tr>
     <tr><td class="paramname">mem</td><td>The buffer that contains the memory to write into this item. </td></tr>
     <tr><td class="paramname">memSize</td><td>The number of bytes to write into this item. </td></tr>
   </table>
@@ -776,8 +776,8 @@ Additional Inherited Members</h2></td></tr>
   <table class="exception">
     <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
     <tr><td class="paramname">std::invalid_argument</td><td>If the mem argument was NULL and memSize was any value other than 0. </td></tr>
-    <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the offest is at the end, or beyond the end, of the item. </td></tr>
-    <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes at the given offset. </td></tr>
+    <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the offest is at the end, or beyond the end, of the item. </td></tr>
+    <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes at the given offset. </td></tr>
   </table>
   </dd>
 </dl>
@@ -785,13 +785,13 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_a_q_writer_item_8h_source.html">AQWriterItem.h</a></li>
+<li>AQWriterItem.h</li>
 <li>AQWriterItem.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 26 2016 20:47:26 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

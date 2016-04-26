@@ -26,7 +26,7 @@
    <div id="projectname">AQ
    &#160;<span id="projectnumber">0.0</span>
    </div>
-   <div id="projectbrief">projectbriefhere.</div>
+   <div id="projectbrief">Multi-ProducerConcurrentAllocatingQueue</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -95,14 +94,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Implements the writer side of a Multi-Producer Concurrent Allocating Queue.  
  <a href="class_a_q_writer.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_a_q_writer_8h_source.html">AQWriter.h</a>&gt;</code></p>
+<p><code>#include &lt;AQWriter.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AQWriter:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_a_q_writer.png" usemap="#AQWriter_map" alt=""/>
   <map id="AQWriter_map" name="AQWriter_map">
-<area href="class_a_q.html" title="Base class for a Multi-Producer Allocating Concurrent Queue. " alt="AQ" shape="rect" coords="0,0,65,24"/>
+<area href="class_a_q.html" title="Represents a Multi-Producer Concurrent Allocating Queue. " alt="AQ" shape="rect" coords="0,0,65,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -134,11 +133,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a40ff86ec57b5e791b7e20c14e372999f inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the memory for this queue has been correctly formatted.  <a href="#a40ff86ec57b5e791b7e20c14e372999f">More...</a><br /></td></tr>
 <tr class="separator:a40ff86ec57b5e791b7e20c14e372999f inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a7d869cae253ba0b35bd92cb38f647fda">isExtendable</a> (void) const </td></tr>
-<tr class="memdesc:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this queue has been formatted in extendable mode.  <a href="#a7d869cae253ba0b35bd92cb38f647fda">More...</a><br /></td></tr>
+<tr class="memdesc:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this queue has been formatted with the extendable option.  <a href="#a7d869cae253ba0b35bd92cb38f647fda">More...</a><br /></td></tr>
 <tr class="separator:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ae7442a5014d898f1f62f77737ce24feb">memorySize</a> (void) const </td></tr>
-<tr class="memdesc:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of the memory region containing the queue.  <a href="#ae7442a5014d898f1f62f77737ce24feb">More...</a><br /></td></tr>
-<tr class="separator:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ab47a5c88e8a23ec7a6e05f6d833c7d01">pageSize</a> (void) const </td></tr>
 <tr class="memdesc:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of each page in the queue.  <a href="#ab47a5c88e8a23ec7a6e05f6d833c7d01">More...</a><br /></td></tr>
 <tr class="separator:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,15 +151,15 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_class_a_q"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_a_q')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_a_q.html">AQ</a></td></tr>
-<tr class="memitem:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a101384170c5d0275284c17e058ba17bb">OPTION_CRC32</a> = 1 &lt;&lt; 0</td></tr>
-<tr class="memdesc:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each item in the queue.  <a href="#a101384170c5d0275284c17e058ba17bb">More...</a><br /></td></tr>
-<tr class="separator:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ac5589df9ddcdc04100228b318b330cfa">OPTION_LINK_IDENTIFIER</a> = 1 &lt;&lt; 1</td></tr>
-<tr class="memdesc:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to attach a link identifier to each item.  <a href="#ac5589df9ddcdc04100228b318b330cfa">More...</a><br /></td></tr>
-<tr class="separator:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773">OPTION_EXTENDABLE</a> = 1 &lt;&lt; 2</td></tr>
-<tr class="memdesc:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to allow items to be extended in a linked list.  <a href="#a17b341a79c5d883ae5394e3a3e2fa773">More...</a><br /></td></tr>
-<tr class="separator:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ae5926cd2aa448ec7963d49c91fe0b0aa">OPTION_CRC32</a> = 1 &lt;&lt; 0</td></tr>
+<tr class="memdesc:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each item in the queue.  <a href="#ae5926cd2aa448ec7963d49c91fe0b0aa">More...</a><br /></td></tr>
+<tr class="separator:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745">OPTION_LINK_IDENTIFIER</a> = 1 &lt;&lt; 1</td></tr>
+<tr class="memdesc:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to attach a link identifier to each item.  <a href="#a8c1b45770a35b703df2b1f1f17ca4745">More...</a><br /></td></tr>
+<tr class="separator:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056">OPTION_EXTENDABLE</a> = 1 &lt;&lt; 2</td></tr>
+<tr class="memdesc:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to allow items to be extended in a linked list.  <a href="#adaa41d392733b3f668d4b5be8064e056">More...</a><br /></td></tr>
+<tr class="separator:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the writer side of a Multi-Producer Concurrent Allocating Queue. </p>
@@ -195,7 +191,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Constructs a queue writer object that uses the passed shared memory region mem of total size memSize bytes. </p>
 <p>This does not read or write the memory - it just sets up the internal pointers and references.</p>
-<p>Before the queue can be accesed it must be formatted with <a class="el" href="class_a_q_reader.html#ac9bcc041a825dc8f3d57d9644ea65863" title="Formats the shared memory for this queue so it can be used by the reader and writers. ">AQReader::format()</a>.</p>
+<p>Before the queue can be accesed it must be formatted with <a class="el" href="class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3" title="Formats the shared memory for this queue so it can be used by the reader and writers. ">AQReader::format()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mem</td><td>The memory address where the queue is stored. </td></tr>
@@ -290,8 +286,8 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">item</td><td>The writer item, supplied by the caller, which is updated with the allocated memory and related parameters. </td></tr>
     <tr><td class="paramname">memSize</td><td>The minimum amount of memory that is required for this allocation. This field is treated slightly differently depending on the formatting options for the queue:<ul>
-<li>If <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set this represents exactly the number of bytes occupied by this item. It cannot be subsequetly changed or altered in any way. <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">AQWriterItem::size()</a> and <a class="el" href="class_a_q_item.html#aba43b837efe456e423cf290b7bdae608" title="Obtains the total number of bytes that can be stored in this item. ">AQWriterItem::capacity()</a> will always return this value.</li>
-<li>If <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then this is the minimum size for the first item in the linked-list of extendable items. The AQWriteItem::size() will initially be set to 0, while the AQWriteItem::capacity() will be at least memSize although it may be more.</li>
+<li>If <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set this represents exactly the number of bytes occupied by this item. It cannot be subsequetly changed or altered in any way. <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">AQWriterItem::size()</a> and <a class="el" href="class_a_q_item.html#aba43b837efe456e423cf290b7bdae608" title="Obtains the total number of bytes that can be stored in this item. ">AQWriterItem::capacity()</a> will always return this value.</li>
+<li>If <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then this is the minimum size for the first item in the linked-list of extendable items. The AQWriteItem::size() will initially be set to 0, while the AQWriteItem::capacity() will be at least memSize although it may be more.</li>
 </ul>
 </td></tr>
   </table>
@@ -300,7 +296,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>If the region could be claimed then true is returned and item updated to contain the valid memory. If the item could not be claimed then false is returned and item is marked as not allocated (<a class="el" href="class_a_q_item.html#a21513e2a0208dbbd000c1821913ff595" title="Determins if this item has been allocated to part of a queue. ">AQItem::isAllocated()</a> returns false). </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>When the memSize parameter is greater than the maximum allocation size for an <a class="el" href="class_a_q.html" title="Base class for a Multi-Producer Allocating Concurrent Queue. ">AQ</a> (1 MB) or when the queue is not extendable (<a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set) and the memSize parameter was 0. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>When the memSize parameter is greater than the maximum allocation size for an <a class="el" href="class_a_q.html" title="Represents a Multi-Producer Concurrent Allocating Queue. ">AQ</a> (1 MB) or when the queue is not extendable (<a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set) and the memSize parameter was 0. </td></tr>
     <tr><td class="paramname"><a class="el" href="class_a_q_unformatted_exception.html" title="The exception that is thrown when an attempt is made to access an unformatted queue. ">AQUnformattedException</a></td><td>When the queue is not formatted. </td></tr>
   </table>
   </dd>
@@ -381,17 +377,18 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object. </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_a_q_writer_8h_source.html">AQWriter.h</a></li>
+<li>AQWriter.h</li>
 <li>AQWriter.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 26 2016 20:47:26 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

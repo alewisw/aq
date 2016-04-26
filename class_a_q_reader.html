@@ -26,7 +26,7 @@
    <div id="projectname">AQ
    &#160;<span id="projectnumber">0.0</span>
    </div>
-   <div id="projectbrief">projectbriefhere.</div>
+   <div id="projectbrief">Multi-ProducerConcurrentAllocatingQueue</div>
   </td>
  </tr>
  </tbody>
@@ -41,7 +41,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -96,28 +95,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Implements the reader side of a Multi-Producer Concurrent Allocating Queue.  
  <a href="class_a_q_reader.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_a_q_reader_8h_source.html">AQReader.h</a>&gt;</code></p>
+<p><code>#include &lt;AQReader.h&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AQReader:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="class_a_q_reader.png" usemap="#AQReader_map" alt=""/>
   <map id="AQReader_map" name="AQReader_map">
-<area href="class_a_q.html" title="Base class for a Multi-Producer Allocating Concurrent Queue. " alt="AQ" shape="rect" coords="0,0,72,24"/>
+<area href="class_a_q.html" title="Represents a Multi-Producer Concurrent Allocating Queue. " alt="AQ" shape="rect" coords="0,0,72,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a57838b644730fd0aca9b8a0c53669cc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#a57838b644730fd0aca9b8a0c53669cc0">AQReader</a> (void *mem, size_t memSz)</td></tr>
-<tr class="memdesc:a57838b644730fd0aca9b8a0c53669cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a queue reader object that uses the passed shared memory region mem of total size memSize bytes.  <a href="#a57838b644730fd0aca9b8a0c53669cc0">More...</a><br /></td></tr>
-<tr class="separator:a57838b644730fd0aca9b8a0c53669cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ae0e18f1e3fb051e693344ef9989e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#ad3ae0e18f1e3fb051e693344ef9989e0">AQReader</a> (void *mem, size_t memSize)</td></tr>
+<tr class="memdesc:ad3ae0e18f1e3fb051e693344ef9989e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a queue reader object that uses the passed shared memory region mem of total size memSize bytes.  <a href="#ad3ae0e18f1e3fb051e693344ef9989e0">More...</a><br /></td></tr>
+<tr class="separator:ad3ae0e18f1e3fb051e693344ef9989e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c68dce26fb22d1e0cf4afd47457e09a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#a2c68dce26fb22d1e0cf4afd47457e09a">~AQReader</a> (void)</td></tr>
 <tr class="memdesc:a2c68dce26fb22d1e0cf4afd47457e09a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this queue reader.  <a href="#a2c68dce26fb22d1e0cf4afd47457e09a">More...</a><br /></td></tr>
 <tr class="separator:a2c68dce26fb22d1e0cf4afd47457e09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9bcc041a825dc8f3d57d9644ea65863"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#ac9bcc041a825dc8f3d57d9644ea65863">format</a> (int pageSizeShift, unsigned int commitTimeoutMs, unsigned int options=0)</td></tr>
-<tr class="memdesc:ac9bcc041a825dc8f3d57d9644ea65863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the shared memory for this queue so it can be used by the reader and writers.  <a href="#ac9bcc041a825dc8f3d57d9644ea65863">More...</a><br /></td></tr>
-<tr class="separator:ac9bcc041a825dc8f3d57d9644ea65863"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f3540da41dd5f50f4509bc62b23f2d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3">format</a> (uint32_t pageSizeShift, uint32_t commitTimeoutMs, uint32_t options=0)</td></tr>
+<tr class="memdesc:a8f3540da41dd5f50f4509bc62b23f2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats the shared memory for this queue so it can be used by the reader and writers.  <a href="#a8f3540da41dd5f50f4509bc62b23f2d3">More...</a><br /></td></tr>
+<tr class="separator:a8f3540da41dd5f50f4509bc62b23f2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97babb3a8853758a2c37c68ecd27fe3f"><td class="memItemLeft" align="right" valign="top">const volatile uint32_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_reader.html#a97babb3a8853758a2c37c68ecd27fe3f">commitCounter</a> (void) const </td></tr>
 <tr class="memdesc:a97babb3a8853758a2c37c68ecd27fe3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains a reference to a memory address that changes whenever an item is committed to the queue.  <a href="#a97babb3a8853758a2c37c68ecd27fe3f">More...</a><br /></td></tr>
 <tr class="separator:a97babb3a8853758a2c37c68ecd27fe3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,11 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a40ff86ec57b5e791b7e20c14e372999f inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the memory for this queue has been correctly formatted.  <a href="#a40ff86ec57b5e791b7e20c14e372999f">More...</a><br /></td></tr>
 <tr class="separator:a40ff86ec57b5e791b7e20c14e372999f inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a7d869cae253ba0b35bd92cb38f647fda">isExtendable</a> (void) const </td></tr>
-<tr class="memdesc:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this queue has been formatted in extendable mode.  <a href="#a7d869cae253ba0b35bd92cb38f647fda">More...</a><br /></td></tr>
+<tr class="memdesc:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if this queue has been formatted with the extendable option.  <a href="#a7d869cae253ba0b35bd92cb38f647fda">More...</a><br /></td></tr>
 <tr class="separator:a7d869cae253ba0b35bd92cb38f647fda inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ae7442a5014d898f1f62f77737ce24feb">memorySize</a> (void) const </td></tr>
-<tr class="memdesc:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of the memory region containing the queue.  <a href="#ae7442a5014d898f1f62f77737ce24feb">More...</a><br /></td></tr>
-<tr class="separator:ae7442a5014d898f1f62f77737ce24feb inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ab47a5c88e8a23ec7a6e05f6d833c7d01">pageSize</a> (void) const </td></tr>
 <tr class="memdesc:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of each page in the queue.  <a href="#ab47a5c88e8a23ec7a6e05f6d833c7d01">More...</a><br /></td></tr>
 <tr class="separator:ab47a5c88e8a23ec7a6e05f6d833c7d01 inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,21 +149,21 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_class_a_q"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_a_q')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_a_q.html">AQ</a></td></tr>
-<tr class="memitem:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a101384170c5d0275284c17e058ba17bb">OPTION_CRC32</a> = 1 &lt;&lt; 0</td></tr>
-<tr class="memdesc:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each item in the queue.  <a href="#a101384170c5d0275284c17e058ba17bb">More...</a><br /></td></tr>
-<tr class="separator:a101384170c5d0275284c17e058ba17bb inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ac5589df9ddcdc04100228b318b330cfa">OPTION_LINK_IDENTIFIER</a> = 1 &lt;&lt; 1</td></tr>
-<tr class="memdesc:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to attach a link identifier to each item.  <a href="#ac5589df9ddcdc04100228b318b330cfa">More...</a><br /></td></tr>
-<tr class="separator:ac5589df9ddcdc04100228b318b330cfa inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773">OPTION_EXTENDABLE</a> = 1 &lt;&lt; 2</td></tr>
-<tr class="memdesc:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to allow items to be extended in a linked list.  <a href="#a17b341a79c5d883ae5394e3a3e2fa773">More...</a><br /></td></tr>
-<tr class="separator:a17b341a79c5d883ae5394e3a3e2fa773 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#ae5926cd2aa448ec7963d49c91fe0b0aa">OPTION_CRC32</a> = 1 &lt;&lt; 0</td></tr>
+<tr class="memdesc:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to enable CRC-32 checksum calculation and validation over each item in the queue.  <a href="#ae5926cd2aa448ec7963d49c91fe0b0aa">More...</a><br /></td></tr>
+<tr class="separator:ae5926cd2aa448ec7963d49c91fe0b0aa inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745">OPTION_LINK_IDENTIFIER</a> = 1 &lt;&lt; 1</td></tr>
+<tr class="memdesc:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to attach a link identifier to each item.  <a href="#a8c1b45770a35b703df2b1f1f17ca4745">More...</a><br /></td></tr>
+<tr class="separator:a8c1b45770a35b703df2b1f1f17ca4745 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="memItemLeft" align="right" valign="top">static const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056">OPTION_EXTENDABLE</a> = 1 &lt;&lt; 2</td></tr>
+<tr class="memdesc:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">When formatting a queue set this flag to allow items to be extended in a linked list.  <a href="#adaa41d392733b3f668d4b5be8064e056">More...</a><br /></td></tr>
+<tr class="separator:adaa41d392733b3f668d4b5be8064e056 inherit pub_static_attribs_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the reader side of a Multi-Producer Concurrent Allocating Queue. </p>
 <p>Given a single memory region only a single reader may read from the queue at any one time. Moreover an object of this class can only be accessed from a single thread at any one time - it is not reentrant. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a57838b644730fd0aca9b8a0c53669cc0"></a>
+<a class="anchor" id="ad3ae0e18f1e3fb051e693344ef9989e0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -181,7 +177,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>memSz</em>&#160;</td>
+          <td class="paramname"><em>memSize</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -194,7 +190,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Constructs a queue reader object that uses the passed shared memory region mem of total size memSize bytes. </p>
 <p>This does not read or write the memory - it just sets up the internal pointers and references.</p>
 <p>Only a single <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a> object can be constructed for any one shared memory region. Having more than one <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a> object results in undefined behavior.</p>
-<p>Before the queue can be accesed it must be formatted with <a class="el" href="class_a_q_reader.html#ac9bcc041a825dc8f3d57d9644ea65863" title="Formats the shared memory for this queue so it can be used by the reader and writers. ">AQReader::format()</a>.</p>
+<p>Before the queue can be accesed it must be formatted with <a class="el" href="class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3" title="Formats the shared memory for this queue so it can be used by the reader and writers. ">AQReader::format()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mem</td><td>The memory address where the queue is stored. </td></tr>
@@ -254,26 +250,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac9bcc041a825dc8f3d57d9644ea65863"></a>
+<a class="anchor" id="a8f3540da41dd5f50f4509bc62b23f2d3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool AQReader::format </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>pageSizeShift</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>commitTimeoutMs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>options</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
@@ -289,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">pageSizeShift</td><td>Configures the page size for the queue. The page size is set to 2^pageSizeShift; for example if pageSizeShift is 7 then the page size is 128 bytes. </td></tr>
     <tr><td class="paramname">commitTimeoutMs</td><td>The maximum amount of time that an <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> obtained from <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> can be held before calling <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. This time window is how the queue handles writers that terminate (i.e., crash or otherwise) while olding uncommitted <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> objects. Holding an item for long than this time can result in it being returned as uncommitted (<a class="el" href="class_a_q_item.html#a09f66df9383cbeec05990270d2517397" title="Determines if this item was committed to the queue with a call to AQWriter::commit(). ">AQItem::isCommitted()</a> returns false). An application that writes to the memory of an <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> that was returned as uncommitted causes undefined behavior. As such, for reliable operation, writers must commit their items within the commitTimeoutMs time window after <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> returns the item. </td></tr>
-    <tr><td class="paramname">options</td><td>The set of options for this queue. This is a bit-mask where the options are joined together by a logical OR operation. Refer to the descriptions of AQ::OPTION_CRC3, <a class="el" href="class_a_q.html#ac5589df9ddcdc04100228b318b330cfa" title="When formatting a queue set this flag to attach a link identifier to each item. ">AQ::OPTION_LINK_IDENTIFIER</a>, and <a class="el" href="class_a_q.html#a17b341a79c5d883ae5394e3a3e2fa773" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> for more information. </td></tr>
+    <tr><td class="paramname">options</td><td>The set of options for this queue. This is a bit-mask where the options are joined together by a logical OR operation. Refer to the descriptions of AQ::OPTION_CRC3, <a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745" title="When formatting a queue set this flag to attach a link identifier to each item. ">AQ::OPTION_LINK_IDENTIFIER</a>, and <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> for more information. </td></tr>
   </table>
   </dd>
 </dl>
@@ -362,13 +358,13 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_a_q_reader_8h_source.html">AQReader.h</a></li>
+<li>AQReader.h</li>
 <li>AQReader.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 26 2016 20:47:26 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

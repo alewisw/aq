@@ -1,0 +1,51 @@
+C:/Users/alewi/Desktop/aq/AQ/AQ.cpp:60: warning: no matching class member found for 
+  AQ::AQ(int testPointCount, void *mem, size_t memSz, TraceBuffer *trace)
+Possible candidates:
+  AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace=NULL)
+  AQ::AQ(const AQ &other)
+
+C:/Users/alewi/Desktop/aq/AQ/AQReader.cpp:124: warning: no matching class member found for 
+  AQReader::AQReader(void *mem, size_t memSize, TraceBuffer *trace)
+Possible candidates:
+  AQReader::AQReader(void *mem, size_t memSz)
+  AQReader::AQReader(void *mem, size_t memSz, aq::TraceBuffer *trace)
+  AQReader::AQReader(const AQReader &other)
+
+C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.cpp:74: warning: no uniquely matching class member found for 
+  AQSnapshot::AQSnapshot(TraceBuffer *trace)
+Possible candidates:
+  AQSnapshot::AQSnapshot(void)' at line 67 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(aq::TraceBuffer *trace)' at line 72 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQ &queue)' at line 79 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQ &queue, aq::TraceBuffer *trace)' at line 86 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQSnapshot &other)' at line 94 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+
+C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.cpp:95: warning: no uniquely matching class member found for 
+  AQSnapshot::AQSnapshot(const  AQ &queue, TraceBuffer *trace)
+Possible candidates:
+  AQSnapshot::AQSnapshot(void)' at line 67 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(aq::TraceBuffer *trace)' at line 72 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQ &queue)' at line 79 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQ &queue, aq::TraceBuffer *trace)' at line 86 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+  AQSnapshot::AQSnapshot(const AQSnapshot &other)' at line 94 of file C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h
+
+C:/Users/alewi/Desktop/aq/AQ/AQWriter.cpp:67: warning: no uniquely matching class member found for 
+  AQWriter::AQWriter(void *mem, size_t memSize, TraceBuffer *trace)
+Possible candidates:
+  AQWriter::AQWriter(void *mem, size_t memSize)' at line 69 of file C:/Users/alewi/Desktop/aq/AQ/AQWriter.h
+  AQWriter::AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace)' at line 74 of file C:/Users/alewi/Desktop/aq/AQ/AQWriter.h
+  AQWriter::AQWriter(const AQWriter &other)' at line 82 of file C:/Users/alewi/Desktop/aq/AQ/AQWriter.h
+
+C:/Users/alewi/Desktop/aq/AQ/AQItem.h:120: warning: return type of member AQItem::operator= is not documented
+C:/Users/alewi/Desktop/aq/AQ/AQReader.h:61: warning: argument 'memSize' of command @param is not found in the argument list of AQReader::AQReader(void *mem, size_t memSz)
+C:/Users/alewi/Desktop/aq/AQ/AQReader.h:74: warning: The following parameters of AQReader::AQReader(void *mem, size_t memSz) are not documented:
+  parameter 'memSz'
+C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h:79: warning: parameters of member AQSnapshot::AQSnapshot are not (all) documented
+C:/Users/alewi/Desktop/aq/AQ/AQSnapshot.h:102: warning: return type of member AQSnapshot::operator= is not documented
+C:/Users/alewi/Desktop/aq/AQ/AQUnformattedException.h:62: warning: Found unknown command `\params'
+C:/Users/alewi/Desktop/aq/AQ/AQUnformattedException.h:65: warning: parameters of member AQUnformattedException::AQUnformattedException are not (all) documented
+C:/Users/alewi/Desktop/aq/AQ/AQUnformattedException.h:69: warning: Found unknown command `\params'
+C:/Users/alewi/Desktop/aq/AQ/AQUnformattedException.h:72: warning: parameters of member AQUnformattedException::operator= are not (all) documented
+C:/Users/alewi/Desktop/aq/AQ/AQUnformattedException.h:72: warning: return type of member AQUnformattedException::operator= is not documented
+C:/Users/alewi/Desktop/aq/AQ/AQWriter.h:90: warning: return type of member AQWriter::operator= is not documented
+C:/Users/alewi/Desktop/aq/AQ/AQWriterItem.h:99: warning: return type of member AQWriterItem::operator= is not documented

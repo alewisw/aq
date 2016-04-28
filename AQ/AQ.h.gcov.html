@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Unit Test Code Coverage - AQ/AQ.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">AQ</a> - AQ.h<span style="font-size: 80%;"> (source / <a href="AQ.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Unit Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-04-28 15:47:09</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : #ifndef AQ_H</a>
+<span class="lineNum">       2 </span>                :            : #define AQ_H
+<span class="lineNum">       3 </span>                :            : //==============================================================================
+<span class="lineNum">       4 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       5 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       6 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       7 </span>                :            : //
+<span class="lineNum">       8 </span>                :            : //==============================================================================
+<span class="lineNum">       9 </span>                :            : 
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : // Includes
+<span class="lineNum">      12 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &lt;stdint.h&gt;
+<span class="lineNum">      15 </span>                :            : #include &lt;string&gt;
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      21 </span>                :            : // Exported Macros
+<span class="lineNum">      22 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : 
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      28 </span>                :            : // Exported Type Definitions
+<span class="lineNum">      29 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      30 </span>                :            : 
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : 
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      35 </span>                :            : // Exported Variable Declarations
+<span class="lineNum">      36 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : // Forwrd declarations.
+<span class="lineNum">      39 </span>                :            : namespace aq 
+<span class="lineNum">      40 </span>                :            : {
+<span class="lineNum">      41 </span>                :            :     class TestPointNotifier;
+<span class="lineNum">      42 </span>                :            :     class TraceBuffer;
+<span class="lineNum">      43 </span>                :            :     struct CtrlOverlay;
+<span class="lineNum">      44 </span>                :            : }
+<span class="lineNum">      45 </span>                :            : class AQItem;
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :            : 
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      51 </span>                :            : // Exported Function and Class Declarations
+<span class="lineNum">      52 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      53 </span>                :            : 
+<span class="lineNum">      54 </span>                :            : /**
+<span class="lineNum">      55 </span>                :            :  * Represents a Multi-Producer Concurrent Allocating Queue.  This gives 
+<span class="lineNum">      56 </span>                :            :  * basic information about the queue and encapsulates its memory, however it 
+<span class="lineNum">      57 </span>                :            :  * does not provide any mechanism to read or write the queue.  This is done by
+<span class="lineNum">      58 </span>                :            :  * constructing any number of AQWriter objects for writing, and one
+<span class="lineNum">      59 </span>                :            :  * AQReader object for reading the queue.
+<span class="lineNum">      60 </span>                :            :  */
+<span class="lineNum">      61 </span>                :            : class AQ
+<span class="lineNum">      62 </span>                :            : {
+<span class="lineNum">      63 </span>                :            :     // The snapshot class may access the m_ctrl and m_memSize fields.
+<span class="lineNum">      64 </span>                :            :     friend class AQSnapshot;
+<span class="lineNum">      65 </span>                :            : 
+<span class="lineNum">      66 </span>                :            :     // The trace buffer captures data directly from within the MPAC queue for
+<span class="lineNum">      67 </span>                :            :     // logging purposes.
+<span class="lineNum">      68 </span>                :            :     friend class aq::TraceBuffer;
+<span class="lineNum">      69 </span>                :            : 
+<span class="lineNum">      70 </span>                :            : protected:
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :            :     // Constructs a queue object that uses the passed shared memory region mem
+<span class="lineNum">      73 </span>                :            :     // of total size memSize bytes.  This does not read or write the memory -
+<span class="lineNum">      74 </span>                :            :     // it just sets up the internal pointers and references.
+<span class="lineNum">      75 </span>                :            :     //
+<span class="lineNum">      76 </span>                :            :     // The trace argument is an optional tracing buffer that holds all queue 
+<span class="lineNum">      77 </span>                :            :     // access logs.  This is only used in the unit and stress tests to track 
+<span class="lineNum">      78 </span>                :            :     // queue accesses and help debug issues.
+<span class="lineNum">      79 </span>                :            :     AQ(int testPointCount, void *mem, size_t memSize, 
+<span class="lineNum">      80 </span>                :            :        aq::TraceBuffer *trace = NULL);
+<span class="lineNum">      81 </span>                :            : 
+<span class="lineNum">      82 </span>                :            :     // Constructs this queue such that it references exactly the same underlying
+<span class="lineNum">      83 </span>                :            :     // memory range as another queue.
+<span class="lineNum">      84 </span>                :            :     AQ(const AQ&amp; other);
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            :     // Assigns the underlying memory range of this queue to exactly match the shared
+<span class="lineNum">      87 </span>                :            :     // memory range of another queue.
+<span class="lineNum">      88 </span>                :            :     AQ&amp; operator=(const AQ&amp; other);
+<span class="lineNum">      89 </span>                :            : 
+<span class="lineNum">      90 </span>                :            :     // Destroys this queue.  The underlying memory is not impacted by this operation.
+<span class="lineNum">      91 </span>                :            :     virtual ~AQ(void);
+<span class="lineNum">      92 </span>                :            : 
+<span class="lineNum">      93 </span>                :            : protected:
+<span class="lineNum">      94 </span>                :            : 
+<span class="lineNum">      95 </span>                :            :     // The trace buffer for this queue.
+<span class="lineNum">      96 </span>                :            :     aq::TraceBuffer *m_trace;
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            : public:
+<span class="lineNum">      99 </span>                :            : 
+<span class="lineNum">     100 </span>                :            :     /**
+<span class="lineNum">     101 </span>                :            :      * When formatting a queue set this flag to enable CRC-32 checksum calculation
+<span class="lineNum">     102 </span>                :            :      * and validation over each item in the queue.
+<span class="lineNum">     103 </span>                :            :      */
+<span class="lineNum">     104 </span>                :            :     static const uint32_t OPTION_CRC32 = 1 &lt;&lt; 0;
+<span class="lineNum">     105 </span>                :            : 
+<span class="lineNum">     106 </span>                :            :     /**
+<span class="lineNum">     107 </span>                :            :      * When formatting a queue set this flag to attach a link identifier to each item.
+<span class="lineNum">     108 </span>                :            :      * This allows the AQWriterItem::setLinkIdentifier() function to be called, and it
+<span class="lineNum">     109 </span>                :            :      * value to be available on the retreived item via AQItem::linkIdentifier().  This
+<span class="lineNum">     110 </span>                :            :      * functionality is only available if OPTION_EXTENDABLE is not also configured as
+<span class="lineNum">     111 </span>                :            :      * OPTION_EXTENDABLE uses the link identifier to manage its linked-list of items.
+<span class="lineNum">     112 </span>                :            :      */
+<span class="lineNum">     113 </span>                :            :     static const uint32_t OPTION_LINK_IDENTIFIER = 1 &lt;&lt; 1;
+<span class="lineNum">     114 </span>                :            : 
+<span class="lineNum">     115 </span>                :            :     /**
+<span class="lineNum">     116 </span>                :            :      * When formatting a queue set this flag to allow items to be extended in a linked
+<span class="lineNum">     117 </span>                :            :      * list.  This is generally only suitable when the full length of the item cannot
+<span class="lineNum">     118 </span>                :            :      * be known when AQWriter::claim() is called.  When this option is enable the 
+<span class="lineNum">     119 </span>                :            :      * AQItem::linkIdentifier() is used to track the linked-list of items.  As such the
+<span class="lineNum">     120 </span>                :            :      * application can no longer use AQWriterItem::setLinkIdentifier() as any value set
+<span class="lineNum">     121 </span>                :            :      * there will be overridden when the item is committed to the queue.
+<span class="lineNum">     122 </span>                :            :      */
+<span class="lineNum">     123 </span>                :            :     static const uint32_t OPTION_EXTENDABLE = 1 &lt;&lt; 2;
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :            : public:
+<span class="lineNum">     126 </span>                :            : 
+<span class="lineNum">     127 </span>                :            :     /**
+<span class="lineNum">     128 </span>                :            :      * Determines if the memory for this queue has been correctly formatted.  It is not
+<span class="lineNum">     129 </span>                :            :      * possible to access a queue unless the memory has been formatted.
+<span class="lineNum">     130 </span>                :            :      *
+<span class="lineNum">     131 </span>                :            :      * @returns true if the queue memory is correctly formatted or false if the
+<span class="lineNum">     132 </span>                :            :      * queue memory is not formatted.
+<span class="lineNum">     133 </span>                :            :      */
+<span class="lineNum">     134 </span>                :            :     bool isFormatted(void) const;
+<span class="lineNum">     135 </span>                :            : 
+<span class="lineNum">     136 </span>                :            :     /**
+<span class="lineNum">     137 </span>                :            :      * Determines if this queue has been formatted with the extendable option.  
+<span class="lineNum">     138 </span>                :            :      * In extendable mode (AQ::OPTION_EXTENDABLE set when AQReader::format() was 
+<span class="lineNum">     139 </span>                :            :      * called) items can be extended in a linked-list arrangement.
+<span class="lineNum">     140 </span>                :            :      *
+<span class="lineNum">     141 </span>                :            :      * @returns True if the queue is formatted in extendable mode, false if it is not
+<span class="lineNum">     142 </span>                :            :      * formatted or was not formatted in extendable mode.
+<span class="lineNum">     143 </span>                :            :      */
+<span class="lineNum">     144 </span>                :            :     bool isExtendable(void) const;
+<a name="145"><span class="lineNum">     145 </span>                :            : </a>
+<span class="lineNum">     146 </span>                :            :     // Obtains the size of the memory region containing the queue.
+<span class="lineNum">     147 </span>                :<span class="lineCov">          4 :     size_t memorySize(void) const { return m_memSize;  }</span>
+<span class="lineNum">     148 </span>                :            : 
+<span class="lineNum">     149 </span>                :            :     /**
+<span class="lineNum">     150 </span>                :            :      * Obtains the size of each page in the queue.  Using an integer multiple of pageSize()
+<span class="lineNum">     151 </span>                :            :      * for memory allocation results in the most efficient use of the queue memory.
+<span class="lineNum">     152 </span>                :            :      *
+<span class="lineNum">     153 </span>                :            :      * @returns The size, in bytes, of each page in the queue.  If the queue
+<span class="lineNum">     154 </span>                :            :      * is not formatted then 0 is returned.
+<span class="lineNum">     155 </span>                :            :      */
+<span class="lineNum">     156 </span>                :            :     size_t pageSize(void) const;
+<span class="lineNum">     157 </span>                :            : 
+<span class="lineNum">     158 </span>                :            :     /**
+<span class="lineNum">     159 </span>                :            :      * Obtains the number of pages in the queue.
+<span class="lineNum">     160 </span>                :            :      *
+<span class="lineNum">     161 </span>                :            :      * @returns The number of pages in the queue.  If the queue is not formatted
+<span class="lineNum">     162 </span>                :            :      * then 0 is returned.
+<span class="lineNum">     163 </span>                :            :      */
+<span class="lineNum">     164 </span>                :            :     size_t pageCount(void) const;
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :            :     /**
+<span class="lineNum">     167 </span>                :            :      * Obtains the current maximum size of a single AQWriter::claim() request.
+<span class="lineNum">     168 </span>                :            :      * This may be less than the actual amount of space available in the queue
+<span class="lineNum">     169 </span>                :            :      * because this returns the maximum contiguous allocation.  If the queue
+<span class="lineNum">     170 </span>                :            :      * has been split (i.e, there are two unused sections) it will be the size
+<span class="lineNum">     171 </span>                :            :      * of the largest of the two sections.
+<span class="lineNum">     172 </span>                :            :      *
+<span class="lineNum">     173 </span>                :            :      * @returns The maximum number of contiguous bytes that can be allocated from
+<span class="lineNum">     174 </span>                :            :      * the queue at the current time.
+<span class="lineNum">     175 </span>                :            :      */
+<span class="lineNum">     176 </span>                :            :     size_t availableSize(void) const;
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :            :     /**
+<span class="lineNum">     179 </span>                :            :      * Obtains the number of times contention has occurred during AQWriter::claim()
+<span class="lineNum">     180 </span>                :            :      * calls.  Contention occurs when two threads call AQWriter::claim() at the 
+<span class="lineNum">     181 </span>                :            :      * same time resulting in only one thread succeeding and the second thread
+<span class="lineNum">     182 </span>                :            :      * needing to perform a retry.  Contention can be seen as wasted time - so the
+<span class="lineNum">     183 </span>                :            :      * higher the contention the more wasted CPU cycles are occuring when claiming
+<span class="lineNum">     184 </span>                :            :      * items from the queue.
+<span class="lineNum">     185 </span>                :            :      *
+<span class="lineNum">     186 </span>                :            :      * @returns The monotonically increasing contention counter.  When the counter
+<span class="lineNum">     187 </span>                :            :      * reaches its limit (4,294,967,295) it wraps back to 0.
+<span class="lineNum">     188 </span>                :            :      */
+<span class="lineNum">     189 </span>                :            :     uint32_t claimContentionCount(void) const;
+<span class="lineNum">     190 </span>                :            : 
+<span class="lineNum">     191 </span>                :            : protected:
+<span class="lineNum">     192 </span>                :            : 
+<span class="lineNum">     193 </span>                :            :     // Throws an AQUnformattedException if this queue is not headerXref; if
+<span class="lineNum">     194 </span>                :            :     // the queue is headerXref returns the m_ctrl object.
+<span class="lineNum">     195 </span>                :            :     aq::CtrlOverlay *ctrlThrowOnUnformatted(const char *func) const;
+<span class="lineNum">     196 </span>                :            : 
+<span class="lineNum">     197 </span>                :            :     // Defines the control region of the shared memory.
+<span class="lineNum">     198 </span>                :            :     aq::CtrlOverlay *m_ctrl;
+<span class="lineNum">     199 </span>                :            : 
+<span class="lineNum">     200 </span>                :            :     // The total size, as passed into this class, of the shared memory.
+<span class="lineNum">     201 </span>                :            :     size_t m_memSize;
+<span class="lineNum">     202 </span>                :            : 
+<span class="lineNum">     203 </span>                :            : 
+<span class="lineNum">     204 </span>                :            :     // Test point management - only used as part of the automated unit testing
+<span class="lineNum">     205 </span>                :            :     // framework.
+<span class="lineNum">     206 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     207 </span>                :            : protected:
+<span class="lineNum">     208 </span>                :            :     aq::TestPointNotifier *m_tpn;
+<a name="209"><span class="lineNum">     209 </span>                :            :     void testPoint(int tp);</a>
+<span class="lineNum">     210 </span>                :            : public:
+<span class="lineNum">     211 </span>                :<span class="lineCov">         39 :     aq::TestPointNotifier *testPointNotifier(void) const { return m_tpn;  }</span>
+<span class="lineNum">     212 </span>                :            : #else
+<span class="lineNum">     213 </span>                :            : protected:
+<span class="lineNum">     214 </span>                :            :     void testPoint(int tp) { }
+<span class="lineNum">     215 </span>                :            : #endif
+<span class="lineNum">     216 </span>                :            : 
+<span class="lineNum">     217 </span>                :            : };
+<span class="lineNum">     218 </span>                :            : 
+<span class="lineNum">     219 </span>                :            : 
+<span class="lineNum">     220 </span>                :            : 
+<span class="lineNum">     221 </span>                :            : 
+<span class="lineNum">     222 </span>                :            : #endif
+<span class="lineNum">     223 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

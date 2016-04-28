@@ -57,7 +57,7 @@ script:
     - genhtml --rc lcov_branch_coverage=1 --output-directory ../lcov-genhtml --title "AQ Unit Test Code Coverage" --num-spaces 4 aq-coverage.info
     - cd ../gh-pages
     - git pull origin gh-pages
-    - cp -fr ../lcov-genhtml/* .
+    - cp -fr ../lcov-genhtml/* TravisCI/Coverage/
     - git add *
     - git commit -a -m "Updated code coverage results"
     - git push origin gh-pages

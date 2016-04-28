@@ -59,7 +59,7 @@ static void buildItem(AQTest& aq, AQItem& item, size_t itemCount);
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-TEST_SUITE(UtObjectCopyAssign);
+TEST_SUITE(UtObjectLifecycle);
 
 //------------------------------------------------------------------------------
 TEST(given_AQUnformattedException_when_CopyConstructed_then_ObjectsIdentical)
@@ -73,10 +73,24 @@ TEST(given_AQUnformattedException_when_CopyConstructed_then_ObjectsIdentical)
 //------------------------------------------------------------------------------
 TEST(given_AQUnformattedException_when_Assigned_then_ObjectsIdentical)
 {
+    AQUnformattedException *a = new AQUnformattedException("foo");
+    AQUnformattedException b("bar");
+
+    b = *a;
+
+    REQUIRE(strcmp(a->what(), b.what()) == 0);
+
+    delete a;
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AQUnformattedException_when_SelfAssigned_then_ObjectUnchanged)
+{
     AQUnformattedException a("foo");
     AQUnformattedException b("bar");
 
     b = a;
+    a = a;
 
     REQUIRE(strcmp(a.what(), b.what()) == 0);
 }
@@ -108,22 +122,38 @@ TEST(given_AQWriter_when_Assigned_then_ObjectsIdentical)
     unsigned char mem[1000];
     unsigned char memb[500];
     AQWriter a(mem, sizeof(mem));
-    AQWriter b(memb, sizeof(memb));
+    AQWriter *b = new AQWriter(memb, sizeof(memb));
 
-    b = a;
+    *b = a;
 
-    REQUIRE(a.memorySize() == b.memorySize());
+    REQUIRE(a.memorySize() == b->memorySize());
 
     AQReader r(mem, sizeof(mem));
     r.format(2, 1000, AQ::OPTION_EXTENDABLE);
 
     REQUIRE(a.isExtendable());
-    REQUIRE(b.isExtendable());
+    REQUIRE(b->isExtendable());
 
     r.format(2, 1000, 0);
 
     REQUIRE(!a.isExtendable());
-    REQUIRE(!b.isExtendable());
+    REQUIRE(!b->isExtendable());
+
+    delete b;
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AQWriter_when_SelfAssigned_then_ObjectUnchanged)
+{
+    unsigned char mem[1000];
+    unsigned char memb[500];
+    AQWriter a(mem, sizeof(mem));
+    AQWriter b(memb, sizeof(memb));
+
+    b = a;
+    a = a;
+
+    REQUIRE(a.memorySize() == b.memorySize());
 }
 
 //------------------------------------------------------------------------------

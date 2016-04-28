@@ -58,6 +58,28 @@ TEST(when_MemoryNull_then_FormatFails)
 }
 
 //------------------------------------------------------------------------------
+TEST(given_Formatted_when_CorruptFormatMask_then_FormatFails)
+{
+    unsigned char mem[10000];
+    AQReader q(mem, sizeof(mem));
+    CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
+    CHECK(q.isExtendable());
+    mem[0] = 0xFF;
+    REQUIRE(!q.isExtendable());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_Formatted_when_CorruptFormatMask_then_PageSizeZero)
+{
+    unsigned char mem[10000];
+    AQReader q(mem, sizeof(mem));
+    CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
+    CHECK(q.pageSize() == 4);
+    mem[0] = 0xFF;
+    REQUIRE(q.pageSize() == 0);
+}
+
+//------------------------------------------------------------------------------
 TEST(when_MemorySizeZero_then_FormatFails)
 {
     unsigned char mem[10000];

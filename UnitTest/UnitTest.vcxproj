@@ -49,7 +49,7 @@
     <ClCompile Include="UtExtendableSnapshot.cpp" />
     <ClCompile Include="UtExtendableWriter.cpp" />
     <ClCompile Include="UtFormat.cpp" />
-    <ClCompile Include="UtObjectCopyAssign.cpp" />
+    <ClCompile Include="UtObjectLifecycle.cpp" />
     <ClCompile Include="UtQueueId.cpp" />
     <ClCompile Include="UtRelease.cpp" />
     <ClCompile Include="UtRetrieve.cpp" />

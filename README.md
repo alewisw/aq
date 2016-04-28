@@ -23,7 +23,7 @@ AQ incorporates two main validation test reigimes:
 These tests are run automatically through online CI services:
 
 | Operating System | CI Provider | Build | Status |
-| ---------------- | ----------- | ----- | ------ |
+| ---------------- | ----------- | ----- | !----! |
 | Linux   | Travis CI | [Unit Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
 | Linux   | Travis CI | [Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/) | |
 | Linux   | Coveralls | [Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |

@@ -63,12 +63,9 @@ AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
     , m_memSize(memSize)
     , m_trace(trace)
 #ifdef AQ_TEST_POINT
-    , m_tpn(NULL)
+    , m_tpn(new TestPointNotifier(testPointCount, this))
 #endif
 {
-#ifdef AQ_TEST_POINT
-    m_tpn = new TestPointNotifier(testPointCount, this);
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -77,12 +74,9 @@ AQ::AQ(const AQ& other)
     , m_memSize(other.m_memSize)
     , m_trace(other.m_trace)
 #ifdef AQ_TEST_POINT
-    , m_tpn(NULL)
+    , m_tpn(new TestPointNotifier(other.m_tpn->testPointCount(), this))
 #endif
 {
-#ifdef AQ_TEST_POINT
-    m_tpn = new TestPointNotifier(other.m_tpn->testPointCount(), this);
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -101,11 +95,8 @@ AQ& AQ::operator=(const AQ& other)
 AQ::~AQ(void)
 {
 #ifdef AQ_TEST_POINT
-    if (m_tpn)
-    {
-        delete m_tpn;
-        m_tpn = NULL;
-    }
+    delete m_tpn;
+    m_tpn = NULL;
 #endif
 }
 

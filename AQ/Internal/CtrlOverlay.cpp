@@ -56,21 +56,13 @@ namespace aq {
 //------------------------------------------------------------------------------
 bool CtrlOverlay::isFormatted(size_t memSize) const
 {
-    if (this == NULL || memSize < offsetof(CtrlOverlay, headerXref)
-        + sizeof(this->headerXref))
-    {
-        return false;
-    }
-    else
-    {
-        uint32_t magic = ((pageSizeShift << CtrlOverlay::HEADER_XREF_PAGE_SIZE_SHIFT)
-                | (memOffset  << CtrlOverlay::HEADER_XREF_MEM_OFFSET_SHIFT)
-                | (pageCount));
-        return memSize >= size 
-            && magic == headerXref 
-            && formatVersion == FORMAT_VERSION_1 
-            && !(options & OPTION_INVALID_MASK);
-    }
+    uint32_t magic = ((pageSizeShift << CtrlOverlay::HEADER_XREF_PAGE_SIZE_SHIFT)
+            | (memOffset  << CtrlOverlay::HEADER_XREF_MEM_OFFSET_SHIFT)
+            | (pageCount));
+    return memSize >= size 
+        && magic == headerXref 
+        && formatVersion == FORMAT_VERSION_1 
+        && !(options & OPTION_INVALID_MASK);
 }
 
 //------------------------------------------------------------------------------

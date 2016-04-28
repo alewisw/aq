@@ -43,6 +43,9 @@ script:
     - cd Performance
     - make  
     - cd ..
+    - cd Release
+    - ./UnitTest/UnitTest
+    - cd ..
     - cd Debug
     - lcov --rc lcov_branch_coverage=1 --directory . --zerocounters
     - ./UnitTest/UnitTest

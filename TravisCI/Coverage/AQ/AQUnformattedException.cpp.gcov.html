@@ -37,21 +37,21 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-28 15:32:38</td>
+            <td class="headerValue">2016-04-28 16:45:47</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">4</td>
             <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntryMed">80.0 %</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntryLo">50.0 %</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -120,10 +120,10 @@
 <span class="lineNum">      49 </span>                :            : //------------------------------------------------------------------------------
 <a name="50"><span class="lineNum">      50 </span>                :            : </a>
 <span class="lineNum">      51 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      52 </span>                :<span class="lineCov">          7 : AQUnformattedException::AQUnformattedException(const std::string&amp; msg)</span>
-<span class="lineNum">      53 </span>                :<span class="lineCov">          7 :     : runtime_error(msg)</span>
+<span class="lineNum">      52 </span>                :<span class="lineCov">          9 : AQUnformattedException::AQUnformattedException(const std::string&amp; msg)</span>
+<span class="lineNum">      53 </span>                :<span class="lineCov">          9 :     : runtime_error(msg)</span>
 <span class="lineNum">      54 </span>                :            : {
-<span class="lineNum">      55 </span>                :<span class="lineCov">          7 : }</span>
+<span class="lineNum">      55 </span>                :<span class="lineCov">          9 : }</span>
 <a name="56"><span class="lineNum">      56 </span>                :            : </a>
 <span class="lineNum">      57 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">      58 </span>                :<span class="lineCov">          1 : AQUnformattedException::AQUnformattedException(const AQUnformattedException&amp; other)</span>
@@ -132,19 +132,19 @@
 <span class="lineNum">      61 </span>                :<span class="lineCov">          1 : }</span>
 <a name="62"><span class="lineNum">      62 </span>                :            : </a>
 <span class="lineNum">      63 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      64 </span>                :<span class="lineCov">          1 : AQUnformattedException&amp; AQUnformattedException::operator=(const AQUnformattedException&amp; other)</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">          3 : AQUnformattedException&amp; AQUnformattedException::operator=(const AQUnformattedException&amp; other)</span>
 <span class="lineNum">      65 </span>                :            : {
-<span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     if (this != &amp;other)</span>
+<span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     if (this != &amp;other)</span>
 <span class="lineNum">      67 </span>                :            :     {
-<span class="lineNum">      68 </span>                :<span class="lineCov">          1 :         runtime_error::operator=(other);</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">          2 :         runtime_error::operator=(other);</span>
 <span class="lineNum">      69 </span>                :            :     }
-<span class="lineNum">      70 </span>                :<span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">          3 :     return *this;</span>
 <span class="lineNum">      71 </span>                :            : }
 <a name="72"><span class="lineNum">      72 </span>                :            : </a>
 <span class="lineNum">      73 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      74 </span>                :<span class="lineCov">          8 : AQUnformattedException::~AQUnformattedException(void) throw ()</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">         10 : AQUnformattedException::~AQUnformattedException(void) throw ()</span>
 <span class="lineNum">      75 </span>                :            : {
-<span class="lineNum">      76 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 8 times"> + </span>]:<span class="lineCov">          8 : }</span>
+<span class="lineNum">      76 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 10 times"> + </span>]:<span class="lineCov">         11 : }</span>
 <span class="lineNum">      77 </span>                :            : 
 <span class="lineNum">      78 </span>                :            : 
 <span class="lineNum">      79 </span>                :            : 

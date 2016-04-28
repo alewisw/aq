@@ -1,8 +1,9 @@
 language: cpp
+dist: trusty
 
 compiler:  
     - gcc
-    
+     
 before_script:  
     - mkdir _Build
     - cd _Build

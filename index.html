@@ -153,7 +153,7 @@ released </td><td bgcolor="#8F8F8F" valign="top" align="center"><p class="startt
 <div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> mem[4096];            <span class="comment">// In this example the shared memory region is fixed.</span></div><div class="line"></div><div class="line"><a class="code" href="class_a_q_reader.html">AQReader</a> reader(mem, <span class="keyword">sizeof</span>(mem));  <span class="comment">// Construct a new reader around the shared memory region.</span></div><div class="line"><span class="keywordflow">if</span> (!reader.<a class="code" href="class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3">format</a>(7, 1000))        <span class="comment">// Format the queue; the page size is 128 bytes leading to a pageSizeShift of 7 ((1 &lt;&lt; 7) == 128)</span></div><div class="line">{                                   <span class="comment">// the commit timeout is 1000 milliseconds; no special options are configured.</span></div><div class="line">    fprintf(stderr, <span class="stringliteral">&quot;Queue format failed&quot;</span>); </div><div class="line">    exit(1);</div><div class="line">}</div></div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 28 2016 14:20:03 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 28 2016 14:39:04 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

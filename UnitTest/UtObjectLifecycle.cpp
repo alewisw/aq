@@ -157,6 +157,14 @@ TEST(given_AQWriter_when_SelfAssigned_then_ObjectUnchanged)
 }
 
 //------------------------------------------------------------------------------
+TEST(given_NewAQWriter_when_Deleted_then_ObjectDestroyed)
+{
+    unsigned char mem[1000];
+    AQReader *a = new AQReader(mem, sizeof(mem));
+    delete a;
+}
+
+//------------------------------------------------------------------------------
 AQTEST_FORMAT(given_ThreeItemAQWriterItem_when_FirstCopyConstructed_then_ObjectsIdentical, AQ::OPTION_EXTENDABLE)
 {
     AQWriterItem a;

@@ -80,6 +80,17 @@ TEST(given_Formatted_when_CorruptFormatMask_then_PageSizeZero)
 }
 
 //------------------------------------------------------------------------------
+TEST(given_Formatted_when_CorruptFormatMask_then_PageCountZero)
+{
+    unsigned char mem[10000];
+    AQReader q(mem, sizeof(mem));
+    CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
+    CHECK(q.pageCount() > 0);
+    mem[0] = 0xFF;
+    REQUIRE(q.pageCount() == 0);
+}
+
+//------------------------------------------------------------------------------
 TEST(when_MemorySizeZero_then_FormatFails)
 {
     unsigned char mem[10000];

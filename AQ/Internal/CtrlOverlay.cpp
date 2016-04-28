@@ -14,7 +14,7 @@
 #include "AQItem.h"
 #include "AQ.h"
 
-#include <cstddef>
+#include <stddef.h>
 
 namespace aq {
 

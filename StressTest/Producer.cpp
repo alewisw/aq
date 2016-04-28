@@ -17,9 +17,10 @@
 #include "Timer.h"
 
 #include <algorithm>
-#include <cstring>
 #include <sstream>
 #include <stdexcept>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 

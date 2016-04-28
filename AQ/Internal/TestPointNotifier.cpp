@@ -11,7 +11,7 @@
 
 #include "TestPointNotifier.h"
 
-#include <cstring>
+#include <string.h>
 
 using namespace std;
 using namespace aq;

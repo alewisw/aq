@@ -71,7 +71,7 @@ AQUnformattedException& AQUnformattedException::operator=(const AQUnformattedExc
 }
 
 //------------------------------------------------------------------------------
-AQUnformattedException::~AQUnformattedException(void)
+AQUnformattedException::~AQUnformattedException(void) throw ()
 {
 }
 

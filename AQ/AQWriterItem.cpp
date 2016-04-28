@@ -13,7 +13,7 @@
 
 #include "AQWriter.h"
 
-#include <cstring>
+#include <string.h>
 #include <sstream>
 #include <stdexcept>
 

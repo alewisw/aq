@@ -11,7 +11,7 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include <cstdint>
+#include <stdint.h>
 
 #include <map>
 #include <string>

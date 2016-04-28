@@ -16,7 +16,7 @@
 
 #include "TraceBuffer.h"
 
-#include <cstring>
+#include <string.h>
 #include <iomanip>
 
 using namespace std;

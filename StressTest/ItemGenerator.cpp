@@ -11,8 +11,9 @@
 
 #include "ItemGenerator.h"
 
-#include <cstring>
 #include <stdexcept>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 

@@ -14,7 +14,7 @@
 #include <Windows.h>
 #include <intrin.h>
 
-#include <cstdint>
+#include <stdint.h>
 
 #pragma intrinsic(_InterlockedOr)
 

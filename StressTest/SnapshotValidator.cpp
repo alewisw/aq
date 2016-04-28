@@ -13,7 +13,7 @@
 
 #include "Main.h"
 
-#include <cstring>
+#include <string.h>
 #include <iomanip>
 #include <sstream>
 

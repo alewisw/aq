@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(aq)
 
-set(GCC_FLAGS "-fexceptions -std=gnu++11")
+set(GCC_FLAGS "-fexceptions")
 set(AQ_DEBUG_FLAGS "-DAQ_TEST_UNIT -DAQ_TEST_POINT -DAQ_TEST_TRACE")
 
 set(CMAKE_CXX_FLAGS_DEBUG "${GCC_FLAGS} ${AQ_DEBUG_FLAGS} -g -fprofile-arcs -ftest-coverage")

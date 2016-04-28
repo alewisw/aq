@@ -13,8 +13,8 @@
 
 #include "Prng.h"
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
 
 

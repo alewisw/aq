@@ -18,8 +18,8 @@
 #include "Timer.h"
 #include "TraceBuffer.h"
 
-#include <cstddef>
-#include <cstring>
+#include <stddef.h>
+#include <string.h>
 #include <sstream>
 #include <stdexcept>
 

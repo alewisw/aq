@@ -72,7 +72,7 @@ public:
     //
     // The queueControlSize is the number of bytes to allocate to capturing queue
     // state; if set to 0 queue state is not captured.
-    TraceManager(LogContentMode logContent = LogContentMode::None,
+    TraceManager(LogContentMode logContent = None,
                  size_t bufferSize = TRACE_MANAGER_BUFFER_SIZE_DEFAULT);
 
     // Not defined; trace managers cannot be copied or assigned.

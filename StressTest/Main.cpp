@@ -23,7 +23,7 @@
 
 #include "Optarg.h"
 
-#include <cstring>
+#include <string.h>
 #include <ctime>
 #include <cstdio>
 #include <iostream>

@@ -75,7 +75,7 @@ public:
     /**
      * Destroys this exception.
      */
-    virtual ~AQUnformattedException(void);
+    virtual ~AQUnformattedException(void) throw ();
 
 };
 

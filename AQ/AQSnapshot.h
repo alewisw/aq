@@ -13,7 +13,7 @@
 
 #include "AQItem.h"
 
-#include <cstdint>
+#include <stdint.h>
 
 #include <vector>
 

@@ -17,9 +17,10 @@
 #include "CtrlOverlay.h"
 #include "TraceManager.h"
 
-#include <cstdarg>
-#include <cstring>
 #include <iomanip>
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 using namespace std;
 using namespace aq;

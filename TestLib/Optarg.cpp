@@ -12,6 +12,7 @@
 #include "Optarg.h"
 
 #include <iomanip>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -124,7 +125,7 @@ void Optarg::updateHelp(char ch, const char *desc, const char *type,
     // Remove trailing spaces.
     while (str.size() > 0 && isspace(str[str.size() - 1]))
     {
-        str.pop_back();
+        str.erase(str.size() - 1, 1);
     }
 
     // Add default value description.
@@ -195,7 +196,7 @@ bool Optarg::hasOpt(char ch, const char *desc)
 
     updateHelp(ch, desc, NULL);
 
-    return it != m_opts.cend();
+    return it != m_opts.end();
 }
 
 //------------------------------------------------------------------------------
@@ -203,7 +204,7 @@ void Optarg::opt(char ch, std::string& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value = it->second;
     }
@@ -215,7 +216,7 @@ void Optarg::opt(char ch, bool& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend())
+    if (it != m_opts.end())
     {
         value = !value;
     }
@@ -228,7 +229,7 @@ void Optarg::opt(char ch, int& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value = (int)strtol(it->second.c_str(), NULL, 10);
     }
@@ -243,7 +244,7 @@ void Optarg::opt(char ch, unsigned int& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value = (unsigned int)strtoul(it->second.c_str(), NULL, 10);
     }
@@ -258,7 +259,7 @@ void Optarg::opt(char ch, long& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value = (long)strtol(it->second.c_str(), NULL, 10);
     }
@@ -273,7 +274,7 @@ void Optarg::opt(char ch, unsigned long& value, const char *desc)
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value = (unsigned long)strtoul(it->second.c_str(), NULL, 10);
     }
@@ -288,7 +289,7 @@ void Optarg::opt(char ch, unsigned int bitmask, unsigned int& value, const char 
 {
     map<char, string>::const_iterator it = m_opts.find(ch);
 
-    if (it != m_opts.cend())
+    if (it != m_opts.end())
     {
         if (value & bitmask)
         {
@@ -317,7 +318,7 @@ void Optarg::opt(char ch, std::vector<unsigned int>& value, const char *desc)
         ss << value[i];
     }
 
-    if (it != m_opts.cend() && it->second.size() != 0)
+    if (it != m_opts.end() && it->second.size() != 0)
     {
         value.clear();
 

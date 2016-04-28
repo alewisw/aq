@@ -14,6 +14,7 @@
 #include "Atomic.h"
 
 #include <string>
+#include <stdarg.h>
 
 
 

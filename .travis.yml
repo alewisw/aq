@@ -15,13 +15,11 @@ install:
     - lcov --version
     
 before_script: 
-    - git config --global credential.helper store
-    - echo "https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com" > "~\.git-credentials"
-    - git config --global user.email "alewis.sw@gmail.com"
-    - git config --global user.name "Travis CI"
-    - mkdir gh-pages
-    - git clone --depth 1 https://github.com/alewisw/aq.git --branch gh-pages --single-branch gh-pages
-    - ls -la gh-pages
+    - git clone --depth 1 https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com/alewisw/aq.git --branch gh-pages --single-branch gh-pages
+    - cd gh-pages
+    - git config user.email "alewis.sw@gmail.com"
+    - git config user.name "Travis CI"
+    - cd ..
     - mkdir -p gh-pages/TravisCI/Coverage
     - mkdir Debug
     - cd Debug

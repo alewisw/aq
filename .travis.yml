@@ -55,4 +55,5 @@ script:
     - cd ../gh-pages
     - git add *
     - git commit -a -m "Updated code coverage results"
+    - git pull origin gh-pages
     - git push origin gh-pages

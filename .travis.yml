@@ -15,8 +15,6 @@ install:
     - lcov --version
     
 before_script: 
-    - mkdir _Build
-    - cd _Build 
     - mkdir Debug
     - cd Debug
     - cmake ../.. -DCMAKE_BUILD_TYPE=DEBUG

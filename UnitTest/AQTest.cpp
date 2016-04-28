@@ -55,8 +55,10 @@ do                                                                              
 //------------------------------------------------------------------------------
 
 // Local storage in case the constant is taken as a reference.
+#ifdef __GNUC__
 const size_t AQTest::PAGE_COUNT;
 const size_t AQTest::PAGE_SIZE;
+#endif
 
 
 

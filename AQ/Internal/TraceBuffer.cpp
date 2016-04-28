@@ -267,7 +267,7 @@ void TraceBuffer::vsprintfRecord(size_t& pos, Record *rec, const char *fmt,
     if (pos < TRACE_BUFFER_MSG_SIZE - 1)
     {
         size_t avail = TRACE_BUFFER_MSG_SIZE - 1 - pos;
-#ifdef WIN32
+#ifdef _WIN32
         int c = _vsnprintf(&rec->msg[pos], avail, fmt, argp);
 #else
         int c = vsnprintf(&rec->msg[pos], avail, fmt, argp);

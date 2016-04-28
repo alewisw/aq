@@ -240,7 +240,7 @@ void Producer::writeItem(void)
 
                         // Set the truncation marker.
                         m_producerGen.next();
-#ifdef WIN32
+#ifdef _WIN32
                         _snprintf((char *)&(*m_items[i])[0], RECORD_LEN_CHARS + 1, RECORD_LEN_FORMAT, (unsigned int)recPos);
 #else
                         snprintf((char *)&(*m_items[i])[0], RECORD_LEN_CHARS + 1, RECORD_LEN_FORMAT, (unsigned int)recPos);

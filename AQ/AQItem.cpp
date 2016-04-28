@@ -44,11 +44,12 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 // Local storage in case the constant is taken as a reference.
+#ifdef __GNUC__
 const uint32_t AQItem::QUEUE_IDENTIFIER_MASK;
 const uint32_t AQItem::QUEUE_IDENTIFIER_USER_MASK;
 const uint32_t AQItem::QUEUE_IDENTIFIER_USER_BIT;
 const uint32_t AQItem::QUEUE_IDENTIFIER_INVALID;
-
+#endif
 
 
 

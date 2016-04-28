@@ -616,14 +616,14 @@ string itemToString(const AQItem *item)
 
     string rstr = str;
 
-#ifdef WIN32
+#ifdef _WIN32
     _snprintf(str, len, "@%p", item);
 #else
     snprintf(str, len, "@%p", item);
 #endif
     rstr += str;
 
-#ifdef WIN32
+#ifdef _WIN32
     _snprintf(str, len, " [quid=%08X, lkid=%08X]", item->queueIdentifier(), item->linkIdentifier());
 #else
     snprintf(str, len, " [quid=%08X, lkid=%08X]", item->queueIdentifier(), item->linkIdentifier());

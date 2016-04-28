@@ -21,11 +21,14 @@ AQ incorporates two main validation test reigimes:
 * Stress tests that aggressivly access the queue to validate real-world behavior for various queue configurations.
 
 These tests are run automatically through online CI services:
-* [Travis CI Linux Build & Test Results](https://travis-ci.org/alewisw/aq) [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq)
-* [Travis CI Linux Code Coverage Results](http://alewisw.github.io/aq/TravisCI/Coverage/)
-* [Travis CI Linux / Coveralls Code Coverage Report](https://coveralls.io/github/alewisw/aq?branch=master) [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master)
-* [Appveyor Windows Unit Test Resuts](https://ci.appveyor.com/project/alewisw/aq)
-* [Appveyor Windows Stress Test Results](https://ci.appveyor.com/project/alewisw/aq-a7p4i)
+
+| Operating System | CI Provider | Build | Status |
+| Linux   | Travis CI | [Unit Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
+| Linux   | Travis CI | [Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/) | |
+| Linux   | Coveralls | [Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
+| Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | |
+| Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/) | |
+| Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq) | |
 
 ## License
 AQ is licensed under the Mozilla Public License Version 2.0; see the [LICENSE FILE](https://github.com/alewisw/aq/blob/master/LICENSE) for details.

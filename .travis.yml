@@ -25,13 +25,13 @@ before_script:
 script: 
     - cd Debug
     - make  
-    - cd..
+    - cd ..
     - cd Release
     - make  
-    - cd..
+    - cd ..
     - cd Performance
     - make  
-    - cd..
+    - cd ..
     - cd Debug/UnitTest
     - ./UnitTest
     - cd ../..

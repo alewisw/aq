@@ -16,7 +16,7 @@ install:
     
 before_script: 
     - git config --global credential.helper store
-    - echo https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com" > "~\.git-credentials"
+    - echo "https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com" > "~\.git-credentials"
     - git config --global user.email "alewis.sw@gmail.com"
     - git config --global user.name "Travis CI"
     - mkdir gh-pages
@@ -55,6 +55,6 @@ script:
     - coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} aq-coverage.info
     - genhtml --rc lcov_branch_coverage=1 --output-directory ../gh-pages/aq/TravisCI/Coverage --title "AQ Unit Test Code Coverage" --num-spaces 4 aq-coverage.info
     - cd ../gh-pages/aq
-    - git add .
-    - git commit -m "Updated code coverage results"
+    - git add *
+    - git commit -a -m "Updated code coverage results"
     - git push origin gh-pages

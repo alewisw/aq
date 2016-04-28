@@ -22,7 +22,7 @@ before_script:
     - mkdir gh-pages
     - git clone --depth 1 https://github.com/alewisw/aq.git --branch gh-pages --single-branch gh-pages
     - ls -la gh-pages
-    - mkdir -p gh-pages/aq/TravisCI/Coverage
+    - mkdir -p gh-pages/TravisCI/Coverage
     - mkdir Debug
     - cd Debug
     - cmake ../.. -DCMAKE_BUILD_TYPE=DEBUG
@@ -53,8 +53,8 @@ script:
     - lcov --rc lcov_branch_coverage=1 --remove coverage.info '/usr/*' 'TestLib/*' 'UnitTest/*' 'TraceBuffer.cpp' 'TraceBuffer.h' 'TraceManager.cpp' 'TraceManager.h' 'TestPointNotifier.cpp' 'TestPointNotifier.h' --output-file aq-coverage.info
     - lcov --rc lcov_branch_coverage=1 --list aq-coverage.info
     - coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} aq-coverage.info
-    - genhtml --rc lcov_branch_coverage=1 --output-directory ../gh-pages/aq/TravisCI/Coverage --title "AQ Unit Test Code Coverage" --num-spaces 4 aq-coverage.info
-    - cd ../gh-pages/aq
+    - genhtml --rc lcov_branch_coverage=1 --output-directory ../gh-pages/TravisCI/Coverage --title "AQ Unit Test Code Coverage" --num-spaces 4 aq-coverage.info
+    - cd ../gh-pages
     - git add *
     - git commit -a -m "Updated code coverage results"
     - git push origin gh-pages

@@ -1,5 +1,5 @@
-#ifndef STOPWATCH_H
-#define STOPWATCH_H
+#ifndef EVENT_H
+#define EVENT_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -10,6 +10,8 @@
 //------------------------------------------------------------------------------
 // Includes
 //------------------------------------------------------------------------------
+
+#include <pthread.h>
 
 
 
@@ -39,45 +41,41 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// A stopwatch is used to measure elapsed time.
-class Stopwatch
+// Encapsulates an event that can be used to block a thread until it becomes
+// set.
+class Event
 {
 public:
 
-    // Constructs new stopwatch.
-    Stopwatch(void) : m_start(0) { }
+    // Constructs new event.
+    Event(void);
 
-    // Copy constructor.
-    Stopwatch(const Stopwatch& other) : m_start(other.m_start) { }
+    // Destroys this event.
+    virtual ~Event(void);
 
-    // Assignment operator.
-    Stopwatch& operator=(const Stopwatch& other)
-    {
-        if (this != &other)
-        {
-            m_start = other.m_start;
-        }
-        return *this;
-    }
+    // Not implmented - cannot be copied or assigned.
+    Event(const Event& other);
+    Event& operator=(const Event& other);
 
-    // Destroys this stopwatch.
-    ~Stopwatch(void) { } 
+    // Resets this event.Locks this mutex.
+    void reset(void);
+
+    // Sets this event.
+    void set(void);
+
+    // Blocks until this event becomes set.
+    void block(void);
 
 private:
 
-    // The start time.
-    uint32_t m_start;
+    // The event state; true for signalled or false for cleared.
+    bool m_state;
 
-public:
+    // The mutex handle.
+    pthread_mutex_t m_mutex;
 
-    // Returns the elapsed time in seconds.
-    double elapsedSecs(void) const
-    {
-        uint32_t ms = 0 - m_start;
-
-        return (double)ms / 1000.0;
-    }
-    
+    // The wait condition used for signalling the event.
+    pthread_cond_t m_cond;
 };
 
 

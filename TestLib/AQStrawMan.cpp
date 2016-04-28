@@ -14,6 +14,8 @@
 #include "AQItem.h"
 #include "AQWriterItem.h"
 
+#include <cstddef>
+
 
 
 

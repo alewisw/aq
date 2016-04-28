@@ -20,6 +20,8 @@
 #include "TraceBuffer.h"
 
 #include <algorithm>
+#include <cstddef>
+#include <cstring>
 #include <sstream>
 
 using namespace std;

@@ -13,6 +13,7 @@
 
 #include "Prng.h"
 
+#include <cstddef>
 #include <cstdint>
 #include <vector>
 
@@ -68,7 +69,7 @@ class ItemGenerator
 public:
 
     // Constructs a new item generator which seeds based on the thread number.
-    ItemGenerator(int threadNum, size_t pageSize, const std::vector<size_t>& itemPages);
+    ItemGenerator(int threadNum, size_t pageSize, const std::vector<unsigned int>& itemPages);
 
     // Creats an exact copy of this item generator including its current PRNG
     // state.
@@ -89,7 +90,7 @@ private:
     size_t m_pageSize;
 
     // The set of page sizes that are availableSize for item generation.
-    std::vector<size_t> m_itemPages;
+    std::vector<unsigned int> m_itemPages;
 
     // The number of items produced so far.
     unsigned long long m_count;

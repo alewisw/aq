@@ -9,14 +9,7 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "AQReferenceProvider.h"
-
-#include "CtrlOverlay.h"
-
-#include <sstream>
-
-using namespace std;
-using namespace aq;
+#include "Event.h"
 
 
 
@@ -24,9 +17,6 @@ using namespace aq;
 //------------------------------------------------------------------------------
 // Private Macros
 //------------------------------------------------------------------------------
-
-// The commit timeout to use.
-#define COMMIT_TIMEOUT_MS               30000
 
 
 
@@ -57,36 +47,55 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQReferenceProvider::AQReferenceProvider(int pageSizeShift, size_t pageCount)
-    : m_deque(pageSizeShift, pageCount)
+Event::Event(void)
+    : m_state(false)
 {
+    pthread_mutexattr_t mattr;
+    
+    pthread_mutexattr_init(&mattr);
+    pthread_mutex_init(&m_mutex, &mattr);
+    pthread_mutexattr_destroy(&mattr);
+    
+    pthread_condattr_t cattr;
+    
+    pthread_condattr_init(&cattr);
+    pthread_cond_init(&m_cond, &cattr);
+    pthread_condattr_destroy(&cattr);
 }
 
 //------------------------------------------------------------------------------
-AQReferenceProvider::~AQReferenceProvider(void)
+Event::~Event(void)
 {
+    pthread_cond_destroy(&m_cond);
+    pthread_mutex_destroy(&m_mutex);
 }
 
 //------------------------------------------------------------------------------
-void AQReferenceProvider::before(void)
+void Event::set(void)
 {
-
+    pthread_mutex_lock(&m_mutex);
+    m_state = true;
+    pthread_cond_broadcast(&m_cond);
+    pthread_mutex_unlock(&m_mutex);
 }
 
 //------------------------------------------------------------------------------
-void AQReferenceProvider::beforeIteration(void)
+void Event::reset(void)
 {
-    m_deque.reset();
+    pthread_mutex_lock(&m_mutex);
+    m_state = false;
+    pthread_mutex_unlock(&m_mutex);
 }
 
 //------------------------------------------------------------------------------
-std::string AQReferenceProvider::config(void)
+void Event::block(void)
 {
-    ostringstream ss;
-
-    ss << m_deque.pageCount() << " pages @ " << m_deque.pageSize() << " bytes";
-
-    return ss.str();
+    pthread_mutex_lock(&m_mutex);
+    while (!m_state)
+    {
+        pthread_cond_wait(&m_cond, &m_mutex);
+    }
+    pthread_mutex_unlock(&m_mutex);
 }
 
 

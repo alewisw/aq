@@ -86,7 +86,7 @@ private:
 public:
 
     // The commit timeout value used for these tests.
-    static const unsigned int AQTest::COMMIT_TIMEOUT_MS = 1000;
+    static const unsigned int COMMIT_TIMEOUT_MS = 1000;
 
     AQTest(unsigned int formatOptions = 0);
     AQTest(const AQTest& other);

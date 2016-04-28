@@ -23,6 +23,7 @@
 
 #include "Optarg.h"
 
+#include <cstring>
 #include <ctime>
 #include <cstdio>
 #include <iostream>
@@ -166,7 +167,7 @@ static size_t ShmSize = DEFAULT_SHM_SIZE;
 static int PageSizeShift = 5;
 
 // The page sizes to allocate to test runs.
-static std::vector<size_t> PageSizeAlloc;
+static std::vector<unsigned int> PageSizeAlloc;
 
 // The maximum time for a produce to spend waiting to commit.
 static unsigned int CommitTimeoutMs = DEFAULT_COMMIT_TIMEOUT_MS;
@@ -488,11 +489,11 @@ static void printStatistics(int loop)
     unsigned long long success = StatRetreiveSuccess;
     unsigned long long failure = StatRetreiveFailure;
     unsigned long long total = success + failure;
-    int perc = (int)((success * 100 + total / 2) / total);
+    int perc = total == 0 ? 0 : (int)((success * 100 + total / 2) / total);
 
     unsigned long long incomplete = StatRecordIncomplete;
     total = StatRecordComplete + StatRecordIncomplete;
-    int cperc = (int)((incomplete * 100 + total / 2) / total);
+    int cperc = total == 0 ? 0 : (int)((incomplete * 100 + total / 2) / total);
 
     cout << " con(" << success << " @ " << perc << "%, incomplete " 
         << incomplete << " @ " << cperc << "%, >>" << StatMaxConsumePeriodMs << "ms)";
@@ -504,7 +505,7 @@ static void printStatistics(int loop)
         success = p.getStat(Producer::StatisticClaimSuccess);
         failure = p.getStat(Producer::StatisticClaimFailures);
         total = success + failure;
-        perc = (int)((success * 100 + total / 2) / total);
+        perc = total == 0 ? 0 : (int)((success * 100 + total / 2) / total);
 
         unsigned long long maxCycleMs = p.getStat(Producer::StatisticMaxCycleTimeMs);
 
@@ -517,7 +518,7 @@ static void printStatistics(int loop)
 
         total = st.getStat(SnapshotTaker::StatisticSnapshotsTaken);
 
-        unsigned long long avgRecs = (st.getStat(SnapshotTaker::StatisticTotalRecords) + total / 2) / total;
+        unsigned long long avgRecs = total == 0 ? 0 : (st.getStat(SnapshotTaker::StatisticTotalRecords) + total / 2) / total;
         unsigned long long maxSnapshotMs = st.getStat(SnapshotTaker::StatisticMaxSnapshotTimeMs);
 
         cout << " s" << (i + 1) << "(" << total << " @ " << avgRecs << ", >>"
@@ -615,10 +616,18 @@ string itemToString(const AQItem *item)
 
     string rstr = str;
 
+#ifdef WIN32
     _snprintf(str, len, "@%p", item);
+#else
+    snprintf(str, len, "@%p", item);
+#endif
     rstr += str;
 
+#ifdef WIN32
     _snprintf(str, len, " [quid=%08X, lkid=%08X]", item->queueIdentifier(), item->linkIdentifier());
+#else
+    snprintf(str, len, " [quid=%08X, lkid=%08X]", item->queueIdentifier(), item->linkIdentifier());
+#endif
     rstr += str;
 
     delete[] str;

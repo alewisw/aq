@@ -19,6 +19,8 @@
 #include "IAQWriter.h"
 #include "AQItem.h"
 
+#include <cstring>
+
 
 
 

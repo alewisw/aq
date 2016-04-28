@@ -1,5 +1,5 @@
-#ifndef STOPWATCH_H
-#define STOPWATCH_H
+#ifndef MUTEX_H
+#define MUTEX_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -10,6 +10,8 @@
 //------------------------------------------------------------------------------
 // Includes
 //------------------------------------------------------------------------------
+
+#include <pthread.h>
 
 
 
@@ -39,45 +41,48 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// A stopwatch is used to measure elapsed time.
-class Stopwatch
+// Encapsulates a critical section or mutex for thread synchronization.
+class Mutex
 {
 public:
 
-    // Constructs new stopwatch.
-    Stopwatch(void) : m_start(0) { }
-
-    // Copy constructor.
-    Stopwatch(const Stopwatch& other) : m_start(other.m_start) { }
-
-    // Assignment operator.
-    Stopwatch& operator=(const Stopwatch& other)
+    // Constructs new mutex.
+    Mutex(void)
     {
-        if (this != &other)
-        {
-            m_start = other.m_start;
-        }
-        return *this;
+        pthread_mutexattr_t mattr;
+        
+        pthread_mutexattr_init(&mattr);
+        pthread_mutex_init(&m_mutex, &mattr);
+        pthread_mutexattr_destroy(&mattr);
     }
 
-    // Destroys this stopwatch.
-    ~Stopwatch(void) { } 
+    // Destroys this mutex.
+    virtual ~Mutex(void)
+    {
+        pthread_mutex_destroy(&m_mutex);
+    }
+
+    // Not implmented - cannot be copied or assigned.
+    Mutex(const Mutex& other);
+    Mutex& operator=(const Mutex& other);
+
+    // Locks this mutex.
+    void lock(void)
+    {
+        pthread_mutex_lock(&m_mutex);
+    }
+
+    // Unlocks this mutex.
+    void unlock(void)
+    {
+        pthread_mutex_unlock(&m_mutex);
+    }
 
 private:
 
-    // The start time.
-    uint32_t m_start;
+    // The mutex handle.
+    pthread_mutex_t m_mutex;
 
-public:
-
-    // Returns the elapsed time in seconds.
-    double elapsedSecs(void) const
-    {
-        uint32_t ms = 0 - m_start;
-
-        return (double)ms / 1000.0;
-    }
-    
 };
 
 

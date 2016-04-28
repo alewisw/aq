@@ -16,6 +16,7 @@
 
 #include "TraceBuffer.h"
 
+#include <cstring>
 #include <iomanip>
 
 using namespace std;
@@ -64,7 +65,7 @@ ConsumerChannel::ConsumerChannel(AQReader& reader,
     , m_checkLinkId(checkLinkId)
     , m_maxOutstanding(maxOutstanding)
     , m_consumerGen(producerGen)
-    , m_prng((unsigned int)(&producerGen))
+    , m_prng((uintptr_t)(&producerGen))
 {
 }
 

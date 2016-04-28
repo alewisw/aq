@@ -40,3 +40,4 @@
 
 # Anything in a build directory.
 */_Build/
+_Build/

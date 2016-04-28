@@ -17,6 +17,7 @@
 #include "TestPointNotifier.h"
 
 #include <sstream>
+#include <cstddef>
 
 using namespace std;
 using namespace aq;

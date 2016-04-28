@@ -14,6 +14,9 @@
 #include "AQTest.h"
 #include "TestPointAction.h"
 
+#include <cstddef>
+#include <cstring>
+
 
 
 

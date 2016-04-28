@@ -13,6 +13,8 @@
 
 #include "AQTest.h"
 
+#include <cstring>
+
 
 
 
@@ -51,6 +53,10 @@ do                                                                              
 //------------------------------------------------------------------------------
 // Variable Declarations
 //------------------------------------------------------------------------------
+
+// Local storage in case the constant is taken as a reference.
+const size_t AQTest::PAGE_COUNT;
+const size_t AQTest::PAGE_SIZE;
 
 
 

@@ -17,6 +17,7 @@
 #include "TestTag.h"
 #include "TestSuite.h"
 
+#include <cstring>
 #include <iostream>
 #include <fstream>
 

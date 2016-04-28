@@ -27,6 +27,9 @@
 // Exported Type Definitions
 //------------------------------------------------------------------------------
 
+// Forward declarations.
+class AQWriter;
+
 
 
 

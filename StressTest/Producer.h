@@ -59,7 +59,7 @@ public:
     //
     // If <trace> is non-NULL a trace buffer is created for the queue.
     Producer(AQReader& reader, int threadNum, void *shm, 
-        size_t shmSize, const std::vector<size_t> &itemPages, 
+        size_t shmSize, const std::vector<unsigned int> &itemPages, 
         bool checkLinkId, unsigned int maxOutstanding, 
         size_t maxPagesPerAppend, TraceManager *trace);
 

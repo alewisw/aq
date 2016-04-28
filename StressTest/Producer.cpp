@@ -17,6 +17,7 @@
 #include "Timer.h"
 
 #include <algorithm>
+#include <cstring>
 #include <sstream>
 #include <stdexcept>
 
@@ -58,7 +59,7 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 Producer::Producer(AQReader &reader, int threadNum, void *shm, 
-                   size_t shmSize, const vector<size_t> &itemPages, 
+                   size_t shmSize, const vector<unsigned int> &itemPages, 
                    bool checkLinkId, unsigned int maxOutstanding, 
                    size_t maxPagesPerAppend, TraceManager *trace)
     : m_writer(shm, shmSize, createTrace(trace, threadNum, "p"))
@@ -239,7 +240,11 @@ void Producer::writeItem(void)
 
                         // Set the truncation marker.
                         m_producerGen.next();
+#ifdef WIN32
                         _snprintf((char *)&(*m_items[i])[0], RECORD_LEN_CHARS + 1, RECORD_LEN_FORMAT, (unsigned int)recPos);
+#else
+                        snprintf((char *)&(*m_items[i])[0], RECORD_LEN_CHARS + 1, RECORD_LEN_FORMAT, (unsigned int)recPos);
+#endif
                         (*m_items[i])[RECORD_LEN_CHARS] = ',';
                     }
 
@@ -288,7 +293,7 @@ void Producer::injectTestPointDelay(int tp)
 
     if (tpn != NULL)
     {
-        tpn->registerTestPoint(tp, testPointDelay, &m_writer, (void *)tp);
+        tpn->registerTestPoint(tp, testPointDelay, &m_writer, (void *)(uintptr_t)tp);
     }
 }
 
@@ -298,7 +303,7 @@ void Producer::testPointDelay(AQ *queue, void *context)
     TestPointNotifier *tpn = queue->testPointNotifier();
     if (tpn != NULL)
     {
-        tpn->registerTestPoint((int)context, testPointDelay, queue, context);
+        tpn->registerTestPoint((uintptr_t)context, testPointDelay, queue, context);
     }
     Timer::sleep(1);
 }

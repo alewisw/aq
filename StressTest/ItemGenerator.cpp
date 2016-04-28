@@ -11,6 +11,7 @@
 
 #include "ItemGenerator.h"
 
+#include <cstring>
 #include <stdexcept>
 
 using namespace std;
@@ -51,7 +52,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-ItemGenerator::ItemGenerator(int threadNum, size_t pageSize, const vector<size_t> &itemPages)
+ItemGenerator::ItemGenerator(int threadNum, size_t pageSize, const vector<unsigned int> &itemPages)
     : m_threadNum(threadNum)
     , m_pageSize(pageSize)
     , m_itemPages(itemPages)
@@ -153,7 +154,7 @@ const unsigned char *ItemGenerator::get(size_t& memSize, uint32_t& linkId) const
     }
 
     // Construct the header.
-    int len = sprintf((char *)m_item, RECORD_FORMAT, memSize, m_threadNum, m_count);
+    int len = sprintf((char *)m_item, RECORD_FORMAT, (unsigned int)memSize, m_threadNum, m_count);
     if (len != RECORD_MIN_LEN - 1)
     {
         throw logic_error(string("Length invalid"));

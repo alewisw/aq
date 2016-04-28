@@ -13,6 +13,8 @@
 
 #include "AQTest.h"
 
+#include <cstring>
+
 
 
 

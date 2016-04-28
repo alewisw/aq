@@ -133,6 +133,14 @@ public:
             m_ss << lhs;
         }
 
+        // Constructs a new LHS object owned by 'owner' with the given initial
+        // LHS value.
+        Lhs(const Lhs<T>& other) 
+            : m_owner(other.m_owner)
+        {
+            m_ss << other.m_ss.str();
+        }
+
     private:
         // Holds the owner of this LHS.
         Decomposer& m_owner;
@@ -212,7 +220,8 @@ public:
         // Operator used to trigger the decomposition operation.
         template<typename T> Lhs<T> operator>=(T const& operand)
         {
-            return Lhs<T>(*this, operand);
+            Lhs<T> lhs(*this, operand);
+            return lhs;
         }
 
         // Returns the decomposed string.

@@ -21,6 +21,7 @@ AQ incorporates two main validation test reigimes:
 * Stress tests that aggressivly access the queue to validate real-world behavior for various queue configurations.
 
 These tests are run automatically through online CI services:
+* [Travis CI Linux Build & Test Results](https://travis-ci.org/alewisw/aq) [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq)
 * [Appveyor Windows Unit Test Resuts](https://ci.appveyor.com/project/alewisw/aq)
 * [Appveyor Windows Stress Test Results](https://ci.appveyor.com/project/alewisw/aq-a7p4i)
 

@@ -14,7 +14,7 @@ set(SOURCE
     UtExtendableSnapshot.cpp
     UtExtendableWriter.cpp
     UtFormat.cpp
-    UtObjectCopyAssign.cpp
+    UtObjectLifecycle.cpp
     UtQueueId.cpp
     UtRelease.cpp
     UtRetrieve.cpp

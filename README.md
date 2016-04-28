@@ -27,9 +27,9 @@ These tests are run automatically through online CI services:
 | Linux   | Travis CI | [Unit Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
 | Linux   | Travis CI | [Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/) | |
 | Linux   | Coveralls | [Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
-| Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | |
+| Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | [![Build Status](https://ci.appveyor.com/api/projects/status/github/alewisw/aq?svg=true)](https://ci.appveyor.com/project/alewisw/aq) |
 | Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/) | |
-| Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq) | |
+| Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq-a7p4i) | [![Build Status](https://ci.appveyor.com/api/projects/status/github/alewisw/aq-a7p4i?svg=true)](https://ci.appveyor.com/project/alewisw/aq-a7p4i) |
 
 ## License
 AQ is licensed under the Mozilla Public License Version 2.0; see the [LICENSE FILE](https://github.com/alewisw/aq/blob/master/LICENSE) for details.

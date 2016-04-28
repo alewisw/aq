@@ -22,6 +22,7 @@ AQ incorporates two main validation test reigimes:
 
 These tests are run automatically through online CI services:
 * [Travis CI Linux Build & Test Results](https://travis-ci.org/alewisw/aq) [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq)
+* [Travis CI Linux Code Coverage Results](https://coveralls.io/github/alewisw/aq?branch=master) [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master)
 * [Appveyor Windows Unit Test Resuts](https://ci.appveyor.com/project/alewisw/aq)
 * [Appveyor Windows Stress Test Results](https://ci.appveyor.com/project/alewisw/aq-a7p4i)
 

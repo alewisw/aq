@@ -1,3 +1,4 @@
+test
 C:/Users/alewi/Desktop/aq/AQ/AQ.cpp:60: warning: no matching class member found for 
   AQ::AQ(int testPointCount, void *mem, size_t memSz, TraceBuffer *trace)
 Possible candidates:

@@ -15,4 +15,4 @@ set(SOURCE
     ThreadOverheadTest.cpp
    )
 add_executable(PerfTest ${SOURCE})
-target_link_libraries(PerfTest AQ TestLib pthread)
+target_link_libraries(PerfTest AQ TestLib pthread rt)

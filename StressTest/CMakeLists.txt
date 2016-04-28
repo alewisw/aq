@@ -9,4 +9,4 @@ set(SOURCE
     SnapshotValidator.cpp
    )
 add_executable(StressTest ${SOURCE})
-target_link_libraries(StressTest AQ TestLib pthread)
+target_link_libraries(StressTest AQ TestLib pthread rt)

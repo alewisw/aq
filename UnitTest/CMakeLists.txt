@@ -23,4 +23,4 @@ set(SOURCE
     UtWriterItem.cpp
    )
 add_executable(UnitTest ${SOURCE})
-target_link_libraries(UnitTest AQ TestLib)
+target_link_libraries(UnitTest AQ TestLib rt)

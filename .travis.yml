@@ -3,9 +3,38 @@ language: cpp
 compiler:  
     - gcc
      
-before_script:  
-    - mkdir _Build
-    - cd _Build
-    - cmake .. -DCMAKE_BUILD_TYPE=DEBUG
+git:
+  depth: 1
 
-script: make  
+before_script: 
+    - mkdir _Build
+    - cd _Build 
+    - mkdir Debug
+    - cd Debug
+    - cmake ../.. -DCMAKE_BUILD_TYPE=DEBUG
+    - cd ..
+    - mkdir Release
+    - cd Release
+    - cmake ../.. -DCMAKE_BUILD_TYPE=RELEASE
+    - cd ..
+    - mkdir Performance
+    - cd Performance
+    - cmake ../.. -DCMAKE_BUILD_TYPE=PERFORMANCE
+    - cd ..
+
+script: 
+    - cd Debug
+    - make  
+    - cd..
+    - cd Release
+    - make  
+    - cd..
+    - cd Performance
+    - make  
+    - cd..
+    - cd Debug/UnitTest
+    - ./UnitTest
+    - cd ../..
+    - cd Release/UnitTest
+    - ./UnitTest
+

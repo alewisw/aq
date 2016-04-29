@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 10:48:49</td>
+            <td class="headerValue">2016-04-29 13:52:43</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -136,12 +136,12 @@
 <span class="lineNum">      65 </span>                :            :     /**
 <a name="66"><span class="lineNum">      66 </span>                :            :      * Constructs a new item with no initial allocation.</a>
 <span class="lineNum">      67 </span>                :            :      */
-<span class="lineNum">      68 </span>                :<span class="lineCov">     163542 :     AQWriterItem(void)</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">     163569 :     AQWriterItem(void)</span>
 <span class="lineNum">      69 </span>                :            :         : AQItem()
 <span class="lineNum">      70 </span>                :            :         , m_writer(NULL) 
-<span class="lineNum">      71 </span>                :<span class="lineCov">     163542 :         , m_accumulator(0)</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">     163569 :         , m_accumulator(0)</span>
 <span class="lineNum">      72 </span>                :            :     {
-<span class="lineNum">      73 </span>                :<span class="lineCov">     163542 :     }</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">     163569 :     }</span>
 <span class="lineNum">      74 </span>                :            : 
 <span class="lineNum">      75 </span>                :            :     /**
 <span class="lineNum">      76 </span>                :            :      * Constructs a new item so that it is an exact copy of another item.  Note
@@ -188,7 +188,7 @@
 <span class="lineNum">     117 </span>                :            :      * is entirely up to the application to ensure that each item that must
 <a name="118"><span class="lineNum">     118 </span>                :            :      * be committed or released has the appropriate action taken.</a>
 <span class="lineNum">     119 </span>                :            :      */
-<span class="lineNum">     120 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 163553 times"> + </span>]:<span class="lineCov">     164068 :     virtual ~AQWriterItem(void) { }</span>
+<span class="lineNum">     120 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 163580 times"> + </span>]:<span class="lineCov">     164095 :     virtual ~AQWriterItem(void) { }</span>
 <span class="lineNum">     121 </span>                :            : 
 <span class="lineNum">     122 </span>                :            : protected:
 <span class="lineNum">     123 </span>                :            : 
@@ -361,7 +361,7 @@
 <span class="lineNum">     290 </span>                :            :      *
 <a name="291"><span class="lineNum">     291 </span>                :            :      * @returns The last item.  This is never NULL.</a>
 <span class="lineNum">     292 </span>                :            :      */
-<span class="lineNum">     293 </span>                :<span class="lineCov">      82099 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     293 </span>                :<span class="lineCov">      82123 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
 <span class="lineNum">     294 </span>                :            : 
 <span class="lineNum">     295 </span>                :            :     /**
 <span class="lineNum">     296 </span>                :            :      * Obtains a pointer to the next item in the linked list of items.  If this
@@ -370,7 +370,7 @@
 <span class="lineNum">     299 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
 <a name="300"><span class="lineNum">     300 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
 <span class="lineNum">     301 </span>                :            :      */
-<span class="lineNum">     302 </span>                :<span class="lineCov">      30490 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
+<span class="lineNum">     302 </span>                :<span class="lineCov">      30514 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
 <span class="lineNum">     303 </span>                :            : 
 <span class="lineNum">     304 </span>                :            :     /**
 <span class="lineNum">     305 </span>                :            :      * Obtains a pointer to the previous item in the linked list of items.  If this

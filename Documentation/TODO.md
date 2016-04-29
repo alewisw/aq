@@ -7,3 +7,4 @@
 6. Add built-in support for streaming into normal and extendable items.
 7. commitCounter() is not sufficient for reader polling - also need a timer due to commit timeouts.
 8. better way of handling format failures - reporting why they failed, maybe via an exception.
+9. extend coverage of StressTest by adding incomplete item support

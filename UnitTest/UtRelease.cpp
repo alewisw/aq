@@ -1138,8 +1138,6 @@ AQTEST(given_IncompleteRecordRetrieved_when_CommitRelease_ReleaseCorrectly)
 #ifdef AQ_TEST_POINT
 static void corruptCtrlqIndex0(AQ *queue, void *context)
 {
-    (void)queue;
-
     AQTest& aq = *((AQTest *)context);
 
     aq.ctrl->ctrlq[0] &= ~CtrlOverlay::CTRLQ_CLAIM_MASK;

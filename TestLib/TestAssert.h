@@ -32,8 +32,6 @@
 // Asserts that an exception of type __exception is thrown when the expression
 // __expr is executed.
 #define TEST_EXCEPTION(__throwIfFalse, __expr, __exception)                     \
-__pragma(warning(push))                                                         \
-__pragma(warning(disable:4127))                                                 \
 do                                                                              \
 {                                                                               \
     bool __thrown = false;                                                      \
@@ -50,8 +48,7 @@ do                                                                              
         TEST_ASSERT_FAILED(EXPECTED_EXCEPTION, __throwIfFalse,                  \
           #__expr, #__exception);                                               \
     }                                                                           \
-} while(0)                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 
 // Asserts that the passed expression '__expr' evaluates to 'true'.  If the value
@@ -61,8 +58,6 @@ __pragma(warning(pop))
 //  - If '__throwIfFalse' is true then the TestAssert object is then thrown.
 //  - 
 #define TEST_ASSERT(__throwIfFalse, __expr)                                     \
-__pragma(warning(push))                                                         \
-__pragma(warning(disable:4127))                                                 \
 do                                                                              \
 {                                                                               \
     TestExecution::incrementAssertionCounter();                                 \
@@ -80,13 +75,10 @@ do                                                                              
         }                                                                       \
         TEST_ASSERT_FAILED(ASSERT, __throwIfFalse, #__expr, exp.c_str());       \
     }                                                                           \
-} while(0)                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 // Used internally when an assertion fails.
 #define TEST_ASSERT_FAILED(__type, __throwIfFailed, __exprStr, __exOrDecompStr) \
-__pragma(warning(push))                                                         \
-__pragma(warning(disable:4127))                                                 \
 do                                                                              \
 {                                                                               \
     TestAssert ast(__FILE__, __FUNCTION__, __LINE__, TestAssert::__type,        \
@@ -97,8 +89,7 @@ do                                                                              
         TestExecution::markThrowing();                                          \
         throw ast;                                                              \
     }                                                                           \
-} while(0)                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 
 

@@ -369,7 +369,6 @@ public:
     // The function that performs the actual work on the test point.
     virtual void testPoint(AQ& queue)
     {
-        (void)queue;
         throw std::domain_error("throw!");
     }
 

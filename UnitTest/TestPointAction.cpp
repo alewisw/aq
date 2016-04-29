@@ -52,9 +52,8 @@
 //------------------------------------------------------------------------------
 void TestPointActionCaller::testPointCallback(AQ *queue, void *context)
 {
-    (void)queue;
-
     TestPointActionCaller *tpa = (TestPointActionCaller *)context;
+
     tpa->testPointInstanceCallback();
 }
 

@@ -39,10 +39,7 @@ do                                                                              
                        (__ctrl), (__item), (__logAllItems), (__logItemData),    \
                        (__data), (__dataSize), "" __VA_ARGS__);                 \
     }                                                                           \
-__pragma(warning(push))                                                         \
-__pragma(warning(disable:4127))                                                 \
-} while(0)                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 #else
 // Tracing stubs for when tracing has been disabled.

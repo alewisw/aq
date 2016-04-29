@@ -60,10 +60,7 @@ do                                                                              
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerExpired ? 'X' : '-',               \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount);                             \
-__pragma(warning(push))                                                                         \
-__pragma(warning(disable:4127))                                                                 \
-} while(0)                                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 #define TRACE_PSTATE2(ref, code, skipIdx)                                                       \
 do                                                                                              \
@@ -80,10 +77,7 @@ do                                                                              
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount,                              \
           skipIdx);                                                                             \
-__pragma(warning(push))                                                                         \
-__pragma(warning(disable:4127))                                                                 \
-} while(0)                                                                                      \
-__pragma(warning(pop))
+} while(0)
 
 #else
 

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 03:44:55</td>
+            <td class="headerValue">2016-04-29 03:54:46</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -393,48 +393,48 @@
 <span class="lineNum">     322 </span>                :            :     // Memory has been allocated and pointers setup correctly.  Now build the
 <span class="lineNum">     323 </span>                :            :     // item array by walking from the tail, advancing it until it is equal
 <span class="lineNum">     324 </span>                :            :     // to the head.
-<span class="lineNum">     325 </span>        [<span class="branchCov" title="Branch 0 was taken 644762 times"> + </span><span class="branchCov" title="Branch 1 was taken 103 times"> + </span>]:<span class="lineCov">     644865 :     while (tailRef != headRef)</span>
+<span class="lineNum">     325 </span>        [<span class="branchCov" title="Branch 0 was taken 649269 times"> + </span><span class="branchCov" title="Branch 1 was taken 103 times"> + </span>]:<span class="lineCov">     649372 :     while (tailRef != headRef)</span>
 <span class="lineNum">     326 </span>                :            :     {
-<span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 0 was taken 644762 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     644762 :         uint32_t tail = dstCtrl-&gt;queueRefToIndex(tailRef);</span>
-<span class="lineNum">     328 </span>                :<span class="lineCov">     644762 :         uint32_t ctrlTail = Atomic::read(&amp;dstCtrl-&gt;ctrlq[tail]);</span>
-<span class="lineNum">     329 </span>                :<span class="lineCov">     644762 :         uint32_t ctrlSize = ctrlTail &amp; CtrlOverlay::CTRLQ_SIZE_MASK;</span>
-<span class="lineNum">     330 </span>                :<span class="lineCov">     644762 :         uint32_t ctrlFlags = ctrlTail &amp; CtrlOverlay::CTRLQ_FLAGS_MASK;</span>
-<span class="lineNum">     331 </span>        [<span class="branchCov" title="Branch 0 was taken 644762 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     644762 :         uint32_t advance = dstCtrl-&gt;sizeToPageCount(ctrlSize);</span>
-<span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 0 was taken 291025 times"> + </span><span class="branchCov" title="Branch 1 was taken 353737 times"> + </span>]:<span class="lineCov">     644762 :         if (advance == 0)</span>
+<span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 0 was taken 649269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     649269 :         uint32_t tail = dstCtrl-&gt;queueRefToIndex(tailRef);</span>
+<span class="lineNum">     328 </span>                :<span class="lineCov">     649269 :         uint32_t ctrlTail = Atomic::read(&amp;dstCtrl-&gt;ctrlq[tail]);</span>
+<span class="lineNum">     329 </span>                :<span class="lineCov">     649269 :         uint32_t ctrlSize = ctrlTail &amp; CtrlOverlay::CTRLQ_SIZE_MASK;</span>
+<span class="lineNum">     330 </span>                :<span class="lineCov">     649269 :         uint32_t ctrlFlags = ctrlTail &amp; CtrlOverlay::CTRLQ_FLAGS_MASK;</span>
+<span class="lineNum">     331 </span>        [<span class="branchCov" title="Branch 0 was taken 649269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     649269 :         uint32_t advance = dstCtrl-&gt;sizeToPageCount(ctrlSize);</span>
+<span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 0 was taken 297027 times"> + </span><span class="branchCov" title="Branch 1 was taken 352242 times"> + </span>]:<span class="lineCov">     649269 :         if (advance == 0)</span>
 <span class="lineNum">     333 </span>                :            :         {
-<span class="lineNum">     334 </span>                :<span class="lineCov">     291025 :             advance = 1;</span>
+<span class="lineNum">     334 </span>                :<span class="lineCov">     297027 :             advance = 1;</span>
 <span class="lineNum">     335 </span>                :            :         }
 <span class="lineNum">     336 </span>                :            : 
-<span class="lineNum">     337 </span>[<span class="branchCov" title="Branch 0 was taken 353716 times"> + </span><span class="branchCov" title="Branch 1 was taken 291046 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 353716 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     644762 :         if (((ctrlTail &amp; CtrlOverlay::CTRLQ_SEQ_MASK) == (tailRef &amp; CtrlOverlay::CTRLQ_SEQ_MASK))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 353705 times"> + </span><span class="branchCov" title="Branch 5 was taken 11 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 353670 times"> + </span><span class="branchCov" title="Branch 7 was taken 35 times"> + </span>]
+<span class="lineNum">     337 </span>[<span class="branchCov" title="Branch 0 was taken 352218 times"> + </span><span class="branchCov" title="Branch 1 was taken 297051 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 352218 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     649269 :         if (((ctrlTail &amp; CtrlOverlay::CTRLQ_SEQ_MASK) == (tailRef &amp; CtrlOverlay::CTRLQ_SEQ_MASK))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 352202 times"> + </span><span class="branchCov" title="Branch 5 was taken 16 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 352173 times"> + </span><span class="branchCov" title="Branch 7 was taken 29 times"> + </span>]
 <span class="lineNum">     338 </span>                :            :             &amp;&amp; ctrlSize &gt; 0
 <span class="lineNum">     339 </span>                :            :             &amp;&amp; (ctrlFlags != CtrlOverlay::CTRLQ_DISCARD_MASK)
 <span class="lineNum">     340 </span>                :            :             &amp;&amp; (ctrlFlags != (CtrlOverlay::CTRLQ_COMMIT_MASK | CtrlOverlay::CTRLQ_DISCARD_MASK)))
 <span class="lineNum">     341 </span>                :            :         {
-<span class="lineNum">     342 </span>                :<span class="lineCov">     353670 :             AQItem&amp; item = m_items[m_itemCount];</span>
+<span class="lineNum">     342 </span>                :<span class="lineCov">     352173 :             AQItem&amp; item = m_items[m_itemCount];</span>
 <span class="lineNum">     343 </span>                :            : 
-<span class="lineNum">     344 </span>                :<span class="lineCov">     353670 :             item.m_ctrl = ctrlTail;</span>
-<span class="lineNum">     345 </span>                :<span class="lineCov">     353670 :             item.m_memSize = ctrlSize;</span>
-<span class="lineNum">     346 </span>        [<span class="branchCov" title="Branch 0 was taken 353670 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     353670 :             item.m_mem = dstCtrl-&gt;pageToMem(tail);</span>
-<span class="lineNum">     347 </span>                :<span class="lineCov">     353670 :             item.m_quid = tailRef &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
+<span class="lineNum">     344 </span>                :<span class="lineCov">     352173 :             item.m_ctrl = ctrlTail;</span>
+<span class="lineNum">     345 </span>                :<span class="lineCov">     352173 :             item.m_memSize = ctrlSize;</span>
+<span class="lineNum">     346 </span>        [<span class="branchCov" title="Branch 0 was taken 352173 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     352173 :             item.m_mem = dstCtrl-&gt;pageToMem(tail);</span>
+<span class="lineNum">     347 </span>                :<span class="lineCov">     352173 :             item.m_quid = tailRef &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
 <span class="lineNum">     348 </span>                :            : 
-<span class="lineNum">     349 </span>                :<span class="lineCov">     353670 :             uint32_t extPageNum = tail;</span>
-<span class="lineNum">     350 </span>        [<span class="branchCov" title="Branch 0 was taken 351707 times"> + </span><span class="branchCov" title="Branch 1 was taken 1963 times"> + </span>]:<span class="lineCov">     353670 :             if (dstCtrl-&gt;options &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)</span>
+<span class="lineNum">     349 </span>                :<span class="lineCov">     352173 :             uint32_t extPageNum = tail;</span>
+<span class="lineNum">     350 </span>        [<span class="branchCov" title="Branch 0 was taken 350212 times"> + </span><span class="branchCov" title="Branch 1 was taken 1961 times"> + </span>]:<span class="lineCov">     352173 :             if (dstCtrl-&gt;options &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)</span>
 <span class="lineNum">     351 </span>                :            :             {
-<span class="lineNum">     352 </span>                :<span class="lineCov">     351707 :                 extPageNum += dstCtrl-&gt;pageCount;</span>
-<span class="lineNum">     353 </span>                :<span class="lineCov">     351707 :                 item.m_lkid = dstCtrl-&gt;ctrlq[extPageNum];</span>
+<span class="lineNum">     352 </span>                :<span class="lineCov">     350212 :                 extPageNum += dstCtrl-&gt;pageCount;</span>
+<span class="lineNum">     353 </span>                :<span class="lineCov">     350212 :                 item.m_lkid = dstCtrl-&gt;ctrlq[extPageNum];</span>
 <span class="lineNum">     354 </span>                :            :             }
 <span class="lineNum">     355 </span>                :            :             else
 <span class="lineNum">     356 </span>                :            :             {
-<span class="lineNum">     357 </span>                :<span class="lineCov">       1963 :                 item.m_lkid = AQItem::QUEUE_IDENTIFIER_INVALID;</span>
+<span class="lineNum">     357 </span>                :<span class="lineCov">       1961 :                 item.m_lkid = AQItem::QUEUE_IDENTIFIER_INVALID;</span>
 <span class="lineNum">     358 </span>                :            :             }
 <span class="lineNum">     359 </span>                :            : 
-<span class="lineNum">     360 </span>        [<span class="branchCov" title="Branch 0 was taken 281605 times"> + </span><span class="branchCov" title="Branch 1 was taken 72065 times"> + </span>]:<span class="lineCov">     353670 :             if (dstCtrl-&gt;options &amp; AQ::OPTION_CRC32)</span>
+<span class="lineNum">     360 </span>        [<span class="branchCov" title="Branch 0 was taken 281434 times"> + </span><span class="branchCov" title="Branch 1 was taken 70739 times"> + </span>]:<span class="lineCov">     352173 :             if (dstCtrl-&gt;options &amp; AQ::OPTION_CRC32)</span>
 <span class="lineNum">     361 </span>                :            :             {
-<span class="lineNum">     362 </span>                :<span class="lineCov">     281605 :                 extPageNum += dstCtrl-&gt;pageCount;</span>
+<span class="lineNum">     362 </span>                :<span class="lineCov">     281434 :                 extPageNum += dstCtrl-&gt;pageCount;</span>
 <span class="lineNum">     363 </span>                :            : 
-<span class="lineNum">     364 </span>        [<span class="branchCov" title="Branch 0 was taken 281605 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     281605 :                 uint32_t crc = CalculateItemCrc32(item, dstCtrl-&gt;options);</span>
-<span class="lineNum">     365 </span>                :<span class="lineCov">     281605 :                 if ((item.m_checksumValid = (crc == dstCtrl-&gt;ctrlq[extPageNum])))</span>
+<span class="lineNum">     364 </span>        [<span class="branchCov" title="Branch 0 was taken 281434 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     281434 :                 uint32_t crc = CalculateItemCrc32(item, dstCtrl-&gt;options);</span>
+<span class="lineNum">     365 </span>                :<span class="lineCov">     281434 :                 if ((item.m_checksumValid = (crc == dstCtrl-&gt;ctrlq[extPageNum])))</span>
 <span class="lineNum">     366 </span>                :            :                 {
 <span class="lineNum">     367 </span>                :            :                     TRACE_1ITEMDATA(dstCtrl, &amp;item, &quot;crc[%08X]&quot;, crc);
 <span class="lineNum">     368 </span>                :            :                 }
@@ -445,21 +445,21 @@
 <span class="lineNum">     373 </span>                :            :             }
 <span class="lineNum">     374 </span>                :            :             else
 <span class="lineNum">     375 </span>                :            :             {
-<span class="lineNum">     376 </span>                :<span class="lineCov">      72065 :                 item.m_checksumValid = true;</span>
+<span class="lineNum">     376 </span>                :<span class="lineCov">      70739 :                 item.m_checksumValid = true;</span>
 <span class="lineNum">     377 </span>                :            :                 TRACE_1ITEMDATA(dstCtrl, &amp;item);
 <span class="lineNum">     378 </span>                :            :             }
-<span class="lineNum">     379 </span>        [<span class="branchCov" title="Branch 0 was taken 281605 times"> + </span><span class="branchCov" title="Branch 1 was taken 72065 times"> + </span>]:<span class="lineCov">     353670 :             if (dstCtrl-&gt;options &amp; AQ::OPTION_EXTENDABLE)</span>
+<span class="lineNum">     379 </span>        [<span class="branchCov" title="Branch 0 was taken 281434 times"> + </span><span class="branchCov" title="Branch 1 was taken 70739 times"> + </span>]:<span class="lineCov">     352173 :             if (dstCtrl-&gt;options &amp; AQ::OPTION_EXTENDABLE)</span>
 <span class="lineNum">     380 </span>                :            :             {
-<span class="lineNum">     381 </span>[<span class="branchCov" title="Branch 0 was taken 281605 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 107966 times"> + </span><span class="branchCov" title="Branch 4 was taken 173639 times"> + </span>]:<span class="lineCov">     281605 :                 if (linkProcessor.nextItem(item) == LinkedItemProcessor::PRODUCED)</span>
+<span class="lineNum">     381 </span>[<span class="branchCov" title="Branch 0 was taken 281434 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 107776 times"> + </span><span class="branchCov" title="Branch 4 was taken 173658 times"> + </span>]:<span class="lineCov">     281434 :                 if (linkProcessor.nextItem(item) == LinkedItemProcessor::PRODUCED)</span>
 <span class="lineNum">     382 </span>                :            :                 {
 <span class="lineNum">     383 </span>                :            :                     TRACE_ITEM(dstCtrl, &amp;item, &quot;extendable item linked&quot;);
-<span class="lineNum">     384 </span>                :<span class="lineCov">     107966 :                     m_itemCount++;</span>
+<span class="lineNum">     384 </span>                :<span class="lineCov">     107776 :                     m_itemCount++;</span>
 <span class="lineNum">     385 </span>                :            :                 }
 <span class="lineNum">     386 </span>                :            :             }
 <span class="lineNum">     387 </span>                :            :             else
 <span class="lineNum">     388 </span>                :            :             {
-<span class="lineNum">     389 </span>                :<span class="lineCov">      72065 :                 m_itemCount++;</span>
-<span class="lineNum">     390 </span>                :<span class="lineCov">     353670 :             }</span>
+<span class="lineNum">     389 </span>                :<span class="lineCov">      70739 :                 m_itemCount++;</span>
+<span class="lineNum">     390 </span>                :<span class="lineCov">     352173 :             }</span>
 <span class="lineNum">     391 </span>                :            :         }
 <span class="lineNum">     392 </span>                :            :         // We can only skip the 'advance' count when it would lead us to the very end
 <span class="lineNum">     393 </span>                :            :         // of the buffer if this is wasted space.  It is only wasted space when:
@@ -467,26 +467,26 @@
 <span class="lineNum">     395 </span>                :            :         //  - The ctrlFlags is DISCARD or COMMIT|DISCARD (wasted space).
 <span class="lineNum">     396 </span>                :            :         //  - The item size must be an exactly multiple of the page size.
 <span class="lineNum">     397 </span>                :            :         //  - The current page plus the advance count leads to the page count.
-<span class="lineNum">     398 </span>[<span class="branchCov" title="Branch 0 was taken 46 times"> + </span><span class="branchCov" title="Branch 1 was taken 291046 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 35 times"> + </span><span class="branchCov" title="Branch 3 was taken 11 times"> + </span>]:<span class="lineCov">     291092 :         else if (((ctrlTail &amp; CtrlOverlay::CTRLQ_SEQ_MASK) != (tailRef &amp; CtrlOverlay::CTRLQ_SEQ_MASK))</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 35 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 46 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 46 times"> + </span>]
+<span class="lineNum">     398 </span>[<span class="branchCov" title="Branch 0 was taken 45 times"> + </span><span class="branchCov" title="Branch 1 was taken 297051 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 29 times"> + </span><span class="branchCov" title="Branch 3 was taken 16 times"> + </span>]:<span class="lineCov">     297096 :         else if (((ctrlTail &amp; CtrlOverlay::CTRLQ_SEQ_MASK) != (tailRef &amp; CtrlOverlay::CTRLQ_SEQ_MASK))</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 4 was taken 29 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>][<span class="branchCov" title="Branch 6 was taken 45 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 45 times"> + </span>]
 <span class="lineNum">     399 </span>                :            :             || (ctrlFlags != CtrlOverlay::CTRLQ_DISCARD_MASK &amp;&amp; ctrlFlags != (CtrlOverlay::CTRLQ_COMMIT_MASK | CtrlOverlay::CTRLQ_DISCARD_MASK))
 <span class="lineNum">     400 </span>                :            :             || (ctrlSize != (advance &lt;&lt; dstCtrl-&gt;pageSizeShift))
 <span class="lineNum">     401 </span>                :            :             || (tail + advance != dstCtrl-&gt;pageCount))
 <span class="lineNum">     402 </span>                :            :         {
 <span class="lineNum">     403 </span>                :            :             // This is a garbage item of some sort; just move to the next position.
-<span class="lineNum">     404 </span>                :<span class="lineCov">     291046 :             advance = 1;</span>
+<span class="lineNum">     404 </span>                :<span class="lineCov">     297051 :             advance = 1;</span>
 <span class="lineNum">     405 </span>                :            :             TRACE(&quot;ignore pg&lt;&quot; TRACE_PGS_FMT &quot;&gt; ctrl&lt;&quot; TRACE_CTQ_FMT &quot;&gt;&quot;, TRACE_PGS(tailRef, advance), TRACE_CTQ(ctrlTail));
 <span class="lineNum">     406 </span>                :            :         }
 <span class="lineNum">     407 </span>                :            :         else
 <span class="lineNum">     408 </span>                :            :         {
 <span class="lineNum">     409 </span>                :            :             TRACE(&quot;ignore-waste pg&lt;&quot; TRACE_PGS_FMT &quot;&gt; ctrl&lt;&quot; TRACE_CTQ_FMT &quot;&gt;&quot;, TRACE_PGS(tailRef, advance), TRACE_CTQ(ctrlTail));
 <span class="lineNum">     410 </span>                :            :         }
-<span class="lineNum">     411 </span>        [<span class="branchCov" title="Branch 0 was taken 644762 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     644762 :         tailRef = dstCtrl-&gt;queueRefIncrement(tailRef, advance);</span>
+<span class="lineNum">     411 </span>        [<span class="branchCov" title="Branch 0 was taken 649269 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     649269 :         tailRef = dstCtrl-&gt;queueRefIncrement(tailRef, advance);</span>
 <span class="lineNum">     412 </span>                :            :     }
 <span class="lineNum">     413 </span>                :            : 
 <span class="lineNum">     414 </span>                :            :     TRACE(&quot;Found total of %u items&quot;, (unsigned int)size());
-<span class="lineNum">     415 </span>        [<span class="branchCov" title="Branch 1 was taken 180031 times"> + </span><span class="branchCov" title="Branch 2 was taken 103 times"> + </span>]:<span class="lineCov">     180134 :     for (size_t i = 0; i &lt; size(); ++i)</span>
+<span class="lineNum">     415 </span>        [<span class="branchCov" title="Branch 1 was taken 178515 times"> + </span><span class="branchCov" title="Branch 2 was taken 103 times"> + </span>]:<span class="lineCov">     178618 :     for (size_t i = 0; i &lt; size(); ++i)</span>
 <span class="lineNum">     416 </span>                :            :     {
 <span class="lineNum">     417 </span>                :            :         TRACE_ITEM(dstCtrl, &amp;(*this)[i]);
 <span class="lineNum">     418 </span>                :            :     }

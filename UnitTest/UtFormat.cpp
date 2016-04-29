@@ -115,7 +115,7 @@ TEST(when_MemorySizeCtrlOverlaySize_then_FormatFails)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeAllowsOnePage_then_FormatFails)
 {
-    const int nPages = 1;
+    const size_t nPages = 1;
     unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
 
     AQReader q(mem, sizeof(mem));
@@ -127,7 +127,7 @@ TEST(when_MemorySizeAllowsOnePage_then_FormatFails)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeAllowsTwoPages_then_FormatSucceeds)
 {
-    const int nPages = 2;
+    const size_t nPages = 2;
     unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
 
     AQReader q(mem, sizeof(mem));
@@ -139,7 +139,7 @@ TEST(when_MemorySizeAllowsTwoPages_then_FormatSucceeds)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeExactlyFitsNPages_then_NPagesUsed)
 {
-    const int nPages = 10;
+    const size_t nPages = 10;
     unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
 
     AQReader q(mem, sizeof(mem));
@@ -151,7 +151,7 @@ TEST(when_MemorySizeExactlyFitsNPages_then_NPagesUsed)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeOneLessThanNPages_then_NTake1PagesUsed)
 {
-    const int nPages = 10;
+    const size_t nPages = 10;
     unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 - 1];
 
     AQReader q(mem, sizeof(mem));
@@ -163,7 +163,7 @@ TEST(when_MemorySizeOneLessThanNPages_then_NTake1PagesUsed)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeOneMoreThanNPages_then_NPagesUsed)
 {
-    const int nPages = 10;
+    const size_t nPages = 10;
     unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 + 1];
 
     AQReader q(mem, sizeof(mem));
@@ -175,7 +175,7 @@ TEST(when_MemorySizeOneMoreThanNPages_then_NPagesUsed)
 //------------------------------------------------------------------------------
 TEST(when_MemorySizeAllowsMoreThanMaxPages_then_MaxPagesUsed)
 {
-    const int nPages = CtrlOverlay::PAGE_COUNT_MAX + 1;
+    const size_t nPages = CtrlOverlay::PAGE_COUNT_MAX + 1;
     size_t sz = sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4;
     unsigned char *mem = new unsigned char[sz];
 

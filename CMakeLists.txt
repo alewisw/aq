@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6)
 project(aq)
 
 set(GCC_FLAGS "-fexceptions -Wall -Wextra -Werror -Wno-parentheses -Wno-unused-parameter -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS")
-set(GCC_PERF_FLAGS "-fmodulo-sched -fmodulo-sched-allow-regmoves -fgcse-sm -fgcse-las -fgcse-after-reload -funsafe-loop-optimizations -Wunsafe-loop-optimizations -flive-range-shrinkage -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -fgraphite-identity -floop-parallelize-all -ftree-loop-if-convert -ftree-loop-if-convert-stores -ftree-loop-distribution -ftree-loop-im -ftree-loop-ivcanon -fivopts -funroll-loops")
+set(GCC_PERF_FLAGS "-fmodulo-sched -fmodulo-sched-allow-regmoves -fgcse-sm -fgcse-las -fgcse-after-reload -funsafe-loop-optimizations -Wunsafe-loop-optimizations -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -fgraphite-identity -floop-parallelize-all -ftree-loop-if-convert -ftree-loop-if-convert-stores -ftree-loop-distribution -ftree-loop-im -ftree-loop-ivcanon -fivopts -funroll-loops")
 set(CMAKE_CXX_FLAGS_DEBUG "${GCC_FLAGS} -DAQ_TEST_POINT -DAQ_TEST_TRACE  -DAQ_TEST_UNIT -g -fprofile-arcs -ftest-coverage --coverage")
 set(CMAKE_CXX_FLAGS_RELEASE "${GCC_FLAGS} ${GCC_PERF_FLAGS} -DAQ_TEST_POINT -DAQ_TEST_TRACE -O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_COVERAGE "${GCC_FLAGS} -DAQ_TEST_POINT -g -fprofile-arcs -ftest-coverage --coverage")

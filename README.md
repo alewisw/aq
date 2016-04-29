@@ -10,7 +10,7 @@ AQ is a queue data structure intended for use as an inter-thread and inter-proce
 * The queue content can be fully captured and examined by taking a snapshot-in-time.  This allow for recovery of previously processed items.
 
 ## Usage and Documentation
-Full API documentation including usage and examples can be found [on the github pages project page](http://alewisw.github.io/aq/).
+Full API documentation including usage and examples can be found [on the github pages project page](http://alewisw.github.io/aq/Appveyor/Doxygen).
 
 ## Current Status
 WARNING: AQ is under ACTIVE DEVELOPMENT.  The APIs may change dramatically.  There may be serious bugs.  Use at your own risk.
@@ -28,7 +28,7 @@ These tests are run automatically through online CI services:
 | Linux   | Travis CI | [Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/) | |
 | Linux   | Coveralls | [Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
 | Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | [![Build status](https://ci.appveyor.com/api/projects/status/avfwa8c4nl9dox1i/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq/branch/master) |
-| Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/) | |
+| Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/Appveyor/Doxygen) | |
 | Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq-a7p4i) | [![Build status](https://ci.appveyor.com/api/projects/status/0ox809apiv7kqh50/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq-a7p4i/branch/master) |
 
 ## License

@@ -362,7 +362,8 @@ void AQSnapshot::snap4FinalHead(void)
                 extPageNum += dstCtrl->pageCount;
 
                 uint32_t crc = CalculateItemCrc32(item, dstCtrl->options);
-                if ((item.m_checksumValid = (crc == dstCtrl->ctrlq[extPageNum])))
+                item.m_checksumValid = crc == dstCtrl->ctrlq[extPageNum];
+                if (item.m_checksumValid)
                 {
                     TRACE_1ITEMDATA(dstCtrl, &item, "crc[%08X]", crc);
                 }

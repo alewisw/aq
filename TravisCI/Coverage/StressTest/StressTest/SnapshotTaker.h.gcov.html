@@ -31,13 +31,13 @@
             <td class="headerValue">AQ Stress Test Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntry">13</td>
-            <td class="headerCovTableEntryHi">92.3 %</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td class="headerValue">2016-04-29 01:34:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">7</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">3</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntryMed">75.0 %</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -226,18 +226,18 @@
 <span class="lineNum">     155 </span>                :            :     // Updates a statistic if a new value is less than its current value.
 <span class="lineNum">     156 </span>                :<span class="lineCov">          4 :     void minimizeStat(Statistic stat, unsigned long long value)</span>
 <span class="lineNum">     157 </span>                :            :     {
-<span class="lineNum">     158 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          4 :         if (m_stats[stat] &gt; value)</span>
+<span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          4 :         if (m_stats[stat] &gt; value)</span>
 <span class="lineNum">     159 </span>                :            :         {
-<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :             m_stats[stat] = value;</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">          2 :             m_stats[stat] = value;</span>
 <span class="lineNum">     161 </span>                :            :         }
 <span class="lineNum">     162 </span>                :<span class="lineCov">          4 :     }</span>
 <a name="163"><span class="lineNum">     163 </span>                :            : </a>
 <span class="lineNum">     164 </span>                :            :     // Updates a statistic if a new value is larger than its current value.
 <span class="lineNum">     165 </span>                :<span class="lineCov">          8 :     void maximizeStat(Statistic stat, unsigned long long value)</span>
 <span class="lineNum">     166 </span>                :            :     {
-<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          8 :         if (m_stats[stat] &lt; value)</span>
+<span class="lineNum">     167 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">          8 :         if (m_stats[stat] &lt; value)</span>
 <span class="lineNum">     168 </span>                :            :         {
-<span class="lineNum">     169 </span>                :<span class="lineCov">          5 :             m_stats[stat] = value;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">          3 :             m_stats[stat] = value;</span>
 <span class="lineNum">     170 </span>                :            :         }
 <span class="lineNum">     171 </span>                :<span class="lineCov">          8 :     }</span>
 <span class="lineNum">     172 </span>                :            : 

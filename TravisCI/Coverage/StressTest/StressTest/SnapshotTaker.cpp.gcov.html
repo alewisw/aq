@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td class="headerValue">2016-04-29 01:34:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">9</td>
@@ -181,11 +181,11 @@
 <span class="lineNum">     109 </span>                :            : 
 <span class="lineNum">     110 </span>                :            :     // Count the number of complete records in the snapshot.
 <span class="lineNum">     111 </span>                :<span class="lineCov">          5 :     unsigned int completeCount = 0;</span>
-<span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 1 was taken 23499 times"> + </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span>]:<span class="lineCov">      23504 :     for (size_t i = 0; i &lt; snapshot-&gt;size(); ++i)</span>
+<span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 1 was taken 23515 times"> + </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span>]:<span class="lineCov">      23520 :     for (size_t i = 0; i &lt; snapshot-&gt;size(); ++i)</span>
 <span class="lineNum">     113 </span>                :            :     {
-<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 2 was taken 23326 times"> + </span><span class="branchCov" title="Branch 3 was taken 173 times"> + </span>]:<span class="lineCov">      23499 :         if ((*snapshot)[i].isCommitted())</span>
+<span class="lineNum">     114 </span>        [<span class="branchCov" title="Branch 2 was taken 23364 times"> + </span><span class="branchCov" title="Branch 3 was taken 151 times"> + </span>]:<span class="lineCov">      23515 :         if ((*snapshot)[i].isCommitted())</span>
 <span class="lineNum">     115 </span>                :            :         {
-<span class="lineNum">     116 </span>                :<span class="lineCov">      23326 :             completeCount++;</span>
+<span class="lineNum">     116 </span>                :<span class="lineCov">      23364 :             completeCount++;</span>
 <span class="lineNum">     117 </span>                :            :         }
 <span class="lineNum">     118 </span>                :            :     }
 <span class="lineNum">     119 </span>                :            :     

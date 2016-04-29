@@ -31,13 +31,13 @@
             <td class="headerValue">AQ Stress Test Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">55</td>
             <td class="headerCovTableEntry">104</td>
-            <td class="headerCovTableEntryLo">49.0 %</td>
+            <td class="headerCovTableEntryLo">52.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td class="headerValue">2016-04-29 01:34:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">7</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">38</td>
+            <td class="headerCovTableEntry">44</td>
             <td class="headerCovTableEntry">346</td>
-            <td class="headerCovTableEntryLo">11.0 %</td>
+            <td class="headerCovTableEntryLo">12.7 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -170,12 +170,12 @@
 <span class="lineNum">      95 </span>                :<span class="lineCov">          3 : }</span>
 <a name="96"><span class="lineNum">      96 </span>                :            : </a>
 <span class="lineNum">      97 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      98 </span>                :<span class="lineCov">     392730 : void ConsumerChannel::process(AQItem *item, unsigned int recLen, unsigned long long count)</span>
+<span class="lineNum">      98 </span>                :<span class="lineCov">     393742 : void ConsumerChannel::process(AQItem *item, unsigned int recLen, unsigned long long count)</span>
 <span class="lineNum">      99 </span>                :            : {
 <span class="lineNum">     100 </span>                :            :     // Verify that we have not gone backwards.
-<span class="lineNum">     101 </span>                :<span class="lineCov">     392730 :     unsigned long long minCount = m_consumerGen.count();</span>
-<span class="lineNum">     102 </span>                :<span class="lineCov">     392730 :     unsigned long long maxCount = minCount + m_maxOutstanding;</span>
-<span class="lineNum">     103 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :     if (count &lt; minCount)</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">     393742 :     unsigned long long minCount = m_consumerGen.count();</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">     393742 :     unsigned long long maxCount = minCount + m_maxOutstanding;</span>
+<span class="lineNum">     103 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 393742 times"> + </span>]:<span class="lineCov">     393742 :     if (count &lt; minCount)</span>
 <span class="lineNum">     104 </span>                :            :     {
 <span class="lineNum">     105 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
 <span class="lineNum">     106 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### DUPLICATE_RECORD_COUNT &quot; &lt;&lt; count &lt;&lt; &quot; when at &quot; &lt;&lt; m_consumerGen.count() &lt;&lt; endl</span>
@@ -191,7 +191,7 @@
 <span class="lineNum">     110 </span>                :            :     }
 <span class="lineNum">     111 </span>                :            : 
 <span class="lineNum">     112 </span>                :            :     // Check the maximum permissible outstanding.
-<span class="lineNum">     113 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :     if (count &gt; maxCount)</span>
+<span class="lineNum">     113 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 393742 times"> + </span>]:<span class="lineCov">     393742 :     if (count &gt; maxCount)</span>
 <span class="lineNum">     114 </span>                :            :     {
 <span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
 <span class="lineNum">     116 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### MISSING_RECORD &quot; &lt;&lt; count &lt;&lt; &quot; when in range [&quot; &lt;&lt; minCount &lt;&lt; &quot;, &quot; &lt;&lt; maxCount &lt;&lt; &quot;]&quot; &lt;&lt; endl</span>
@@ -207,9 +207,9 @@
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
 <span class="lineNum">     120 </span>                :            :     }
 <span class="lineNum">     121 </span>                :            : 
-<span class="lineNum">     122 </span>                :<span class="lineCov">     392730 :     size_t offset = (size_t)(count - minCount);</span>
-<span class="lineNum">     123 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 392730 times"> + </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineCov">     392730 :     if (offset &lt; m_items.size() &amp;&amp; m_items[offset].item != NULL)</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 392730 times"> + </span>]
+<span class="lineNum">     122 </span>                :<span class="lineCov">     393742 :     size_t offset = (size_t)(count - minCount);</span>
+<span class="lineNum">     123 </span>[<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 393737 times"> + </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 5 times"> + </span>]:<span class="lineCov">     393742 :     if (offset &lt; m_items.size() &amp;&amp; m_items[offset].item != NULL)</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 393742 times"> + </span>]
 <span class="lineNum">     124 </span>                :            :     { 
 <span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
 <span class="lineNum">     126 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### DUPLICATE_RECORD &quot; &lt;&lt; count &lt;&lt; &quot; already found&quot; &lt;&lt; endl</span>
@@ -228,31 +228,31 @@
 <span class="lineNum">     132 </span>                :            : 
 <span class="lineNum">     133 </span>                :            :     // Put it into the vector; first reserve enough space then assign
 <span class="lineNum">     134 </span>                :            :     // the appropriate index.
-<span class="lineNum">     135 </span>                :<span class="lineCov">     392730 :     size_t i = m_items.size();</span>
-<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 0 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     392730 :     if (i &lt; offset + 1)</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">     393742 :     size_t i = m_items.size();</span>
+<span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 0 was taken 393737 times"> + </span><span class="branchCov" title="Branch 1 was taken 5 times"> + </span>]:<span class="lineCov">     393742 :     if (i &lt; offset + 1)</span>
 <span class="lineNum">     137 </span>                :            :     {
-<span class="lineNum">     138 </span>                :<span class="lineCov">     392730 :         m_items.resize(offset + 1);</span>
-<span class="lineNum">     139 </span>        [<span class="branchCov" title="Branch 1 was taken 392730 times"> + </span><span class="branchCov" title="Branch 2 was taken 392730 times"> + </span>]:<span class="lineCov">     785460 :         for (; i &lt; m_items.size(); ++i)</span>
+<span class="lineNum">     138 </span>                :<span class="lineCov">     393737 :         m_items.resize(offset + 1);</span>
+<span class="lineNum">     139 </span>        [<span class="branchCov" title="Branch 1 was taken 393742 times"> + </span><span class="branchCov" title="Branch 2 was taken 393737 times"> + </span>]:<span class="lineCov">     787479 :         for (; i &lt; m_items.size(); ++i)</span>
 <span class="lineNum">     140 </span>                :            :         {
-<span class="lineNum">     141 </span>                :<span class="lineCov">     392730 :             m_items[i].item = NULL;</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">     393742 :             m_items[i].item = NULL;</span>
 <span class="lineNum">     142 </span>                :            :         }
 <span class="lineNum">     143 </span>                :            :     }
-<span class="lineNum">     144 </span>                :<span class="lineCov">     392730 :     m_items[offset].item = item;</span>
-<span class="lineNum">     145 </span>                :<span class="lineCov">     392730 :     m_items[offset].recLen = recLen;</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">     393742 :     m_items[offset].item = item;</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">     393742 :     m_items[offset].recLen = recLen;</span>
 <span class="lineNum">     146 </span>                :            : 
 <span class="lineNum">     147 </span>                :            :     // Now start processing from the front of the vector and find all items we
 <span class="lineNum">     148 </span>                :            :     // can release.
-<span class="lineNum">     149 </span>[<span class="branchCov" title="Branch 1 was taken 392730 times"> + </span><span class="branchCov" title="Branch 2 was taken 392730 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">     785460 :     for (i = 0; i &lt; m_items.size() &amp;&amp; m_items[i].item != NULL; ++i)</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 392730 times"> + </span><span class="branchCov" title="Branch 7 was taken 392730 times"> + </span>]
+<span class="lineNum">     149 </span>[<span class="branchCov" title="Branch 1 was taken 393747 times"> + </span><span class="branchCov" title="Branch 2 was taken 393737 times"> + </span>][<span class="branchCov" title="Branch 4 was taken 393742 times"> + </span><span class="branchCov" title="Branch 5 was taken 5 times"> + </span>]:<span class="lineCov">     787484 :     for (i = 0; i &lt; m_items.size() &amp;&amp; m_items[i].item != NULL; ++i)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 393742 times"> + </span><span class="branchCov" title="Branch 7 was taken 393742 times"> + </span>]
 <span class="lineNum">     150 </span>                :            :     {
-<span class="lineNum">     151 </span>                :<span class="lineCov">     392730 :         recLen = m_items[i].recLen;</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">     393742 :         recLen = m_items[i].recLen;</span>
 <span class="lineNum">     152 </span>                :            : 
-<span class="lineNum">     153 </span>                :<span class="lineCov">     392730 :         size_t cmpSize = 0;</span>
-<span class="lineNum">     154 </span>                :<span class="lineCov">     392730 :         uint32_t linkId = 0;</span>
-<span class="lineNum">     155 </span>                :<span class="lineCov">     392730 :         const unsigned char *cmp = (const unsigned char *)m_consumerGen.next(cmpSize, linkId);</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">     393742 :         size_t cmpSize = 0;</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">     393742 :         uint32_t linkId = 0;</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">     393742 :         const unsigned char *cmp = (const unsigned char *)m_consumerGen.next(cmpSize, linkId);</span>
 <span class="lineNum">     156 </span>                :            : 
-<span class="lineNum">     157 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineCov">     392730 :         if (m_checkLinkId &amp;&amp; linkId != m_items[i].item-&gt;linkIdentifier())</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 392730 times"> + </span>]
+<span class="lineNum">     157 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 393742 times"> + </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineCov">     393742 :         if (m_checkLinkId &amp;&amp; linkId != m_items[i].item-&gt;linkIdentifier())</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 393742 times"> + </span>]
 <span class="lineNum">     158 </span>                :            :         {
 <span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 :             ostringstream ss;</span>
 <span class="lineNum">     160 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :             ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_LINK_ID found    &quot; &lt;&lt; m_items[i].item-&gt;linkIdentifier()</span>
@@ -264,10 +264,10 @@
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
 <span class="lineNum">     164 </span>                :            :         }
 <span class="lineNum">     165 </span>                :            : 
-<span class="lineNum">     166 </span>                :<span class="lineCov">     392730 :         size_t itemPos = 0;</span>
-<span class="lineNum">     167 </span>                :<span class="lineCov">     392730 :         size_t pos = 0;</span>
-<span class="lineNum">     168 </span>[<span class="branchCov" title="Branch 0 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :         if (recLen &gt; cmpSize || (recLen &lt; cmpSize &amp;&amp; !m_reader.isExtendable()))</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 392730 times"> + </span>]
+<span class="lineNum">     166 </span>                :<span class="lineCov">     393742 :         size_t itemPos = 0;</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">     393742 :         size_t pos = 0;</span>
+<span class="lineNum">     168 </span>[<span class="branchCov" title="Branch 0 was taken 393742 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 393742 times"> + </span>]:<span class="lineCov">     393742 :         if (recLen &gt; cmpSize || (recLen &lt; cmpSize &amp;&amp; !m_reader.isExtendable()))</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 393742 times"> + </span>]
 <span class="lineNum">     169 </span>                :            :         {
 <span class="lineNum">     170 </span>                :<span class="lineNoCov">          0 :             ostringstream ss;</span>
 <span class="lineNum">     171 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :             ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_RECORD_LENGTH found    &quot; &lt;&lt; setw(4) &lt;&lt; recLen  &lt;&lt; &quot; = \&quot;&quot; &lt;&lt; itemToString(m_items[i].item) &lt;&lt; &quot;\&quot;&quot;</span>
@@ -283,25 +283,25 @@
 <span class="lineNum">     174 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             assertFailed(ss.str());</span>
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
 <span class="lineNum">     175 </span>                :            :         }
-<span class="lineNum">     176 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :         else if (cmpSize != recLen)</span>
+<span class="lineNum">     176 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 393742 times"> + </span>]:<span class="lineCov">     393742 :         else if (cmpSize != recLen)</span>
 <span class="lineNum">     177 </span>                :            :         {
 <span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :             cmpSize = recLen;</span>
 <span class="lineNum">     179 </span>                :<span class="lineNoCov">          0 :             pos = RECORD_LEN_CHARS;</span>
 <span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :             itemPos = RECORD_LEN_CHARS;</span>
 <span class="lineNum">     181 </span>                :            :         }
 <span class="lineNum">     182 </span>                :            : 
-<span class="lineNum">     183 </span>        [<span class="branchCov" title="Branch 2 was taken 1025017 times"> + </span><span class="branchCov" title="Branch 3 was taken 392730 times"> + </span>]:<span class="lineCov">    1417747 :         for (const AQItem *it = m_items[i].item; it != NULL; it = it-&gt;next())</span>
+<span class="lineNum">     183 </span>        [<span class="branchCov" title="Branch 2 was taken 1028826 times"> + </span><span class="branchCov" title="Branch 3 was taken 393742 times"> + </span>]:<span class="lineCov">    1422568 :         for (const AQItem *it = m_items[i].item; it != NULL; it = it-&gt;next())</span>
 <span class="lineNum">     184 </span>                :            :         {
-<span class="lineNum">     185 </span>                :<span class="lineCov">    1025017 :             size_t itSize = it-&gt;size() - itemPos;</span>
-<span class="lineNum">     186 </span>[<span class="branchCov" title="Branch 0 was taken 1025017 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 1025017 times"> + </span>]:<span class="lineCov">    1025017 :             if (pos + itSize &gt; cmpSize || memcmp(&amp;cmp[pos], &amp;(*it)[itemPos], itSize) != 0)</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1025017 times"> + </span>]
+<span class="lineNum">     185 </span>                :<span class="lineCov">    1028826 :             size_t itSize = it-&gt;size() - itemPos;</span>
+<span class="lineNum">     186 </span>[<span class="branchCov" title="Branch 0 was taken 1028826 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 1028826 times"> + </span>]:<span class="lineCov">    1028826 :             if (pos + itSize &gt; cmpSize || memcmp(&amp;cmp[pos], &amp;(*it)[itemPos], itSize) != 0)</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1028826 times"> + </span>]
 <span class="lineNum">     187 </span>                :            :             {
 <span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :                 break;</span>
 <span class="lineNum">     189 </span>                :            :             }
-<span class="lineNum">     190 </span>                :<span class="lineCov">    1025017 :             pos += itSize;</span>
-<span class="lineNum">     191 </span>                :<span class="lineCov">    1025017 :             itemPos = 0;</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">    1028826 :             pos += itSize;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">    1028826 :             itemPos = 0;</span>
 <span class="lineNum">     192 </span>                :            :         }
-<span class="lineNum">     193 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :         if (pos != cmpSize)</span>
+<span class="lineNum">     193 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 393742 times"> + </span>]:<span class="lineCov">     393742 :         if (pos != cmpSize)</span>
 <span class="lineNum">     194 </span>                :            :         {
 <span class="lineNum">     195 </span>                :<span class="lineNoCov">          0 :             ostringstream ss;</span>
 <span class="lineNum">     196 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :             ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_RECORD found    &quot; &lt;&lt; setw(4) &lt;&lt; recLen  &lt;&lt; &quot; = \&quot;&quot; &lt;&lt; itemToString(m_items[i].item) &lt;&lt; &quot;\&quot;&quot;</span>
@@ -318,31 +318,31 @@
 <span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
 <span class="lineNum">     200 </span>                :            :         }
 <span class="lineNum">     201 </span>                :            :     }
-<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     392730 :     if (i &gt; 0)</span>
+<span class="lineNum">     202 </span>        [<span class="branchCov" title="Branch 0 was taken 393739 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">     393742 :     if (i &gt; 0)</span>
 <span class="lineNum">     203 </span>                :            :     {
 <span class="lineNum">     204 </span>                :            :         // We can release the first 'i' items from the queue.  Shuffle the
 <span class="lineNum">     205 </span>                :            :         // queue and then release them.
-<span class="lineNum">     206 </span>                :<span class="lineCov">     392730 :         shuffleRecords(i);</span>
-<span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 392730 times"> + </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     785460 :         for (size_t j = 0; j &lt; i; ++j)</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">     393739 :         shuffleRecords(i);</span>
+<span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 393742 times"> + </span><span class="branchCov" title="Branch 1 was taken 393739 times"> + </span>]:<span class="lineCov">     787481 :         for (size_t j = 0; j &lt; i; ++j)</span>
 <span class="lineNum">     208 </span>                :            :         {
-<span class="lineNum">     209 </span>                :<span class="lineCov">     392730 :             m_reader.release(*m_items[j].item);</span>
-<span class="lineNum">     210 </span>                :<span class="lineCov">     392730 :             freeReaderItem(m_items[j].item);</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">     393742 :             m_reader.release(*m_items[j].item);</span>
+<span class="lineNum">     210 </span>                :<span class="lineCov">     393742 :             freeReaderItem(m_items[j].item);</span>
 <span class="lineNum">     211 </span>                :            :         }
-<span class="lineNum">     212 </span>                :<span class="lineCov">     392730 :         m_items.erase(m_items.begin(), m_items.begin() + i);</span>
+<span class="lineNum">     212 </span>                :<span class="lineCov">     393739 :         m_items.erase(m_items.begin(), m_items.begin() + i);</span>
 <span class="lineNum">     213 </span>                :            :     }
-<span class="lineNum">     214 </span>                :<span class="lineCov">     392730 : }</span>
+<span class="lineNum">     214 </span>                :<span class="lineCov">     393742 : }</span>
 <a name="215"><span class="lineNum">     215 </span>                :            : </a>
 <span class="lineNum">     216 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     217 </span>                :<span class="lineCov">     392730 : void ConsumerChannel::shuffleRecords(size_t count)</span>
+<span class="lineNum">     217 </span>                :<span class="lineCov">     393739 : void ConsumerChannel::shuffleRecords(size_t count)</span>
 <span class="lineNum">     218 </span>                :            : {
-<span class="lineNum">     219 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :     for (size_t i = count - 1; i &gt; 0; i--)</span>
+<span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 393739 times"> + </span>]:<span class="lineCov">     393742 :     for (size_t i = count - 1; i &gt; 0; i--)</span>
 <span class="lineNum">     220 </span>                :            :     {
-<span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :         size_t index = m_prng.next() % (i + 1);</span>
-<span class="lineNum">     222 </span>                :<span class="lineNoCov">          0 :         Record temp = m_items[index];</span>
-<span class="lineNum">     223 </span>                :<span class="lineNoCov">          0 :         m_items[index] = m_items[i];</span>
-<span class="lineNum">     224 </span>                :<span class="lineNoCov">          0 :         m_items[i] = temp;</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">          3 :         size_t index = m_prng.next() % (i + 1);</span>
+<span class="lineNum">     222 </span>                :<span class="lineCov">          3 :         Record temp = m_items[index];</span>
+<span class="lineNum">     223 </span>                :<span class="lineCov">          3 :         m_items[index] = m_items[i];</span>
+<span class="lineNum">     224 </span>                :<span class="lineCov">          3 :         m_items[i] = temp;</span>
 <span class="lineNum">     225 </span>                :            :     }
-<span class="lineNum">     226 </span>                :<span class="lineCov">     392730 : }</span>
+<span class="lineNum">     226 </span>                :<span class="lineCov">     393739 : }</span>
 <a name="227"><span class="lineNum">     227 </span>                :            : </a>
 <span class="lineNum">     228 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">     229 </span>                :<span class="lineNoCov">          0 : void ConsumerChannel::dumpRecordQueue(ostringstream&amp; ss) const</span>

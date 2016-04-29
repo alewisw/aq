@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td class="headerValue">2016-04-29 01:34:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -204,66 +204,66 @@
 <span class="lineNum">     133 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 6 times"> + </span>]:<span class="lineCov">          6 : }</span>
 <a name="134"><span class="lineNum">     134 </span>                :            : </a>
 <span class="lineNum">     135 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     136 </span>                :<span class="lineCov">     785310 : const unsigned char *ItemGenerator::get(size_t&amp; memSize, uint32_t&amp; linkId) const</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">     787347 : const unsigned char *ItemGenerator::get(size_t&amp; memSize, uint32_t&amp; linkId) const</span>
 <span class="lineNum">     137 </span>                :            : {
-<span class="lineNum">     138 </span>                :<span class="lineCov">     785310 :     unsigned int r = m_prng.get();</span>
+<span class="lineNum">     138 </span>                :<span class="lineCov">     787347 :     unsigned int r = m_prng.get();</span>
 <span class="lineNum">     139 </span>                :            : 
 <span class="lineNum">     140 </span>                :            :     // Use the random number as the link identifier.
-<span class="lineNum">     141 </span>                :<span class="lineCov">     785405 :     linkId = r;</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">     787433 :     linkId = r;</span>
 <span class="lineNum">     142 </span>                :            : 
 <span class="lineNum">     143 </span>                :            :     // Generate three random numbers based on the PRNG
-<span class="lineNum">     144 </span>                :<span class="lineCov">     785405 :     size_t x = r / m_itemPages.size();</span>
-<span class="lineNum">     145 </span>                :<span class="lineCov">     785419 :     size_t y = r % m_itemPages.size();</span>
-<span class="lineNum">     146 </span>                :<span class="lineCov">     785366 :     size_t z = x % (m_pageSize - 1);</span>
-<span class="lineNum">     147 </span>                :<span class="lineCov">     785366 :     x = (x / (m_pageSize - 1));</span>
-<span class="lineNum">     148 </span>                :<span class="lineCov">     785366 :     size_t pageCount = m_itemPages[y];</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">     787433 :     size_t x = r / m_itemPages.size();</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">     787450 :     size_t y = r % m_itemPages.size();</span>
+<span class="lineNum">     146 </span>                :<span class="lineCov">     787396 :     size_t z = x % (m_pageSize - 1);</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">     787396 :     x = (x / (m_pageSize - 1));</span>
+<span class="lineNum">     148 </span>                :<span class="lineCov">     787396 :     size_t pageCount = m_itemPages[y];</span>
 <span class="lineNum">     149 </span>                :            : 
 <span class="lineNum">     150 </span>                :            :     // Calculate the size adjustment.
-<span class="lineNum">     151 </span>                :<span class="lineCov">     785043 :     memSize = (pageCount - 1) * m_pageSize + 1 + z;</span>
-<span class="lineNum">     152 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 785043 times"> + </span>]:<span class="lineCov">     785043 :     if (memSize &lt; RECORD_MIN_LEN)</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">     787142 :     memSize = (pageCount - 1) * m_pageSize + 1 + z;</span>
+<span class="lineNum">     152 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 787142 times"> + </span>]:<span class="lineCov">     787142 :     if (memSize &lt; RECORD_MIN_LEN)</span>
 <span class="lineNum">     153 </span>                :            :     {
 <span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :         memSize = RECORD_MIN_LEN;</span>
 <span class="lineNum">     155 </span>                :            :     }
 <span class="lineNum">     156 </span>                :            : 
 <span class="lineNum">     157 </span>                :            :     // Construct the header.
-<span class="lineNum">     158 </span>                :<span class="lineCov">     785043 :     int len = sprintf((char *)m_item, RECORD_FORMAT, (unsigned int)memSize, m_threadNum, m_count);</span>
-<span class="lineNum">     159 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 785043 times"> + </span>]:<span class="lineCov">     785043 :     if (len != RECORD_MIN_LEN - 1)</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">     787142 :     int len = sprintf((char *)m_item, RECORD_FORMAT, (unsigned int)memSize, m_threadNum, m_count);</span>
+<span class="lineNum">     159 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 787142 times"> + </span>]:<span class="lineCov">     787142 :     if (len != RECORD_MIN_LEN - 1)</span>
 <span class="lineNum">     160 </span>                :            :     {
 <span class="lineNum">     161 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :         throw logic_error(string(&quot;Length invalid&quot;));</span>
 <span class="lineNum">     162 </span>                :            :     }
 <span class="lineNum">     163 </span>                :            : 
 <span class="lineNum">     164 </span>                :            :     // Find a random starting point the random buffer then change the buffer.
-<span class="lineNum">     165 </span>                :<span class="lineCov">     785043 :     x = x % (m_randBufSize - (memSize - RECORD_MIN_LEN + 1));</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">     787142 :     x = x % (m_randBufSize - (memSize - RECORD_MIN_LEN + 1));</span>
 <span class="lineNum">     166 </span>                :            : 
 <span class="lineNum">     167 </span>                :            :     // Copy in the random data.
-<span class="lineNum">     168 </span>                :<span class="lineCov">     785043 :     memcpy(&amp;m_item[len], &amp;m_randBuf[x], memSize - RECORD_MIN_LEN + 1);</span>
-<span class="lineNum">     169 </span>                :<span class="lineCov">     785043 :     m_item[memSize] = '\0';</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">     787142 :     memcpy(&amp;m_item[len], &amp;m_randBuf[x], memSize - RECORD_MIN_LEN + 1);</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">     787142 :     m_item[memSize] = '\0';</span>
 <span class="lineNum">     170 </span>                :            : 
-<span class="lineNum">     171 </span>                :<span class="lineCov">     785043 :     return m_item;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">     787142 :     return m_item;</span>
 <span class="lineNum">     172 </span>                :            : }
 <a name="173"><span class="lineNum">     173 </span>                :            : </a>
 <span class="lineNum">     174 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     175 </span>                :<span class="lineCov">     785293 : void ItemGenerator::next(void)</span>
+<span class="lineNum">     175 </span>                :<span class="lineCov">     787340 : void ItemGenerator::next(void)</span>
 <span class="lineNum">     176 </span>                :            : {
-<span class="lineNum">     177 </span>                :<span class="lineCov">     785293 :     m_count++;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">     787340 :     m_count++;</span>
 <span class="lineNum">     178 </span>                :            : 
-<span class="lineNum">     179 </span>                :<span class="lineCov">     785293 :     unsigned int x = m_prng.next() % m_randBufSize;</span>
-<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 0 was taken 30158 times"> + </span><span class="branchCov" title="Branch 1 was taken 755143 times"> + </span>]:<span class="lineCov">     785301 :     if (m_randBuf[x] == 'z')</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">     787340 :     unsigned int x = m_prng.next() % m_randBufSize;</span>
+<span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 0 was taken 30268 times"> + </span><span class="branchCov" title="Branch 1 was taken 757001 times"> + </span>]:<span class="lineCov">     787269 :     if (m_randBuf[x] == 'z')</span>
 <span class="lineNum">     181 </span>                :            :     {
-<span class="lineNum">     182 </span>                :<span class="lineCov">      30158 :         m_randBuf[x] = 'a';</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">      30268 :         m_randBuf[x] = 'a';</span>
 <span class="lineNum">     183 </span>                :            :     }
 <span class="lineNum">     184 </span>                :            :     else
 <span class="lineNum">     185 </span>                :            :     {
-<span class="lineNum">     186 </span>                :<span class="lineCov">     755143 :         m_randBuf[x]++;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">     757001 :         m_randBuf[x]++;</span>
 <span class="lineNum">     187 </span>                :            :     }
-<span class="lineNum">     188 </span>                :<span class="lineCov">     785301 : }</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">     787269 : }</span>
 <a name="189"><span class="lineNum">     189 </span>                :            : </a>
 <span class="lineNum">     190 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     191 </span>                :<span class="lineCov">     392730 : const unsigned char *ItemGenerator::next(size_t&amp; memSize, uint32_t&amp; linkId)</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">     393742 : const unsigned char *ItemGenerator::next(size_t&amp; memSize, uint32_t&amp; linkId)</span>
 <span class="lineNum">     192 </span>                :            : {
-<span class="lineNum">     193 </span>                :<span class="lineCov">     392730 :     const unsigned char *rec = get(memSize, linkId);</span>
-<span class="lineNum">     194 </span>                :<span class="lineCov">     392730 :     next();</span>
-<span class="lineNum">     195 </span>                :<span class="lineCov">     392730 :     return rec;</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">     393742 :     const unsigned char *rec = get(memSize, linkId);</span>
+<span class="lineNum">     194 </span>                :<span class="lineCov">     393742 :     next();</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">     393742 :     return rec;</span>
 <span class="lineNum">     196 </span>                :            : }
 <span class="lineNum">     197 </span>                :            : 
 <span class="lineNum">     198 </span>                :            : 

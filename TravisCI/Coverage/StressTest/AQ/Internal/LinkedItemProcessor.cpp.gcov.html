@@ -31,13 +31,13 @@
             <td class="headerValue">AQ Stress Test Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">74</td>
+            <td class="headerCovTableEntry">82</td>
             <td class="headerCovTableEntry">85</td>
-            <td class="headerCovTableEntryMed">87.1 %</td>
+            <td class="headerCovTableEntryHi">96.5 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td class="headerValue">2016-04-29 01:34:14</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">7</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">50</td>
-            <td class="headerCovTableEntry">75</td>
-            <td class="headerCovTableEntryLo">66.7 %</td>
+            <td class="headerCovTableEntry">53</td>
+            <td class="headerCovTableEntry">72</td>
+            <td class="headerCovTableEntryLo">73.6 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -143,166 +143,166 @@
 <span class="lineNum">      72 </span>                :            :     }
 <span class="lineNum">      73 </span>                :<span class="lineCov">          6 :     m_incomplete.clear();</span>
 <span class="lineNum">      74 </span>                :            : 
-<span class="lineNum">      75 </span>        [<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchCov" title="Branch 4 was taken 6 times"> + </span>]:<span class="lineCov">         24 :     for (map&lt;uint32_t, AQItem *&gt;::iterator it = m_outOfOrder.begin();</span>
-<span class="lineNum">      76 </span>                :<span class="lineCov">         12 :     it != m_outOfOrder.end(); ++it)</span>
+<span class="lineNum">      75 </span>        [<span class="branchCov" title="Branch 3 was taken 10 times"> + </span><span class="branchCov" title="Branch 4 was taken 6 times"> + </span>]:<span class="lineCov">         32 :     for (map&lt;uint32_t, AQItem *&gt;::iterator it = m_outOfOrder.begin();</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">         16 :     it != m_outOfOrder.end(); ++it)</span>
 <span class="lineNum">      77 </span>                :            :     {
-<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          6 :         delete it-&gt;second;</span>
+<span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 1 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         10 :         delete it-&gt;second;</span>
 <span class="lineNum">      79 </span>                :            :     }
 <span class="lineNum">      80 </span>                :<span class="lineCov">          6 :     m_outOfOrder.clear();</span>
 <span class="lineNum">      81 </span>                :<span class="lineCov">          6 : }</span>
 <a name="82"><span class="lineNum">      82 </span>                :            : </a>
 <span class="lineNum">      83 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      84 </span>                :<span class="lineCov">    1086288 : LinkedItemProcessor::Outcome LinkedItemProcessor::nextItem(AQItem&amp; item)</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">    1090413 : LinkedItemProcessor::Outcome LinkedItemProcessor::nextItem(AQItem&amp; item)</span>
 <span class="lineNum">      85 </span>                :            : {
-<span class="lineNum">      86 </span>                :<span class="lineCov">    1086288 :     uint32_t lkid = item.linkIdentifier();</span>
-<span class="lineNum">      87 </span>                :<span class="lineCov">    1086315 :     uint32_t nextQuid = lkid &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">    1090413 :     uint32_t lkid = item.linkIdentifier();</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">    1090419 :     uint32_t nextQuid = lkid &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
 <span class="lineNum">      88 </span>                :            : 
-<span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 0 was taken 416228 times"> + </span><span class="branchCov" title="Branch 1 was taken 670087 times"> + </span>]:<span class="lineCov">    1086315 :     if (lkid &amp; AQItem::LINK_IDENTIFIER_FIRST)</span>
+<span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 0 was taken 417256 times"> + </span><span class="branchCov" title="Branch 1 was taken 673163 times"> + </span>]:<span class="lineCov">    1090419 :     if (lkid &amp; AQItem::LINK_IDENTIFIER_FIRST)</span>
 <span class="lineNum">      90 </span>                :            :     {
 <span class="lineNum">      91 </span>                :            :         // This is the first item in a linked list.  If it is the last item,
 <span class="lineNum">      92 </span>                :            :         // or we cannot trust the link identifier (due to it not being committed
 <span class="lineNum">      93 </span>                :            :         // or the checksum failing) then just return exactly this item.
-<span class="lineNum">      94 </span>  [<span class="branchCov" title="Branch 0 was taken 362271 times"> + </span><span class="branchCov" title="Branch 1 was taken 53957 times"> + </span><span class="branchCov" title="Branch 2 was taken 362120 times"> + </span><span class="branchCov" title="Branch 3 was taken 152 times"> + </span> :<span class="lineCov">    1140620 :         if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
-<span class="lineNum">         </span> <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 362120 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 54109 times"> + </span><span class="branchCov" title="Branch 7 was taken 362120 times"> + </span>]
-<span class="lineNum">      95 </span>                :<span class="lineCov">     362271 :             || !item.isCommitted()</span>
-<span class="lineNum">      96 </span>                :<span class="lineCov">     362120 :             || !item.isChecksumValid())</span>
+<span class="lineNum">      94 </span>  [<span class="branchCov" title="Branch 0 was taken 363464 times"> + </span><span class="branchCov" title="Branch 1 was taken 53792 times"> + </span><span class="branchCov" title="Branch 2 was taken 363324 times"> + </span><span class="branchCov" title="Branch 3 was taken 140 times"> + </span> :<span class="lineCov">    1144044 :         if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
+<span class="lineNum">         </span>    <span class="branchCov" title="Branch 5 was taken 363325 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 53931 times"> + </span><span class="branchCov" title="Branch 7 was taken 363325 times"> + </span>]
+<span class="lineNum">      95 </span>                :<span class="lineCov">     363464 :             || !item.isCommitted()</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">     363324 :             || !item.isChecksumValid())</span>
 <span class="lineNum">      97 </span>                :            :         {
 <span class="lineNum">      98 </span>                :            :             // Only update the size if it reduces the size otherwise we could
 <span class="lineNum">      99 </span>                :            :             // overflow the buffer.
-<span class="lineNum">     100 </span>[<span class="branchCov" title="Branch 1 was taken 53936 times"> + </span><span class="branchCov" title="Branch 2 was taken 173 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 53936 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      54109 :             if (item.isCommitted() &amp;&amp; nextQuid &gt; 0 &amp;&amp; nextQuid &lt; item.m_memSize)</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 53936 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 53936 times"> + </span><span class="branchCov" title="Branch 8 was taken 173 times"> + </span>]
+<span class="lineNum">     100 </span>[<span class="branchCov" title="Branch 1 was taken 53781 times"> + </span><span class="branchCov" title="Branch 2 was taken 151 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 53781 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">      53931 :             if (item.isCommitted() &amp;&amp; nextQuid &gt; 0 &amp;&amp; nextQuid &lt; item.m_memSize)</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 53781 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchCov" title="Branch 7 was taken 53781 times"> + </span><span class="branchCov" title="Branch 8 was taken 151 times"> + </span>]
 <span class="lineNum">     101 </span>                :            :             {
-<span class="lineNum">     102 </span>                :<span class="lineCov">      53936 :                 item.m_memSize = nextQuid;</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">      53781 :                 item.m_memSize = nextQuid;</span>
 <span class="lineNum">     103 </span>                :            :             }
-<span class="lineNum">     104 </span>                :<span class="lineCov">      54109 :             return PRODUCED;</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">      53932 :             return PRODUCED;</span>
 <span class="lineNum">     105 </span>                :            :         }
 <span class="lineNum">     106 </span>                :            :         else
 <span class="lineNum">     107 </span>                :            :         {
 <span class="lineNum">     108 </span>                :            :             // First item in a set - create a new object.
-<span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 1 was taken 362118 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     362120 :             return processOutOfOrder(nextQuid, new AQItem(item), item);</span>
+<span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 1 was taken 363325 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     363325 :             return processOutOfOrder(nextQuid, new AQItem(item), item);</span>
 <span class="lineNum">     110 </span>                :            :         }
 <span class="lineNum">     111 </span>                :            :     }
 <span class="lineNum">     112 </span>                :            : 
 <span class="lineNum">     113 </span>                :            :     // The link ID does no include 'first'; hence we must look it up in the map.
-<span class="lineNum">     114 </span>                :<span class="lineCov">     670087 :     map&lt;uint32_t, AQItem *&gt;::iterator it = m_incomplete.find(item.queueIdentifier());</span>
-<span class="lineNum">     115 </span>        [<span class="branchCov" title="Branch 2 was taken 390 times"> + </span><span class="branchCov" title="Branch 3 was taken 669692 times"> + </span>]:<span class="lineCov">     670077 :     if (it == m_incomplete.end())</span>
+<span class="lineNum">     114 </span>                :<span class="lineCov">     673163 :     map&lt;uint32_t, AQItem *&gt;::iterator it = m_incomplete.find(item.queueIdentifier());</span>
+<span class="lineNum">     115 </span>        [<span class="branchCov" title="Branch 2 was taken 293 times"> + </span><span class="branchCov" title="Branch 3 was taken 672882 times"> + </span>]:<span class="lineCov">     673170 :     if (it == m_incomplete.end())</span>
 <span class="lineNum">     116 </span>                :            :     {
-<span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchCov" title="Branch 2 was taken 384 times"> + </span>]:<span class="lineCov">        390 :         if (item.isCommitted())</span>
+<span class="lineNum">     117 </span>        [<span class="branchCov" title="Branch 1 was taken 11 times"> + </span><span class="branchCov" title="Branch 2 was taken 282 times"> + </span>]:<span class="lineCov">        293 :         if (item.isCommitted())</span>
 <span class="lineNum">     118 </span>                :            :         {
 <span class="lineNum">     119 </span>                :            :             // Unable to find this item in the list; must have retrieved it out of
 <span class="lineNum">     120 </span>                :            :             // order.
-<span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          6 :             m_outOfOrder[item.queueIdentifier()] = new AQItem(item);</span>
-<span class="lineNum">     122 </span>                :<span class="lineCov">          6 :             return CONSUMED;</span>
+<span class="lineNum">     121 </span>        [<span class="branchCov" title="Branch 1 was taken 11 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         11 :             m_outOfOrder[item.queueIdentifier()] = new AQItem(item);</span>
+<span class="lineNum">     122 </span>                :<span class="lineCov">         11 :             return CONSUMED;</span>
 <span class="lineNum">     123 </span>                :            :         }
 <span class="lineNum">     124 </span>                :            :         else
 <span class="lineNum">     125 </span>                :            :         {
-<span class="lineNum">     126 </span>                :<span class="lineCov">        384 :             return DISCARD;</span>
+<span class="lineNum">     126 </span>                :<span class="lineCov">        282 :             return DISCARD;</span>
 <span class="lineNum">     127 </span>                :            :         }
 <span class="lineNum">     128 </span>                :            :     }
 <span class="lineNum">     129 </span>                :            : 
 <span class="lineNum">     130 </span>                :            :     // Found an existing item, link the item to the new item.
 <span class="lineNum">     131 </span>                :            :     // Get the end of the list.
-<span class="lineNum">     132 </span>                :<span class="lineCov">     669692 :     AQItem *first = it-&gt;second;</span>
-<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 1 was taken 669692 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     669693 :     AQItem *newItem = new AQItem(item);</span>
-<span class="lineNum">     134 </span>                :<span class="lineCov">     669692 :     appendItem(first, newItem);</span>
-<span class="lineNum">     135 </span>                :<span class="lineCov">     669694 :     m_incomplete.erase(it);</span>
+<span class="lineNum">     132 </span>                :<span class="lineCov">     672882 :     AQItem *first = it-&gt;second;</span>
+<span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 1 was taken 672883 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     672878 :     AQItem *newItem = new AQItem(item);</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">     672883 :     appendItem(first, newItem);</span>
+<span class="lineNum">     135 </span>                :<span class="lineCov">     672883 :     m_incomplete.erase(it);</span>
 <span class="lineNum">     136 </span>                :            : 
 <span class="lineNum">     137 </span>                :            :     // If this is the last item, or it contains errors, then return it as
 <span class="lineNum">     138 </span>                :            :     // a new item.
-<span class="lineNum">     139 </span>  [<span class="branchCov" title="Branch 0 was taken 307578 times"> + </span><span class="branchCov" title="Branch 1 was taken 362120 times"> + </span><span class="branchCov" title="Branch 2 was taken 307578 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">    1284854 :     if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
-<span class="lineNum">         </span> <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 307578 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 362120 times"> + </span><span class="branchCov" title="Branch 7 was taken 307578 times"> + </span>]
-<span class="lineNum">     140 </span>                :<span class="lineCov">     307578 :         || !item.isCommitted()</span>
-<span class="lineNum">     141 </span>                :<span class="lineCov">     307578 :         || !item.isChecksumValid())</span>
+<span class="lineNum">     139 </span>  [<span class="branchCov" title="Branch 0 was taken 309560 times"> + </span><span class="branchCov" title="Branch 1 was taken 363332 times"> + </span><span class="branchCov" title="Branch 2 was taken 309560 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">    1292004 :     if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
+<span class="lineNum">         </span>    <span class="branchCov" title="Branch 5 was taken 309560 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 363324 times"> + </span><span class="branchCov" title="Branch 7 was taken 309560 times"> + </span>]
+<span class="lineNum">     140 </span>                :<span class="lineCov">     309560 :         || !item.isCommitted()</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">     309560 :         || !item.isChecksumValid())</span>
 <span class="lineNum">     142 </span>                :            :     {
-<span class="lineNum">     143 </span>                :<span class="lineCov">     362120 :         return produceCompleteItem(first, newItem, item);</span>
+<span class="lineNum">     143 </span>                :<span class="lineCov">     363324 :         return produceCompleteItem(first, newItem, item);</span>
 <span class="lineNum">     144 </span>                :            :     }
 <span class="lineNum">     145 </span>                :            : 
 <span class="lineNum">     146 </span>                :            :     // End of item not yet found; lets add it to the list.
-<span class="lineNum">     147 </span>                :<span class="lineCov">    1086316 :     return processOutOfOrder(nextQuid, first, item);</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">    1090435 :     return processOutOfOrder(nextQuid, first, item);</span>
 <span class="lineNum">     148 </span>                :            : }
 <a name="149"><span class="lineNum">     149 </span>                :            : </a>
 <span class="lineNum">     150 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     151 </span>                :<span class="lineCov">     669685 : LinkedItemProcessor::Outcome LinkedItemProcessor::processOutOfOrder(</span>
+<span class="lineNum">     151 </span>                :<span class="lineCov">     672873 : LinkedItemProcessor::Outcome LinkedItemProcessor::processOutOfOrder(</span>
 <span class="lineNum">     152 </span>                :            :     uint32_t nextQuid, AQItem *first, AQItem&amp; item)
 <span class="lineNum">     153 </span>                :            : {
-<span class="lineNum">     154 </span>                :<span class="lineCov">     669685 :     map&lt;uint32_t, AQItem *&gt;::iterator it;</span>
-<span class="lineNum">     155 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 669695 times"> + </span>]:<span class="lineCov">     669690 :     while ((it = m_outOfOrder.find(nextQuid)) != m_outOfOrder.end())</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">     672873 :     map&lt;uint32_t, AQItem *&gt;::iterator it;</span>
+<span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchCov" title="Branch 4 was taken 672883 times"> + </span>]:<span class="lineCov">     672880 :     while ((it = m_outOfOrder.find(nextQuid)) != m_outOfOrder.end())</span>
 <span class="lineNum">     156 </span>                :            :     {
-<span class="lineNum">     157 </span>                :<span class="lineNoCov">          0 :         AQItem *next = it-&gt;second;</span>
-<span class="lineNum">     158 </span>                :<span class="lineNoCov">          0 :         m_outOfOrder.erase(it);</span>
+<span class="lineNum">     157 </span>                :<span class="lineCov">          1 :         AQItem *next = it-&gt;second;</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">          1 :         m_outOfOrder.erase(it);</span>
 <span class="lineNum">     159 </span>                :            :         
-<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :         appendItem(first, next);</span>
-<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :         uint32_t lkid = next-&gt;linkIdentifier();</span>
-<span class="lineNum">     162 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span> :<span class="lineNoCov">          0 :         if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
-<span class="lineNum">         </span> <span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>][<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
-<span class="lineNum">     163 </span>                :<span class="lineNoCov">          0 :             || !next-&gt;isCommitted()</span>
-<span class="lineNum">     164 </span>                :<span class="lineNoCov">          0 :             || !next-&gt;isChecksumValid())</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">          1 :         appendItem(first, next);</span>
+<span class="lineNum">     161 </span>                :<span class="lineCov">          1 :         uint32_t lkid = next-&gt;linkIdentifier();</span>
+<span class="lineNum">     162 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          3 :         if ((lkid &amp; AQItem::LINK_IDENTIFIER_LAST)</span>
+<span class="lineNum">         </span> <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>]
+<span class="lineNum">     163 </span>                :<span class="lineCov">          1 :             || !next-&gt;isCommitted()</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">          1 :             || !next-&gt;isChecksumValid())</span>
 <span class="lineNum">     165 </span>                :            :         {
 <span class="lineNum">     166 </span>                :<span class="lineNoCov">          0 :             return produceCompleteItem(first, next, item);</span>
 <span class="lineNum">     167 </span>                :            :         }
 <span class="lineNum">     168 </span>                :            : 
-<span class="lineNum">     169 </span>                :<span class="lineNoCov">          0 :         nextQuid = lkid &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">          1 :         nextQuid = lkid &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
 <span class="lineNum">     170 </span>                :            :     }
 <span class="lineNum">     171 </span>                :            : 
-<span class="lineNum">     172 </span>                :<span class="lineCov">     669695 :     m_incomplete[nextQuid] = first;</span>
-<span class="lineNum">     173 </span>                :<span class="lineCov">     669696 :     return CONSUMED;</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">     672883 :     m_incomplete[nextQuid] = first;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">     672883 :     return CONSUMED;</span>
 <span class="lineNum">     174 </span>                :            : }
 <a name="175"><span class="lineNum">     175 </span>                :            : </a>
 <span class="lineNum">     176 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     177 </span>                :<span class="lineCov">     669695 : void LinkedItemProcessor::appendItem(AQItem *first, AQItem *newItem)</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">     672882 : void LinkedItemProcessor::appendItem(AQItem *first, AQItem *newItem)</span>
 <span class="lineNum">     178 </span>                :            : {
-<span class="lineNum">     179 </span>                :<span class="lineCov">     669695 :     AQItem *last = first-&gt;m_prev;</span>
-<span class="lineNum">     180 </span>                :<span class="lineCov">     669695 :     newItem-&gt;m_first = first;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">     672882 :     AQItem *last = first-&gt;m_prev;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">     672882 :     newItem-&gt;m_first = first;</span>
 <span class="lineNum">     181 </span>                :            : 
-<span class="lineNum">     182 </span>                :<span class="lineCov">     669695 :     newItem-&gt;m_prev = last;</span>
-<span class="lineNum">     183 </span>                :<span class="lineCov">     669695 :     last-&gt;m_next = newItem;</span>
-<span class="lineNum">     184 </span>                :<span class="lineCov">     669695 :     first-&gt;m_prev = newItem;</span>
-<span class="lineNum">     185 </span>                :<span class="lineCov">     669695 : }</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">     672882 :     newItem-&gt;m_prev = last;</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">     672882 :     last-&gt;m_next = newItem;</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">     672882 :     first-&gt;m_prev = newItem;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">     672882 : }</span>
 <a name="186"><span class="lineNum">     186 </span>                :            : </a>
 <span class="lineNum">     187 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     188 </span>                :<span class="lineCov">     362120 : LinkedItemProcessor::Outcome LinkedItemProcessor::produceCompleteItem(</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">     363324 : LinkedItemProcessor::Outcome LinkedItemProcessor::produceCompleteItem(</span>
 <span class="lineNum">     189 </span>                :            :     AQItem *first, AQItem *last, AQItem&amp; item)
 <span class="lineNum">     190 </span>                :            : {
-<span class="lineNum">     191 </span>                :<span class="lineCov">     362120 :     uint32_t size = last-&gt;linkIdentifier() &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
+<span class="lineNum">     191 </span>                :<span class="lineCov">     363324 :     uint32_t size = last-&gt;linkIdentifier() &amp; AQItem::QUEUE_IDENTIFIER_MASK;</span>
 <span class="lineNum">     192 </span>                :            : 
 <span class="lineNum">     193 </span>                :            :     // Only update the size if it reduces the size otherwise we could
 <span class="lineNum">     194 </span>                :            :     // overflow the buffer.
-<span class="lineNum">     195 </span>[<span class="branchCov" title="Branch 1 was taken 362120 times"> + </span><span class="branchCov" title="Branch 2 was taken 8 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 362119 times"> + </span><span class="branchCov" title="Branch 4 was taken 1 time"> + </span>]:<span class="lineCov">     362120 :     if (last-&gt;isCommitted() &amp;&amp; size &gt; 0 &amp;&amp; size &lt; last-&gt;m_memSize)</span>
-<span class="lineNum">         </span>   [<span class="branchCov" title="Branch 5 was taken 362128 times"> + </span>][<span class="branchCov" title="Branch 7 was taken 362118 times"> + </span><span class="branchCov" title="Branch 8 was taken 10 times"> + </span>]
+<span class="lineNum">     195 </span>[<span class="branchCov" title="Branch 1 was taken 363325 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 363325 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">     363325 :     if (last-&gt;isCommitted() &amp;&amp; size &gt; 0 &amp;&amp; size &lt; last-&gt;m_memSize)</span>
+<span class="lineNum">         </span>   [<span class="branchCov" title="Branch 5 was taken 363327 times"> + </span>][<span class="branchCov" title="Branch 7 was taken 363325 times"> + </span><span class="branchCov" title="Branch 8 was taken 2 times"> + </span>]
 <span class="lineNum">     196 </span>                :            :     {
-<span class="lineNum">     197 </span>                :<span class="lineCov">     362118 :         last-&gt;m_memSize = size;</span>
+<span class="lineNum">     197 </span>                :<span class="lineCov">     363325 :         last-&gt;m_memSize = size;</span>
 <span class="lineNum">     198 </span>                :            :     }
 <span class="lineNum">     199 </span>                :            : 
 <span class="lineNum">     200 </span>                :            :     // Move the data into 'item'.
-<span class="lineNum">     201 </span>                :<span class="lineCov">     362128 :     item.m_checksumValid = first-&gt;m_checksumValid;</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">     362128 :     item.m_ctrl = first-&gt;m_ctrl;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">     362128 :     item.m_lkid = first-&gt;m_lkid;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">     362128 :     item.m_memSize = first-&gt;m_memSize;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">     362128 :     item.m_mem = first-&gt;m_mem;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">     362128 :     item.m_quid = first-&gt;m_quid;</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">     362128 :     item.m_prev = first-&gt;m_prev;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">     362128 :     item.m_next = first-&gt;m_next;</span>
-<span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 0 was taken 362120 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">     362128 :     if (item.m_next != NULL)</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">     363327 :     item.m_checksumValid = first-&gt;m_checksumValid;</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">     363327 :     item.m_ctrl = first-&gt;m_ctrl;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">     363327 :     item.m_lkid = first-&gt;m_lkid;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">     363327 :     item.m_memSize = first-&gt;m_memSize;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">     363327 :     item.m_mem = first-&gt;m_mem;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">     363327 :     item.m_quid = first-&gt;m_quid;</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">     363327 :     item.m_prev = first-&gt;m_prev;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">     363327 :     item.m_next = first-&gt;m_next;</span>
+<span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 0 was taken 363325 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     363327 :     if (item.m_next != NULL)</span>
 <span class="lineNum">     210 </span>                :            :     {
-<span class="lineNum">     211 </span>                :<span class="lineCov">     362120 :         item.m_next-&gt;m_prev = &amp;item;</span>
+<span class="lineNum">     211 </span>                :<span class="lineCov">     363325 :         item.m_next-&gt;m_prev = &amp;item;</span>
 <span class="lineNum">     212 </span>                :            :     }
-<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 1031815 times"> + </span><span class="branchCov" title="Branch 1 was taken 362120 times"> + </span>]:<span class="lineCov">    1393935 :     for (AQItem *curr = &amp;item; curr != NULL; curr = curr-&gt;m_next)</span>
+<span class="lineNum">     213 </span>        [<span class="branchCov" title="Branch 0 was taken 1036207 times"> + </span><span class="branchCov" title="Branch 1 was taken 363322 times"> + </span>]:<span class="lineCov">    1399529 :     for (AQItem *curr = &amp;item; curr != NULL; curr = curr-&gt;m_next)</span>
 <span class="lineNum">     214 </span>                :            :     {
-<span class="lineNum">     215 </span>                :<span class="lineCov">    1031815 :         curr-&gt;m_first = &amp;item;</span>
+<span class="lineNum">     215 </span>                :<span class="lineCov">    1036207 :         curr-&gt;m_first = &amp;item;</span>
 <span class="lineNum">     216 </span>                :            : 
 <span class="lineNum">     217 </span>                :            :         // Populate the checksum validation and commit results.
-<span class="lineNum">     218 </span>                :<span class="lineCov">    1031815 :         curr-&gt;m_checksumValid = last-&gt;m_checksumValid;</span>
-<span class="lineNum">     219 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1031807 times"> + </span>]:<span class="lineCov">    1031815 :         if (!last-&gt;isCommitted())</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">    1036207 :         curr-&gt;m_checksumValid = last-&gt;m_checksumValid;</span>
+<span class="lineNum">     219 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1036202 times"> + </span>]:<span class="lineCov">    1036207 :         if (!last-&gt;isCommitted())</span>
 <span class="lineNum">     220 </span>                :            :         {
 <span class="lineNum">     221 </span>                :<span class="lineNoCov">          0 :             curr-&gt;m_ctrl &amp;= ~CtrlOverlay::CTRLQ_COMMIT_MASK;</span>
 <span class="lineNum">     222 </span>                :            :         }
 <span class="lineNum">     223 </span>                :            :     }
 <span class="lineNum">     224 </span>                :            : 
 <span class="lineNum">     225 </span>                :            :     // Delete the previous head.
-<span class="lineNum">     226 </span>                :<span class="lineCov">     362120 :     first-&gt;m_next = NULL;</span>
-<span class="lineNum">     227 </span>                :<span class="lineCov">     362120 :     first-&gt;m_prev = first;</span>
-<span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 0 was taken 362119 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">     362120 :     delete first;</span>
-<span class="lineNum">     229 </span>                :<span class="lineCov">     362121 :     return PRODUCED;</span>
+<span class="lineNum">     226 </span>                :<span class="lineCov">     363322 :     first-&gt;m_next = NULL;</span>
+<span class="lineNum">     227 </span>                :<span class="lineCov">     363322 :     first-&gt;m_prev = first;</span>
+<span class="lineNum">     228 </span>           [<span class="branchCov" title="Branch 0 was taken 363324 times"> + </span>]:<span class="lineCov">     363322 :     delete first;</span>
+<span class="lineNum">     229 </span>                :<span class="lineCov">     363323 :     return PRODUCED;</span>
 <span class="lineNum">     230 </span>                :            : }
 <span class="lineNum">     231 </span>                :            : 
 <span class="lineNum">     232 </span>                :            : 

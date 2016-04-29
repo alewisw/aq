@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 06:43:25</td>
+            <td class="headerValue">2016-04-29 10:48:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -193,26 +193,26 @@
 <span class="lineNum">     122 </span>                :<span class="lineCov">        844 : }</span>
 <a name="123"><span class="lineNum">     123 </span>                :            : </a>
 <span class="lineNum">     124 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     125 </span>                :<span class="lineCov">     652675 : void AQItem::clearList()</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">     652673 : void AQItem::clearList()</span>
 <span class="lineNum">     126 </span>                :            : {
-<span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 651698 times"> + </span><span class="branchCov" title="Branch 1 was taken 977 times"> + </span>]:<span class="lineCov">     652675 :     if (m_first == this)</span>
+<span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 651696 times"> + </span><span class="branchCov" title="Branch 1 was taken 977 times"> + </span>]:<span class="lineCov">     652673 :     if (m_first == this)</span>
 <span class="lineNum">     128 </span>                :            :     {
-<span class="lineNum">     129 </span>                :<span class="lineCov">     651698 :         AQItem *next = m_next;</span>
-<span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 0 was taken 971 times"> + </span><span class="branchCov" title="Branch 1 was taken 651698 times"> + </span>]:<span class="lineCov">     652669 :         while (next != NULL)</span>
+<span class="lineNum">     129 </span>                :<span class="lineCov">     651696 :         AQItem *next = m_next;</span>
+<span class="lineNum">     130 </span>        [<span class="branchCov" title="Branch 0 was taken 971 times"> + </span><span class="branchCov" title="Branch 1 was taken 651696 times"> + </span>]:<span class="lineCov">     652667 :         while (next != NULL)</span>
 <span class="lineNum">     131 </span>                :            :         {
 <span class="lineNum">     132 </span>                :<span class="lineCov">        971 :             AQItem *curr = next;</span>
 <span class="lineNum">     133 </span>                :<span class="lineCov">        971 :             next = curr-&gt;m_next;</span>
 <span class="lineNum">     134 </span>        [<span class="branchCov" title="Branch 0 was taken 971 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        971 :             delete curr;</span>
 <span class="lineNum">     135 </span>                :            :         }
-<span class="lineNum">     136 </span>                :<span class="lineCov">     651698 :         m_next = NULL;</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">     651698 :         m_prev = this;</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">     651696 :         m_next = NULL;</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">     651696 :         m_prev = this;</span>
 <span class="lineNum">     138 </span>                :            :     }
-<span class="lineNum">     139 </span>                :<span class="lineCov">     652675 : }</span>
+<span class="lineNum">     139 </span>                :<span class="lineCov">     652673 : }</span>
 <a name="140"><span class="lineNum">     140 </span>                :            : </a>
 <span class="lineNum">     141 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     142 </span>                :<span class="lineCov">     117423 : size_t AQItem::capacity(void) const</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">     117420 : size_t AQItem::capacity(void) const</span>
 <span class="lineNum">     143 </span>                :            : {
-<span class="lineNum">     144 </span>                :<span class="lineCov">     117423 :     return ctrl() &amp; CtrlOverlay::CTRLQ_SIZE_MASK;</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">     117420 :     return ctrl() &amp; CtrlOverlay::CTRLQ_SIZE_MASK;</span>
 <span class="lineNum">     145 </span>                :            : }
 <a name="146"><span class="lineNum">     146 </span>                :            : </a>
 <span class="lineNum">     147 </span>                :            : //------------------------------------------------------------------------------

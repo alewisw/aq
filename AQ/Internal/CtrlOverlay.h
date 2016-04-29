@@ -116,12 +116,11 @@
 //   -C- = The item has been claimed and committed by a producer, then retrieved,
 //         released and free'd by the consumer.
 //   cC- = The item has been claimed from a producer and has been committed
-//         back into the queue read for retreival by the consumer.
+//         back into the queue ready for retrieval by the consumer.
 //   --D = [special] The item is 'waste' at the end of the array and has now 
 //         been free'd by the consumer.
-//   c-D = Alternatly the item was retreived by the consumer as an incomplete
-//         item and has subsequently been released but not yet free'd back 
-//         into the queue.
+//   c-D = The item was retreived by the consumer as an incomplete item and has 
+//         subsequently been released.  It may or may not have been free'd.
 //   -CD = [special] The item is 'waste' at the end of the array that could not
 //         be used as the claim was larger than the available space.  The item has
 //         not yet been free'd by the consumer.

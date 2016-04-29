@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 03:54:46</td>
+            <td class="headerValue">2016-04-29 06:17:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">7</td>
@@ -125,113 +125,113 @@
 <span class="lineNum">      54 </span>                :            : //------------------------------------------------------------------------------
 <a name="55"><span class="lineNum">      55 </span>                :            : </a>
 <span class="lineNum">      56 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      57 </span>                :<span class="lineCov">   77622722 : bool CtrlOverlay::isFormatted(size_t memSize) const</span>
+<span class="lineNum">      57 </span>                :<span class="lineCov">   76612381 : bool CtrlOverlay::isFormatted(size_t memSize) const</span>
 <span class="lineNum">      58 </span>                :            : {
 <span class="lineNum">      59 </span>                :            :     uint32_t magic = ((pageSizeShift &lt;&lt; CtrlOverlay::HEADER_XREF_PAGE_SIZE_SHIFT)
 <span class="lineNum">      60 </span>                :            :             | (memOffset  &lt;&lt; CtrlOverlay::HEADER_XREF_MEM_OFFSET_SHIFT)
-<span class="lineNum">      61 </span>                :<span class="lineCov">   77622722 :             | (pageCount));</span>
+<span class="lineNum">      61 </span>                :<span class="lineCov">   76612381 :             | (pageCount));</span>
 <span class="lineNum">      62 </span>                :            :     return memSize &gt;= size 
 <span class="lineNum">      63 </span>                :            :         &amp;&amp; magic == headerXref 
 <span class="lineNum">      64 </span>                :            :         &amp;&amp; formatVersion == FORMAT_VERSION_1 
-<span class="lineNum">      65 </span>   [<span class="branchCov" title="Branch 0 was taken 77613113 times"> + </span><span class="branchCov" title="Branch 1 was taken 9609 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 77620924 times"> + </span>]:<span class="lineCov">   77622722 :         &amp;&amp; !(options &amp; OPTION_INVALID_MASK);</span>
-<span class="lineNum">         </span>   [<span class="branchCov" title="Branch 4 was taken 77602073 times"> + </span><span class="branchCov" title="Branch 5 was taken 18851 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 77622722 times"> + </span>]
+<span class="lineNum">      65 </span>   [<span class="branchCov" title="Branch 0 was taken 76604507 times"> + </span><span class="branchCov" title="Branch 1 was taken 7874 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 76611485 times"> + </span>]:<span class="lineCov">   76612381 :         &amp;&amp; !(options &amp; OPTION_INVALID_MASK);</span>
+<span class="lineNum">         </span>   [<span class="branchCov" title="Branch 4 was taken 76613872 times"> + </span>][<span class="branchCov" title="Branch 6 was taken 76612381 times"> + </span><span class="branchCov" title="Branch 7 was taken 1491 times"> + </span>]
 <span class="lineNum">      66 </span>                :            : }
 <a name="67"><span class="lineNum">      67 </span>                :            : </a>
 <span class="lineNum">      68 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      69 </span>                :<span class="lineCov">    2372357 : unsigned char *CtrlOverlay::pageToMem(uint32_t pageNum) const</span>
+<span class="lineNum">      69 </span>                :<span class="lineCov">    2325217 : unsigned char *CtrlOverlay::pageToMem(uint32_t pageNum) const</span>
 <span class="lineNum">      70 </span>                :            : {
-<span class="lineNum">      71 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2372357 times"> + </span>]:<span class="lineCov">    2372357 :     if (pageNum &gt;= pageCount)</span>
+<span class="lineNum">      71 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2325217 times"> + </span>]:<span class="lineCov">    2325217 :     if (pageNum &gt;= pageCount)</span>
 <span class="lineNum">      72 </span>                :            :     {
 <span class="lineNum">      73 </span>                :<span class="lineNoCov">          0 :         return NULL;</span>
 <span class="lineNum">      74 </span>                :            :     }
 <span class="lineNum">      75 </span>                :            :     else
 <span class="lineNum">      76 </span>                :            :     {
-<span class="lineNum">      77 </span>                :<span class="lineCov">    2372357 :         unsigned char *ptr = (unsigned char *)this;</span>
-<span class="lineNum">      78 </span>                :<span class="lineCov">    2372357 :         return &amp;ptr[memOffset + (pageNum &lt;&lt; pageSizeShift)];</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">    2325217 :         unsigned char *ptr = (unsigned char *)this;</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">    2325217 :         return &amp;ptr[memOffset + (pageNum &lt;&lt; pageSizeShift)];</span>
 <span class="lineNum">      79 </span>                :            :     }
 <span class="lineNum">      80 </span>                :            : }
 <a name="81"><span class="lineNum">      81 </span>                :            : </a>
 <span class="lineNum">      82 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      83 </span>                :<span class="lineCov">    2021883 : uint32_t CtrlOverlay::memToPage(const void *mem) const</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">    1972961 : uint32_t CtrlOverlay::memToPage(const void *mem) const</span>
 <span class="lineNum">      84 </span>                :            : {
-<span class="lineNum">      85 </span>                :<span class="lineCov">    2021883 :     unsigned char *ptr = (unsigned char *)this;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">    1972961 :     unsigned char *ptr = (unsigned char *)this;</span>
 <span class="lineNum">      86 </span>                :            : 
-<span class="lineNum">      87 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2021883 times"> + </span>]:<span class="lineCov">    2021883 :     if (mem &lt; ptr)</span>
+<span class="lineNum">      87 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1972961 times"> + </span>]:<span class="lineCov">    1972961 :     if (mem &lt; ptr)</span>
 <span class="lineNum">      88 </span>                :            :     {
 <span class="lineNum">      89 </span>                :            :         // Less than the start address; must be invalid.
 <span class="lineNum">      90 </span>                :<span class="lineNoCov">          0 :         return PAGENUM_INVALID;</span>
 <span class="lineNum">      91 </span>                :            :     }
 <span class="lineNum">      92 </span>                :            : 
-<span class="lineNum">      93 </span>                :<span class="lineCov">    2021883 :     size_t offset = (size_t)((const unsigned char *)mem - ptr) - memOffset;</span>
-<span class="lineNum">      94 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2021883 times"> + </span>]:<span class="lineCov">    2021883 :     if (offset &amp; ((1 &lt;&lt; pageSizeShift) - 1))</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">    1972961 :     size_t offset = (size_t)((const unsigned char *)mem - ptr) - memOffset;</span>
+<span class="lineNum">      94 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1972961 times"> + </span>]:<span class="lineCov">    1972961 :     if (offset &amp; ((1 &lt;&lt; pageSizeShift) - 1))</span>
 <span class="lineNum">      95 </span>                :            :     {
 <span class="lineNum">      96 </span>                :            :         // Does not fall directly on a memory page boundary.
 <span class="lineNum">      97 </span>                :<span class="lineNoCov">          0 :         return PAGENUM_INVALID;</span>
 <span class="lineNum">      98 </span>                :            :     }
-<span class="lineNum">      99 </span>                :<span class="lineCov">    2021883 :     uint32_t pageNum = offset &gt;&gt; pageSizeShift;</span>
-<span class="lineNum">     100 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2021883 times"> + </span>]:<span class="lineCov">    2021883 :     if (pageNum &gt;= pageCount)</span>
+<span class="lineNum">      99 </span>                :<span class="lineCov">    1972961 :     uint32_t pageNum = offset &gt;&gt; pageSizeShift;</span>
+<span class="lineNum">     100 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1972961 times"> + </span>]:<span class="lineCov">    1972961 :     if (pageNum &gt;= pageCount)</span>
 <span class="lineNum">     101 </span>                :            :     {
 <span class="lineNum">     102 </span>                :            :         // Cannot be valid as it is after the total number of pages.
 <span class="lineNum">     103 </span>                :<span class="lineNoCov">          0 :         return PAGENUM_INVALID;</span>
 <span class="lineNum">     104 </span>                :            :     }
-<span class="lineNum">     105 </span>                :<span class="lineCov">    2021883 :     return pageNum;</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">    1972961 :     return pageNum;</span>
 <span class="lineNum">     106 </span>                :            : }
 <a name="107"><span class="lineNum">     107 </span>                :            : </a>
 <span class="lineNum">     108 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     109 </span>                :<span class="lineCov">   68340612 : uint32_t CtrlOverlay::sizeToPageCount(size_t sz) const</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">   68042370 : uint32_t CtrlOverlay::sizeToPageCount(size_t sz) const</span>
 <span class="lineNum">     110 </span>                :            : {
 <span class="lineNum">     111 </span>                :            :     // Calculate the number of pages required.  We take the requested 
 <span class="lineNum">     112 </span>                :            :     // size, add the number of bytes in a page subtract 1, then divide
 <span class="lineNum">     113 </span>                :            :     // by the size of each page - this ensures we round up and get
 <span class="lineNum">     114 </span>                :            :     // enough space.
-<span class="lineNum">     115 </span>                :<span class="lineCov">   68340612 :     return (sz + (1 &lt;&lt; pageSizeShift) - 1) &gt;&gt; pageSizeShift;</span>
+<span class="lineNum">     115 </span>                :<span class="lineCov">   68042370 :     return (sz + (1 &lt;&lt; pageSizeShift) - 1) &gt;&gt; pageSizeShift;</span>
 <span class="lineNum">     116 </span>                :            : }
 <a name="117"><span class="lineNum">     117 </span>                :            : </a>
 <span class="lineNum">     118 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     119 </span>                :<span class="lineCov">  144652421 : uint32_t CtrlOverlay::queueRefToIndex(uint32_t ref) const</span>
+<span class="lineNum">     119 </span>                :<span class="lineCov">  142951568 : uint32_t CtrlOverlay::queueRefToIndex(uint32_t ref) const</span>
 <span class="lineNum">     120 </span>                :            : {
-<span class="lineNum">     121 </span>                :<span class="lineCov">  144652421 :     return ref &amp; REF_INDEX_MASK;</span>
+<span class="lineNum">     121 </span>                :<span class="lineCov">  142951568 :     return ref &amp; REF_INDEX_MASK;</span>
 <span class="lineNum">     122 </span>                :            : }
 <a name="123"><span class="lineNum">     123 </span>                :            : </a>
 <span class="lineNum">     124 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     125 </span>                :<span class="lineCov">   68102418 : uint32_t CtrlOverlay::queueRefIncrement(uint32_t ref, uint32_t amount) const</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">   67426259 : uint32_t CtrlOverlay::queueRefIncrement(uint32_t ref, uint32_t amount) const</span>
 <span class="lineNum">     126 </span>                :            : {
-<span class="lineNum">     127 </span>                :<span class="lineCov">   68102418 :     uint32_t index = ref &amp; REF_INDEX_MASK;</span>
-<span class="lineNum">     128 </span>                :<span class="lineCov">   68102418 :     uint32_t seq = ref &amp; REF_SEQ_MASK;</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">   67426259 :     uint32_t index = ref &amp; REF_INDEX_MASK;</span>
+<span class="lineNum">     128 </span>                :<span class="lineCov">   67426259 :     uint32_t seq = ref &amp; REF_SEQ_MASK;</span>
 <span class="lineNum">     129 </span>                :            : 
-<span class="lineNum">     130 </span>                :<span class="lineCov">   68102418 :     index += amount;</span>
-<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 0 was taken 1288420 times"> + </span><span class="branchCov" title="Branch 1 was taken 68102418 times"> + </span>]:<span class="lineCov">   69390838 :     while (index &gt;= pageCount)</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">   67426259 :     index += amount;</span>
+<span class="lineNum">     131 </span>        [<span class="branchCov" title="Branch 0 was taken 1081203 times"> + </span><span class="branchCov" title="Branch 1 was taken 67426259 times"> + </span>]:<span class="lineCov">   68507462 :     while (index &gt;= pageCount)</span>
 <span class="lineNum">     132 </span>                :            :     {
-<span class="lineNum">     133 </span>                :<span class="lineCov">    1288420 :         index -= pageCount;</span>
-<span class="lineNum">     134 </span>                :<span class="lineCov">    1288420 :         seq += REF_SEQ_INCR;</span>
+<span class="lineNum">     133 </span>                :<span class="lineCov">    1081203 :         index -= pageCount;</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">    1081203 :         seq += REF_SEQ_INCR;</span>
 <span class="lineNum">     135 </span>                :            :     }
 <span class="lineNum">     136 </span>                :            : 
-<span class="lineNum">     137 </span>                :<span class="lineCov">   68102418 :     return seq | index;</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">   67426259 :     return seq | index;</span>
 <span class="lineNum">     138 </span>                :            : }
 <a name="139"><span class="lineNum">     139 </span>                :            : </a>
 <span class="lineNum">     140 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     141 </span>                :<span class="lineCov">   66674047 : uint32_t CtrlOverlay::availableSequentialPages(uint32_t headIdx, uint32_t tailIdx) const</span>
+<span class="lineNum">     141 </span>                :<span class="lineCov">   65752200 : uint32_t CtrlOverlay::availableSequentialPages(uint32_t headIdx, uint32_t tailIdx) const</span>
 <span class="lineNum">     142 </span>                :            : {
 <span class="lineNum">     143 </span>                :            :     // The actual number of availableSize pages is given my the maximum 'sequential'
 <span class="lineNum">     144 </span>                :            :     // number of pages as all allocates are performed in fixed blocks.
-<span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 0 was taken 8303833 times"> + </span><span class="branchCov" title="Branch 1 was taken 58370214 times"> + </span>]:<span class="lineCov">   66674047 :     if (tailIdx &gt; headIdx)</span>
+<span class="lineNum">     145 </span>        [<span class="branchCov" title="Branch 0 was taken 14922803 times"> + </span><span class="branchCov" title="Branch 1 was taken 50829397 times"> + </span>]:<span class="lineCov">   65752200 :     if (tailIdx &gt; headIdx)</span>
 <span class="lineNum">     146 </span>                :            :     {
 <span class="lineNum">     147 </span>                :            :         // Only a single availableSize block right in the middle of the queue.
-<span class="lineNum">     148 </span>                :<span class="lineCov">    8303833 :         return tailIdx - headIdx - 1;</span>
+<span class="lineNum">     148 </span>                :<span class="lineCov">   14922803 :         return tailIdx - headIdx - 1;</span>
 <span class="lineNum">     149 </span>                :            :     }
 <span class="lineNum">     150 </span>                :            :     else
 <span class="lineNum">     151 </span>                :            :     {
 <span class="lineNum">     152 </span>                :            :         // Two possible blocks - one at the start and one at the end of the
 <span class="lineNum">     153 </span>                :            :         // queue.  Pick the largest noting that we must always have one
 <span class="lineNum">     154 </span>                :            :         // unused page.
-<span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 0 was taken 3146602 times"> + </span><span class="branchCov" title="Branch 1 was taken 55223612 times"> + </span>]:<span class="lineCov">   58370214 :         uint32_t end = pageCount - headIdx - (tailIdx == 0 ? 1 : 0);</span>
-<span class="lineNum">     156 </span>        [<span class="branchCov" title="Branch 0 was taken 24935726 times"> + </span><span class="branchCov" title="Branch 1 was taken 33434488 times"> + </span>]:<span class="lineCov">   58370214 :         if (end + 1 &gt; tailIdx)</span>
+<span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 0 was taken 2991723 times"> + </span><span class="branchCov" title="Branch 1 was taken 47837674 times"> + </span>]:<span class="lineCov">   50829397 :         uint32_t end = pageCount - headIdx - (tailIdx == 0 ? 1 : 0);</span>
+<span class="lineNum">     156 </span>        [<span class="branchCov" title="Branch 0 was taken 24060746 times"> + </span><span class="branchCov" title="Branch 1 was taken 26768651 times"> + </span>]:<span class="lineCov">   50829397 :         if (end + 1 &gt; tailIdx)</span>
 <span class="lineNum">     157 </span>                :            :         {
-<span class="lineNum">     158 </span>                :<span class="lineCov">   24935726 :             return end;</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">   24060746 :             return end;</span>
 <span class="lineNum">     159 </span>                :            :         }
 <span class="lineNum">     160 </span>                :            :         else
 <span class="lineNum">     161 </span>                :            :         {
-<span class="lineNum">     162 </span>                :<span class="lineCov">   66674047 :             return tailIdx - 1;</span>
+<span class="lineNum">     162 </span>                :<span class="lineCov">   65752200 :             return tailIdx - 1;</span>
 <span class="lineNum">     163 </span>                :            :         }
 <span class="lineNum">     164 </span>                :            :     }
 <span class="lineNum">     165 </span>                :            : }

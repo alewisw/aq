@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 02:20:56</td>
+            <td class="headerValue">2016-04-29 03:44:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -130,9 +130,9 @@
 <a name="59"><span class="lineNum">      59 </span>                :            : </a>
 <span class="lineNum">      60 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">      61 </span>                :<span class="lineCov">      16944 : AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)</span>
-<span class="lineNum">      62 </span>                :            :     : m_ctrl((CtrlOverlay *)mem)
-<span class="lineNum">      63 </span>                :            :     , m_memSize(memSize)
-<span class="lineNum">      64 </span>                :            :     , m_trace(trace)
+<span class="lineNum">      62 </span>                :            :     : m_trace(trace)
+<span class="lineNum">      63 </span>                :            :     , m_ctrl((CtrlOverlay *)mem)
+<span class="lineNum">      64 </span>                :            :     , m_memSize(memSize)
 <span class="lineNum">      65 </span>                :            : #ifdef AQ_TEST_POINT
 <span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 1 was taken 16944 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      16944 :     , m_tpn(new TestPointNotifier(testPointCount, this))</span>
 <span class="lineNum">      67 </span>                :            : #endif
@@ -141,9 +141,9 @@
 <a name="70"><span class="lineNum">      70 </span>                :            : </a>
 <span class="lineNum">      71 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">      72 </span>                :<span class="lineCov">          1 : AQ::AQ(const AQ&amp; other)</span>
-<span class="lineNum">      73 </span>                :            :     : m_ctrl(other.m_ctrl)
-<span class="lineNum">      74 </span>                :            :     , m_memSize(other.m_memSize)
-<span class="lineNum">      75 </span>                :            :     , m_trace(other.m_trace)
+<span class="lineNum">      73 </span>                :            :     : m_trace(other.m_trace)
+<span class="lineNum">      74 </span>                :            :     , m_ctrl(other.m_ctrl)
+<span class="lineNum">      75 </span>                :            :     , m_memSize(other.m_memSize)
 <span class="lineNum">      76 </span>                :            : #ifdef AQ_TEST_POINT
 <span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     , m_tpn(new TestPointNotifier(other.m_tpn-&gt;testPointCount(), this))</span>
 <span class="lineNum">      78 </span>                :            : #endif
@@ -155,9 +155,9 @@
 <span class="lineNum">      84 </span>                :            : {
 <span class="lineNum">      85 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     if (this != &amp;other)</span>
 <span class="lineNum">      86 </span>                :            :     {
-<span class="lineNum">      87 </span>                :<span class="lineCov">          2 :         m_ctrl = other.m_ctrl;</span>
-<span class="lineNum">      88 </span>                :<span class="lineCov">          2 :         m_memSize = other.m_memSize;</span>
-<span class="lineNum">      89 </span>                :<span class="lineCov">          2 :         m_trace = other.m_trace;</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">          2 :         m_trace = other.m_trace;</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">          2 :         m_ctrl = other.m_ctrl;</span>
+<span class="lineNum">      89 </span>                :<span class="lineCov">          2 :         m_memSize = other.m_memSize;</span>
 <span class="lineNum">      90 </span>                :            :     }
 <span class="lineNum">      91 </span>                :<span class="lineCov">          2 :     return *this;</span>
 <span class="lineNum">      92 </span>                :            : }

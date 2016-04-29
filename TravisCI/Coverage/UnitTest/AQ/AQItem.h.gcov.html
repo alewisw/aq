@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 02:20:56</td>
+            <td class="headerValue">2016-04-29 03:44:25</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">19</td>
@@ -148,14 +148,14 @@
 <a name="77"><span class="lineNum">      77 </span>                :            :      * Constructs a new item with no initial allocation.</a>
 <span class="lineNum">      78 </span>                :            :      */
 <span class="lineNum">      79 </span>                :<span class="lineCov">     326634 :     AQItem(void) </span>
-<span class="lineNum">      80 </span>                :            :         : m_first(this)
-<span class="lineNum">      81 </span>                :            :         , m_prev(this)
-<span class="lineNum">      82 </span>                :            :         , m_next(NULL)
+<span class="lineNum">      80 </span>                :            :         : m_ctrl(0)
+<span class="lineNum">      81 </span>                :            :         , m_quid(QUEUE_IDENTIFIER_INVALID)
+<span class="lineNum">      82 </span>                :            :         , m_checksumValid(false)
 <span class="lineNum">      83 </span>                :            :         , m_mem(NULL)
 <span class="lineNum">      84 </span>                :            :         , m_memSize(0)
-<span class="lineNum">      85 </span>                :            :         , m_ctrl(0)
-<span class="lineNum">      86 </span>                :            :         , m_checksumValid(false)
-<span class="lineNum">      87 </span>                :            :         , m_quid(QUEUE_IDENTIFIER_INVALID)
+<span class="lineNum">      85 </span>                :            :         , m_first(this)
+<span class="lineNum">      86 </span>                :            :         , m_next(NULL)
+<span class="lineNum">      87 </span>                :            :         , m_prev(this)
 <span class="lineNum">      88 </span>                :<span class="lineCov">     326634 :         , m_lkid(QUEUE_IDENTIFIER_INVALID)</span>
 <span class="lineNum">      89 </span>                :            :     {
 <span class="lineNum">      90 </span>                :<span class="lineCov">     326634 :     }</span>
@@ -172,8 +172,8 @@
 <span class="lineNum">     101 </span>                :            :      */
 <span class="lineNum">     102 </span>                :<span class="lineCov">        831 :     AQItem(const AQItem&amp; other) </span>
 <span class="lineNum">     103 </span>                :            :         : m_first(this)
-<span class="lineNum">     104 </span>                :            :         , m_prev(this)
-<span class="lineNum">     105 </span>                :<span class="lineCov">        831 :         , m_next(NULL)</span>
+<span class="lineNum">     104 </span>                :            :         , m_next(NULL)
+<span class="lineNum">     105 </span>                :<span class="lineCov">        831 :         , m_prev(this)</span>
 <span class="lineNum">     106 </span>                :            :     {
 <span class="lineNum">     107 </span>                :<span class="lineCov">        831 :         cloneFrom(other);</span>
 <span class="lineNum">     108 </span>                :<span class="lineCov">        831 :     }</span>
@@ -482,7 +482,7 @@
 <span class="lineNum">     411 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
 <a name="412"><span class="lineNum">     412 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
 <span class="lineNum">     413 </span>                :            :      */
-<span class="lineNum">     414 </span>                :<span class="lineCov">      61516 :     const AQItem *next(void) const { return m_next; }</span>
+<span class="lineNum">     414 </span>                :<span class="lineCov">      61514 :     const AQItem *next(void) const { return m_next; }</span>
 <span class="lineNum">     415 </span>                :            : 
 <span class="lineNum">     416 </span>                :            :     /**
 <span class="lineNum">     417 </span>                :            :     * Obtains a pointer to the previous item in the linked list of items.  If this

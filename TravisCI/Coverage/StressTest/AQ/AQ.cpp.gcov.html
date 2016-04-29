@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 02:21:26</td>
+            <td class="headerValue">2016-04-29 03:44:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -130,9 +130,9 @@
 <a name="59"><span class="lineNum">      59 </span>                :            : </a>
 <span class="lineNum">      60 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">      61 </span>                :<span class="lineCov">         16 : AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)</span>
-<span class="lineNum">      62 </span>                :            :     : m_ctrl((CtrlOverlay *)mem)
-<span class="lineNum">      63 </span>                :            :     , m_memSize(memSize)
-<span class="lineNum">      64 </span>                :            :     , m_trace(trace)
+<span class="lineNum">      62 </span>                :            :     : m_trace(trace)
+<span class="lineNum">      63 </span>                :            :     , m_ctrl((CtrlOverlay *)mem)
+<span class="lineNum">      64 </span>                :            :     , m_memSize(memSize)
 <span class="lineNum">      65 </span>                :            : #ifdef AQ_TEST_POINT
 <span class="lineNum">      66 </span>        [<span class="branchCov" title="Branch 1 was taken 16 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         16 :     , m_tpn(new TestPointNotifier(testPointCount, this))</span>
 <span class="lineNum">      67 </span>                :            : #endif
@@ -141,9 +141,9 @@
 <a name="70"><span class="lineNum">      70 </span>                :            : </a>
 <span class="lineNum">      71 </span>                :            : //------------------------------------------------------------------------------
 <span class="lineNum">      72 </span>                :<span class="lineNoCov">          0 : AQ::AQ(const AQ&amp; other)</span>
-<span class="lineNum">      73 </span>                :            :     : m_ctrl(other.m_ctrl)
-<span class="lineNum">      74 </span>                :            :     , m_memSize(other.m_memSize)
-<span class="lineNum">      75 </span>                :            :     , m_trace(other.m_trace)
+<span class="lineNum">      73 </span>                :            :     : m_trace(other.m_trace)
+<span class="lineNum">      74 </span>                :            :     , m_ctrl(other.m_ctrl)
+<span class="lineNum">      75 </span>                :            :     , m_memSize(other.m_memSize)
 <span class="lineNum">      76 </span>                :            : #ifdef AQ_TEST_POINT
 <span class="lineNum">      77 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     , m_tpn(new TestPointNotifier(other.m_tpn-&gt;testPointCount(), this))</span>
 <span class="lineNum">      78 </span>                :            : #endif
@@ -155,9 +155,9 @@
 <span class="lineNum">      84 </span>                :            : {
 <span class="lineNum">      85 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (this != &amp;other)</span>
 <span class="lineNum">      86 </span>                :            :     {
-<span class="lineNum">      87 </span>                :<span class="lineNoCov">          0 :         m_ctrl = other.m_ctrl;</span>
-<span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :         m_memSize = other.m_memSize;</span>
-<span class="lineNum">      89 </span>                :<span class="lineNoCov">          0 :         m_trace = other.m_trace;</span>
+<span class="lineNum">      87 </span>                :<span class="lineNoCov">          0 :         m_trace = other.m_trace;</span>
+<span class="lineNum">      88 </span>                :<span class="lineNoCov">          0 :         m_ctrl = other.m_ctrl;</span>
+<span class="lineNum">      89 </span>                :<span class="lineNoCov">          0 :         m_memSize = other.m_memSize;</span>
 <span class="lineNum">      90 </span>                :            :     }
 <span class="lineNum">      91 </span>                :<span class="lineNoCov">          0 :     return *this;</span>
 <span class="lineNum">      92 </span>                :            : }
@@ -172,23 +172,23 @@
 <span class="lineNum">     101 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 16 times"> + </span>]:<span class="lineCov">         16 : }</span>
 <a name="102"><span class="lineNum">     102 </span>                :            : </a>
 <span class="lineNum">     103 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     104 </span>                :<span class="lineCov">   75798815 : bool AQ::isFormatted(void) const</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">   77454843 : bool AQ::isFormatted(void) const</span>
 <span class="lineNum">     105 </span>                :            : {
-<span class="lineNum">     106 </span>   [<span class="branchCov" title="Branch 0 was taken 75795093 times"> + </span><span class="branchCov" title="Branch 1 was taken 3722 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 75798815 times"> + </span>]:<span class="lineCov">   75798815 :     if (m_ctrl == NULL || m_memSize &lt;   offsetof(CtrlOverlay, headerXref) </span>
+<span class="lineNum">     106 </span>   [<span class="branchCov" title="Branch 0 was taken 77451759 times"> + </span><span class="branchCov" title="Branch 1 was taken 3084 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 77454843 times"> + </span>]:<span class="lineCov">   77454843 :     if (m_ctrl == NULL || m_memSize &lt;   offsetof(CtrlOverlay, headerXref) </span>
 <span class="lineNum">     107 </span>                :            :                                       + sizeof(m_ctrl-&gt;headerXref))
 <span class="lineNum">     108 </span>                :            :     {
 <span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :         return false;</span>
 <span class="lineNum">     110 </span>                :            :     }
 <span class="lineNum">     111 </span>                :            :     else
 <span class="lineNum">     112 </span>                :            :     {
-<span class="lineNum">     113 </span>                :<span class="lineCov">   75798815 :         return m_ctrl-&gt;isFormatted(m_memSize);</span>
+<span class="lineNum">     113 </span>                :<span class="lineCov">   77454843 :         return m_ctrl-&gt;isFormatted(m_memSize);</span>
 <span class="lineNum">     114 </span>                :            :     }
 <span class="lineNum">     115 </span>                :            : }
 <a name="116"><span class="lineNum">     116 </span>                :            : </a>
 <span class="lineNum">     117 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     118 </span>                :<span class="lineCov">    3760976 : bool AQ::isExtendable(void) const</span>
+<span class="lineNum">     118 </span>                :<span class="lineCov">    3600366 : bool AQ::isExtendable(void) const</span>
 <span class="lineNum">     119 </span>                :            : {
-<span class="lineNum">     120 </span>   [<span class="branchCov" title="Branch 1 was taken 3761458 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3740421 times"> + </span><span class="branchCov" title="Branch 4 was taken 21037 times"> + </span>]:<span class="lineCov">    3760976 :     return isFormatted() &amp;&amp; (m_ctrl-&gt;options &amp; OPTION_EXTENDABLE) != 0;</span>
+<span class="lineNum">     120 </span>   [<span class="branchCov" title="Branch 1 was taken 3600505 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3579500 times"> + </span><span class="branchCov" title="Branch 4 was taken 21005 times"> + </span>]:<span class="lineCov">    3600366 :     return isFormatted() &amp;&amp; (m_ctrl-&gt;options &amp; OPTION_EXTENDABLE) != 0;</span>
 <span class="lineNum">     121 </span>                :            : }
 <a name="122"><span class="lineNum">     122 </span>                :            : </a>
 <span class="lineNum">     123 </span>                :            : //------------------------------------------------------------------------------
@@ -198,9 +198,9 @@
 <span class="lineNum">     127 </span>                :            : }
 <a name="128"><span class="lineNum">     128 </span>                :            : </a>
 <span class="lineNum">     129 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     130 </span>                :<span class="lineCov">   65838302 : size_t AQ::pageCount(void) const</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">   67610005 : size_t AQ::pageCount(void) const</span>
 <span class="lineNum">     131 </span>                :            : {
-<span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 1 was taken 65838812 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">   65838302 :     return isFormatted() ? m_ctrl-&gt;pageCount : 0;</span>
+<span class="lineNum">     132 </span>        [<span class="branchCov" title="Branch 1 was taken 67609408 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">   67610005 :     return isFormatted() ? m_ctrl-&gt;pageCount : 0;</span>
 <span class="lineNum">     133 </span>                :            : }
 <a name="134"><span class="lineNum">     134 </span>                :            : </a>
 <span class="lineNum">     135 </span>                :            : //------------------------------------------------------------------------------
@@ -218,11 +218,11 @@
 <span class="lineNum">     147 </span>                :            : }
 <a name="148"><span class="lineNum">     148 </span>                :            : </a>
 <span class="lineNum">     149 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     150 </span>                :<span class="lineCov">    6218559 : aq::CtrlOverlay *AQ::ctrlThrowOnUnformatted(const char *func) const</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">    6262954 : aq::CtrlOverlay *AQ::ctrlThrowOnUnformatted(const char *func) const</span>
 <span class="lineNum">     151 </span>                :            : {
-<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 6222357 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">    6218559 :     if (isFormatted())</span>
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 6266419 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">    6262954 :     if (isFormatted())</span>
 <span class="lineNum">     153 </span>                :            :     {
-<span class="lineNum">     154 </span>                :<span class="lineCov">    6222357 :         return m_ctrl;</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">    6266419 :         return m_ctrl;</span>
 <span class="lineNum">     155 </span>                :            :     }
 <span class="lineNum">     156 </span>                :            : 
 <span class="lineNum">     157 </span>                :<span class="lineNoCov">          0 :     ostringstream ss;</span>
@@ -234,10 +234,10 @@
 <span class="lineNum">     162 </span>                :            : 
 <a name="163"><span class="lineNum">     163 </span>                :            : //------------------------------------------------------------------------------</a>
 <span class="lineNum">     164 </span>                :            : #ifdef AQ_TEST_POINT
-<span class="lineNum">     165 </span>                :<span class="lineCov">   72254791 : void AQ::testPoint(int tp)</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">   73747835 : void AQ::testPoint(int tp)</span>
 <span class="lineNum">     166 </span>                :            : {
-<span class="lineNum">     167 </span>                :<span class="lineCov">   72254791 :     m_tpn-&gt;testPoint(tp);</span>
-<span class="lineNum">     168 </span>                :<span class="lineCov">   72270657 : }</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">   73747835 :     m_tpn-&gt;testPoint(tp);</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">   73759370 : }</span>
 <span class="lineNum">     169 </span>                :            : #endif
 <span class="lineNum">     170 </span>                :            : 
 <span class="lineNum">     171 </span>                :            : 

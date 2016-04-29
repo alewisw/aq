@@ -81,6 +81,6 @@ script:
     - git pull --no-edit --commit origin gh-pages
     - git push origin gh-pages
     - cd ../Performance
-    - ./StressTest/StressTest.exe -t6 -l50 -p3 -s1 -M932113 -P5 -A3:4:5:6 -T1000 -C -E -O30 -W3 -S3000 
-    - ./PerfTest/PerfTest.exe -m -c -d10 -t1:2:3:4 -M 
+    - ./StressTest/StressTest -t6 -l50 -p3 -s1 -M932113 -P5 -A3:4:5:6 -T1000 -C -E -O30 -W3 -S3000 
+    - ./PerfTest/PerfTest -m -c -d10 -t1:2:3:4 -M 
     

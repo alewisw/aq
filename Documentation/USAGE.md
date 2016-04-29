@@ -35,11 +35,21 @@ Shown below is an example of the queue data structure in a particular state.  Th
 <table>
 <tr>
     <td border="0" width="10%">Pointers:
-    <td width="24%" colspan="4">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
     <td bgcolor="#AFAFFF" width="6%" align="center">Head
-    <td width="36%" colspan="6">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
     <td bgcolor="#BFBFBF" width="6%" align="center">Tail
-    <td width="18%" colspan="3">
+    <td width="6%">
+    <td width="6%">
+    <td width="6%">
 </tr>
 
 <tr>

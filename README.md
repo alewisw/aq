@@ -24,9 +24,10 @@ These tests are run automatically through online CI services:
 
 | Operating System | CI Provider | Build | Status |
 | ---------------- | ----------- | ----- | ------ |
-| Linux   | Travis CI | [Unit Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
-| Linux   | Travis CI | [Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/) | |
-| Linux   | Coveralls | [Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
+| Linux   | Travis CI | [Unit & Stress Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
+| Linux   | Travis CI | [Unit Test Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/UnitTest) | |
+| Linux   | Travis CI | [Stress Test Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/StressTest) | |
+| Linux   | Coveralls | [Unit Test Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
 | Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | [![Build status](https://ci.appveyor.com/api/projects/status/avfwa8c4nl9dox1i/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq/branch/master) |
 | Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/Appveyor/Doxygen) | |
 | Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq-a7p4i) | [![Build status](https://ci.appveyor.com/api/projects/status/0ox809apiv7kqh50/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq-a7p4i/branch/master) |

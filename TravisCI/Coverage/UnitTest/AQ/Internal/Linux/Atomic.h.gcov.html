@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-04-29 03:54:16</td>
+            <td class="headerValue">2016-04-29 06:17:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -167,16 +167,16 @@
 <span class="lineNum">      96 </span>                :            :     //
 <a name="97"><span class="lineNum">      97 </span>                :            :     // Implementation relies on (1) to guarantee atomicity and (2) to</a>
 <span class="lineNum">      98 </span>                :            :     // guarantee ordering.
-<span class="lineNum">      99 </span>                :<span class="lineCov">     386924 :     static inline void write(volatile uint32_t *dest, uint32_t value)</span>
+<span class="lineNum">      99 </span>                :<span class="lineCov">     386912 :     static inline void write(volatile uint32_t *dest, uint32_t value)</span>
 <span class="lineNum">     100 </span>                :            :     {
 <span class="lineNum">     101 </span>                :            : #ifdef AQ_ATOMIC_ALWAYS_USE_SYNC
-<span class="lineNum">     102 </span>                :<span class="lineCov">     386924 :         __sync_synchronize();</span>
-<span class="lineNum">     103 </span>                :<span class="lineCov">     386924 :         *dest = value;</span>
-<span class="lineNum">     104 </span>                :<span class="lineCov">     386924 :         __sync_synchronize();</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">     386912 :         __sync_synchronize();</span>
+<span class="lineNum">     103 </span>                :<span class="lineCov">     386912 :         *dest = value;</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">     386912 :         __sync_synchronize();</span>
 <span class="lineNum">     105 </span>                :            : #else
 <span class="lineNum">     106 </span>                :            :         *dest = value;
 <span class="lineNum">     107 </span>                :            : #endif
-<span class="lineNum">     108 </span>                :<span class="lineCov">     386924 :     }</span>
+<span class="lineNum">     108 </span>                :<span class="lineCov">     386912 :     }</span>
 <span class="lineNum">     109 </span>                :            : 
 <span class="lineNum">     110 </span>                :            :     // Performs an atomic 'OR' of the passed memory location with the bits in 
 <span class="lineNum">     111 </span>                :            :     // 'mask'.

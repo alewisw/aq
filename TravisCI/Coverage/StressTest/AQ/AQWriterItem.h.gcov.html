@@ -1,0 +1,440 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Stress Test Code Coverage - AQ/AQWriterItem.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">AQ</a> - AQWriterItem.h<span style="font-size: 80%;"> (source / <a href="AQWriterItem.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Stress Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">72.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryLo">70.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryLo">25.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : #ifndef AQWRITERITEM_H</a>
+<span class="lineNum">       2 </span>                :            : #define AQWRITERITEM_H
+<span class="lineNum">       3 </span>                :            : //==============================================================================
+<span class="lineNum">       4 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       5 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       6 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       7 </span>                :            : //
+<span class="lineNum">       8 </span>                :            : //==============================================================================
+<span class="lineNum">       9 </span>                :            : 
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : // Includes
+<span class="lineNum">      12 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &quot;AQItem.h&quot;
+<span class="lineNum">      15 </span>                :            : 
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : 
+<span class="lineNum">      19 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      20 </span>                :            : // Exported Macros
+<span class="lineNum">      21 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      22 </span>                :            : 
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : 
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      27 </span>                :            : // Exported Type Definitions
+<span class="lineNum">      28 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :            : // Forward declarations.
+<span class="lineNum">      31 </span>                :            : class AQWriter;
+<span class="lineNum">      32 </span>                :            : 
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      37 </span>                :            : // Exported Variable Declarations
+<span class="lineNum">      38 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      44 </span>                :            : // Exported Function and Class Declarations
+<span class="lineNum">      45 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :            : /**
+<span class="lineNum">      48 </span>                :            :  * Encapsulates an item is being written to a Multi-Producer Concurrent 
+<span class="lineNum">      49 </span>                :            :  * Allocating Queue.
+<span class="lineNum">      50 </span>                :            :  *
+<span class="lineNum">      51 </span>                :            :  * The AQWriterItem can be either accessed directly and written with, e.g., 
+<span class="lineNum">      52 </span>                :            :  * memcpy() or alternatly it can be written to using the 
+<span class="lineNum">      53 </span>                :            :  * write(const void *, size_t) or similar functions.  When the 
+<span class="lineNum">      54 </span>                :            :  * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t)
+<span class="lineNum">      55 </span>                :            :  * functions are the main mechanism for extending the length of the item
+<span class="lineNum">      56 </span>                :            :  * by appending new items to the end of the linked list.
+<span class="lineNum">      57 </span>                :            :  */
+<span class="lineNum">      58 </span>                :            : class AQWriterItem : public AQItem
+<span class="lineNum">      59 </span>                :            : {
+<span class="lineNum">      60 </span>                :            :     // Fields are set directly from the MPAC queue objects.
+<span class="lineNum">      61 </span>                :            :     friend class AQWriter;
+<span class="lineNum">      62 </span>                :            : 
+<span class="lineNum">      63 </span>                :            : public:
+<span class="lineNum">      64 </span>                :            : 
+<span class="lineNum">      65 </span>                :            :     /**
+<a name="66"><span class="lineNum">      66 </span>                :            :      * Constructs a new item with no initial allocation.</a>
+<span class="lineNum">      67 </span>                :            :      */
+<span class="lineNum">      68 </span>                :<span class="lineCov">     709984 :     AQWriterItem(void)</span>
+<span class="lineNum">      69 </span>                :            :         : AQItem()
+<span class="lineNum">      70 </span>                :            :         , m_writer(NULL) 
+<span class="lineNum">      71 </span>                :<span class="lineCov">     709984 :         , m_accumulator(0)</span>
+<span class="lineNum">      72 </span>                :            :     {
+<span class="lineNum">      73 </span>                :<span class="lineCov">     709984 :     }</span>
+<span class="lineNum">      74 </span>                :            : 
+<span class="lineNum">      75 </span>                :            :     /**
+<span class="lineNum">      76 </span>                :            :      * Constructs a new item so that it is an exact copy of another item.  Note
+<span class="lineNum">      77 </span>                :            :      * that this does not create a new entry in the queue - it just copies the
+<span class="lineNum">      78 </span>                :            :      * references from the other item.  Regardless of how many copies are made
+<span class="lineNum">      79 </span>                :            :      * only a single call to AQWriter::commit() may be made.  Accessing the
+<span class="lineNum">      80 </span>                :            :      * memory of an item that has been committed elsewhere results in undefined
+<span class="lineNum">      81 </span>                :            :      * behavior.
+<span class="lineNum">      82 </span>                :            :      *
+<span class="lineNum">      83 </span>                :            :      * @param other The other item to copy.
+<span class="lineNum">      84 </span>                :            :      */
+<span class="lineNum">      85 </span>                :            :     AQWriterItem(const AQWriterItem&amp; other)
+<span class="lineNum">      86 </span>                :            :         : AQItem(other)
+<span class="lineNum">      87 </span>                :            :         , m_writer(other.m_writer)
+<span class="lineNum">      88 </span>                :            :         , m_accumulator(other.m_accumulator)
+<span class="lineNum">      89 </span>                :            :     {
+<span class="lineNum">      90 </span>                :            :     }
+<span class="lineNum">      91 </span>                :            : 
+<span class="lineNum">      92 </span>                :            :     /**
+<span class="lineNum">      93 </span>                :            :      * Assigns this item so that it is an exact copy of another item. Note
+<span class="lineNum">      94 </span>                :            :      * that this does not create a new entry in the queue - it just copies the
+<span class="lineNum">      95 </span>                :            :      * references from the other item.  Regardless of how many copies are made
+<span class="lineNum">      96 </span>                :            :      * only a single call to AQWriter::commit() may be made.  Accessing the
+<span class="lineNum">      97 </span>                :            :      * memory of an item that has been committed elsewhere results in undefined
+<span class="lineNum">      98 </span>                :            :      * behavior.
+<span class="lineNum">      99 </span>                :            :      *
+<span class="lineNum">     100 </span>                :            :      * @param other The other item to copy.
+<span class="lineNum">     101 </span>                :            :      * @returns A reference to this object.
+<span class="lineNum">     102 </span>                :            :      */
+<span class="lineNum">     103 </span>                :            :     AQWriterItem&amp; operator=(const AQWriterItem&amp; other)
+<span class="lineNum">     104 </span>                :            :     {
+<span class="lineNum">     105 </span>                :            :         if (this != &amp;other)
+<span class="lineNum">     106 </span>                :            :         {
+<span class="lineNum">     107 </span>                :            :             AQItem::operator=(other);
+<span class="lineNum">     108 </span>                :            :             m_writer = other.m_writer;
+<span class="lineNum">     109 </span>                :            :             m_accumulator = other.m_accumulator;
+<span class="lineNum">     110 </span>                :            :         }
+<span class="lineNum">     111 </span>                :            :         return *this;
+<span class="lineNum">     112 </span>                :            :     };
+<span class="lineNum">     113 </span>                :            : 
+<span class="lineNum">     114 </span>                :            :     /**
+<span class="lineNum">     115 </span>                :            :      * Destroys this item.  This will not take any action on the underlying
+<span class="lineNum">     116 </span>                :            :      * queue such as calling AQWriter::commit() or AQReader::release().  It
+<span class="lineNum">     117 </span>                :            :      * is entirely up to the application to ensure that each item that must
+<a name="118"><span class="lineNum">     118 </span>                :            :      * be committed or released has the appropriate action taken.</a>
+<span class="lineNum">     119 </span>                :            :      */
+<span class="lineNum">     120 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 709984 times"> + </span>]:<span class="lineCov">    1419968 :     virtual ~AQWriterItem(void) { }</span>
+<span class="lineNum">     121 </span>                :            : 
+<span class="lineNum">     122 </span>                :            : protected:
+<span class="lineNum">     123 </span>                :            : 
+<a name="124"><span class="lineNum">     124 </span>                :            :     // Returns a new instance of an AQItem matching the type of this</a>
+<span class="lineNum">     125 </span>                :            :     // object.
+<span class="lineNum">     126 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     virtual AQItem *newInstance(void) const { return new AQWriterItem; }</span>
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :            : private:
+<span class="lineNum">     129 </span>                :            : 
+<span class="lineNum">     130 </span>                :            :     // The writer that owns this item.
+<span class="lineNum">     131 </span>                :            :     AQWriter *m_writer;
+<span class="lineNum">     132 </span>                :            : 
+<span class="lineNum">     133 </span>                :            :     // The internal position variable used to track the append point for this 
+<span class="lineNum">     134 </span>                :            :     // item.  This contains the size of this item up to, and including,
+<span class="lineNum">     135 </span>                :            :     // this item in the chain.  If there are further items in the chain this 
+<span class="lineNum">     136 </span>                :            :     // *does not* include those items.
+<span class="lineNum">     137 </span>                :            :     size_t m_accumulator;
+<span class="lineNum">     138 </span>                :            : 
+<span class="lineNum">     139 </span>                :            : public:
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            :     /**
+<span class="lineNum">     142 </span>                :            :      * Sets the link identifier for this item.  Setting the link identifier
+<span class="lineNum">     143 </span>                :            :      * only makes sense when AQ::OPTION_LINK_IDENTIFIER has been set on the
+<span class="lineNum">     144 </span>                :            :      * queue and AQ::OPTION_EXTENDABLE is not set.  In all other situations
+<span class="lineNum">     145 </span>                :            :      * the link identifier set here will not propogate through to the item
+<span class="lineNum">     146 </span>                :            :      * reader via AQReader::retrieve().  See AQItem::linkIdentifier() for
+<span class="lineNum">     147 </span>                :            :      * more information on why this is the case.
+<span class="lineNum">     148 </span>                :            :      *
+<a name="149"><span class="lineNum">     149 </span>                :            :      * @param lkid The link identifier value to set for this item.</a>
+<span class="lineNum">     150 </span>                :            :      */
+<span class="lineNum">     151 </span>                :<span class="lineCov">     392730 :     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }</span>
+<span class="lineNum">     152 </span>                :            : 
+<span class="lineNum">     153 </span>                :            :     /**
+<span class="lineNum">     154 </span>                :            :      * Obtains a reference to one of the bytes within this item.  This
+<span class="lineNum">     155 </span>                :            :      * reference is only to be used for reading; writing the byte results
+<span class="lineNum">     156 </span>                :            :      * in undefined behavior.  The bytes in this item are allocated
+<span class="lineNum">     157 </span>                :            :      * contiguously which means applications can do:
+<span class="lineNum">     158 </span>                :            :      * ~~~
+<span class="lineNum">     159 </span>                :            :      *     unsigned char *ptr = &amp;item[0];
+<span class="lineNum">     160 </span>                :            :      * ~~~
+<span class="lineNum">     161 </span>                :            :      * In order to obtain a pointer to the underlying array.
+<span class="lineNum">     162 </span>                :            :      *
+<span class="lineNum">     163 </span>                :            :      * No bounds checking is performed on access via this operator.  As such the
+<span class="lineNum">     164 </span>                :            :      * caller must ensure that idx is in the range 0 to (size() - 1) inclusive.
+<span class="lineNum">     165 </span>                :            :      * The effect of accessing a byte outside of this range, even through
+<span class="lineNum">     166 </span>                :            :      * the pointer taken in the example above, is undefined.
+<span class="lineNum">     167 </span>                :            :      *
+<span class="lineNum">     168 </span>                :            :      * @param idx The index of the byte to retreive.  Must be in the range of 0 to
+<span class="lineNum">     169 </span>                :            :      * (size() - 1).
+<span class="lineNum">     170 </span>                :            :      * @returns A read-only reference to the specified byte.  If this item is not allocated
+<span class="lineNum">     171 </span>                :            :      * or the provided index is outside the range of bytes in this item then the
+<span class="lineNum">     172 </span>                :            :      * returned value is undefined.
+<span class="lineNum">     173 </span>                :            :      */
+<span class="lineNum">     174 </span>                :            :     const unsigned char&amp; operator[](size_t idx) const { return mem()[idx]; }
+<span class="lineNum">     175 </span>                :            : 
+<span class="lineNum">     176 </span>                :            :     /**
+<span class="lineNum">     177 </span>                :            :      * Obtains a reference to one of the bytes within this item.  This
+<span class="lineNum">     178 </span>                :            :      * reference can be used for both reading and writing.  The bytes in this 
+<span class="lineNum">     179 </span>                :            :      * item are allocated contiguously which means applications can do:
+<span class="lineNum">     180 </span>                :            :      * ~~~
+<span class="lineNum">     181 </span>                :            :      *     unsigned char *ptr = &amp;item[0];
+<span class="lineNum">     182 </span>                :            :      * ~~~
+<span class="lineNum">     183 </span>                :            :      * In order to obtain a pointer to the underlying array.
+<span class="lineNum">     184 </span>                :            :      *
+<span class="lineNum">     185 </span>                :            :      * No bounds checking is performed on access via this operator.  As such the
+<span class="lineNum">     186 </span>                :            :      * caller must ensure that idx is in the range 0 to (size() - 1) inclusive.
+<span class="lineNum">     187 </span>                :            :      * The effect of accessing a byte outside of this range, even through
+<span class="lineNum">     188 </span>                :            :      * the pointer taken in the example above, is undefined.
+<span class="lineNum">     189 </span>                :            :      *
+<span class="lineNum">     190 </span>                :            :      * @param idx The index of the byte to retreive.  Must be in the range of 0 to
+<span class="lineNum">     191 </span>                :            :      * (size() - 1).
+<span class="lineNum">     192 </span>                :            :      * @returns A read-write reference to the specified byte.  If this item is not allocated
+<span class="lineNum">     193 </span>                :            :      * or the provided index is outside the range of bytes in this item then the
+<a name="194"><span class="lineNum">     194 </span>                :            :      * returned value is undefined.</a>
+<span class="lineNum">     195 </span>                :            :      */
+<span class="lineNum">     196 </span>                :<span class="lineNoCov">          0 :     unsigned char&amp; operator[](size_t idx) { return mem()[idx]; }</span>
+<span class="lineNum">     197 </span>                :            : 
+<span class="lineNum">     198 </span>                :            :     /**
+<span class="lineNum">     199 </span>                :            :      * Writes data into this item at its current write position.  The write
+<span class="lineNum">     200 </span>                :            :      * position differs depending on whether AQ::OPTION_EXTENDABLE has been
+<span class="lineNum">     201 </span>                :            :      * configured:
+<span class="lineNum">     202 </span>                :            :      *  * When AQ::OPTION_EXTENDABLE is not set then the item internaly tracks
+<span class="lineNum">     203 </span>                :            :      *    the highest index where no write operation has been performed.  The
+<span class="lineNum">     204 </span>                :            :      *    write occurs at that index.
+<span class="lineNum">     205 </span>                :            :      *  * When AQ::OPTION_EXTENDABLE is set then the write occurs at the very
+<span class="lineNum">     206 </span>                :            :      *    end of the item, essentially appending and possibly extending the
+<span class="lineNum">     207 </span>                :            :      *    size of the item by adding to the linked list.
+<span class="lineNum">     208 </span>                :            :      * If the write succeeds then the write position is incremented by the 
+<span class="lineNum">     209 </span>                :            :      * number of bytes written.  If this fail (an exception is thrown or more
+<span class="lineNum">     210 </span>                :            :      * items could not be allocated) no changes are made to this item.
+<span class="lineNum">     211 </span>                :            :      *
+<span class="lineNum">     212 </span>                :            :      * @param mem The buffer that contains the memory to write into this item.
+<span class="lineNum">     213 </span>                :            :      * @param memSize The number of bytes to write into this item.
+<span class="lineNum">     214 </span>                :            :      * @returns True if the write succeeded or false if the write failed because
+<span class="lineNum">     215 </span>                :            :      * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+<span class="lineNum">     216 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful 
+<span class="lineNum">     217 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to 
+<span class="lineNum">     218 </span>                :            :      * AQWriter::commit().
+<span class="lineNum">     219 </span>                :            :      * @throws std::invalid_argument If the mem argument was NULL and memSize was
+<span class="lineNum">     220 </span>                :            :      * any value other than 0.
+<span class="lineNum">     221 </span>                :            :      * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     222 </span>                :            :      * option set and the current position is at the end of the item.
+<span class="lineNum">     223 </span>                :            :      * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     224 </span>                :            :      * option set and there is not enough space left in the queue to store the 
+<span class="lineNum">     225 </span>                :            :      * requested number of bytes.
+<span class="lineNum">     226 </span>                :            :      */
+<span class="lineNum">     227 </span>                :            :     bool write(const void *mem, size_t memSize);
+<span class="lineNum">     228 </span>                :            : 
+<span class="lineNum">     229 </span>                :            :     /**
+<span class="lineNum">     230 </span>                :            :     * Writes data into this item at a selected position.  If the write succeeds 
+<span class="lineNum">     231 </span>                :            :     * then the write position as used by write(const void *, size_t) is set to 
+<span class="lineNum">     232 </span>                :            :     * the maximum of its current value and off + memSize.  If the write fails
+<span class="lineNum">     233 </span>                :            :     * (an exception is thrown or more items could not be allocated) no changes
+<span class="lineNum">     234 </span>                :            :     * are made to this item.
+<span class="lineNum">     235 </span>                :            :     *
+<span class="lineNum">     236 </span>                :            :     * @param off The offset from this item where the write is to be performed.
+<span class="lineNum">     237 </span>                :            :     * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+<span class="lineNum">     238 </span>                :            :     * of this item in which case it finds the item that contains that offset
+<span class="lineNum">     239 </span>                :            :     * and starts the write there.
+<span class="lineNum">     240 </span>                :            :     * @param mem The buffer that contains the memory to write into this item.
+<span class="lineNum">     241 </span>                :            :     * @param memSize The number of bytes to write into this item.
+<span class="lineNum">     242 </span>                :            :     * @returns True if the write succeeded or false if the write failed because
+<span class="lineNum">     243 </span>                :            :     * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+<span class="lineNum">     244 </span>                :            :     * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     245 </span>                :            :     * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     246 </span>                :            :     * AQWriter::commit().
+<span class="lineNum">     247 </span>                :            :     * @throws std::invalid_argument If the mem argument was NULL and memSize was
+<span class="lineNum">     248 </span>                :            :     * any value other than 0.
+<span class="lineNum">     249 </span>                :            :     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     250 </span>                :            :     * option set and the offest is at the end, or beyond the end, of the item.
+<span class="lineNum">     251 </span>                :            :     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     252 </span>                :            :     * option set and there is not enough space left in the queue to store the
+<span class="lineNum">     253 </span>                :            :     * requested number of bytes at the given offset.
+<span class="lineNum">     254 </span>                :            :     */
+<span class="lineNum">     255 </span>                :            :     bool write(size_t off, const void *mem, size_t memSize);
+<span class="lineNum">     256 </span>                :            : 
+<span class="lineNum">     257 </span>                :            : private:
+<span class="lineNum">     258 </span>                :            : 
+<span class="lineNum">     259 </span>                :            :     // Validates the offset and memory size for a normal write, returning this object.
+<span class="lineNum">     260 </span>                :            :     //
+<span class="lineNum">     261 </span>                :            :     // Updates the m_accumulator, if necessary, to the last written byte.
+<span class="lineNum">     262 </span>                :            :     AQWriterItem *writeAdvanceNormal(size_t off, size_t memSize);
+<span class="lineNum">     263 </span>                :            : 
+<span class="lineNum">     264 </span>                :            :     // Advances the extendable item sufficiently to support a write starting at 'off'
+<span class="lineNum">     265 </span>                :            :     // and ending at 'off' + 'memSize' - 1.  Returns the object where the writing
+<span class="lineNum">     266 </span>                :            :     // is to begin, updating 'off' to refer to that object.
+<span class="lineNum">     267 </span>                :            :     //
+<span class="lineNum">     268 </span>                :            :     // If the item could not be extended then NULL is returned.
+<span class="lineNum">     269 </span>                :            :     AQWriterItem *writeAdvanceExtendable(size_t&amp; off, size_t memSize);
+<span class="lineNum">     270 </span>                :            : 
+<span class="lineNum">     271 </span>                :            :     // Extends the current item so that it can contain at least an additional memSize
+<span class="lineNum">     272 </span>                :            :     // bytes.
+<span class="lineNum">     273 </span>                :            :     bool extend(size_t memSize);
+<span class="lineNum">     274 </span>                :            : 
+<span class="lineNum">     275 </span>                :            : public:
+<span class="lineNum">     276 </span>                :            : 
+<span class="lineNum">     277 </span>                :            :     /**
+<span class="lineNum">     278 </span>                :            :      * Obtains a pointer to the first item in the linked list of items.  The 
+<span class="lineNum">     279 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+<span class="lineNum">     280 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     281 </span>                :            :      *
+<a name="282"><span class="lineNum">     282 </span>                :            :      * @returns The first item.  This is never NULL.</a>
+<span class="lineNum">     283 </span>                :            :      */
+<span class="lineNum">     284 </span>                :<span class="lineCov">     632287 :     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }</span>
+<span class="lineNum">     285 </span>                :            : 
+<span class="lineNum">     286 </span>                :            :     /**
+<span class="lineNum">     287 </span>                :            :      * Obtains a pointer to the last item in the linked list of items.  The 
+<span class="lineNum">     288 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+<span class="lineNum">     289 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     290 </span>                :            :      *
+<a name="291"><span class="lineNum">     291 </span>                :            :      * @returns The last item.  This is never NULL.</a>
+<span class="lineNum">     292 </span>                :            :      */
+<span class="lineNum">     293 </span>                :<span class="lineCov">    8535359 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     294 </span>                :            : 
+<span class="lineNum">     295 </span>                :            :     /**
+<span class="lineNum">     296 </span>                :            :      * Obtains a pointer to the next item in the linked list of items.  If this
+<span class="lineNum">     297 </span>                :            :      * is the last item in the list then NULL is returned.
+<span class="lineNum">     298 </span>                :            :      *
+<span class="lineNum">     299 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
+<a name="300"><span class="lineNum">     300 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
+<span class="lineNum">     301 </span>                :            :      */
+<span class="lineNum">     302 </span>                :<span class="lineCov">    2150839 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
+<span class="lineNum">     303 </span>                :            : 
+<span class="lineNum">     304 </span>                :            :     /**
+<span class="lineNum">     305 </span>                :            :      * Obtains a pointer to the previous item in the linked list of items.  If this
+<span class="lineNum">     306 </span>                :            :      * is the first item in the list then NULL is returned.
+<span class="lineNum">     307 </span>                :            :      *
+<span class="lineNum">     308 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
+<a name="309"><span class="lineNum">     309 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
+<span class="lineNum">     310 </span>                :            :      */
+<span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :     AQWriterItem *prev(void) { return (AQWriterItem *)AQItem::prev(); }</span>
+<span class="lineNum">     312 </span>                :            : 
+<span class="lineNum">     313 </span>                :            :     /**
+<span class="lineNum">     314 </span>                :            :      * Obtains a read-only pointer to the first item in the linked list of items.  The
+<span class="lineNum">     315 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+<span class="lineNum">     316 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     317 </span>                :            :      *
+<span class="lineNum">     318 </span>                :            :      * @returns The first item.  This is never NULL.
+<span class="lineNum">     319 </span>                :            :      */
+<span class="lineNum">     320 </span>                :            :     const AQWriterItem *first(void) const { return (const AQWriterItem *)AQItem::first(); }
+<span class="lineNum">     321 </span>                :            : 
+<span class="lineNum">     322 </span>                :            :     /**
+<span class="lineNum">     323 </span>                :            :      * Obtains a read-only pointer to the last item in the linked list of items.  The
+<span class="lineNum">     324 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+<span class="lineNum">     325 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     326 </span>                :            :      *
+<span class="lineNum">     327 </span>                :            :      * @returns The last item.  This is never NULL.
+<span class="lineNum">     328 </span>                :            :      */
+<span class="lineNum">     329 </span>                :            :     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }
+<span class="lineNum">     330 </span>                :            :     
+<span class="lineNum">     331 </span>                :            :     /**
+<span class="lineNum">     332 </span>                :            :      * Obtains a read-only pointer to the next item in the linked list of items.  If this
+<span class="lineNum">     333 </span>                :            :      * is the last item in the list then NULL is returned.
+<span class="lineNum">     334 </span>                :            :      *
+<span class="lineNum">     335 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
+<span class="lineNum">     336 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
+<span class="lineNum">     337 </span>                :            :      */
+<span class="lineNum">     338 </span>                :            :     const AQWriterItem *next(void) const { return (const AQWriterItem *)AQItem::next(); }
+<span class="lineNum">     339 </span>                :            :     
+<span class="lineNum">     340 </span>                :            :     /**
+<span class="lineNum">     341 </span>                :            :      * Obtains a read-only pointer to the previous item in the linked list of items.  If this
+<span class="lineNum">     342 </span>                :            :      * is the first item in the list then NULL is returned.
+<span class="lineNum">     343 </span>                :            :      *
+<span class="lineNum">     344 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
+<span class="lineNum">     345 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
+<span class="lineNum">     346 </span>                :            :      */
+<span class="lineNum">     347 </span>                :            :     const AQWriterItem *prev(void) const { return (const AQWriterItem *)AQItem::prev(); }
+<span class="lineNum">     348 </span>                :            : 
+<span class="lineNum">     349 </span>                :            : };
+<span class="lineNum">     350 </span>                :            : 
+<span class="lineNum">     351 </span>                :            : 
+<span class="lineNum">     352 </span>                :            : 
+<span class="lineNum">     353 </span>                :            : 
+<span class="lineNum">     354 </span>                :            : #endif
+<span class="lineNum">     355 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

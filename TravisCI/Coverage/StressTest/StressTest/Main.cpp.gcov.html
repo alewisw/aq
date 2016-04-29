@@ -1,0 +1,897 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Stress Test Code Coverage - StressTest/Main.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">StressTest</a> - Main.cpp<span style="font-size: 80%;"> (source / <a href="Main.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Stress Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">206</td>
+            <td class="headerCovTableEntry">282</td>
+            <td class="headerCovTableEntryLo">73.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-04-29 01:27:39</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryMed">78.6 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">164</td>
+            <td class="headerCovTableEntry">430</td>
+            <td class="headerCovTableEntryLo">38.1 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : //==============================================================================</a>
+<span class="lineNum">       2 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       3 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       4 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       5 </span>                :            : //
+<span class="lineNum">       6 </span>                :            : //==============================================================================
+<span class="lineNum">       7 </span>                :            : 
+<span class="lineNum">       8 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">       9 </span>                :            : // Includes
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &quot;Main.h&quot;
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &quot;Producer.h&quot;
+<span class="lineNum">      15 </span>                :            : #include &quot;SnapshotTaker.h&quot;
+<span class="lineNum">      16 </span>                :            : #include &quot;SnapshotValidator.h&quot;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #include &quot;AQReader.h&quot;
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : #include &quot;CtrlOverlay.h&quot;
+<span class="lineNum">      21 </span>                :            : #include &quot;Timer.h&quot;
+<span class="lineNum">      22 </span>                :            : #include &quot;TraceManager.h&quot;
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : #include &quot;Optarg.h&quot;
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : #include &lt;string.h&gt;
+<span class="lineNum">      27 </span>                :            : #include &lt;ctime&gt;
+<span class="lineNum">      28 </span>                :            : #include &lt;cstdio&gt;
+<span class="lineNum">      29 </span>                :            : #include &lt;iostream&gt;
+<span class="lineNum">      30 </span>                :            : #include &lt;fstream&gt;
+<span class="lineNum">      31 </span>                :            : #include &lt;sstream&gt;
+<span class="lineNum">      32 </span>                :            : 
+<span class="lineNum">      33 </span>                :            : using namespace std;
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      38 </span>                :            : // Private Macros
+<span class="lineNum">      39 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : // We run for this many seconds in each produce/consume window.
+<span class="lineNum">      42 </span>                :            : #define DEFAULT_RUN_TIME_SECS           5
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :            : // We run this many loops by default; 0 for infinite.
+<span class="lineNum">      45 </span>                :            : #define DEFAULT_RUN_LOOPS               0
+<span class="lineNum">      46 </span>                :            : 
+<span class="lineNum">      47 </span>                :            : // The default number of producers in the test.
+<span class="lineNum">      48 </span>                :            : #define DEFAULT_PRODUCER_COUNT          3
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : // The default number of threads to start which just take snapshots.
+<span class="lineNum">      51 </span>                :            : #define DEFAULT_SNAPSHOT_TAKER_COUNT    1
+<span class="lineNum">      52 </span>                :            : 
+<span class="lineNum">      53 </span>                :            : // The default shared memory size in bytes.
+<span class="lineNum">      54 </span>                :            : #define DEFAULT_SHM_SIZE                894007
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : // The default page size shift.
+<span class="lineNum">      57 </span>                :            : #define DEFAULT_PAGE_SIZE_SHIFT         5
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>                :            : // The default set of pages to allocate.
+<span class="lineNum">      60 </span>                :            : #define DEFAULT_PAGE_COUNT_ALLOC        {3, 4, 5}
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :            : // Producers never take more than this long to commit a record.
+<span class="lineNum">      63 </span>                :            : #define DEFAULT_COMMIT_TIMEOUT_MS       1000
+<span class="lineNum">      64 </span>                :            : 
+<span class="lineNum">      65 </span>                :            : // The default formatting options.
+<span class="lineNum">      66 </span>                :            : #define DEFAULT_FORMAT_OPTIONS          (0)//(AQ::OPTION_LINK_IDENTIFIER)//(AQ::OPTION_CRC32)// | AQ::OPTION_LINK_IDENTIFIER)// | AQ::OPTION_EXTENDABLE)
+<span class="lineNum">      67 </span>                :            : 
+<span class="lineNum">      68 </span>                :            : // The default maximum number of outstanding records for each producer.
+<span class="lineNum">      69 </span>                :            : #define DEFAULT_MAX_OUTSTANDING         30
+<span class="lineNum">      70 </span>                :            : 
+<span class="lineNum">      71 </span>                :            : // The default maximum number of pages per append operation in extendable mode.
+<span class="lineNum">      72 </span>                :            : #define DEFAULT_MAX_PAGES_PER_APPEND    4
+<span class="lineNum">      73 </span>                :            : 
+<span class="lineNum">      74 </span>                :            : // The default maximum time between snapshots being taken.
+<span class="lineNum">      75 </span>                :            : #define DEFAULT_MAX_SNAPSHOT_PERIOD_MS  1000
+<span class="lineNum">      76 </span>                :            : 
+<span class="lineNum">      77 </span>                :            : // The default for tracing enable/disable.
+<span class="lineNum">      78 </span>                :            : #define DEFAULT_TRACE_ENABLE_PRODUCER   false
+<span class="lineNum">      79 </span>                :            : #define DEFAULT_TRACE_ENABLE_CONSUMER   false
+<span class="lineNum">      80 </span>                :            : 
+<span class="lineNum">      81 </span>                :            : // The default delay introduction settings; set to true to introduce delays.
+<span class="lineNum">      82 </span>                :            : #define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_HEAD_REF         false
+<span class="lineNum">      83 </span>                :            : #define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL_SKIP_PAGES  false
+<span class="lineNum">      84 </span>                :            : #define DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL             false
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :            : // The number of bytes to allocate to shared memory guard regions.
+<span class="lineNum">      87 </span>                :            : #define SHM_GUARD_SIZE                  8
+<span class="lineNum">      88 </span>                :            : 
+<span class="lineNum">      89 </span>                :            : // The guard byte placed in the shared memory region.
+<span class="lineNum">      90 </span>                :            : #define SHM_GUARD_BYTE                  0xCD
+<span class="lineNum">      91 </span>                :            : 
+<span class="lineNum">      92 </span>                :            : // The maximum number of records to consume in a loop before checking the 
+<span class="lineNum">      93 </span>                :            : // system clock.
+<span class="lineNum">      94 </span>                :            : #define CONSUME_LOOP_COUNTER            1000
+<span class="lineNum">      95 </span>                :            : 
+<span class="lineNum">      96 </span>                :            : 
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      99 </span>                :            : // Private Type Definitions
+<span class="lineNum">     100 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     101 </span>                :            : 
+<span class="lineNum">     102 </span>                :            : // The states for the produce/consume state machine.
+<span class="lineNum">     103 </span>                :            : enum ProduceConsumeState
+<span class="lineNum">     104 </span>                :            : {
+<span class="lineNum">     105 </span>                :            :     // Currently running.
+<span class="lineNum">     106 </span>                :            :     ProduceConsumeRunning,
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :            :     // All producers have been instructed to stop.
+<span class="lineNum">     109 </span>                :            :     ProduceConsumeStopping,
+<span class="lineNum">     110 </span>                :            : 
+<span class="lineNum">     111 </span>                :            :     // All producers have joined.
+<span class="lineNum">     112 </span>                :            :     ProduceConsumeJoined,
+<span class="lineNum">     113 </span>                :            : 
+<span class="lineNum">     114 </span>                :            :     // All producers have joined and the reader is empty.
+<span class="lineNum">     115 </span>                :            :     ProduceConsumeComplete,
+<span class="lineNum">     116 </span>                :            : };
+<span class="lineNum">     117 </span>                :            : 
+<span class="lineNum">     118 </span>                :            : 
+<span class="lineNum">     119 </span>                :            : 
+<span class="lineNum">     120 </span>                :            : 
+<span class="lineNum">     121 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     122 </span>                :            : // Private Function and Class Declarations
+<span class="lineNum">     123 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :            : // Runs the main produce/consume logic.
+<span class="lineNum">     126 </span>                :            : static void produceConsume(AQReader &amp;reader);
+<span class="lineNum">     127 </span>                :            : 
+<span class="lineNum">     128 </span>                :            : // Prints the statistics for the loop 'loop' given the passed set of producers.
+<span class="lineNum">     129 </span>                :            : static void printStatistics(int loop);
+<span class="lineNum">     130 </span>                :            : 
+<span class="lineNum">     131 </span>                :            : // Asserts that the passed record 'item' is valid for the set of producers 
+<span class="lineNum">     132 </span>                :            : // 'producers'.
+<span class="lineNum">     133 </span>                :            : static void assertRecord(AQItem *item);
+<span class="lineNum">     134 </span>                :            : 
+<span class="lineNum">     135 </span>                :            : // Logs an assertion failure to the passed output stream.
+<span class="lineNum">     136 </span>                :            : static void logAssertFailed(ostream&amp; out, const string &amp;msg, TraceManager *tm);
+<span class="lineNum">     137 </span>                :            : 
+<span class="lineNum">     138 </span>                :            : // Allocates a new reader item for processing.
+<span class="lineNum">     139 </span>                :            : static AQItem *allocReaderItem(void);
+<span class="lineNum">     140 </span>                :            : 
+<span class="lineNum">     141 </span>                :            : // Configures the stress test run using the passed options.
+<span class="lineNum">     142 </span>                :            : static void configure(Optarg &amp;cfg);
+<span class="lineNum">     143 </span>                :            : 
+<span class="lineNum">     144 </span>                :            : 
+<span class="lineNum">     145 </span>                :            : 
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     148 </span>                :            : // Variable Declarations
+<span class="lineNum">     149 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     150 </span>                :            : 
+<span class="lineNum">     151 </span>                :            : // The run time for each produce/consume cycle.
+<span class="lineNum">     152 </span>                :            : static uint32_t RunTimeSecs = DEFAULT_RUN_TIME_SECS;
+<span class="lineNum">     153 </span>                :            : 
+<span class="lineNum">     154 </span>                :            : // The number of loops through the produce/consume cycle.
+<span class="lineNum">     155 </span>                :            : static size_t RunLoops = DEFAULT_RUN_LOOPS;
+<span class="lineNum">     156 </span>                :            : 
+<span class="lineNum">     157 </span>                :            : // The number of producers to run.
+<span class="lineNum">     158 </span>                :            : static int ProducerCount = DEFAULT_PRODUCER_COUNT;
+<span class="lineNum">     159 </span>                :            : 
+<span class="lineNum">     160 </span>                :            : // The number of snapshot threads to run.
+<span class="lineNum">     161 </span>                :            : static int SnapshotTakerCount = DEFAULT_SNAPSHOT_TAKER_COUNT;
+<span class="lineNum">     162 </span>                :            : 
+<span class="lineNum">     163 </span>                :            : // The shared memory size.
+<span class="lineNum">     164 </span>                :            : static size_t ShmSize = DEFAULT_SHM_SIZE;
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :            : // The page size shift.
+<span class="lineNum">     167 </span>                :            : static int PageSizeShift = 5;
+<a name="168"><span class="lineNum">     168 </span>                :            : </a>
+<span class="lineNum">     169 </span>                :            : // The page sizes to allocate to test runs.
+<span class="lineNum">     170 </span>                :<span class="lineCov">          1 : static std::vector&lt;unsigned int&gt; PageSizeAlloc;</span>
+<span class="lineNum">     171 </span>                :            : 
+<span class="lineNum">     172 </span>                :            : // The maximum time for a produce to spend waiting to commit.
+<span class="lineNum">     173 </span>                :            : static unsigned int CommitTimeoutMs = DEFAULT_COMMIT_TIMEOUT_MS;
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>                :            : // The default set of formatting options.
+<span class="lineNum">     176 </span>                :            : static unsigned int FormatOptions = DEFAULT_FORMAT_OPTIONS;
+<span class="lineNum">     177 </span>                :            : 
+<span class="lineNum">     178 </span>                :            : // The maximum number of outstanding records for each producer.
+<span class="lineNum">     179 </span>                :            : static unsigned int MaxOutstanding = DEFAULT_MAX_OUTSTANDING;
+<span class="lineNum">     180 </span>                :            : 
+<span class="lineNum">     181 </span>                :            : // The maximum number of pages to write per append operation in extendable mode.
+<span class="lineNum">     182 </span>                :            : static size_t MaxPagesPerAppend = DEFAULT_MAX_PAGES_PER_APPEND;
+<span class="lineNum">     183 </span>                :            : 
+<span class="lineNum">     184 </span>                :            : // The maximum period between snapshots being taken.
+<span class="lineNum">     185 </span>                :            : static unsigned int MaxSnapshotPeriodMs = DEFAULT_MAX_SNAPSHOT_PERIOD_MS;
+<span class="lineNum">     186 </span>                :            : 
+<span class="lineNum">     187 </span>                :            : // Set to true to enable tracing.
+<span class="lineNum">     188 </span>                :            : static bool TraceEnableConsumer = DEFAULT_TRACE_ENABLE_CONSUMER;
+<span class="lineNum">     189 </span>                :            : static bool TraceEnableProducer = DEFAULT_TRACE_ENABLE_PRODUCER;
+<span class="lineNum">     190 </span>                :            : 
+<span class="lineNum">     191 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     192 </span>                :            : static bool TpDelayClaimBeforeWriteHeadRef = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_HEAD_REF;
+<span class="lineNum">     193 </span>                :            : static bool TpDelayClaimBeforeWriteCtrlSkipPages = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL_SKIP_PAGES;
+<span class="lineNum">     194 </span>                :            : static bool TpDelayClaimBeforeWriteCtrl = DEFAULT_TPDELAY_CLAIM_BEFORE_WRITE_CTRL;
+<span class="lineNum">     195 </span>                :            : #endif
+<span class="lineNum">     196 </span>                :            : 
+<span class="lineNum">     197 </span>                :            : // The shared memory.
+<span class="lineNum">     198 </span>                :            : static unsigned char *Shm = NULL;
+<span class="lineNum">     199 </span>                :            : 
+<span class="lineNum">     200 </span>                :            : // The trace manager.
+<span class="lineNum">     201 </span>                :            : static TraceManager *Trace = NULL;
+<span class="lineNum">     202 </span>                :            : 
+<span class="lineNum">     203 </span>                :            : // The collection of producers.
+<span class="lineNum">     204 </span>                :<span class="lineCov">          1 : static vector&lt;Producer *&gt; Producers;</span>
+<span class="lineNum">     205 </span>                :            : 
+<span class="lineNum">     206 </span>                :            : // The collection of snapshot takers.
+<span class="lineNum">     207 </span>                :<span class="lineCov">          1 : static vector&lt;SnapshotTaker *&gt; SnapshotTakers;</span>
+<span class="lineNum">     208 </span>                :            : 
+<span class="lineNum">     209 </span>                :            : // The retrieve success and failure counters.
+<span class="lineNum">     210 </span>                :            : static unsigned long long StatRetreiveSuccess = 0;
+<span class="lineNum">     211 </span>                :            : static unsigned long long StatRetreiveFailure = 0;
+<span class="lineNum">     212 </span>                :            : static unsigned long long StatRecordComplete = 0;
+<span class="lineNum">     213 </span>                :            : static unsigned long long StatRecordIncomplete = 0;
+<span class="lineNum">     214 </span>                :            : static Timer::Ms_t StatMaxConsumePeriodMs = 0;
+<span class="lineNum">     215 </span>                :            : 
+<span class="lineNum">     216 </span>                :            : // The circular queue of received records.
+<span class="lineNum">     217 </span>                :            : static SnapshotValidator *SnapValidator;
+<span class="lineNum">     218 </span>                :            : 
+<span class="lineNum">     219 </span>                :            : // The reader items that are currently free for use
+<span class="lineNum">     220 </span>                :<span class="lineCov">          1 : static vector&lt;AQItem *&gt; FreeReaderItems;</span>
+<span class="lineNum">     221 </span>                :            : 
+<span class="lineNum">     222 </span>                :            : 
+<span class="lineNum">     223 </span>                :            : 
+<span class="lineNum">     224 </span>                :            : 
+<span class="lineNum">     225 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     226 </span>                :            : // Function and Class Implementation
+<span class="lineNum">     227 </span>                :            : //------------------------------------------------------------------------------
+<a name="228"><span class="lineNum">     228 </span>                :            : </a>
+<span class="lineNum">     229 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     230 </span>                :<span class="lineCov">          1 : int main(int argc, char* argv[])</span>
+<span class="lineNum">     231 </span>                :            : {
+<span class="lineNum">     232 </span>                :            :     // Fill in the defaults for the page size allocation vector.
+<span class="lineNum">     233 </span>                :            :     static const size_t pageSizeAllocDefault[] = DEFAULT_PAGE_COUNT_ALLOC;
+<span class="lineNum">     234 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     for (size_t i = 0; i &lt; sizeof(pageSizeAllocDefault)</span>
+<span class="lineNum">     235 </span>                :            :         / sizeof(pageSizeAllocDefault[0]); ++i)
+<span class="lineNum">     236 </span>                :            :     {
+<span class="lineNum">     237 </span>                :<span class="lineCov">          3 :         PageSizeAlloc.push_back(pageSizeAllocDefault[i]);</span>
+<span class="lineNum">     238 </span>                :            :     }
+<span class="lineNum">     239 </span>                :            : 
+<span class="lineNum">     240 </span>                :            :     // Configures the test case.
+<span class="lineNum">     241 </span>                :<span class="lineCov">          1 :     Optarg optarg(argc, argv);</span>
+<span class="lineNum">     242 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     configure(optarg);</span>
+<span class="lineNum">     243 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     int nProcessors = WorkerThread::numberOfProcessors();</span>
+<span class="lineNum">     244 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :     cout &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;Running Stress Test: &quot;;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">     245 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     if (nProcessors == 1)</span>
+<span class="lineNum">     246 </span>                :            :     {
+<span class="lineNum">     247 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         cout &lt;&lt; &quot;1 processor available&quot;;</span>
+<span class="lineNum">     248 </span>                :            :     }
+<span class="lineNum">     249 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     else if (nProcessors &gt; 1)</span>
+<span class="lineNum">     250 </span>                :            :     {
+<span class="lineNum">     251 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         cout &lt;&lt; nProcessors &lt;&lt; &quot; processors available&quot;;</span>
+<span class="lineNum">     252 </span>                :            :     }
+<span class="lineNum">     253 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     cout &lt;&lt; endl;</span>
+<span class="lineNum">     254 </span>                :            : 
+<span class="lineNum">     255 </span>                :            : 
+<span class="lineNum">     256 </span>                :            :     // Create the shared memory region and initialize.
+<span class="lineNum">     257 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     Shm = new unsigned char[SHM_GUARD_SIZE + ShmSize + SHM_GUARD_SIZE];</span>
+<span class="lineNum">     258 </span>                :<span class="lineCov">          1 :     memset(Shm, SHM_GUARD_BYTE, SHM_GUARD_SIZE + ShmSize + SHM_GUARD_SIZE);</span>
+<span class="lineNum">     259 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     260 </span>                :            : 
+<span class="lineNum">     261 </span>                :            :     // Allocate a base amount of reader items.
+<span class="lineNum">     262 </span>        [<span class="branchCov" title="Branch 0 was taken 90 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         91 :     for (size_t i = 0; i &lt; MaxOutstanding * ProducerCount; ++i)</span>
+<span class="lineNum">     263 </span>                :            :     {
+<span class="lineNum">     264 </span>[<span class="branchCov" title="Branch 0 was taken 90 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 90 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">         90 :         FreeReaderItems.push_back(new AQItem);</span>
+<span class="lineNum">     265 </span>                :            :     }
+<span class="lineNum">     266 </span>                :            : 
+<span class="lineNum">     267 </span>                :            :     // Create the trace manager if required.
+<span class="lineNum">     268 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     Trace = (TraceEnableConsumer || TraceEnableProducer) ? new TraceManager(TraceManager::String, 1000) : NULL;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>][<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
+<span class="lineNum">     269 </span>                :            : 
+<span class="lineNum">     270 </span>                :            :     // Create the reader and format the memory.
+<span class="lineNum">     271 </span>                :<span class="lineCov">          1 :     AQReader consumer(&amp;Shm[SHM_GUARD_SIZE], ShmSize,</span>
+<span class="lineNum">     272 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineCov">          1 :         TraceEnableConsumer ? Trace-&gt;createBuffer(&quot;con&quot; /*, 1000000*/) : NULL);</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchCov" title="Branch 9 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span>]
+<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchCov" title="Branch 13 was taken 1 time"> + </span>][<span class="branchNoExec" title="Branch 14 was not executed"> # </span><span class="branchNoExec" title="Branch 15 was not executed"> # </span>]
+<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchCov" title="Branch 18 was taken 1 time"> + </span>][<span class="branchNoExec" title="Branch 20 was not executed"> # </span><span class="branchNoExec" title="Branch 21 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 24 was not executed"> # </span><span class="branchNoExec" title="Branch 25 was not executed"> # </span>]
+<span class="lineNum">     273 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     consumer.format(PageSizeShift, CommitTimeoutMs, FormatOptions);</span>
+<span class="lineNum">     274 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :     SnapValidator = new SnapshotValidator(consumer, MaxOutstanding);</span>
+<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     276 </span>                :            : 
+<span class="lineNum">     277 </span>                :            :     // Create and start the producers.
+<span class="lineNum">     278 </span>                :<span class="lineCov">          1 :     bool checkLinkId = (FormatOptions &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER) == AQ::OPTION_LINK_IDENTIFIER;</span>
+<span class="lineNum">     279 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     for (int i = 0; i &lt; ProducerCount; ++i)</span>
+<span class="lineNum">     280 </span>                :            :     {
+<span class="lineNum">     281 </span>                :<span class="lineCov">          3 :         Producers.push_back(new Producer(consumer, i + 1, &amp;Shm[SHM_GUARD_SIZE], </span>
+<span class="lineNum">     282 </span>                :            :             ShmSize, PageSizeAlloc, checkLinkId, MaxOutstanding, MaxPagesPerAppend,
+<span class="lineNum">     283 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">          3 :             TraceEnableProducer ? Trace : NULL));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchCov" title="Branch 8 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 9 was not taken"> - </span>]
+<span class="lineNum">     284 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     285 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :         if (TpDelayClaimBeforeWriteHeadRef)</span>
+<span class="lineNum">     286 </span>                :            :         {
+<span class="lineNum">     287 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :             Producers[i]-&gt;injectTestPointDelay(AQWriter::ClaimBeforeWriteHeadRef);</span>
+<span class="lineNum">     288 </span>                :            :         }
+<span class="lineNum">     289 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :         if (TpDelayClaimBeforeWriteCtrlSkipPages)</span>
+<span class="lineNum">     290 </span>                :            :         {
+<span class="lineNum">     291 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :             Producers[i]-&gt;injectTestPointDelay(AQWriter::ClaimBeforeWriteCtrlSkipPages);</span>
+<span class="lineNum">     292 </span>                :            :         }
+<span class="lineNum">     293 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :         if (TpDelayClaimBeforeWriteCtrl)</span>
+<span class="lineNum">     294 </span>                :            :         {
+<span class="lineNum">     295 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :             Producers[i]-&gt;injectTestPointDelay(AQWriter::ClaimBeforeWriteCtrl);</span>
+<span class="lineNum">     296 </span>                :            :         }
+<span class="lineNum">     297 </span>                :            : #endif
+<span class="lineNum">     298 </span>                :            :     }
+<span class="lineNum">     299 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     300 </span>                :            : 
+<span class="lineNum">     301 </span>                :            :     // Create and start the snapshot takers.
+<span class="lineNum">     302 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     for (int i = 0; i &lt; SnapshotTakerCount; ++i)</span>
+<span class="lineNum">     303 </span>                :            :     {
+<span class="lineNum">     304 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :         SnapshotTakers.push_back(new SnapshotTaker(consumer, i + 1 + ProducerCount, MaxSnapshotPeriodMs, Trace));</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">     305 </span>                :            :     }
+<span class="lineNum">     306 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     307 </span>                :            : 
+<span class="lineNum">     308 </span>                :            :     // All producers ready but not running; now we run the produce/consume
+<span class="lineNum">     309 </span>                :            :     // logic for the number of requested loops.
+<span class="lineNum">     310 </span>                :<span class="lineCov">          1 :     size_t runLoop = 0;</span>
+<span class="lineNum">     311 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     while (RunLoops == 0 || runLoop &lt; RunLoops)</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]
+<span class="lineNum">     312 </span>                :            :     {
+<span class="lineNum">     313 </span>                :<span class="lineCov">          1 :         runLoop++;</span>
+<span class="lineNum">     314 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         produceConsume(consumer);</span>
+<span class="lineNum">     315 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         assertShmGuard();</span>
+<span class="lineNum">     316 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         printStatistics(runLoop);</span>
+<span class="lineNum">     317 </span>                :            :     }
+<span class="lineNum">     318 </span>                :            : 
+<span class="lineNum">     319 </span>                :            : 
+<span class="lineNum">     320 </span>                :            :     // Delete the producers and snapshot takers now that we are finished.
+<span class="lineNum">     321 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     322 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     323 </span>                :            :     {
+<span class="lineNum">     324 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :         delete SnapshotTakers[i];</span>
+<span class="lineNum">     325 </span>                :            :     }
+<span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     SnapshotTakers.clear();</span>
+<span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     328 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     329 </span>                :            :     {
+<span class="lineNum">     330 </span>[<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 :         delete Producers[i];</span>
+<span class="lineNum">     331 </span>                :            :     }
+<span class="lineNum">     332 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     Producers.clear();</span>
+<span class="lineNum">     333 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     assertShmGuard();</span>
+<span class="lineNum">     334 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     delete SnapValidator;</span>
+<span class="lineNum">     335 </span>                :            : 
+<span class="lineNum">     336 </span>                :            :     // Delete the trace manager.
+<span class="lineNum">     337 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     if (Trace != NULL)</span>
+<span class="lineNum">     338 </span>                :            :     {
+<span class="lineNum">     339 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         delete Trace;</span>
+<span class="lineNum">     340 </span>                :<span class="lineNoCov">          0 :         Trace = NULL;</span>
+<span class="lineNum">     341 </span>                :            :     }
+<span class="lineNum">     342 </span>                :            : 
+<span class="lineNum">     343 </span>                :            :     // Delete the reader items created during this run.
+<span class="lineNum">     344 </span>        [<span class="branchCov" title="Branch 1 was taken 90 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">         91 :     for (size_t i = 0; i &lt; FreeReaderItems.size(); ++i)</span>
+<span class="lineNum">     345 </span>                :            :     {
+<span class="lineNum">     346 </span>[<span class="branchCov" title="Branch 1 was taken 90 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 90 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         90 :         delete FreeReaderItems[i];</span>
+<span class="lineNum">     347 </span>                :            :     }
+<span class="lineNum">     348 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     FreeReaderItems.clear();</span>
+<span class="lineNum">     349 </span>                :            : 
+<span class="lineNum">     350 </span>                :            :     // Delete the shared memory and exit.
+<span class="lineNum">     351 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     delete [] Shm;</span>
+<span class="lineNum">     352 </span>                :<span class="lineCov">          1 :     Shm = NULL;</span>
+<span class="lineNum">     353 </span>                :            : 
+<span class="lineNum">     354 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     return 0;</span>
+<span class="lineNum">     355 </span>                :            : }
+<a name="356"><span class="lineNum">     356 </span>                :            : </a>
+<span class="lineNum">     357 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     358 </span>                :<span class="lineCov">          1 : static void produceConsume(AQReader &amp;reader)</span>
+<span class="lineNum">     359 </span>                :            : {
+<span class="lineNum">     360 </span>                :            :     Timer::Ms_t prev;
+<span class="lineNum">     361 </span>                :<span class="lineCov">          1 :     bool first = true;</span>
+<span class="lineNum">     362 </span>                :            : 
+<span class="lineNum">     363 </span>                :            :     // Start all the producers and snapshot takers for this run.
+<span class="lineNum">     364 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     365 </span>                :            :     {
+<span class="lineNum">     366 </span>                :<span class="lineCov">          3 :         Producers[i]-&gt;start();</span>
+<span class="lineNum">     367 </span>                :            :     }
+<span class="lineNum">     368 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     369 </span>                :            :     {
+<span class="lineNum">     370 </span>                :<span class="lineCov">          1 :         SnapshotTakers[i]-&gt;start();</span>
+<span class="lineNum">     371 </span>                :            :     }
+<span class="lineNum">     372 </span>                :            : 
+<span class="lineNum">     373 </span>                :            :     // Run the reader for the consumption time.
+<span class="lineNum">     374 </span>                :<span class="lineCov">          1 :     ProduceConsumeState state = ProduceConsumeRunning;</span>
+<span class="lineNum">     375 </span>                :<span class="lineCov">          1 :     Timer::Ms_t start = Timer::start();</span>
+<span class="lineNum">     376 </span>                :<span class="lineCov">          1 :     AQItem *item = NULL;</span>
+<span class="lineNum">     377 </span>        [<span class="branchCov" title="Branch 0 was taken 5050 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">       5051 :     do</span>
+<span class="lineNum">     378 </span>                :            :     {
+<span class="lineNum">     379 </span>                :<span class="lineCov">       5051 :         size_t i = CONSUME_LOOP_COUNTER + 1;</span>
+<span class="lineNum">     380 </span>[<span class="branchCov" title="Branch 0 was taken 397780 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 2 was taken 397388 times"> + </span><span class="branchCov" title="Branch 3 was taken 392 times"> + </span>]:<span class="lineCov">     397781 :         while (state == ProduceConsumeJoined || (--i &gt; 0))</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 4 was taken 397389 times"> + </span><span class="branchCov" title="Branch 5 was taken 392 times"> + </span>]
+<span class="lineNum">     381 </span>                :            :         {
+<span class="lineNum">     382 </span>        [<span class="branchCov" title="Branch 0 was taken 392731 times"> + </span><span class="branchCov" title="Branch 1 was taken 4658 times"> + </span>]:<span class="lineCov">     397389 :             if (item == NULL)</span>
+<span class="lineNum">     383 </span>                :            :             {
+<span class="lineNum">     384 </span>                :<span class="lineCov">     392731 :                 item = allocReaderItem();</span>
+<span class="lineNum">     385 </span>                :            :             }
+<span class="lineNum">     386 </span>                :<span class="lineCov">     397389 :             Timer::Ms_t now = Timer::start();</span>
+<span class="lineNum">     387 </span>                :<span class="lineCov">     397389 :             bool res = reader.retrieve(*item);</span>
+<span class="lineNum">     388 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 397388 times"> + </span>]:<span class="lineCov">     397389 :             if (first)</span>
+<span class="lineNum">     389 </span>                :            :             {
+<span class="lineNum">     390 </span>                :<span class="lineCov">          1 :                 first = false;</span>
+<span class="lineNum">     391 </span>                :            :             }
+<span class="lineNum">     392 </span>                :            :             else
+<span class="lineNum">     393 </span>                :            :             {
+<span class="lineNum">     394 </span>                :<span class="lineCov">     397388 :                 Timer::Ms_t elapsed = now - prev;</span>
+<span class="lineNum">     395 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 397386 times"> + </span>]:<span class="lineCov">     397388 :                 if (elapsed &gt; StatMaxConsumePeriodMs)</span>
+<span class="lineNum">     396 </span>                :            :                 {
+<span class="lineNum">     397 </span>                :<span class="lineCov">          2 :                     StatMaxConsumePeriodMs = elapsed;</span>
+<span class="lineNum">     398 </span>                :            :                 }
+<span class="lineNum">     399 </span>                :            :             }
+<span class="lineNum">     400 </span>                :<span class="lineCov">     397389 :             prev = now;</span>
+<span class="lineNum">     401 </span>        [<span class="branchCov" title="Branch 0 was taken 4659 times"> + </span><span class="branchCov" title="Branch 1 was taken 392730 times"> + </span>]:<span class="lineCov">     397389 :             if (!res)</span>
+<span class="lineNum">     402 </span>                :            :             {
+<span class="lineNum">     403 </span>                :<span class="lineCov">       4659 :                 break;</span>
+<span class="lineNum">     404 </span>                :            :             }
+<span class="lineNum">     405 </span>                :<span class="lineCov">     392730 :             StatRetreiveSuccess++;</span>
+<span class="lineNum">     406 </span>                :<span class="lineCov">     392730 :             assertRecord(item);</span>
+<span class="lineNum">     407 </span>                :<span class="lineCov">     392730 :             item = NULL;</span>
+<span class="lineNum">     408 </span>                :            :         }
+<span class="lineNum">     409 </span>        [<span class="branchCov" title="Branch 0 was taken 4659 times"> + </span><span class="branchCov" title="Branch 1 was taken 392 times"> + </span>]:<span class="lineCov">       5051 :         if (i &gt; 0)</span>
+<span class="lineNum">     410 </span>                :            :         {
+<span class="lineNum">     411 </span>                :<span class="lineCov">       4659 :             StatRetreiveFailure++;</span>
+<span class="lineNum">     412 </span>                :            :         }
+<span class="lineNum">     413 </span>                :            : 
+<span class="lineNum">     414 </span>  [<span class="branchCov" title="Branch 0 was taken 470 times"> + </span><span class="branchCov" title="Branch 1 was taken 4580 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5051 :         switch (state)</span>
+<span class="lineNum">     415 </span>                :            :         {
+<span class="lineNum">     416 </span>                :            :         case ProduceConsumeRunning:
+<span class="lineNum">     417 </span>                :            :             // Test if we need to stop; if we do need to stop then issue the
+<span class="lineNum">     418 </span>                :            :             // instruction to all threads to stop.
+<span class="lineNum">     419 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 469 times"> + </span>]:<span class="lineCov">        470 :             if (Timer::elapsed(start) &gt; 1000 * RunTimeSecs)</span>
+<span class="lineNum">     420 </span>                :            :             {
+<span class="lineNum">     421 </span>                :<span class="lineCov">          1 :                 state = ProduceConsumeStopping;</span>
+<span class="lineNum">     422 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :                 for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     423 </span>                :            :                 {
+<span class="lineNum">     424 </span>                :<span class="lineCov">          1 :                     SnapshotTakers[i]-&gt;stop();</span>
+<span class="lineNum">     425 </span>                :            :                 }
+<span class="lineNum">     426 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :                 for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     427 </span>                :            :                 {
+<span class="lineNum">     428 </span>                :<span class="lineCov">          3 :                     Producers[i]-&gt;stop();</span>
+<span class="lineNum">     429 </span>                :            :                 }
+<span class="lineNum">     430 </span>                :            :             }
+<span class="lineNum">     431 </span>                :<span class="lineCov">        470 :             break;</span>
+<span class="lineNum">     432 </span>                :            : 
+<span class="lineNum">     433 </span>                :            :         case ProduceConsumeStopping:
+<span class="lineNum">     434 </span>                :            :         {
+<span class="lineNum">     435 </span>                :            :             // Check to see if all threads have joined.
+<span class="lineNum">     436 </span>                :<span class="lineCov">       4580 :             size_t i = 0;</span>
+<span class="lineNum">     437 </span>[<span class="branchCov" title="Branch 1 was taken 4580 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchCov" title="Branch 6 was taken 4579 times"> + </span>]:<span class="lineCov">       4581 :             for (; i &lt; SnapshotTakers.size() &amp;&amp; SnapshotTakers[i]-&gt;join(0); ++i);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 4580 times"> + </span>]
+<span class="lineNum">     438 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 4579 times"> + </span>]:<span class="lineCov">       4580 :             if (i == SnapshotTakers.size())</span>
+<span class="lineNum">     439 </span>                :            :             {
+<span class="lineNum">     440 </span>[<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">          4 :                 for (i = 0; i &lt; Producers.size() &amp;&amp; Producers[i]-&gt;join(0); ++i);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 7 was taken 3 times"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span>]
+<span class="lineNum">     441 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :                 if (i == Producers.size())</span>
+<span class="lineNum">     442 </span>                :            :                 {
+<span class="lineNum">     443 </span>                :<span class="lineCov">          1 :                     state = ProduceConsumeJoined;</span>
+<span class="lineNum">     444 </span>                :            :                 }
+<span class="lineNum">     445 </span>                :            :             }
+<span class="lineNum">     446 </span>  [<span class="branchCov" title="Branch 0 was taken 4579 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 4579 times"> + </span>]:<span class="lineCov">       9159 :             if (   state != ProduceConsumeJoined</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 4580 times"> + </span>]
+<span class="lineNum">     447 </span>                :<span class="lineCov">       4579 :                 &amp;&amp; Timer::elapsed(start) &gt; 2000 * RunTimeSecs)</span>
+<span class="lineNum">     448 </span>                :            :             {
+<span class="lineNum">     449 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :                 assertFailed(&quot;Lock-up detected; took too long for producers to complete&quot;);            </span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
+<span class="lineNum">     450 </span>                :            :             }
+<span class="lineNum">     451 </span>                :<span class="lineCov">       4580 :             break;</span>
+<span class="lineNum">     452 </span>                :            :         }
+<span class="lineNum">     453 </span>                :            : 
+<span class="lineNum">     454 </span>                :            :         case ProduceConsumeJoined:
+<span class="lineNum">     455 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :             for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     456 </span>                :            :             {
+<span class="lineNum">     457 </span>                :<span class="lineCov">          3 :                 Producers[i]-&gt;consumerChannel().assertComplete();</span>
+<span class="lineNum">     458 </span>                :            :             }
+<span class="lineNum">     459 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :             for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     460 </span>                :            :             {
+<span class="lineNum">     461 </span>                :<span class="lineCov">          1 :                 SnapshotTaker *st = SnapshotTakers[i];</span>
+<span class="lineNum">     462 </span>                :            : 
+<span class="lineNum">     463 </span>        [<span class="branchCov" title="Branch 1 was taken 5 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          6 :                 for (size_t j = 0; j &lt; st-&gt;snapshotCount(); ++j)</span>
+<span class="lineNum">     464 </span>                :            :                 {
+<span class="lineNum">     465 </span>                :<span class="lineCov">          5 :                     SnapValidator-&gt;validate(st-&gt;snapshot(j));</span>
+<span class="lineNum">     466 </span>                :            :                 }
+<span class="lineNum">     467 </span>                :<span class="lineCov">          1 :                 st-&gt;clearSnapshots();</span>
+<span class="lineNum">     468 </span>                :            :             }
+<span class="lineNum">     469 </span>                :<span class="lineCov">          1 :             SnapValidator-&gt;purge();</span>
+<span class="lineNum">     470 </span>                :<span class="lineCov">          1 :             state = ProduceConsumeComplete;</span>
+<span class="lineNum">     471 </span>                :<span class="lineCov">          1 :             break;</span>
+<span class="lineNum">     472 </span>                :            : 
+<span class="lineNum">     473 </span>                :            :         default:
+<span class="lineNum">     474 </span>                :            :             // Take no action.
+<span class="lineNum">     475 </span>                :<span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     476 </span>                :            :         }
+<span class="lineNum">     477 </span>                :            :     } while (state != ProduceConsumeComplete);
+<span class="lineNum">     478 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     if (item != NULL)</span>
+<span class="lineNum">     479 </span>                :            :     {
+<span class="lineNum">     480 </span>                :<span class="lineCov">          1 :         freeReaderItem(item);</span>
+<span class="lineNum">     481 </span>                :            :     }
+<span class="lineNum">     482 </span>                :<span class="lineCov">          1 : }</span>
+<a name="483"><span class="lineNum">     483 </span>                :            : </a>
+<span class="lineNum">     484 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     485 </span>                :<span class="lineCov">          1 : static void printStatistics(int loop)</span>
+<span class="lineNum">     486 </span>                :            : {
+<span class="lineNum">     487 </span>                :<span class="lineCov">          1 :     cout &lt;&lt; &quot;Loop &quot; &lt;&lt; loop &lt;&lt; &quot;:&quot;;</span>
+<span class="lineNum">     488 </span>                :            : 
+<span class="lineNum">     489 </span>                :<span class="lineCov">          1 :     unsigned long long success = StatRetreiveSuccess;</span>
+<span class="lineNum">     490 </span>                :<span class="lineCov">          1 :     unsigned long long failure = StatRetreiveFailure;</span>
+<span class="lineNum">     491 </span>                :<span class="lineCov">          1 :     unsigned long long total = success + failure;</span>
+<span class="lineNum">     492 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     int perc = total == 0 ? 0 : (int)((success * 100 + total / 2) / total);</span>
+<span class="lineNum">     493 </span>                :            : 
+<span class="lineNum">     494 </span>                :<span class="lineCov">          1 :     unsigned long long incomplete = StatRecordIncomplete;</span>
+<span class="lineNum">     495 </span>                :<span class="lineCov">          1 :     total = StatRecordComplete + StatRecordIncomplete;</span>
+<span class="lineNum">     496 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     int cperc = total == 0 ? 0 : (int)((incomplete * 100 + total / 2) / total);</span>
+<span class="lineNum">     497 </span>                :            : 
+<span class="lineNum">     498 </span>                :<span class="lineCov">          1 :     cout &lt;&lt; &quot; con(&quot; &lt;&lt; success &lt;&lt; &quot; @ &quot; &lt;&lt; perc &lt;&lt; &quot;%, incomplete &quot; </span>
+<span class="lineNum">     499 </span>                :<span class="lineCov">          1 :         &lt;&lt; incomplete &lt;&lt; &quot; @ &quot; &lt;&lt; cperc &lt;&lt; &quot;%, &gt;&gt;&quot; &lt;&lt; StatMaxConsumePeriodMs &lt;&lt; &quot;ms)&quot;;</span>
+<span class="lineNum">     500 </span>                :            : 
+<span class="lineNum">     501 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          4 :     for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     502 </span>                :            :     {
+<span class="lineNum">     503 </span>                :<span class="lineCov">          3 :         const Producer &amp;p = *Producers[i];</span>
+<span class="lineNum">     504 </span>                :            : 
+<span class="lineNum">     505 </span>                :<span class="lineCov">          3 :         success = p.getStat(Producer::StatisticClaimSuccess);</span>
+<span class="lineNum">     506 </span>                :<span class="lineCov">          3 :         failure = p.getStat(Producer::StatisticClaimFailures);</span>
+<span class="lineNum">     507 </span>                :<span class="lineCov">          3 :         total = success + failure;</span>
+<span class="lineNum">     508 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :         perc = total == 0 ? 0 : (int)((success * 100 + total / 2) / total);</span>
+<span class="lineNum">     509 </span>                :            : 
+<span class="lineNum">     510 </span>                :<span class="lineCov">          3 :         unsigned long long maxCycleMs = p.getStat(Producer::StatisticMaxCycleTimeMs);</span>
+<span class="lineNum">     511 </span>                :            : 
+<span class="lineNum">     512 </span>                :<span class="lineCov">          3 :         cout &lt;&lt; &quot; p&quot; &lt;&lt; (i + 1) &lt;&lt; &quot;(&quot; &lt;&lt; success &lt;&lt; &quot; @ &quot; &lt;&lt; perc &lt;&lt; &quot;%, &gt;&gt;&quot; </span>
+<span class="lineNum">     513 </span>                :<span class="lineCov">          3 :             &lt;&lt; maxCycleMs &lt;&lt; &quot;ms)&quot;;</span>
+<span class="lineNum">     514 </span>                :            :     }
+<span class="lineNum">     515 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     516 </span>                :            :     {
+<span class="lineNum">     517 </span>                :<span class="lineCov">          1 :         const SnapshotTaker &amp;st = *SnapshotTakers[i];</span>
+<span class="lineNum">     518 </span>                :            : 
+<span class="lineNum">     519 </span>                :<span class="lineCov">          1 :         total = st.getStat(SnapshotTaker::StatisticSnapshotsTaken);</span>
+<span class="lineNum">     520 </span>                :            : 
+<span class="lineNum">     521 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         unsigned long long avgRecs = total == 0 ? 0 : (st.getStat(SnapshotTaker::StatisticTotalRecords) + total / 2) / total;</span>
+<span class="lineNum">     522 </span>                :<span class="lineCov">          1 :         unsigned long long maxSnapshotMs = st.getStat(SnapshotTaker::StatisticMaxSnapshotTimeMs);</span>
+<span class="lineNum">     523 </span>                :            : 
+<span class="lineNum">     524 </span>                :<span class="lineCov">          1 :         cout &lt;&lt; &quot; s&quot; &lt;&lt; (i + 1) &lt;&lt; &quot;(&quot; &lt;&lt; total &lt;&lt; &quot; @ &quot; &lt;&lt; avgRecs &lt;&lt; &quot;, &gt;&gt;&quot;</span>
+<span class="lineNum">     525 </span>                :<span class="lineCov">          1 :             &lt;&lt; maxSnapshotMs &lt;&lt; &quot;ms)&quot;;</span>
+<span class="lineNum">     526 </span>                :            :     }
+<span class="lineNum">     527 </span>                :<span class="lineCov">          1 :     cout &lt;&lt; endl;</span>
+<span class="lineNum">     528 </span>                :<span class="lineCov">          1 : }</span>
+<a name="529"><span class="lineNum">     529 </span>                :            : </a>
+<span class="lineNum">     530 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     531 </span>                :<span class="lineCov">          8 : void assertShmGuard(void)</span>
+<span class="lineNum">     532 </span>                :            : {
+<span class="lineNum">     533 </span>        [<span class="branchCov" title="Branch 0 was taken 64 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">         72 :     for (int i = SHM_GUARD_SIZE - 1; i &gt;= 0; --i)</span>
+<span class="lineNum">     534 </span>                :            :     {
+<span class="lineNum">     535 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 64 times"> + </span>]:<span class="lineCov">         64 :         if (Shm[i] != SHM_GUARD_BYTE)</span>
+<span class="lineNum">     536 </span>                :            :         {
+<span class="lineNum">     537 </span>                :<span class="lineNoCov">          0 :             ostringstream ss;</span>
+<span class="lineNum">     538 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### SHM_GUARD_UNDERRUN at byte &quot; &lt;&lt; i &lt;&lt; endl;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span>]
+<span class="lineNum">     539 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             assertFailed(ss.str());</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     540 </span>                :            :         }
+<span class="lineNum">     541 </span>                :            :     }
+<span class="lineNum">     542 </span>        [<span class="branchCov" title="Branch 0 was taken 64 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">         72 :     for (int i = 0; i &lt; SHM_GUARD_SIZE; ++i)</span>
+<span class="lineNum">     543 </span>                :            :     {
+<span class="lineNum">     544 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 64 times"> + </span>]:<span class="lineCov">         64 :         if (Shm[SHM_GUARD_SIZE + ShmSize + i] != SHM_GUARD_BYTE)</span>
+<span class="lineNum">     545 </span>                :            :         {
+<span class="lineNum">     546 </span>                :<span class="lineNoCov">          0 :             ostringstream ss;</span>
+<span class="lineNum">     547 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### SHM_GUARD_UNDERRUN at byte &quot; &lt;&lt; i &lt;&lt; endl;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span>]
+<span class="lineNum">     548 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             assertFailed(ss.str());</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     549 </span>                :            :         }
+<span class="lineNum">     550 </span>                :            :     }
+<span class="lineNum">     551 </span>                :<span class="lineCov">          8 : }</span>
+<a name="552"><span class="lineNum">     552 </span>                :            : </a>
+<span class="lineNum">     553 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     554 </span>                :<span class="lineCov">     416056 : string parseRecordTag(const char *whom, const AQItem *item,</span>
+<span class="lineNum">     555 </span>                :            :     unsigned int &amp;recLen, int &amp;threadId, unsigned long long &amp;count)
+<span class="lineNum">     556 </span>                :            : {
+<span class="lineNum">     557 </span>                :<span class="lineCov">     416056 :     threadId = -1;</span>
+<span class="lineNum">     558 </span>                :<span class="lineCov">     416056 :     count = 0;</span>
+<span class="lineNum">     559 </span>                :            : 
+<span class="lineNum">     560 </span>                :            :     // Decode the item.
+<span class="lineNum">     561 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 416056 times"> + </span>]:<span class="lineCov">     416056 :     if (item-&gt;size() &lt; RECORD_MIN_LEN)</span>
+<span class="lineNum">     562 </span>                :            :     {
+<span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
+<span class="lineNum">     564 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_RECORD when paring for &quot; &lt;&lt; whom </span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     565 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :             &lt;&lt; &quot;; size is &quot; &lt;&lt; item-&gt;size() &lt;&lt; &quot; less than minimum of &quot;</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
+<span class="lineNum">     566 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             &lt;&lt; RECORD_MIN_LEN &lt;&lt; endl;</span>
+<span class="lineNum">     567 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         assertFailed(ss.str());</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     568 </span>                :            :     }
+<span class="lineNum">     569 </span>                :            : 
+<span class="lineNum">     570 </span>                :            :     char header[RECORD_MIN_LEN + 1];
+<span class="lineNum">     571 </span>                :<span class="lineCov">     416056 :     memcpy(header, &amp;(*item)[0], RECORD_MIN_LEN);</span>
+<span class="lineNum">     572 </span>                :<span class="lineCov">     416056 :     header[RECORD_MIN_LEN] = '\0';</span>
+<span class="lineNum">     573 </span>                :            : 
+<span class="lineNum">     574 </span>                :            :     // Check the string for the separator markers.
+<span class="lineNum">     575 </span>[<span class="branchCov" title="Branch 0 was taken 416056 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 416056 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     416056 :     if (   header[RECORD_LEN_CHARS] != ','</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 416056 times"> + </span>]
+<span class="lineNum">     576 </span>                :<span class="lineCov">     416056 :         || header[RECORD_LEN_CHARS + 1 + RECORD_THREAD_ID_CHARS] != ','</span>
+<span class="lineNum">     577 </span>                :<span class="lineCov">     416056 :         || header[RECORD_LEN_CHARS + 1 + RECORD_THREAD_ID_CHARS + 1 + RECORD_COUNT_CHARS] != ':')</span>
+<span class="lineNum">     578 </span>                :            :     {
+<span class="lineNum">     579 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
+<span class="lineNum">     580 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_RECORD when parsing for &quot; &lt;&lt; whom </span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     581 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             &lt;&lt; &quot; markers are incorrect in \&quot;&quot; &lt;&lt; header &lt;&lt; &quot;\&quot;&quot; &lt;&lt; endl;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     582 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         assertFailed(ss.str());</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     583 </span>                :            :     }
+<span class="lineNum">     584 </span>                :            : 
+<span class="lineNum">     585 </span>                :            :     // Extract the thread ID and counters.
+<span class="lineNum">     586 </span>                :<span class="lineCov">     416056 :     sscanf(header, RECORD_FORMAT, &amp;recLen, &amp;threadId, &amp;count);</span>
+<span class="lineNum">     587 </span>                :            : 
+<span class="lineNum">     588 </span>                :            :     // Verify the threadId.
+<span class="lineNum">     589 </span>[<span class="branchCov" title="Branch 0 was taken 416056 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 416056 times"> + </span>]:<span class="lineCov">     416056 :     if (threadId &lt; 1 || threadId &gt;(int)Producers.size())</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 416056 times"> + </span>]
+<span class="lineNum">     590 </span>                :            :     {
+<span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :         ostringstream ss;</span>
+<span class="lineNum">     592 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         ss &lt;&lt; endl &lt;&lt; endl &lt;&lt; &quot;### INVALID_RECORD when parsing for &quot; &lt;&lt; whom </span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">     593 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :             &lt;&lt; &quot;; threadId &quot; &lt;&lt; threadId &lt;&lt; &quot; is in incorrect in \&quot;&quot; &lt;&lt; header &lt;&lt; &quot;\&quot;&quot; &lt;&lt; endl;</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>][<span class="branchNoExec" title="Branch 9 was not executed"> # </span><span class="branchNoExec" title="Branch 10 was not executed"> # </span>]
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 12 was not executed"> # </span><span class="branchNoExec" title="Branch 13 was not executed"> # </span>][<span class="branchNoExec" title="Branch 15 was not executed"> # </span><span class="branchNoExec" title="Branch 16 was not executed"> # </span>]
+<span class="lineNum">     594 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :         assertFailed(ss.str());</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 6 was not executed"> # </span><span class="branchNoExec" title="Branch 7 was not executed"> # </span>]
+<span class="lineNum">     595 </span>                :            :     }
+<span class="lineNum">     596 </span>                :            : 
+<span class="lineNum">     597 </span>        [<span class="branchCov" title="Branch 1 was taken 416056 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     416056 :     return string(&amp;header[RECORD_LEN_CHARS + 1]);</span>
+<span class="lineNum">     598 </span>                :            : }
+<a name="599"><span class="lineNum">     599 </span>                :            : </a>
+<span class="lineNum">     600 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     601 </span>                :<span class="lineNoCov">          0 : string itemToString(const AQItem *item)</span>
+<span class="lineNum">     602 </span>                :            : {
+<span class="lineNum">     603 </span>                :<span class="lineNoCov">          0 :     size_t len = 0;</span>
+<span class="lineNum">     604 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (const AQItem *it = item; it != NULL; it = it-&gt;next())</span>
+<span class="lineNum">     605 </span>                :            :     {
+<span class="lineNum">     606 </span>                :<span class="lineNoCov">          0 :         len += it-&gt;size();</span>
+<span class="lineNum">     607 </span>                :            :     }
+<span class="lineNum">     608 </span>                :<span class="lineNoCov">          0 :     char *str = new char[len + 1];</span>
+<span class="lineNum">     609 </span>                :<span class="lineNoCov">          0 :     len = 0;</span>
+<span class="lineNum">     610 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (const AQItem *it = item; it != NULL; it = it-&gt;next())</span>
+<span class="lineNum">     611 </span>                :            :     {
+<span class="lineNum">     612 </span>                :<span class="lineNoCov">          0 :         memcpy(&amp;str[len], &amp;(*it)[0], it-&gt;size());</span>
+<span class="lineNum">     613 </span>                :<span class="lineNoCov">          0 :         len += it-&gt;size();</span>
+<span class="lineNum">     614 </span>                :            :     }
+<span class="lineNum">     615 </span>                :<span class="lineNoCov">          0 :     str[len] = '\0';</span>
+<span class="lineNum">     616 </span>                :            : 
+<span class="lineNum">     617 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     string rstr = str;</span>
+<span class="lineNum">     618 </span>                :            : 
+<span class="lineNum">     619 </span>                :            : #ifdef _WIN32
+<span class="lineNum">     620 </span>                :            :     _snprintf(str, len, &quot;@%p&quot;, item);
+<span class="lineNum">     621 </span>                :            : #else
+<span class="lineNum">     622 </span>                :<span class="lineNoCov">          0 :     snprintf(str, len, &quot;@%p&quot;, item);</span>
+<span class="lineNum">     623 </span>                :            : #endif
+<span class="lineNum">     624 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     rstr += str;</span>
+<span class="lineNum">     625 </span>                :            : 
+<span class="lineNum">     626 </span>                :            : #ifdef _WIN32
+<span class="lineNum">     627 </span>                :            :     _snprintf(str, len, &quot; [quid=%08X, lkid=%08X]&quot;, item-&gt;queueIdentifier(), item-&gt;linkIdentifier());
+<span class="lineNum">     628 </span>                :            : #else
+<span class="lineNum">     629 </span>                :<span class="lineNoCov">          0 :     snprintf(str, len, &quot; [quid=%08X, lkid=%08X]&quot;, item-&gt;queueIdentifier(), item-&gt;linkIdentifier());</span>
+<span class="lineNum">     630 </span>                :            : #endif
+<span class="lineNum">     631 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     rstr += str;</span>
+<span class="lineNum">     632 </span>                :            : 
+<span class="lineNum">     633 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     delete[] str;</span>
+<span class="lineNum">     634 </span>                :<span class="lineNoCov">          0 :     return rstr;</span>
+<span class="lineNum">     635 </span>                :            : }
+<a name="636"><span class="lineNum">     636 </span>                :            : </a>
+<span class="lineNum">     637 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     638 </span>                :<span class="lineCov">     392730 : static void assertRecord(AQItem *item)</span>
+<span class="lineNum">     639 </span>                :            : {
+<span class="lineNum">     640 </span>                :            :     // Check the status of the record.
+<span class="lineNum">     641 </span>        [<span class="branchCov" title="Branch 1 was taken 1025017 times"> + </span><span class="branchCov" title="Branch 2 was taken 392730 times"> + </span>]:<span class="lineCov">    1417747 :     for (const AQItem *it = item; it != NULL; it = it-&gt;next())</span>
+<span class="lineNum">     642 </span>                :            :     {
+<span class="lineNum">     643 </span>        [<span class="branchCov" title="Branch 1 was taken 1025017 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">    1025017 :         if (it-&gt;isCommitted())</span>
+<span class="lineNum">     644 </span>                :            :         {
+<span class="lineNum">     645 </span>                :<span class="lineCov">    1025017 :             StatRecordComplete++;</span>
+<span class="lineNum">     646 </span>                :            :         }
+<span class="lineNum">     647 </span>                :            :         else
+<span class="lineNum">     648 </span>                :            :         {
+<span class="lineNum">     649 </span>                :<span class="lineNoCov">          0 :             StatRecordIncomplete++;</span>
+<span class="lineNum">     650 </span>                :            :         }
+<span class="lineNum">     651 </span>                :            :     }
+<span class="lineNum">     652 </span>                :            : 
+<span class="lineNum">     653 </span>[<span class="branchCov" title="Branch 1 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 392730 times"> + </span>]:<span class="lineCov">     392730 :     if (item-&gt;isCommitted() &amp;&amp; !item-&gt;isChecksumValid())</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 392730 times"> + </span>]
+<span class="lineNum">     654 </span>                :            :     {
+<span class="lineNum">     655 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :         assertFailed(&quot;### CHECKSUM FAILED&quot;);</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
+<span class="lineNum">     656 </span>                :            :     }
+<span class="lineNum">     657 </span>                :            : 
+<span class="lineNum">     658 </span>                :<span class="lineCov">     392730 :     unsigned int recLen = 0;</span>
+<span class="lineNum">     659 </span>                :<span class="lineCov">     392730 :     int threadId = -1;</span>
+<span class="lineNum">     660 </span>                :<span class="lineCov">     392730 :     unsigned long long count = 0;</span>
+<span class="lineNum">     661 </span>                :<span class="lineCov">     392730 :     string tag = parseRecordTag(&quot;consumer&quot;, item, recLen, threadId, count);</span>
+<span class="lineNum">     662 </span>                :            : 
+<span class="lineNum">     663 </span>                :            :     // Store this record in the map used for snapshot validation.
+<span class="lineNum">     664 </span>        [<span class="branchCov" title="Branch 1 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     392730 :     if (SnapshotTakers.size() &gt; 0)</span>
+<span class="lineNum">     665 </span>                :            :     {
+<span class="lineNum">     666 </span>        [<span class="branchCov" title="Branch 0 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     392730 :         SnapValidator-&gt;add(tag, item);</span>
+<span class="lineNum">     667 </span>                :            :     }
+<span class="lineNum">     668 </span>                :            : 
+<span class="lineNum">     669 </span>        [<span class="branchCov" title="Branch 2 was taken 392730 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     392730 :     Producers[threadId - 1]-&gt;consumerChannel().process(item, recLen, count);</span>
+<span class="lineNum">     670 </span>                :<span class="lineCov">     392730 : }</span>
+<a name="671"><span class="lineNum">     671 </span>                :            : </a>
+<span class="lineNum">     672 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     673 </span>                :<span class="lineNoCov">          0 : void assertFailed(const string&amp; msg)</span>
+<span class="lineNum">     674 </span>                :            : {
+<span class="lineNum">     675 </span>                :            :     // Stop all threads from running.
+<span class="lineNum">     676 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     677 </span>                :            :     {
+<span class="lineNum">     678 </span>                :<span class="lineNoCov">          0 :         SnapshotTakers[i]-&gt;stopImmediate();</span>
+<span class="lineNum">     679 </span>                :            :     }
+<span class="lineNum">     680 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     681 </span>                :            :     {
+<span class="lineNum">     682 </span>                :<span class="lineNoCov">          0 :         Producers[i]-&gt;stopImmediate();</span>
+<span class="lineNum">     683 </span>                :            :     }
+<span class="lineNum">     684 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (size_t i = 0; i &lt; SnapshotTakers.size(); ++i)</span>
+<span class="lineNum">     685 </span>                :            :     {
+<span class="lineNum">     686 </span>                :<span class="lineNoCov">          0 :         SnapshotTakers[i]-&gt;join(10000);</span>
+<span class="lineNum">     687 </span>                :            :     }
+<span class="lineNum">     688 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (size_t i = 0; i &lt; Producers.size(); ++i)</span>
+<span class="lineNum">     689 </span>                :            :     {
+<span class="lineNum">     690 </span>                :<span class="lineNoCov">          0 :         Producers[i]-&gt;join(10000);</span>
+<span class="lineNum">     691 </span>                :            :     }
+<span class="lineNum">     692 </span>                :            : 
+<span class="lineNum">     693 </span>                :<span class="lineNoCov">          0 :     ofstream out(&quot;StressTest_Failure.log&quot;);</span>
+<span class="lineNum">     694 </span>                :            : 
+<span class="lineNum">     695 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     logAssertFailed(cerr, msg, NULL);</span>
+<span class="lineNum">     696 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     logAssertFailed(out, msg, Trace);</span>
+<span class="lineNum">     697 </span>                :            : 
+<span class="lineNum">     698 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     out.close();</span>
+<span class="lineNum">     699 </span>                :<span class="lineNoCov">          0 :     abort();</span>
+<span class="lineNum">     700 </span>                :            : }
+<a name="701"><span class="lineNum">     701 </span>                :            : </a>
+<span class="lineNum">     702 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     703 </span>                :<span class="lineNoCov">          0 : static void logAssertFailed(ostream&amp; out, const string&amp; msg, TraceManager *tm)</span>
+<span class="lineNum">     704 </span>                :            : {
+<span class="lineNum">     705 </span>                :<span class="lineNoCov">          0 :     out &lt;&lt; endl</span>
+<span class="lineNum">     706 </span>                :<span class="lineNoCov">          0 :         &lt;&lt; endl </span>
+<span class="lineNum">     707 </span>                :<span class="lineNoCov">          0 :         &lt;&lt; &quot;================================================================================&quot; &lt;&lt; endl </span>
+<span class="lineNum">     708 </span>                :<span class="lineNoCov">          0 :         &lt;&lt; msg </span>
+<span class="lineNum">     709 </span>                :<span class="lineNoCov">          0 :         &lt;&lt; endl &lt;&lt; &quot;================================================================================&quot; &lt;&lt; endl;</span>
+<span class="lineNum">     710 </span>                :            : 
+<span class="lineNum">     711 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (tm != NULL)</span>
+<span class="lineNum">     712 </span>                :            :     {
+<span class="lineNum">     713 </span>                :<span class="lineNoCov">          0 :         tm-&gt;write(out);</span>
+<span class="lineNum">     714 </span>                :<span class="lineNoCov">          0 :         out &lt;&lt; &quot;================================================================================&quot; &lt;&lt; endl </span>
+<span class="lineNum">     715 </span>                :<span class="lineNoCov">          0 :             &lt;&lt; msg </span>
+<span class="lineNum">     716 </span>                :<span class="lineNoCov">          0 :             &lt;&lt; endl &lt;&lt; &quot;================================================================================&quot; &lt;&lt; endl;</span>
+<span class="lineNum">     717 </span>                :            :     }
+<span class="lineNum">     718 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="719"><span class="lineNum">     719 </span>                :            : </a>
+<span class="lineNum">     720 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     721 </span>                :<span class="lineCov">     392731 : static AQItem *allocReaderItem(void)</span>
+<span class="lineNum">     722 </span>                :            : {
+<span class="lineNum">     723 </span>                :            :     AQItem *item;
+<span class="lineNum">     724 </span>                :            : 
+<span class="lineNum">     725 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 392731 times"> + </span>]:<span class="lineCov">     392731 :     if (FreeReaderItems.size() == 0)</span>
+<span class="lineNum">     726 </span>                :            :     {
+<span class="lineNum">     727 </span>                :<span class="lineNoCov">          0 :         item = new AQItem;</span>
+<span class="lineNum">     728 </span>                :            :     }
+<span class="lineNum">     729 </span>                :            :     else
+<span class="lineNum">     730 </span>                :            :     {
+<span class="lineNum">     731 </span>                :<span class="lineCov">     392731 :         item = FreeReaderItems.back();</span>
+<span class="lineNum">     732 </span>                :<span class="lineCov">     392731 :         FreeReaderItems.pop_back();</span>
+<span class="lineNum">     733 </span>                :            :     }
+<span class="lineNum">     734 </span>                :<span class="lineCov">     392731 :     return item;</span>
+<span class="lineNum">     735 </span>                :            : }
+<a name="736"><span class="lineNum">     736 </span>                :            : </a>
+<span class="lineNum">     737 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     738 </span>                :<span class="lineCov">     392731 : void freeReaderItem(AQItem *item)</span>
+<span class="lineNum">     739 </span>                :            : {
+<span class="lineNum">     740 </span>                :<span class="lineCov">     392731 :     FreeReaderItems.push_back(item);</span>
+<span class="lineNum">     741 </span>                :<span class="lineCov">     392731 : }</span>
+<a name="742"><span class="lineNum">     742 </span>                :            : </a>
+<span class="lineNum">     743 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     744 </span>                :<span class="lineCov">          1 : static void configure(Optarg &amp;cfg)</span>
+<span class="lineNum">     745 </span>                :            : {
+<span class="lineNum">     746 </span>                :<span class="lineCov">          1 :     cfg.opt('t', RunTimeSecs, &quot;The duration of each stress loop in seconds.&quot;);</span>
+<span class="lineNum">     747 </span>                :<span class="lineCov">          1 :     cfg.opt('l', RunLoops, &quot;The number of test loops to perform; a value of 0 loops forever.&quot;);</span>
+<span class="lineNum">     748 </span>                :<span class="lineCov">          1 :     cfg.opt('p', ProducerCount, &quot;The number of producer threads to create and write into the queue.&quot;);</span>
+<span class="lineNum">     749 </span>                :<span class="lineCov">          1 :     cfg.opt('s', SnapshotTakerCount, &quot;The number of snapshot taking threads to create and write into the queue.&quot;);</span>
+<span class="lineNum">     750 </span>                :<span class="lineCov">          1 :     cfg.opt('M', ShmSize, &quot;The size of the shared memory region.&quot;);</span>
+<span class="lineNum">     751 </span>                :<span class="lineCov">          1 :     cfg.opt('P', PageSizeShift, &quot;The size of each AQ page expressed as 2^(this value).&quot;);</span>
+<span class="lineNum">     752 </span>                :<span class="lineCov">          1 :     cfg.opt('A', PageSizeAlloc, &quot;Each allocation consists of a number of pages; this is a colon separated list of page counts that are valid allocation sizes.&quot;);</span>
+<span class="lineNum">     753 </span>                :<span class="lineCov">          1 :     cfg.opt('T', CommitTimeoutMs, &quot;The commit timeout in milliseconds.&quot;);</span>
+<span class="lineNum">     754 </span>                :<span class="lineCov">          1 :     cfg.opt('C', AQ::OPTION_CRC32, FormatOptions, &quot;Enables the CRC-32 queue formatting option.&quot;);</span>
+<span class="lineNum">     755 </span>                :<span class="lineCov">          1 :     cfg.opt('L', AQ::OPTION_LINK_IDENTIFIER, FormatOptions, &quot;Enables the link identifier queue formatting option.&quot;);</span>
+<span class="lineNum">     756 </span>                :<span class="lineCov">          1 :     cfg.opt('E', AQ::OPTION_EXTENDABLE, FormatOptions, &quot;Enables the extendable queue formatting option.&quot;);</span>
+<span class="lineNum">     757 </span>                :<span class="lineCov">          1 :     cfg.opt('O', MaxOutstanding, &quot;The maximum number of items that a produce may hold outstanding without committing them.&quot;);</span>
+<span class="lineNum">     758 </span>                :<span class="lineCov">          1 :     cfg.opt('W', MaxPagesPerAppend, &quot;The maximum number of pages to write in any one append operation when running with the extendable option.&quot;);</span>
+<span class="lineNum">     759 </span>                :<span class="lineCov">          1 :     cfg.opt('S', MaxSnapshotPeriodMs, &quot;The maximum amount of time (in milliseconds) between snapshot capture.&quot;);</span>
+<span class="lineNum">     760 </span>                :            : 
+<span class="lineNum">     761 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     762 </span>                :<span class="lineCov">          1 :     cfg.opt('1', TpDelayClaimBeforeWriteHeadRef, &quot;If set then a 1ms sleep is introduced immediatly before each head reference is written in AQWriter::commit().&quot;);</span>
+<span class="lineNum">     763 </span>                :<span class="lineCov">          1 :     cfg.opt('2', TpDelayClaimBeforeWriteCtrlSkipPages, &quot;If set then a 1ms sleep is introduced immediatly before the control register for wasted pages is written in AQWriter::commit().&quot;);</span>
+<span class="lineNum">     764 </span>                :<span class="lineCov">          1 :     cfg.opt('3', TpDelayClaimBeforeWriteCtrl, &quot;If set then a 1ms sleep is introduced immediatly before the control register is written in AQWriter::commit().&quot;);</span>
+<span class="lineNum">     765 </span>                :            : #endif
+<span class="lineNum">     766 </span>                :            : 
+<span class="lineNum">     767 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     if (cfg.hasOpt('h', &quot;Show the command line option help.&quot;))</span>
+<span class="lineNum">     768 </span>                :            :     {
+<span class="lineNum">     769 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 4 was not executed"> # </span><span class="branchNoExec" title="Branch 5 was not executed"> # </span>]:<span class="lineNoCov">          0 :         cout &lt;&lt; endl &lt;&lt; cfg.helpMessage() &lt;&lt; endl;</span>
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 7 was not executed"> # </span><span class="branchNoExec" title="Branch 8 was not executed"> # </span>]
+<a name="770"><span class="lineNum">     770 </span>                :<span class="lineNoCov">          0 :         exit(0);</span></a>
+<span class="lineNum">     771 </span>                :            :     }
+<span class="lineNum">     772 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          4 : }</span>
+<span class="lineNum">     773 </span>                :            : 
+<span class="lineNum">     774 </span>                :            : 
+<span class="lineNum">     775 </span>                :            : 
+<span class="lineNum">     776 </span>                :            : 
+<span class="lineNum">     777 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

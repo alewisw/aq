@@ -182,7 +182,7 @@ Note that this causes 4 pages of waste to be created at the end of the queue.
 
 
 
-### AQWriter::retrieve() - retrieve incomplete when queue is full and timer expires
+### AQReader::retrieve() - retrieve incomplete when queue is full and timer expires
 
 Now that the queue is less than 25% full the next item retrieved is the uncommitted item at index 9.
 ~~~{.cpp}

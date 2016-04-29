@@ -635,7 +635,7 @@ TEST(given_UsageExampleCode_when_Executed_then_Runs)
     reader.retrieve(item6);
     cout << "Item Size        = " << item6.size() << endl;          // Item Size        = 2
     cout << "Item[0]          = '" << item6[0] << "'" << endl;      // Item[0]          = 'G'
-    cout << "Committed        = " << item6.isCommitted() << endl;   // Committed        = false
+    cout << "Committed        = " << item6.isCommitted() << endl;   // Committed        = 0
 
     REQUIRE(reader.pageSize() == 2);
     REQUIRE(reader.pageCount() == 15);

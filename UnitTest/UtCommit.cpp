@@ -78,7 +78,7 @@ AQTEST(given_ClaimItem_when_CommitMem1ByteSmaller_then_Exception)
     aq.advance(1);
     AQWriterItem witem;
     REQUIRE(aq.writer.claim(witem, aq.pageSize()));
-    aq.mutateItemMem(witem, &witem[-1]);
+    aq.mutateItemMem(witem, &(&witem[0])[-1]);
 
     REQUIRE_EXCEPTION(aq.writer.commit(witem), invalid_argument);
 }
@@ -108,7 +108,7 @@ AQTEST(given_ClaimItemWithLowestMemoryAddress_when_CommitMem1ByteSmaller_then_Ex
 {
     AQWriterItem witem;
     REQUIRE(aq.writer.claim(witem, aq.pageSize()));
-    aq.mutateItemMem(witem, &witem[-1]);
+    aq.mutateItemMem(witem, &(&witem[0])[-1]);
 
     REQUIRE_EXCEPTION(aq.writer.commit(witem), invalid_argument);
 }

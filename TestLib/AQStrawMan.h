@@ -60,6 +60,14 @@ public:
     // Constructs an allocating deque.
     AQStrawManBase(int pageSizeShift, size_t pageCount);
 
+private:
+
+    // No implementation is defined for these functions.
+    AQStrawManBase(const AQStrawManBase& other);
+    AQStrawManBase& operator=(const AQStrawManBase& other);
+
+public:
+
     // Destroys this event.
     virtual ~AQStrawManBase(void);
 
@@ -134,6 +142,14 @@ public:
 
     // Constructs an allocating deque.
     AQStrawMan(int pageSizeShift, size_t pageCount) : AQStrawManBase(pageSizeShift, pageCount) { };
+
+private:
+
+    // No implementation is defined for these functions.
+    AQStrawMan(const AQStrawMan<TLock>& other);
+    AQStrawMan<TLock>& operator=(const AQStrawMan<TLock>& other);
+
+public:
 
     // Destroys this event.
     virtual ~AQStrawMan(void) { };

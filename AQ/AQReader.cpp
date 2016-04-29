@@ -60,7 +60,10 @@ do                                                                              
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerExpired ? 'X' : '-',               \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount);                             \
-} while (0)
+__pragma(warning(push))                                                                         \
+__pragma(warning(disable:4127))                                                                 \
+} while(0)                                                                                      \
+__pragma(warning(pop))
 
 #define TRACE_PSTATE2(ref, code, skipIdx)                                                       \
 do                                                                                              \
@@ -77,7 +80,10 @@ do                                                                              
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
           m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount,                              \
           skipIdx);                                                                             \
-} while (0)
+__pragma(warning(push))                                                                         \
+__pragma(warning(disable:4127))                                                                 \
+} while(0)                                                                                      \
+__pragma(warning(pop))
 
 #else
 
@@ -300,10 +306,11 @@ bool AQReader::retrieve(AQItem& item)
     bool res = true;
     ctrlThrowOnUnformatted(__FUNCTION__);
 
-    TRACE_CTRL_ENTRY(c);
+    TRACE_CTRL_ENTRY(m_ctrl);
     if (m_linkProcessor == NULL)
     {
-        if (!(res = walk(&item)))
+        res = walk(&item);
+        if (!res)
         {
             item.clear();
         }
@@ -332,7 +339,7 @@ bool AQReader::retrieve(AQItem& item)
             item.clear();
         }
     }
-    TRACE_ITEMDATA_EXIT(c, &item);
+    TRACE_ITEMDATA_EXIT(m_ctrl, &item);
     return res;
 }
 

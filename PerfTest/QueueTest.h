@@ -52,6 +52,12 @@ public:
     // Constructs a new queue-based test with the name 'name'.
     QueueTest(const std::string& name, IQueueProvider& queueProvider);
 
+private:
+    // No copy or assignment permitted.
+    QueueTest(const QueueTest& other);
+    QueueTest& operator=(const QueueTest& other);
+public:
+
     // Destroys this thread overhead test.
     virtual ~QueueTest(void);
 

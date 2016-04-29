@@ -352,6 +352,18 @@ void TestRunner::renderAfterRunner(void)
     cout << endl;
 }
 
+//------------------------------------------------------------------------------
+void TestRunner::beforeTest(const TestExecution& exec) 
+{ 
+    (void)exec; 
+}
+
+//------------------------------------------------------------------------------
+void TestRunner::afterTest(const TestExecution& exec)
+{
+    (void)exec;
+}
+
 
 
 //=============================== End of File ==================================

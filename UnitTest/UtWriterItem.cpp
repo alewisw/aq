@@ -96,7 +96,7 @@ private:
         m_mem.resize(idx + 1);
         for (size_t i = 0; i < len; ++i)
         {
-            m_mem[idx].push_back(tag | i);
+            m_mem[idx].push_back((unsigned char)(tag | i));
         }
     }
 
@@ -157,7 +157,7 @@ public:
 TEST_SUITE(UtWriterItem);
 
 //------------------------------------------------------------------------------
-AQTEST(given_WriterItemUnallocated_when_Write_then_DomainErrorException)
+TEST(given_WriterItemUnallocated_when_Write_then_DomainErrorException)
 {
     AQWriterItem witem;
     char mem[5];
@@ -166,7 +166,7 @@ AQTEST(given_WriterItemUnallocated_when_Write_then_DomainErrorException)
 }
 
 //------------------------------------------------------------------------------
-AQTEST(given_WriterItemUnallocated_when_WriteOffset_then_DomainErrorException)
+TEST(given_WriterItemUnallocated_when_WriteOffset_then_DomainErrorException)
 {
     AQWriterItem witem;
     char mem[5];

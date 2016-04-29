@@ -211,6 +211,8 @@ string TestJUnitXmlReport::encodeAttribute(const char *name, double value)
 //------------------------------------------------------------------------------
 string TestJUnitXmlReport::encodeAttribute(const char *name, time_t value)
 {
+    //TODO: proper implementation
+    (void)value;
     return encodeAttribute(name, "2013-05-24T10:23:58");
 }
 

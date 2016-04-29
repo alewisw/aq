@@ -53,6 +53,12 @@ public:
     CommitTest(const std::string& name, IQueueProvider& queueProvider, 
         int threadCount);
 
+private:
+    // No copy or assignment permitted.
+    CommitTest(const CommitTest& other);
+    CommitTest& operator=(const CommitTest& other);
+public:
+
     // Destroys this claim test.
     virtual ~CommitTest(void);
 

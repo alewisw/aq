@@ -81,7 +81,7 @@ AQTEST(given_RetrieveItem_when_ReleaseMem1ByteSmaller_then_Exception)
     aq.enqueue(1);
     AQItem ritem;
     REQUIRE(aq.reader.retrieve(ritem));
-    aq.mutateItemMem(ritem, &ritem[-1]);
+    aq.mutateItemMem(ritem, &(&ritem[0])[-1]);
 
     REQUIRE_EXCEPTION(aq.reader.release(ritem), invalid_argument);
 }
@@ -116,7 +116,7 @@ AQTEST(given_RetrieveItemWithLowestMemoryAddress_when_ReleaseMem1ByteSmaller_the
     aq.enqueue(1);
     AQItem ritem;
     REQUIRE(aq.reader.retrieve(ritem));
-    aq.mutateItemMem(ritem, &ritem[-1]);
+    aq.mutateItemMem(ritem, &(&ritem[0])[-1]);
 
     REQUIRE_EXCEPTION(aq.reader.release(ritem), invalid_argument);
 }
@@ -196,7 +196,7 @@ AQTEST(given_ItemRetrieved_when_ReleaseBadMemory_then_ItemCleared)
     aq.enqueue(1);
     AQItem ritem;
     REQUIRE(aq.reader.retrieve(ritem));
-    aq.mutateItemMem(ritem, &ritem[-1]);
+    aq.mutateItemMem(ritem, &(&ritem[0])[-1]);
     REQUIRE_EXCEPTION(aq.reader.release(ritem), invalid_argument);
     REQUIRE(!ritem.isAllocated());
 }
@@ -1138,6 +1138,8 @@ AQTEST(given_IncompleteRecordRetrieved_when_CommitRelease_ReleaseCorrectly)
 #ifdef AQ_TEST_POINT
 static void corruptCtrlqIndex0(AQ *queue, void *context)
 {
+    (void)queue;
+
     AQTest& aq = *((AQTest *)context);
 
     aq.ctrl->ctrlq[0] &= ~CtrlOverlay::CTRLQ_CLAIM_MASK;

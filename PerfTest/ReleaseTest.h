@@ -52,6 +52,12 @@ public:
     // a single thread taken from 'queueProvider'.
     ReleaseTest(const std::string& name, IQueueProvider& queueProvider);
 
+private:
+    // No copy or assignment permitted.
+    ReleaseTest(const ReleaseTest& other);
+    ReleaseTest& operator=(const ReleaseTest& other);
+public:
+
     // Destroys this claim test.
     virtual ~ReleaseTest(void);
 

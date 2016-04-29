@@ -31,7 +31,10 @@ do                                                                              
         __res = false;                                                          \
     }                                                                           \
     CHECK(__x);                                                                 \
-} while (0)
+__pragma(warning(push))                                                         \
+__pragma(warning(disable:4127))                                                 \
+} while (0)                                                                     \
+__pragma(warning(pop))
 
 
 

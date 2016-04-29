@@ -199,7 +199,7 @@ AQTEST_FORMAT(given_MultiItemCommit_when_SecondCommitFails_then_RemainingItemsNo
     // Now verify none of the items were committed.
     for (size_t i = 0; i < 1; ++i)
     {
-        REQUIRE((aq.ctrl->ctrlq[i] & CtrlOverlay::CTRLQ_COMMIT_MASK));
+        REQUIRE(!!(aq.ctrl->ctrlq[i] & CtrlOverlay::CTRLQ_COMMIT_MASK));
     }
     for (size_t i = 1; i < 3; ++i)
     {
@@ -225,7 +225,7 @@ AQTEST_FORMAT(given_MultiItemCommit_when_LastCommitFails_then_StartItemsCommitte
     // Now verify none of the items were committed.
     for (size_t i = 0; i < 2; ++i)
     {
-        REQUIRE((aq.ctrl->ctrlq[i] & CtrlOverlay::CTRLQ_COMMIT_MASK));
+        REQUIRE(!!(aq.ctrl->ctrlq[i] & CtrlOverlay::CTRLQ_COMMIT_MASK));
     }
     for (size_t i = 2; i < 3; ++i)
     {

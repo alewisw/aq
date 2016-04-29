@@ -62,6 +62,10 @@ template<typename T> class TAQReader : public IAQReader
 {
 public:
     TAQReader(T& aq) : m_aq(aq) { };
+private:
+    TAQReader<T>(const TAQReader<T>& other);
+    TAQReader<T>& operator=(const TAQReader<T>& other);
+public:
     virtual ~TAQReader(void) { };
 
     virtual bool retrieve(AQItem& item) { return m_aq.retrieve(item); }

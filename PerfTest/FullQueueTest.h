@@ -53,6 +53,12 @@ public:
     FullQueueTest(const std::string& name, IQueueProvider& queueProvider, 
         int claimCommitThreadCount, bool performMemcpy = false);
 
+private:
+    // No copy or assignment permitted.
+    FullQueueTest(const FullQueueTest& other);
+    FullQueueTest& operator=(const FullQueueTest& other);
+public:
+
     // Destroys this claim test.
     virtual ~FullQueueTest(void);
 

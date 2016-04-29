@@ -62,6 +62,10 @@ protected:
     // Constructs a new performance test with no threads.
     PerfTest(const std::string& name, aq::Timer::Ms_t minDurationMs = PERF_TEST_DEFAULT_MIN_DURATION_MS);
 
+private:
+    // No copy or assignment permitted.
+    PerfTest(const PerfTest& other);
+    PerfTest& operator=(const PerfTest& other);
 public:
 
     // Destroys this performance test.
@@ -84,6 +88,11 @@ private:
     public:
         // Constructs this Thread with a callback and single argument.
         Thread0(T *obj, void (T::*func)(void)) : m_obj(obj), m_func(func) { };
+    private:
+        // No copy or assignment permitted.
+        Thread0<T>(const Thread0<T>& other);
+        Thread0<T>& operator=(const Thread0<T>& other);
+    public:
         virtual ~Thread0(void) { };
         virtual void execute(void) { ((*m_obj).*(m_func))(); }
     private:
@@ -97,6 +106,11 @@ private:
     public:
         // Constructs this Thread with a callback and single argument.
         Thread1(T *obj, void (T::*func)(U&), U& arg) : m_obj(obj), m_func(func), m_arg(arg) { };
+    private:
+        // No copy or assignment permitted.
+        Thread1<T,U>(const Thread1<T,U>& other);
+        Thread1<T,U>& operator=(const Thread1<T,U>& other);
+    public:
         virtual ~Thread1(void) { };
         virtual void execute(void) { ((*m_obj).*(m_func))(m_arg); }
     private:
@@ -117,6 +131,12 @@ private:
             , m_threadNum(threadNum)
         {
         }
+
+    private:
+        // No copy or assignment permitted.
+        PerfThread(const PerfThread& other);
+        PerfThread& operator=(const PerfThread& other);
+    public:
 
         // Destroys this thread.
         virtual ~PerfThread(void) { delete m_executor; };

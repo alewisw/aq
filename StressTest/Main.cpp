@@ -357,7 +357,7 @@ int main(int argc, char* argv[])
 //------------------------------------------------------------------------------
 static void produceConsume(AQReader &reader)
 {
-    Timer::Ms_t prev;
+    Timer::Ms_t prev = 0;
     bool first = true;
 
     // Start all the producers and snapshot takers for this run.

@@ -31,7 +31,7 @@ static void Wrapper_##testName(TestExecution& exec);                            
 static const TestTag TestTag_##testName(__FILE__, __LINE__,                     \
                                         #testName, Wrapper_##testName);         \
 static void testName(void);                                                     \
-static void Wrapper_##testName(TestExecution& exec) { testName(); }             \
+static void Wrapper_##testName(TestExecution& exec) { (void)exec; testName(); } \
 static void testName(void)
 
 

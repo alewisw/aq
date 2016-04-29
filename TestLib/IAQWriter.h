@@ -63,6 +63,10 @@ template<typename T> class TAQWriter : public IAQWriter
 {
 public:
     TAQWriter(T& aq) : m_aq(aq) { };
+private:
+    TAQWriter<T>(const TAQWriter<T>& other);
+    TAQWriter<T>& operator=(const TAQWriter<T>& other);
+public:
     virtual ~TAQWriter(void) { };
 
     virtual size_t pageSize(void) const { return m_aq.pageSize(); }

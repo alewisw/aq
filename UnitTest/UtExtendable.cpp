@@ -270,6 +270,9 @@ AQTEST_FORMAT(given_FourBufferItemStraddlesQuidWrap_when_Retrieve_then_RetrieveD
 static void basicTest(AQTest& aq, size_t expectedCapacity, size_t expectedBufferCount,
     size_t initialCap, size_t size1, size_t size2, size_t size3, size_t size4)
 {
+#ifdef AQ_TEST_TRACE
+    TraceBuffer *m_trace = aq.trace;
+#endif
     for (uint32_t startIdx = 0; startIdx < aq.pageCount(); ++startIdx)
     {
         TRACE("Test %u:%u/%u/%u/%u @ %u", initialCap, size1, size2, size3, size4, startIdx);

@@ -145,7 +145,7 @@ public:
     {
         volatile LONG *ldest = (volatile LONG *)dest;
         LONG lmask = (LONG)mask;
-        _InterlockedOr(ldest, mask);
+        _InterlockedOr(ldest, lmask);
     }
 
 };

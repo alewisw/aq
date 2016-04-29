@@ -51,6 +51,12 @@ public:
     ClaimTest(const std::string& name, IQueueProvider& queueProvider, 
         int threadCount);
 
+private:
+    // No copy or assignment permitted.
+    ClaimTest(const ClaimTest& other);
+    ClaimTest& operator=(const ClaimTest& other);
+public:
+
     // Destroys this claim test.
     virtual ~ClaimTest(void);
 

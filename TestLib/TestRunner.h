@@ -140,10 +140,10 @@ private:
 protected:
 
     // Called before the passed test execution is performed.
-    virtual void beforeTest(const TestExecution& exec) { };
+    virtual void beforeTest(const TestExecution& exec);
 
     // Called after the passed test execution is performed.
-    virtual void afterTest(const TestExecution& exec) { };
+    virtual void afterTest(const TestExecution& exec);
 
 };
 

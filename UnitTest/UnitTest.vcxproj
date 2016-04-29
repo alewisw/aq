@@ -55,6 +55,7 @@
     <ClCompile Include="UtRetrieve.cpp" />
     <ClCompile Include="UtSnapshot.cpp" />
     <ClCompile Include="UtTest.cpp" />
+    <ClCompile Include="UtUsageExample.cpp" />
     <ClCompile Include="UtWriterItem.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

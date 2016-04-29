@@ -389,7 +389,7 @@ AQTEST(given_IncompleteAfterHeadMoreThan25PercentFreeSpace_when_CommitTimeout_th
     aq.writer.commit(tmp);
 
     // Fill the queue to more than 25% free.
-    aq.enqueue(6);
+    aq.enqueue(5);
 
     // Release the two items - the queue should not change.
     AQItem ritem1, ritem2, ritem3;
@@ -402,7 +402,7 @@ AQTEST(given_IncompleteAfterHeadMoreThan25PercentFreeSpace_when_CommitTimeout_th
     REQUIRE(aq.areDifferentAllocatedItems(witem2, ritem2));
 
     // Make sure it was not discarded.
-    REQUIRE(aq.reader.availableSize() == 2 * aq.pageSize());
+    REQUIRE(aq.reader.availableSize() == 3 * aq.pageSize());
 }
 
 //------------------------------------------------------------------------------

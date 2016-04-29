@@ -13,6 +13,7 @@
 
 #include <stdexcept>
 #include <time.h>
+#include <sys/sysinfo.h>
 
 using namespace std;
 
@@ -214,7 +215,7 @@ void WorkerThread::abortIfStopImmediate(void)
 //------------------------------------------------------------------------------
 int WorkerThread::numberOfProcessors(void)
 {
-    return -1;
+    return get_nprocs();
 }
 
 

@@ -389,6 +389,87 @@ AQTEST(given_Advance18Waste4Size5Size2Size1_when_Snapshot_then_3Items)
 }
 
 //------------------------------------------------------------------------------
+AQTEST(given_UnreleasedIncomplete_when_Snapshot_then_ItemUnreleasedIncomplete)
+{
+    AQWriterItem witem;
+
+    aq.enqueue(1);
+    CHECK(aq.writer.claim(witem, aq.pageSize() * 2));
+
+    AQItem ritem0;
+    AQItem ritem1;
+
+    CHECK(aq.reader.retrieve(ritem0));
+    CHECK(aq.isItemPage(ritem0, 0, aq.pageSize()));
+    CHECK(!aq.reader.retrieve(ritem1));
+        
+    aq.enqueue(aq.pageCount() - 4);
+
+    Timer::sleep(AQTest::COMMIT_TIMEOUT_MS);
+
+    CHECK(aq.reader.retrieve(ritem1));
+    CHECK(aq.isItemPage(ritem1, 1, 2 * aq.pageSize()));
+
+    AQSnapshot snap(aq.writer, aq.trace);
+    REQUIRE(aq.isUnreleasedUncommittedItemPage(snap[1], 1, 2 * aq.pageSize()));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_ReleasedIncomplete_when_Snapshot_then_ItemReleasedIncomplete)
+{
+    AQWriterItem witem;
+
+    aq.enqueue(1);
+    CHECK(aq.writer.claim(witem, aq.pageSize() * 2));
+
+    AQItem ritem0;
+    AQItem ritem1;
+
+    CHECK(aq.reader.retrieve(ritem0));
+    CHECK(aq.isItemPage(ritem0, 0, aq.pageSize()));
+    CHECK(!aq.reader.retrieve(ritem1));
+
+    aq.enqueue(aq.pageCount() - 4);
+
+    Timer::sleep(AQTest::COMMIT_TIMEOUT_MS);
+
+    CHECK(aq.reader.retrieve(ritem1));
+    CHECK(aq.isItemPage(ritem1, 1, 2 * aq.pageSize()));
+    aq.reader.release(ritem1);
+
+    AQSnapshot snap(aq.writer, aq.trace);
+    REQUIRE(aq.isReleasedUncommittedItemPage(snap[1], 1, 2 * aq.pageSize()));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_DiscardedIncomplete_when_Snapshot_then_ItemReleasedIncomplete)
+{
+    AQWriterItem witem;
+
+    aq.enqueue(1);
+    CHECK(aq.writer.claim(witem, aq.pageSize() * 2));
+
+    AQItem ritem0;
+    AQItem ritem1;
+
+    CHECK(aq.reader.retrieve(ritem0));
+    CHECK(aq.isItemPage(ritem0, 0, aq.pageSize()));
+    CHECK(!aq.reader.retrieve(ritem1));
+
+    aq.enqueue(aq.pageCount() - 4);
+
+    Timer::sleep(AQTest::COMMIT_TIMEOUT_MS);
+
+    CHECK(aq.reader.retrieve(ritem1));
+    CHECK(aq.isItemPage(ritem1, 1, 2 * aq.pageSize()));
+    aq.reader.release(ritem1);
+    aq.reader.release(ritem0);
+
+    AQSnapshot snap(aq.writer, aq.trace);
+    REQUIRE(aq.isReleasedUncommittedItemPage(snap[1], 1, 2 * aq.pageSize()));
+}
+
+//------------------------------------------------------------------------------
 AQTEST(given_WasteContainsSeq2Recs_when_RefSeqLoopsAndSnapshot_WasteNotReturnedAsItems)
 {
     // Fills the queue with SEQ=2 CTRL-Q entries.

@@ -15,6 +15,9 @@ The %AQ has a number of features that make it particularly suitable for use as a
  - The queue is robust in the face of unexpected application termination, especially when the application is in the middle of performing opertions on the queue.
  - The queue content can be fully captured and examined by taking a snapshot-in-time.  This allow for recovery and examination of previously processed items in the case of unexpected application termination.
 
+ 
+ 
+ 
 ## Internal Structure and Queue Algorithm
 
 In order to understand how to use the %AQ interface a general understanding of the internal structure of the queue is required.
@@ -33,883 +36,165 @@ In order to understand how to use the %AQ interface a general understanding of t
 
 Shown below is an example of the queue data structure moving through a series of states.  This example is described in detail below to help explain how the queue data is structured and the properties that this implies.
 
+
+
 ### Initial State
 
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#ffff66" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#bfbfbf" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#ffff66" valign="middle" align="center">4
-    <td bgcolor="#66ff66" valign="middle" align="center">5
-    <td bgcolor="#66ff66" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#ffff66" valign="middle" align="center">10
-    <td bgcolor="#bfbfbf" valign="middle" align="center">11
-    <td bgcolor="#bfbfbf" valign="middle" align="center">12
-    <td bgcolor="#bfbfbf" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">3 pages<br>commit<br>released
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#ffff66" valign="top" align="center">DD
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#ffff66" valign="top" align="center">HH
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">AA AA AA
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snapshot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 1<br>released<br>
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 2<br>incomplete<br>released<br>
-    <td bgcolor="#ffff66" valign="top" align="center">index 3
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 4<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 5
-    <td bgcolor="#ff9933" valign="top" align="center">index 6<br>incomplete
-    <td bgcolor="#ffff66" valign="top" align="center">index 7
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">Index 0<br>released
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td valign="top" align="center" colspan="3">3 pages
-    <td colspan="8">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="4">4 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-### Claim Operation - AQWriter::claim()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#ffff66" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#ffff66" valign="middle" align="center">4
-    <td bgcolor="#66ff66" valign="middle" align="center">5
-    <td bgcolor="#66ff66" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#ffff66" valign="middle" align="center">10
-    <td bgcolor="#ff9933" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#ffff66" valign="top" align="center">DD
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#ffff66" valign="top" align="center">HH
-    <td bgcolor="#ff9933" valign="top" align="center">ii
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#ffff66" valign="top" align="center">index 2
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#ffff66" valign="top" align="center">index 6
-    <td bgcolor="#8f8f8f" valign="top" align="center">
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td colspan="9">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-</table>
-
-
-### Commit Operation - AQWriter::commit()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#ffff66" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#ffff66" valign="middle" align="center">4
-    <td bgcolor="#66ff66" valign="middle" align="center">5
-    <td bgcolor="#66ff66" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#ffff66" valign="middle" align="center">10
-    <td bgcolor="#ffff66" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#ffff66" valign="top" align="center">DD
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#ffff66" valign="top" align="center">HH
-    <td bgcolor="#ffff66" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#ffff66" valign="top" align="center">index 2
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#ffff66" valign="top" align="center">index 6
-    <td bgcolor="#ffff66" valign="top" align="center">index 7
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td colspan="9">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-### Retrieve Operation - AQReader::retrieve()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#99ffcc" valign="middle" align="center">4
-    <td bgcolor="#66ff66" valign="middle" align="center">5
-    <td bgcolor="#66ff66" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#ffff66" valign="middle" align="center">10
-    <td bgcolor="#ffff66" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#99ffcc" valign="top" align="center">DD
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#ffff66" valign="top" align="center">HH
-    <td bgcolor="#ffff66" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center">index 2
-    <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#ffff66" valign="top" align="center">index 6
-    <td bgcolor="#ffff66" valign="top" align="center">index 7
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td colspan="9">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-
-
-### Release Operation - AQReader::release()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#bfbfbf" valign="middle" align="center">4
-    <td bgcolor="#bfbfbf" valign="middle" align="center">5
-    <td bgcolor="#bfbfbf" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#ffff66" valign="middle" align="center">10
-    <td bgcolor="#ffff66" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#bfbfbf" valign="top" align="center">DD
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#ffff66" valign="top" align="center">HH
-    <td bgcolor="#ffff66" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#ffff66" valign="top" align="center">index 6
-    <td bgcolor="#ffff66" valign="top" align="center">index 7
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages
-    <td colspan="6">
-    <td valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-
-
-### Retrieve Operation Starts Expiry Timer - AQReader::retrieve()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#bfbfbf" valign="middle" align="center">4
-    <td bgcolor="#bfbfbf" valign="middle" align="center">5
-    <td bgcolor="#bfbfbf" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#99ffcc" valign="middle" align="center">10
-    <td bgcolor="#ffff66" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>xtimer-on
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#bfbfbf" valign="top" align="center">DD
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#99ffcc" valign="top" align="center">HH
-    <td bgcolor="#ffff66" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#99ffcc" valign="top" align="center">index 6
-    <td bgcolor="#ffff66" valign="top" align="center">index 7
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages
-    <td colspan="6">
-    <td valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-### Retrieve Operation When Timer Expires - AQReader::retrieve()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#8f8f8f" width="6%" align="center">Head
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#bfbfbf" valign="middle" align="center">0
-    <td bgcolor="#bfbfbf" valign="middle" align="center">1
-    <td bgcolor="#ff5050" valign="middle" align="center">2
-    <td bgcolor="#ff5050" valign="middle" align="center">3
-    <td bgcolor="#bfbfbf" valign="middle" align="center">4
-    <td bgcolor="#bfbfbf" valign="middle" align="center">5
-    <td bgcolor="#bfbfbf" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#99ffcc" valign="middle" align="center">10
-    <td bgcolor="#99ffcc" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>expired
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">unused
-    <td bgcolor="#8f8f8f" valign="top" align="center">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc
-    <td bgcolor="#bfbfbf" valign="top" align="center">DD
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#99ffcc" valign="top" align="center">HH
-    <td bgcolor="#99ffcc" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f" valign="top" align="center">aa
-    <td bgcolor="#8f8f8f">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4
-    <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete
-    <td bgcolor="#99ffcc" valign="top" align="center">index 6
-    <td bgcolor="#99ffcc" valign="top" align="center">index 7
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages
-    <td colspan="6">
-    <td valign="top" align="center" colspan="3">3 pages
-    <td width="0%">
-</tr>
-
-</table>
-
-### Claim Operation When Timer Expires - AQWriter::claim()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#bfbfbf" width="6%" align="center">Head
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#ff9933" valign="middle" align="center">0
-    <td bgcolor="#ff9933" valign="middle" align="center">1
-    <td bgcolor="#ff9933" valign="middle" align="center">2
-    <td bgcolor="#ff9933" valign="middle" align="center">3
-    <td bgcolor="#ff9933" valign="middle" align="center">4
-    <td bgcolor="#bfbfbf" valign="middle" align="center">5
-    <td bgcolor="#bfbfbf" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff9933" valign="middle" align="center">9
-    <td bgcolor="#99ffcc" valign="middle" align="center">10
-    <td bgcolor="#99ffcc" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#ff9933" valign="top" align="center" colspan="5">5 pages<br>claim
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>expired
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#ff9933" valign="top" align="center" colspan="5">jj jj jj jj jj
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff9933" valign="top" align="center">gg
-    <td bgcolor="#99ffcc" valign="top" align="center">HH
-    <td bgcolor="#99ffcc" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" colspan="3">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#8f8f8f" valign="top" align="center" colspan="5">
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 1
-    <td bgcolor="#ff9933" valign="top" align="center">index 2<br>incomplete
-    <td bgcolor="#99ffcc" valign="top" align="center">index 3
-    <td bgcolor="#99ffcc" valign="top" align="center">index 4
-    <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td colspan="5">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="1">1 page
-    <td colspan="9">
-    <td width="0%">
-</tr>
-
-</table>
-
-### Retrieve Operation When Timer Expires and Queue > 75% Full - AQWriter::retrieve()
-<table>
-<tr>
-    <td border="0" width="10%">Pointers:
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td bgcolor="#bfbfbf" width="6%" align="center">Head
-    <td width="6%">
-    <td bgcolor="#99ffcc" width="6%" align="center">Tail
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-    <td width="6%">
-</tr>
-
-<tr>
-    <td border="0">Index:</td>
-    <td bgcolor="#ff9933" valign="middle" align="center">0
-    <td bgcolor="#ff9933" valign="middle" align="center">1
-    <td bgcolor="#ff9933" valign="middle" align="center">2
-    <td bgcolor="#ff9933" valign="middle" align="center">3
-    <td bgcolor="#ff9933" valign="middle" align="center">4
-    <td bgcolor="#bfbfbf" valign="middle" align="center">5
-    <td bgcolor="#bfbfbf" valign="middle" align="center">6
-    <td bgcolor="#99ffcc" valign="middle" align="center">7
-    <td bgcolor="#99ffcc" valign="middle" align="center">8
-    <td bgcolor="#ff5050" valign="middle" align="center">9
-    <td bgcolor="#99ffcc" valign="middle" align="center">10
-    <td bgcolor="#99ffcc" valign="middle" align="center">11
-    <td bgcolor="#8f8f8f" valign="middle" align="center">12
-    <td bgcolor="#8f8f8f" valign="middle" align="center">13
-    <td bgcolor="#8f8f8f" valign="middle" align="center">14
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Control:</td>
-    <td bgcolor="#ff9933" valign="top" align="center" colspan="5">5 pages<br>claim
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve
-    <td bgcolor="#ff5050" valign="top" align="center">1 page<br>claim<br>retrieve
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve
-    <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3">waste
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">User Data:</td>
-    <td bgcolor="#ff9933" valign="top" align="center" colspan="5">jj jj jj jj jj
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF
-    <td bgcolor="#ff5050" valign="top" align="center">gg
-    <td bgcolor="#99ffcc" valign="top" align="center">HH
-    <td bgcolor="#99ffcc" valign="top" align="center">II
-    <td bgcolor="#8f8f8f" colspan="3">
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Snaphot:</td>
-    <td bgcolor="#ff9933" valign="top" align="center" colspan="5">index 5<br>incomplete
-    <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released
-    <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 1
-    <td bgcolor="#ff5050" valign="top" align="center">index 2<br>incomplete
-    <td bgcolor="#99ffcc" valign="top" align="center">index 3
-    <td bgcolor="#99ffcc" valign="top" align="center">index 4
-    <td>
-    <td>
-    <td>
-    <td width="0%">
-</tr>
-
-<tr>
-    <td border="0">Available Size:</td>
-    <td colspan="5">
-    <td bgcolor="#cc66ff" valign="top" align="center" colspan="1">1 page
-    <td colspan="9">
-    <td width="0%">
-</tr>
-
-</table>
-
-## Usage
-
+In order to use an %AQ, the application must supply a region of memory and then format that memory.  The AQReader::format() function is used to format memory and takes a number of options to detemine how the queue behaves.  
+ - The `pageSizeShift` parameter determines the size of the pages in the queue.  The page size is the minimum allocation unit for the queue.  If the page size is too large then space will be wasted as each item must consume at least one page.  However if the page size is too small then memory is wasted in the per-page overhead (4 - 12 bytes depending on the formatting options).  Page size is specified as a power of 2; thus if a `pageSizeShift` of 7 is specified then the actual page size will be 2^7 = 128 bytes.
+ - The `commitTimeoutMs` defines the maximum time that any item can be claimed by a call to AQWriter::claim() without being committed by calling AQWriter::commit().  This time period exists to allow the queue to operate correctly if a writer crashes or otherwise malfunctions while holding a claimed item.  In normal operation, failure to commit within this time period can result in data corruption so applications must be careful to only hold uncommitted items for the minimum time possible.
+ - The `options` argument is a bit-mask of formatting options.  These are defined in the AQ class.
+In this example the queue is formatted such that it has 15 pages of 2 bytes each.  Having such small pages is not recommended in practice, however it is convenient for demonstration purposes.
 ~~~{.cpp}
-unsigned char mem[4096];            // In this example the shared memory region is fixed.
+unsigned char mem[146];
 
-AQReader reader(mem, sizeof(mem));  // Construct a new reader around the shared memory region.
-if (!reader.format(7, 1000))        // Format the queue; the page size is 128 bytes leading to a pageSizeShift of 7 ((1 << 7) == 128)
-{                                   // the commit timeout is 1000 milliseconds; no special options are configured.
-    fprintf(stderr, "Queue format failed"); 
-    exit(1);
-}
+AQWriter writer(mem, sizeof(mem));
+AQReader reader(mem, sizeof(mem));
+reader.format(1, 500);
+cout << "Page Size        = " << reader.pageSize()  << endl;    // Page Size        = 2
+cout << "Page Count       = " << reader.pageCount() << endl;    // Page Count       = 15
 ~~~
+After formatting the queue items can be written to use `writer` and read from using `reader`.  In this example we will assume that after some time the queue arrives in the state shown below:
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#ffff66" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#bfbfbf" width="6%" align="center">Head <td width="6%"> <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#ffff66" valign="middle" align="center">4 <td bgcolor="#66ff66" valign="middle" align="center">5 <td bgcolor="#66ff66" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#ffff66" valign="middle" align="center">10 <td bgcolor="#bfbfbf" valign="middle" align="center">11 <td bgcolor="#bfbfbf" valign="middle" align="center">12 <td bgcolor="#bfbfbf" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">3 pages<br>commit<br>released <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#ffff66" valign="top" align="center">DD <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#ffff66" valign="top" align="center">HH <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">AA AA AA <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snapshot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 1<br>released<br> <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 2<br>incomplete<br>released<br> <td bgcolor="#ffff66" valign="top" align="center">index 3 <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 4<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 5 <td bgcolor="#ff9933" valign="top" align="center">index 6<br>incomplete <td bgcolor="#ffff66" valign="top" align="center">index 7 <td bgcolor="#bfbfbf" valign="top" align="center" colspan="3">Index 0<br>released <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td valign="top" align="center" colspan="3">3 pages <td colspan="8"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="4">4 pages <td width="0%"> </tr> </table> 
+
+In this example there are a number of items in the queue that have been retrieved and released already, and a number that have yet to be retrieved or released.  The items that exist in this queue are:
+1. Position (11-13) - Head: Located at the head index is the oldest item in the queue, a 3 page item that has already been retrieved and released.  After the three page item is a single page (page 14) of wasted space.  Wasted space occurs when an allocation request is made that is larger than the number of contiguous pages available at the end of the queue, but can be satisified at the start of the queue.  In this case a 2 page request was made but only 1 page was available.  Thus we ended up with 1 page of wasted space.
+2. Position (0-1): The next entry is a 2 page item that has also been retrieved and released.
+3. Position (2-3): This entry is a 2 page item that has been retrieved and released.  However this item was never committed (that is, it was claimed by calling AQWriter::claim() but never committed by calling AQWriter::commit()).  This would be indicative of an unexpected termination before the item was committed or alternatly a bug in the application where the item was not committed before the commit timeout period was reached.
+4. Position (4) - Tail: Located at the tail index is the oldest item in the queue that has not yet been returned by AQReader::retrieve().  This item has been committed so on the next call to AQReader::retrieve() it will be returned.
+5. Position (5-6): The next entry is a 2 page item that has already been retrieved and released.  As can be seen here items may be retrieved from the queue out-of-order.  In this case it was due to the item at position (4) not yet been committed when the itm at position (5-6) was committed.
+6. Position (7-8): A 2 page item that has been committed and retreived, but not yet released.
+7. Position (9): A 1 page item that has been claimed but not yet committed back to the queue.
+8. Position (10): A 1 page item that has been claimed and committed back to the queue.
+
+The current status of the queue can be obtained by taking a snapshot.  Taking a snapshot is fully thread safe.
+~~~{.cpp}
+AQSnapshot snap1(writer);
+cout << "Number of Items  = " << snap1.size() << endl;          // Number of Items  = 8
+cout << "Item[0] Size     = " << snap1[0].size() << endl;       // Item[0] Size     = 6
+cout << "Item[0][0]       = '" << snap1[0][0] << "'" << endl;   // Item[0][0]       = 'A'
+~~~
+When taking a snapshot the status of the item can be obtained from the AQItem::isCommitted() and AQItem::isReleased() functions.
+
+
+
+### AQWriter::claim() - claim a 1 page item
+
+The next step in the example is to claim a new item from the queue and write some data into that item.
+~~~{.cpp}
+AQWriterItem item1;
+writer.claim(item1, 2);
+item1[0] = 'I';
+item1[1] = 'I';
+~~~
+When the item is claimed it is placed at the current head index, and the head index advances to the next unused position.  In this case it causes the item formally located at position (11-13) to have its first page overwritten.  The remaining pages still exist but are treated as unused within the queue.  They are no longer available for snapshots.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#ffff66" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#ffff66" valign="middle" align="center">4 <td bgcolor="#66ff66" valign="middle" align="center">5 <td bgcolor="#66ff66" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#ffff66" valign="middle" align="center">10 <td bgcolor="#ff9933" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#ffff66" valign="top" align="center">DD <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#ffff66" valign="top" align="center">HH <td bgcolor="#ff9933" valign="top" align="center">ii <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#ffff66" valign="top" align="center">index 2 <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#ffff66" valign="top" align="center">index 6 <td bgcolor="#8f8f8f" valign="top" align="center"> <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td colspan="9"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+When the head index changes while a snapshot is being taken, the snapshot cannot rely on any pages that could be touched by the moving head index.  Thus, if a snapshot was taken while the AQWriter::claim() was executing it may not include the newly allocated page, as shown above.
+
+
+
+### AQWriter::commit() - commit the item previously claimed
+
+Now that an item has been obtained it needs to be committed back to the queue so that the AQReader can return it to the consumer.  As previously mentioned it is critical for correct operation that the AQWriter::commit() occurs before the `commitTimeoutMs` passed to the AQReader::format() function (500ms in this example).
+
+To commit the record back to the queue simply run the command:
+~~~{.cpp}
+writer.commit(item1);
+~~~
+Note that the only change made to the queue is to mark the item as committed.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#ffff66" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#ffff66" valign="middle" align="center">4 <td bgcolor="#66ff66" valign="middle" align="center">5 <td bgcolor="#66ff66" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#ffff66" valign="middle" align="center">10 <td bgcolor="#ffff66" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#ffff66" valign="top" align="center">DD <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#ffff66" valign="top" align="center">HH <td bgcolor="#ffff66" valign="top" align="center">II <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#ffff66" valign="top" align="center">index 2 <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#ffff66" valign="top" align="center">index 6 <td bgcolor="#ffff66" valign="top" align="center">index 7 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td colspan="9"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+
+
+### AQReader::retrieve() - retrieve the next item
+
+In order to retrieve and item from the queue call AQReader::retrieve().
+~~~{.cpp}
+AQItem item2;
+reader.retrieve(item2);
+cout << "Item Size        = " << item2.size() << endl;          // Item Size        = 2
+cout << "Item[0]          = '" << item2[0] << "'" << endl;      // Item[0]          = 'D'
+~~~
+This retrieves the first available item from the queue; in this case the item located at position (4) which is the tail of the queue.  The retrieval state for the item is recorded, however note that this is not stored in the queue itself.  It is stored in private memory associated with the AQReader object.  This in turn means that if the AQReader is destroyed and recreated then it will retrieve the same items again.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#99ffcc" valign="middle" align="center">4 <td bgcolor="#66ff66" valign="middle" align="center">5 <td bgcolor="#66ff66" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#ffff66" valign="middle" align="center">10 <td bgcolor="#ffff66" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#66ff66" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve<br>release <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#99ffcc" valign="top" align="center">DD <td bgcolor="#66ff66" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#ffff66" valign="top" align="center">HH <td bgcolor="#ffff66" valign="top" align="center">II <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#99ffcc" valign="top" align="center">index 2 <td bgcolor="#66ff66" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#ffff66" valign="top" align="center">index 6 <td bgcolor="#ffff66" valign="top" align="center">index 7 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td colspan="9"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+
+
+### AQReader::release() - release the item previously retrieved
+
+Once the item has been processed by the consumer it needs to be released by calling AQReader::release().
+~~~{.cpp}
+reader.release(item2);
+~~~
+Releasing the item cause the tail to move passed all released items until it reaches the next unreleased item.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#bfbfbf" valign="middle" align="center">4 <td bgcolor="#bfbfbf" valign="middle" align="center">5 <td bgcolor="#bfbfbf" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#ffff66" valign="middle" align="center">10 <td bgcolor="#ffff66" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#bfbfbf" valign="top" align="center">DD <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#ffff66" valign="top" align="center">HH <td bgcolor="#ffff66" valign="top" align="center">II <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#ffff66" valign="top" align="center">index 6 <td bgcolor="#ffff66" valign="top" align="center">index 7 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages <td colspan="6"> <td valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+
+
+### AQReader::retrieve() - start timer on uncommitted item and retrieve next item
+
+When a retrieve operation is performed, and an uncommitted item is enountered, a timer is started and the item is bypassed.
+~~~{.cpp}
+AQItem item3;
+reader.retrieve(item3);
+cout << "Item Size        = " << item3.size() << endl;          // Item Size        = 2
+cout << "Item[0]          = '" << item3[0] << "'" << endl;      // Item[0]          = 'H'
+~~~
+In this case a timer is started on the item encountered on page 9 with the item on page 10 being returned.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#bfbfbf" valign="middle" align="center">4 <td bgcolor="#bfbfbf" valign="middle" align="center">5 <td bgcolor="#bfbfbf" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#99ffcc" valign="middle" align="center">10 <td bgcolor="#ffff66" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>xtimer-on <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#ffff66" valign="top" align="center">1 page<br>claim<br>commit <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#bfbfbf" valign="top" align="center">DD <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#99ffcc" valign="top" align="center">HH <td bgcolor="#ffff66" valign="top" align="center">II <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#99ffcc" valign="top" align="center">index 6 <td bgcolor="#ffff66" valign="top" align="center">index 7 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages <td colspan="6"> <td valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+
+
+### AQReader::retrieve() - retrieve after timer expires
+
+Given that the commit timeout expires the next retrieve only obtains the uncommitted item when the available space is less than 25% of the queue size.  For example, even with the commit timeout expiring in the current queue state the now expired, uncommitted item is returned:
+~~~{.cpp}
+sleep(1);
+
+AQItem item4;
+reader.retrieve(item4);
+cout << "Item Size        = " << item4.size() << endl;          // Item Size        = 2
+cout << "Item[0]          = '" << item4[0] << "'" << endl;      // Item[0]          = 'I'
+~~~
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#8f8f8f" width="6%" align="center">Head <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#bfbfbf" valign="middle" align="center">0 <td bgcolor="#bfbfbf" valign="middle" align="center">1 <td bgcolor="#ff5050" valign="middle" align="center">2 <td bgcolor="#ff5050" valign="middle" align="center">3 <td bgcolor="#bfbfbf" valign="middle" align="center">4 <td bgcolor="#bfbfbf" valign="middle" align="center">5 <td bgcolor="#bfbfbf" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#99ffcc" valign="middle" align="center">10 <td bgcolor="#99ffcc" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">2 pages<br>claim<br>released <td bgcolor="#bfbfbf" valign="top" align="center">1 page<br>commit<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>expired <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">unused <td bgcolor="#8f8f8f" valign="top" align="center">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">BB BB <td bgcolor="#ff5050" valign="top" align="center" colspan="2">cc cc <td bgcolor="#bfbfbf" valign="top" align="center">DD <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#99ffcc" valign="top" align="center">HH <td bgcolor="#99ffcc" valign="top" align="center">II <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f" valign="top" align="center">aa <td bgcolor="#8f8f8f"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#ff5050" valign="top" align="center" colspan="2">index 1<br>incomplete<br>released <td bgcolor="#bfbfbf" valign="top" align="center">index 2<br>released <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 3<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 4 <td bgcolor="#ff9933" valign="top" align="center">index 5<br>incomplete <td bgcolor="#99ffcc" valign="top" align="center">index 6 <td bgcolor="#99ffcc" valign="top" align="center">index 7 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td bgcolor="#cc66ff" valign="top" align="center" colspan="6">6 pages <td colspan="6"> <td valign="top" align="center" colspan="3">3 pages <td width="0%"> </tr> </table> 
+
+
+
+### AQWriter::claim() - claim an item that causes waste to appear
+
+In order to force the uncommitted item to be retrieved, add a new item to the list that requires 5 pages.
+~~~{.cpp}
+AQWriterItem item5;
+writer.claim(item5, 10);
+item1[0] = 'J';
+~~~
+Note that this causes 4 pages of waste to be created at the end of the queue.
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#bfbfbf" width="6%" align="center">Head <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#ff9933" valign="middle" align="center">0 <td bgcolor="#ff9933" valign="middle" align="center">1 <td bgcolor="#ff9933" valign="middle" align="center">2 <td bgcolor="#ff9933" valign="middle" align="center">3 <td bgcolor="#ff9933" valign="middle" align="center">4 <td bgcolor="#bfbfbf" valign="middle" align="center">5 <td bgcolor="#bfbfbf" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff9933" valign="middle" align="center">9 <td bgcolor="#99ffcc" valign="middle" align="center">10 <td bgcolor="#99ffcc" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#ff9933" valign="top" align="center" colspan="5">5 pages<br>claim <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff9933" valign="top" align="center">1 page<br>claim<br>expired <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#ff9933" valign="top" align="center" colspan="5">jj jj jj jj jj <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff9933" valign="top" align="center">gg <td bgcolor="#99ffcc" valign="top" align="center">HH <td bgcolor="#99ffcc" valign="top" align="center">II <td bgcolor="#8f8f8f" colspan="3"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#8f8f8f" valign="top" align="center" colspan="5"> <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 1 <td bgcolor="#ff9933" valign="top" align="center">index 2<br>incomplete <td bgcolor="#99ffcc" valign="top" align="center">index 3 <td bgcolor="#99ffcc" valign="top" align="center">index 4 <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3"> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td colspan="5"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="1">1 page <td colspan="9"> <td width="0%"> </tr> </table> 
+
+
+
+### AQWriter::retrieve() - retrieve incomplete when queue is full and timer expires
+
+Now that the queue is less than 25% full the next item retrieved is the uncommitted item at index 9.
+~~~{.cpp}
+AQItem item6;
+reader.retrieve(item6);
+cout << "Item Size        = " << item6.size() << endl;          // Item Size        = 2
+cout << "Item[0]          = '" << item6[0] << "'" << endl;      // Item[0]          = 'G'
+cout << "Committed        = " << item6.isCommitted() << endl;   // Committed        = 0
+~~~
+
+<table> <tr> <td border="0" width="10%">Pointers: <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td bgcolor="#bfbfbf" width="6%" align="center">Head <td width="6%"> <td bgcolor="#99ffcc" width="6%" align="center">Tail <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> <td width="6%"> </tr> <tr> <td border="0">Index:</td> <td bgcolor="#ff9933" valign="middle" align="center">0 <td bgcolor="#ff9933" valign="middle" align="center">1 <td bgcolor="#ff9933" valign="middle" align="center">2 <td bgcolor="#ff9933" valign="middle" align="center">3 <td bgcolor="#ff9933" valign="middle" align="center">4 <td bgcolor="#bfbfbf" valign="middle" align="center">5 <td bgcolor="#bfbfbf" valign="middle" align="center">6 <td bgcolor="#99ffcc" valign="middle" align="center">7 <td bgcolor="#99ffcc" valign="middle" align="center">8 <td bgcolor="#ff5050" valign="middle" align="center">9 <td bgcolor="#99ffcc" valign="middle" align="center">10 <td bgcolor="#99ffcc" valign="middle" align="center">11 <td bgcolor="#8f8f8f" valign="middle" align="center">12 <td bgcolor="#8f8f8f" valign="middle" align="center">13 <td bgcolor="#8f8f8f" valign="middle" align="center">14 <td width="0%"> </tr> <tr> <td border="0">Control:</td> <td bgcolor="#ff9933" valign="top" align="center" colspan="5">5 pages<br>claim <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">2 pages<br>commit<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">2 pages<br>claim<br>commit<br>retrieve <td bgcolor="#ff5050" valign="top" align="center">1 page<br>claim<br>retrieve <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#99ffcc" valign="top" align="center">1 page<br>claim<br>commit<br>retrieve <td bgcolor="#8f8f8f" valign="top" align="center" colspan="3">waste <td width="0%"> </tr> <tr> <td border="0">User Data:</td> <td bgcolor="#ff9933" valign="top" align="center" colspan="5">jj jj jj jj jj <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">EE EE <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">FF FF <td bgcolor="#ff5050" valign="top" align="center">gg <td bgcolor="#99ffcc" valign="top" align="center">HH <td bgcolor="#99ffcc" valign="top" align="center">II <td bgcolor="#8f8f8f" colspan="3"> <td width="0%"> </tr> <tr> <td border="0">Snaphot:</td> <td bgcolor="#ff9933" valign="top" align="center" colspan="5">index 5<br>incomplete <td bgcolor="#bfbfbf" valign="top" align="center" colspan="2">index 0<br>released <td bgcolor="#99ffcc" valign="top" align="center" colspan="2">index 1 <td bgcolor="#ff5050" valign="top" align="center">index 2<br>incomplete <td bgcolor="#99ffcc" valign="top" align="center">index 3 <td bgcolor="#99ffcc" valign="top" align="center">index 4 <td> <td> <td> <td width="0%"> </tr> <tr> <td border="0">Available Size:</td> <td colspan="5"> <td bgcolor="#cc66ff" valign="top" align="center" colspan="1">1 page <td colspan="9"> <td width="0%"> </tr> </table> 
+
+
+
+

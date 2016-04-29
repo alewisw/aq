@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Unit Test Code Coverage - AQ/Internal/Crc32.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">AQ/Internal</a> - Crc32.cpp<span style="font-size: 80%;"> (source / <a href="Crc32.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Unit Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-04-29 01:16:58</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryMed">75.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : //==============================================================================</a>
+<span class="lineNum">       2 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       3 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       4 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       5 </span>                :            : //
+<span class="lineNum">       6 </span>                :            : //==============================================================================
+<span class="lineNum">       7 </span>                :            : 
+<span class="lineNum">       8 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">       9 </span>                :            : // Includes
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &quot;Crc32.h&quot;
+<span class="lineNum">      13 </span>                :            : #include &quot;CtrlOverlay.h&quot;
+<span class="lineNum">      14 </span>                :            : 
+<span class="lineNum">      15 </span>                :            : #include &quot;AQ.h&quot;
+<span class="lineNum">      16 </span>                :            : #include &quot;AQItem.h&quot;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #include &lt;iomanip&gt;
+<span class="lineNum">      19 </span>                :            : #include &lt;iostream&gt;
+<span class="lineNum">      20 </span>                :            : #include &lt;sstream&gt;
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            : using namespace std;
+<span class="lineNum">      23 </span>                :            : 
+<span class="lineNum">      24 </span>                :            : 
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      27 </span>                :            : // Private Macros
+<span class="lineNum">      28 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :            : //#define CRC_DEBUG
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : 
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      36 </span>                :            : // Private Type Definitions
+<span class="lineNum">      37 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      38 </span>                :            : 
+<span class="lineNum">      39 </span>                :            : 
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      43 </span>                :            : // Private Function and Class Declarations
+<span class="lineNum">      44 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      45 </span>                :            : 
+<span class="lineNum">      46 </span>                :            : // CRC-32 calculation routine.
+<span class="lineNum">      47 </span>                :            : static uint32_t crc32(uint32_t crc, const void *data, size_t size);
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : 
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      53 </span>                :            : // Variable Declarations
+<span class="lineNum">      54 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : 
+<span class="lineNum">      59 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      60 </span>                :            : // Function and Class Implementation
+<span class="lineNum">      61 </span>                :            : //------------------------------------------------------------------------------
+<a name="62"><span class="lineNum">      62 </span>                :            : </a>
+<span class="lineNum">      63 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      64 </span>                :<span class="lineCov">        248 : uint32_t aq::CalculateItemCrc32(const AQItem&amp; item, uint32_t options)</span>
+<span class="lineNum">      65 </span>                :            : {
+<span class="lineNum">      66 </span>                :<span class="lineCov">        248 :     uint32_t quid = item.queueIdentifier();</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">        248 :     uint32_t size = item.capacity(); // TODO: Change to size() after XAQ merged such that CRC calculated AFTER size update.</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">        248 :     const unsigned char *data = &amp;item[0];</span>
+<span class="lineNum">      69 </span>                :            :     unsigned char prefix[11];
+<span class="lineNum">      70 </span>                :<span class="lineCov">        248 :     size_t prefixSize = 7;</span>
+<span class="lineNum">      71 </span>                :            : 
+<span class="lineNum">      72 </span>                :<span class="lineCov">        248 :     prefix[0] = (quid &gt;&gt; 24) &amp; 0xFF;</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">        248 :     prefix[1] = (quid &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">        248 :     prefix[2] = (quid &gt;&gt;  8) &amp; 0xFF;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">        248 :     prefix[3] = (quid &gt;&gt;  0) &amp; 0xFF;</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">        248 :     prefix[4] = (size &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">        248 :     prefix[5] = (size &gt;&gt;  8) &amp; 0xFF;</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">        248 :     prefix[6] = (size &gt;&gt;  0) &amp; 0xFF;</span>
+<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchCov" title="Branch 1 was taken 198 times"> + </span>]:<span class="lineCov">        248 :     if (options &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)</span>
+<span class="lineNum">      80 </span>                :            :     {
+<span class="lineNum">      81 </span>                :<span class="lineCov">         50 :         uint32_t lkid = item.linkIdentifier();</span>
+<span class="lineNum">      82 </span>                :            : 
+<span class="lineNum">      83 </span>                :<span class="lineCov">         50 :         prefixSize += 4;</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">         50 :         prefix[7]  = (lkid &gt;&gt; 24) &amp; 0xFF;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">         50 :         prefix[8]  = (lkid &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">         50 :         prefix[9]  = (lkid &gt;&gt; 8) &amp; 0xFF;</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">         50 :         prefix[10] = (lkid &gt;&gt; 0) &amp; 0xFF;</span>
+<span class="lineNum">      88 </span>                :            :     }
+<span class="lineNum">      89 </span>                :            : 
+<span class="lineNum">      90 </span>                :<span class="lineCov">        248 :     uint32_t crc = crc32(crc32(0xFFFFFFFF, prefix, prefixSize), data, size);</span>
+<span class="lineNum">      91 </span>                :            : 
+<span class="lineNum">      92 </span>                :            : #ifdef CRC_DEBUG
+<span class="lineNum">      93 </span>                :            :     ostringstream ss;
+<span class="lineNum">      94 </span>                :            :     ss &lt;&lt; &quot;CRC&quot; &lt;&lt; setw(3) &lt;&lt; prefixSize &lt;&lt; &quot;:{&quot; &lt;&lt; hex &lt;&lt; setfill('0');
+<span class="lineNum">      95 </span>                :            :     for (size_t i = 0; i &lt; prefixSize; ++i)
+<span class="lineNum">      96 </span>                :            :     {
+<span class="lineNum">      97 </span>                :            :         ss &lt;&lt; setw(2) &lt;&lt; (int)prefix[i];
+<span class="lineNum">      98 </span>                :            :     }
+<span class="lineNum">      99 </span>                :            :     ss &lt;&lt; &quot;}&quot; &lt;&lt; setw(4) &lt;&lt; setfill(' ') &lt;&lt; dec &lt;&lt; size &lt;&lt; &quot;:{&quot; &lt;&lt; hex &lt;&lt; setfill('0');
+<span class="lineNum">     100 </span>                :            :     for (size_t i = 0; i &lt; size; ++i)
+<span class="lineNum">     101 </span>                :            :     {
+<span class="lineNum">     102 </span>                :            :         ss &lt;&lt; setw(2) &lt;&lt; (int)data[i];
+<span class="lineNum">     103 </span>                :            :     }
+<span class="lineNum">     104 </span>                :            :     ss &lt;&lt; &quot;} = &quot; &lt;&lt; setw(8) &lt;&lt; crc &lt;&lt; endl;
+<span class="lineNum">     105 </span>                :            :     cout &lt;&lt; ss.str();
+<span class="lineNum">     106 </span>                :            : #endif
+<span class="lineNum">     107 </span>                :            : 
+<span class="lineNum">     108 </span>                :<span class="lineCov">        248 :     return crc;</span>
+<span class="lineNum">     109 </span>                :            : }
+<a name="110"><span class="lineNum">     110 </span>                :            : </a>
+<span class="lineNum">     111 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     112 </span>                :<span class="lineCov">        496 : static uint32_t crc32(uint32_t crc, const void *data, size_t size)</span>
+<span class="lineNum">     113 </span>                :            : {
+<span class="lineNum">     114 </span>                :            :     static const uint32_t table[] =
+<span class="lineNum">     115 </span>                :            :     {
+<span class="lineNum">     116 </span>                :            :         /* CRC polynomial 0xEDB88320 */
+<span class="lineNum">     117 </span>                :            :         0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706AF48F, 0xe963a535, 0x9e6495a3,
+<span class="lineNum">     118 </span>                :            :         0x0edb8832, 0x79dcb8a4, 0xE0D5E91E, 0x97d2d988, 0x09b64c2b, 0x7eb17cbd, 0xe7b82d07, 0x90bf1d91,
+<span class="lineNum">     119 </span>                :            :         0x1db71064, 0x6ab020f2, 0xf3b97148, 0x84be41de, 0x1adad47d, 0x6ddde4eb, 0xf4d4b551, 0x83d385c7,
+<span class="lineNum">     120 </span>                :            :         0x136c9856, 0x646ba8c0, 0xfd62f97a, 0x8a65c9ec, 0x14015c4f, 0x63066cd9, 0xfa0f3d63, 0x8d080df5,
+<span class="lineNum">     121 </span>                :            :         0x3b6e20c8, 0x4c69105e, 0xd56041e4, 0xa2677172, 0x3c03e4d1, 0x4b04d447, 0xd20d85fd, 0xa50ab56b,
+<span class="lineNum">     122 </span>                :            :         0x35b5a8fa, 0x42b2986c, 0xdbbbc9d6, 0xacbcf940, 0x32d86ce3, 0x45df5c75, 0xdcd60dcf, 0xabd13d59,
+<span class="lineNum">     123 </span>                :            :         0x26d930ac, 0x51de003a, 0xc8d75180, 0xbfd06116, 0x21b4f4b5, 0x56b3c423, 0xcfba9599, 0xb8bda50f,
+<span class="lineNum">     124 </span>                :            :         0x2802b89e, 0x5f058808, 0xc60cd9b2, 0xb10be924, 0x2f6f7c87, 0x58684c11, 0xc1611dab, 0xb6662d3d,
+<span class="lineNum">     125 </span>                :            :         0x76dc4190, 0x01db7106, 0x98d220bc, 0xefd5102a, 0x71b18589, 0x06b6b51f, 0x9fbfe4a5, 0xe8b8d433,
+<span class="lineNum">     126 </span>                :            :         0x7807c9a2, 0x0f00f934, 0x9609a88e, 0xe10e9818, 0x7f6a0dbb, 0x086d3d2d, 0x91646c97, 0xe6635c01,
+<span class="lineNum">     127 </span>                :            :         0x6b6b51f4, 0x1c6c6162, 0x856530d8, 0xf262004e, 0x6c0695ed, 0x1b01a57b, 0x8208f4c1, 0xf50fc457,
+<span class="lineNum">     128 </span>                :            :         0x65b0d9c6, 0x12b7e950, 0x8bbeb8ea, 0xfcb9887c, 0x62dd1ddf, 0x15da2d49, 0x8cd37cf3, 0xfbd44c65,
+<span class="lineNum">     129 </span>                :            :         0x4db26158, 0x3ab551ce, 0xa3bc0074, 0xd4bb30e2, 0x4adfa541, 0x3dd895d7, 0xa4d1c46d, 0xd3d6f4fb,
+<span class="lineNum">     130 </span>                :            :         0x4369e96a, 0x346ed9fc, 0xad678846, 0xda60b8d0, 0x44042d73, 0x33031de5, 0xaa0a4c5f, 0xdd0d7cc9,
+<span class="lineNum">     131 </span>                :            :         0x5005713c, 0x270241aa, 0xbe0b1010, 0xc90c2086, 0x5768b525, 0x206f85b3, 0xb966d409, 0xce61e49f,
+<span class="lineNum">     132 </span>                :            :         0x5edef90e, 0x29d9c998, 0xb0d09822, 0xc7d7a8b4, 0x59b33d17, 0x2eb40d81, 0xb7bd5c3b, 0xc0ba6cad,
+<span class="lineNum">     133 </span>                :            :         0xedb88320, 0x9abfb3b6, 0x03b6e20c, 0x74b1d29a, 0xead54739, 0x9dd277af, 0x04db2615, 0x73dc1683,
+<span class="lineNum">     134 </span>                :            :         0xe3630b12, 0x94643b84, 0x0d6d6a3e, 0x7a6a5aa8, 0xe40ecf0b, 0x9309ff9d, 0x0a00ae27, 0x7d079eb1,
+<span class="lineNum">     135 </span>                :            :         0xf00f9344, 0x8708a3d2, 0x1e01f268, 0x6906c2fe, 0xf762575d, 0x806567cb, 0x196c3671, 0x6e6b06e7,
+<span class="lineNum">     136 </span>                :            :         0xfed41b76, 0x89d32be0, 0x10da7a5a, 0x67dd4acc, 0xf9b9df6f, 0x8ebeeff9, 0x17b7be43, 0x60b08ed5,
+<span class="lineNum">     137 </span>                :            :         0xd6d6a3e8, 0xa1d1937e, 0x38d8c2c4, 0x4fdff252, 0xd1bb67f1, 0xa6bc5767, 0x3fb506dd, 0x48b2364b,
+<span class="lineNum">     138 </span>                :            :         0xd80d2bda, 0xaf0a1b4c, 0x36034af6, 0x41047a60, 0xdf60efc3, 0xa867df55, 0x316e8eef, 0x4669be79,
+<span class="lineNum">     139 </span>                :            :         0xcb61b38c, 0xbc66831a, 0x256fd2a0, 0x5268e236, 0xcc0c7795, 0xbb0b4703, 0x220216b9, 0x5505262f,
+<span class="lineNum">     140 </span>                :            :         0xc5ba3bbe, 0xb2bd0b28, 0x2bb45a92, 0x5cb36a04, 0xc2d7ffa7, 0xb5d0cf31, 0x2cd99e8b, 0x5bdeae1d,
+<span class="lineNum">     141 </span>                :            :         0x9b64c2b0, 0xec63f226, 0x756aa39c, 0x026d930a, 0x9c0906a9, 0xeb0e363f, 0x72076785, 0x05005713,
+<span class="lineNum">     142 </span>                :            :         0x95bf4a82, 0xe2b87a14, 0x7bb12bae, 0x0cb61b38, 0x92d28e9b, 0xe5d5be0d, 0x7cdcefb7, 0x0bdbdf21,
+<span class="lineNum">     143 </span>                :            :         0x86d3d2d4, 0xf1d4e242, 0x68ddb3f8, 0x1fda836e, 0x81be16cd, 0xf6b9265b, 0x6fb077e1, 0x18b74777,
+<span class="lineNum">     144 </span>                :            :         0x88085ae6, 0xff0f6a70, 0x66063bca, 0x11010b5c, 0x8f659eff, 0xf862ae69, 0x616bffd3, 0x166ccf45,
+<span class="lineNum">     145 </span>                :            :         0xa00ae278, 0xd70dd2ee, 0x4e048354, 0x3903b3c2, 0xa7672661, 0xd06016f7, 0x4969474d, 0x3e6e77db,
+<span class="lineNum">     146 </span>                :            :         0xaed16a4a, 0xd9d65adc, 0x40df0b66, 0x37d83bf0, 0xa9bcae53, 0xdebb9ec5, 0x47b2cf7f, 0x30b5ffe9,
+<span class="lineNum">     147 </span>                :            :         0xbdbdf21c, 0xcabac28a, 0x53b39330, 0x24b4a3a6, 0xbad03605, 0xcdd70693, 0x54de5729, 0x23d967bf,
+<span class="lineNum">     148 </span>                :            :         0xb3667a2e, 0xc4614ab8, 0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d
+<span class="lineNum">     149 </span>                :            :     };
+<span class="lineNum">     150 </span>                :<span class="lineCov">        496 :     const unsigned char *buf = (unsigned char *)data;</span>
+<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 0 was taken 3130 times"> + </span><span class="branchCov" title="Branch 1 was taken 496 times"> + </span>]:<span class="lineCov">       3626 :     while (size--)</span>
+<span class="lineNum">     152 </span>                :            :     {
+<span class="lineNum">     153 </span>                :<span class="lineCov">       3130 :         crc = table[(crc ^ *buf++) &amp; 0xFF] ^ (crc &gt;&gt; 8);</span>
+<a name="154"><span class="lineNum">     154 </span>                :            :     }</a>
+<span class="lineNum">     155 </span>                :<span class="lineCov">        496 :     return crc;</span>
+<span class="lineNum">     156 </span>[<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 : }</span>
+<span class="lineNum">     157 </span>                :            : 
+<span class="lineNum">     158 </span>                :            : 
+<span class="lineNum">     159 </span>                :            : 
+<span class="lineNum">     160 </span>                :            : 
+<span class="lineNum">     161 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

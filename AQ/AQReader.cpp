@@ -425,8 +425,15 @@ bool AQReader::walk(AQItem *item)
     uint32_t currTailRef = initTailRef;
     uint32_t nextTailRef = initTailRef;
 
+
     // The index into the pstate array where we perform skip updates.
     uint32_t pstateIdx = c->queueRefToIndex(initTailRef);
+
+    // Calculate limits for discarding.
+    uint32_t availPages = c->availableSequentialPages(
+        c->queueRefToIndex(currHeadRef), pstateIdx);
+    uint32_t limitPages = ((pageCount() + 3) >> 2);
+
     while (currHeadRef != currTailRef)
     {
         // Determine the state of this item.
@@ -525,9 +532,6 @@ bool AQReader::walk(AQItem *item)
 
             // If there is less than 25% space available, and the incomplete
             // timer has expired then discard the item.
-            uint32_t availPages = c->availableSequentialPages(
-                c->queueRefToIndex(currHeadRef), currTail);
-            uint32_t limitPages = ((pageCount() + 3) >> 2);
             if (availPages < limitPages && m_pstate[currTail].timerExpired)
             {
                 if (!(ctrlFlags & CtrlOverlay::CTRLQ_CLAIM_MASK))
@@ -585,10 +589,15 @@ bool AQReader::walk(AQItem *item)
                     // Waste
                     newCtrl |= CtrlOverlay::CTRLQ_DISCARD_MASK;
                 }
+                else if (ctrlFlags & CtrlOverlay::CTRLQ_COMMIT_MASK)
+                {
+                    // Item - complete
+                    newCtrl |= CtrlOverlay::CTRLQ_COMMIT_MASK;
+                }
                 else
                 {
-                    // Item
-                    newCtrl |= CtrlOverlay::CTRLQ_COMMIT_MASK;
+                    // Item - incomplete
+                    newCtrl |= CtrlOverlay::CTRLQ_CLAIM_MASK | CtrlOverlay::CTRLQ_DISCARD_MASK;
                 }
             }
             testPoint(WalkBeforeWriteCtrl);

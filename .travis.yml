@@ -45,7 +45,7 @@ script:
     - cd ..
 #    - cd Release
 #    - ./UnitTest/UnitTest
-    - cd ..
+#    - cd ..
     - cd Coverage
     - lcov --rc lcov_branch_coverage=1 --directory . --zerocounters
     - ./UnitTest/UnitTest

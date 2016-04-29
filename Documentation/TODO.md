@@ -1,10 +1,9 @@
 # TODO List
-1. Reimplement walk() so that it becomes readable.
-2. Look at test points in walk() to see if we need unit tests for them.
-3. Buffer overrun on bad CRC?
-4. Corruption resilience - esp. in snapshot
-5. Add built-in support for formatted printing into normal and extendable items.
-6. Add built-in support for streaming into normal and extendable items.
-7. commitCounter() is not sufficient for reader polling - also need a timer due to commit timeouts.
-8. better way of handling format failures - reporting why they failed, maybe via an exception.
-9. extend coverage of StressTest by adding incomplete item support
+1. Look at test points in walk() to see if we need unit tests for them.
+2. Buffer overrun on bad CRC?
+3. Corruption resilience - esp. in snapshot
+4. Add built-in support for formatted printing into normal and extendable items.
+5. Add built-in support for streaming into normal and extendable items.
+6. commitCounter() is not sufficient for reader polling - also need a timer due to commit timeouts.
+7. better way of handling format failures - reporting why they failed, maybe via an exception.
+8. extend coverage of StressTest by adding incomplete item support

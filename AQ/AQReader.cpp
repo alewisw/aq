@@ -33,56 +33,26 @@ using namespace aq;
 // Private Macros
 //------------------------------------------------------------------------------
 
-// Set this to enable quick advancing via the pstate skipCount field.
-#define ADVANCE_WITH_PSTATE
-
 #ifdef AQ_TEST_TRACE
 
-#define TRACE_PSTATE_ITEM(ref)                                                                  \
-    AQItem _pitem;                                                                      \
-    _pitem.m_ctrl    = m_ctrl->ctrlq[(ref) & CtrlOverlay::REF_INDEX_MASK];                      \
-    _pitem.m_quid    = (ref);                                                                   \
-    _pitem.m_memSize = _pitem.m_ctrl & CtrlOverlay::CTRLQ_SIZE_MASK;                            \
-    _pitem.m_mem     = m_ctrl->pageToMem((ref) & CtrlOverlay::REF_INDEX_MASK)
-
 // Used to trace the processor state for index 'idx' using the display 'code'.
-#define TRACE_PSTATE(ref, code)                                                                 \
-do                                                                                              \
-{                                                                                               \
-    TRACE_PSTATE_ITEM(ref);                                                                     \
-    TRACE_1ITEM(m_ctrl, &_pitem, " pstate[Q%u:%u] %s %lu ms / %c%c%c / %u",                      \
-          ((ref) & CtrlOverlay::REF_SEQ_MASK) >> CtrlOverlay::REF_SEQ_SHIFT,                    \
-          ((ref) & CtrlOverlay::REF_INDEX_MASK),                                                \
-          code,                                                                                 \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStarted                            \
-            ? Timer::elapsed(m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStartMs) : 0,   \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStarted ? 'S' : '-',               \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerExpired ? 'X' : '-',               \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount);                             \
-} while(0)
-
-#define TRACE_PSTATE2(ref, code, skipIdx)                                                       \
-do                                                                                              \
-{                                                                                               \
-    TRACE_PSTATE_ITEM(ref);                                                                     \
-    TRACE_1ITEM(m_ctrl, &_pitem, " pstate[Q%u:%u] %s %lu ms / %c%c%c / %u / skip-update %u",     \
-          ((ref) & CtrlOverlay::REF_SEQ_MASK) >> CtrlOverlay::REF_SEQ_SHIFT,                    \
-          ((ref) & CtrlOverlay::REF_INDEX_MASK),                                                \
-          code,                                                                                 \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStarted                            \
-            ? Timer::elapsed(m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStartMs) : 0,   \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerStarted ? 'S' : '-',               \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].timerExpired ? 'X' : '-',               \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].retrieved ? 'R' : '-',                  \
-          m_pstate[(ref) & CtrlOverlay::REF_INDEX_MASK].skipCount,                              \
-          skipIdx);                                                                             \
+#define TRACE_PSTATE(idx, code)                                                 \
+do                                                                              \
+{                                                                               \
+    TRACE_CTRL(m_ctrl, " pstate[%u] %s %lu ms / %c%c%c / %u",                   \
+          (idx),                                                                \
+          code,                                                                 \
+          m_pstate[(idx)].timerStarted                                          \
+            ? Timer::elapsed(m_pstate[(idx)].timerStartMs) : 0,                 \
+          m_pstate[(idx)].timerStarted ? 'S' : '-',                             \
+          m_pstate[(idx)].timerExpired ? 'X' : '-',                             \
+          m_pstate[(idx)].retrieved ? 'R' : '-',                                \
+          m_pstate[(idx)].skipCount);                                           \
 } while(0)
 
 #else
 
-#define TRACE_PSTATE(ref, code)
-#define TRACE_PSTATE2(ref, code, skipIdx)
+#define TRACE_PSTATE(idx, code)
 
 #endif
 
@@ -456,24 +426,12 @@ bool AQReader::walk(AQItem *item)
     uint32_t nextTailRef = initTailRef;
 
     // The index into the pstate array where we perform skip updates.
-#ifdef AQ_TEST_TRACE
-    uint32_t pstateSkipUpdateRef = initTailRef;
-#endif
-    uint32_t pstateSkipUpdateIdx = c->queueRefToIndex(initTailRef);
+    uint32_t pstateIdx = c->queueRefToIndex(initTailRef);
     while (currHeadRef != currTailRef)
     {
-        /*
-        if ((currTailRef > currHeadRef) && !((currTailRef & CtrlOverlay::REF_SEQ_MASK) == 0xFFF00000 && (currHeadRef & CtrlOverlay::REF_SEQ_MASK) == 0x00000000))
-        {
-            TRACE_CTRL(c, "$$$$$$ currTailRef[%08X] > currHeadRef[%08X]", currTailRef, currHeadRef);
-            WALK_ERROR_FOUND = true;
-        }
-        */
-
         // Determine the state of this item.
         uint32_t currTail = c->queueRefToIndex(currTailRef);
         uint32_t ctrlTail = Atomic::read(&c->ctrlq[currTail]);
-        TRACE_PSTATE2(currTailRef, "==", pstateSkipUpdateIdx);
 #ifdef AQ_TEST_POINT
         testPoint(walkAfterReadCtrlN++);
 #endif
@@ -503,7 +461,7 @@ bool AQReader::walk(AQItem *item)
             if (!m_pstate[currTail].skipCount)
             {
                 m_pstate[currTail].skipCount = ctrlPageCount;
-                TRACE_PSTATE(currTailRef, "->");
+                TRACE_PSTATE(currTail, "->");
             }
         }
 
@@ -512,10 +470,10 @@ bool AQReader::walk(AQItem *item)
         {
             // This item has been committed; it can be returned as a complete
             // item.  Update its information in the skip-queue.
-            if (currTail != pstateSkipUpdateIdx)
+            if (currTail != pstateIdx)
             {
-                m_pstate[pstateSkipUpdateIdx].skipCount += m_pstate[currTail].skipCount;
-                TRACE_PSTATE(pstateSkipUpdateRef, "->");
+                m_pstate[pstateIdx].skipCount += m_pstate[currTail].skipCount;
+                TRACE_PSTATE(pstateIdx, "->");
             }
             return walkEnd(item, currTailRef, ctrlSize);
         }
@@ -530,10 +488,10 @@ bool AQReader::walk(AQItem *item)
             {
                 // Waste - first time encountered - update skip counter and move to the next
                 // page.
-                if (currTail != pstateSkipUpdateIdx)
+                if (currTail != pstateIdx)
                 {
-                    m_pstate[pstateSkipUpdateIdx].skipCount += m_pstate[currTail].skipCount;
-                    TRACE_PSTATE(pstateSkipUpdateRef, "->");
+                    m_pstate[pstateIdx].skipCount += m_pstate[currTail].skipCount;
+                    TRACE_PSTATE(pstateIdx, "->");
                 }
             }
             if (nextTailRef == currTailRef)
@@ -553,7 +511,7 @@ bool AQReader::walk(AQItem *item)
             {
                 m_pstate[currTail].timerStarted = 1;
                 m_pstate[currTail].timerStartMs = Timer::start();
-                TRACE_PSTATE(currTailRef, "->");
+                TRACE_PSTATE(currTail, "->");
             }
             else if (!m_pstate[currTail].timerExpired)
             {
@@ -561,7 +519,7 @@ bool AQReader::walk(AQItem *item)
                 if (elapsedMs > c->commitTimeoutMs)
                 {
                     m_pstate[currTail].timerExpired = 1;
-                    TRACE_PSTATE(currTailRef, "->");
+                    TRACE_PSTATE(currTail, "->");
                 }  
             }
 
@@ -590,10 +548,10 @@ bool AQReader::walk(AQItem *item)
                         currTail, currTail + ctrlPageCount - 1,
                         availPages, limitPages, pageCount());
 
-                    if (currTail != pstateSkipUpdateIdx)
+                    if (currTail != pstateIdx)
                     {
-                        m_pstate[pstateSkipUpdateIdx].skipCount += m_pstate[currTail].skipCount;
-                        TRACE_PSTATE(pstateSkipUpdateRef, "->");
+                        m_pstate[pstateIdx].skipCount += m_pstate[currTail].skipCount;
+                        TRACE_PSTATE(pstateIdx, "->");
                     }
                     return walkEnd(item, currTailRef, ctrlSize);
                 }
@@ -608,10 +566,7 @@ bool AQReader::walk(AQItem *item)
             }
             if (nextTailRef != currTailRef)
             {
-                pstateSkipUpdateIdx = currTail;
-#ifdef AQ_TEST_TRACE
-                pstateSkipUpdateRef = currTailRef;
-#endif
+                pstateIdx = currTail;
             }
 
         }
@@ -647,17 +602,14 @@ bool AQReader::walk(AQItem *item)
 
                 // Move the skip count to the next pstate entry if any remains then clear the
                 // current pstate entry.
-                pstateSkipUpdateIdx = c->queueRefToIndex(advanceTailRef);
-#ifdef AQ_TEST_TRACE
-                pstateSkipUpdateRef = currTailRef;
-#endif
+                pstateIdx = c->queueRefToIndex(advanceTailRef);
                 if (m_pstate[currTail].skipCount > ctrlPageCount)
                 {
-                    m_pstate[pstateSkipUpdateIdx].skipCount = m_pstate[currTail].skipCount - ctrlPageCount;
-                    TRACE_PSTATE(pstateSkipUpdateRef, "->");
+                    m_pstate[pstateIdx].skipCount = m_pstate[currTail].skipCount - ctrlPageCount;
+                    TRACE_PSTATE(pstateIdx, "->");
                 }
                 memset(&m_pstate[currTail], 0, sizeof(m_pstate[currTail]) * ctrlPageCount);
-                TRACE_PSTATE(currTailRef, "->");
+                TRACE_PSTATE(currTail, "->");
                 currTailRef = advanceTailRef;
                 nextTailRef = advanceTailRef;
             }
@@ -666,16 +618,12 @@ bool AQReader::walk(AQItem *item)
         {
             // Just advance the current tail reference to reach the next frame.
             // We cannot free items anymore.
-#ifdef ADVANCE_WITH_PSTATE
             uint32_t advance = m_pstate[currTail].skipCount;
             if (advance == 0)
             {
                 advance = 1;
             }
             currTailRef = c->queueRefIncrement(currTailRef, advance);
-#else
-            currTailRef = c->queueRefIncrement(currTailRef, ctrlPageCount);
-#endif
         }
         else
         {
@@ -701,7 +649,7 @@ bool AQReader::walkEnd(AQItem *item, uint32_t ref, size_t memSize)
     uint32_t pageNum = m_ctrl->queueRefToIndex(ref);
 
     m_pstate[pageNum].retrieved = 1;
-    TRACE_PSTATE(ref, "->");
+    TRACE_PSTATE(pageNum, "->");
 
     item->m_mem = m_ctrl->pageToMem(pageNum);
     item->m_memSize = memSize;

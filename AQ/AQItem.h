@@ -77,14 +77,14 @@ public:
      * Constructs a new item with no initial allocation.
      */
     AQItem(void) 
-        : m_first(this)
-        , m_prev(this)
-        , m_next(NULL)
+        : m_ctrl(0)
+        , m_quid(QUEUE_IDENTIFIER_INVALID)
+        , m_checksumValid(false)
         , m_mem(NULL)
         , m_memSize(0)
-        , m_ctrl(0)
-        , m_checksumValid(false)
-        , m_quid(QUEUE_IDENTIFIER_INVALID)
+        , m_first(this)
+        , m_next(NULL)
+        , m_prev(this)
         , m_lkid(QUEUE_IDENTIFIER_INVALID)
     {
     }
@@ -101,8 +101,8 @@ public:
      */
     AQItem(const AQItem& other) 
         : m_first(this)
-        , m_prev(this)
         , m_next(NULL)
+        , m_prev(this)
     {
         cloneFrom(other);
     }

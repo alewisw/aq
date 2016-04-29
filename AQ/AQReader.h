@@ -218,8 +218,7 @@ private:
     //
     // If 'item' is non-NULL it is filled out with the passed fields and
     // true is returned.
-    bool walkEnd(AQItem *item, uint32_t ref, 
-                 unsigned int advance, size_t memSize);
+    bool walkEnd(AQItem *item, uint32_t ref, size_t memSize);
 
     // The linked item processor used by this reader.
     aq::LinkedItemProcessor *m_linkProcessor;

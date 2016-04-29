@@ -58,9 +58,9 @@ using namespace std;
 SnapshotTaker::SnapshotTaker(AQ &queue, int threadNum, unsigned int maxSnapPeriodMs,
     TraceManager *trace)
     : m_queue(queue)
-    , m_trace(createTrace(trace, threadNum, "s"))
-    , m_maxSnapPeriodMs(maxSnapPeriodMs)
     , m_prng(threadNum)
+    , m_maxSnapPeriodMs(maxSnapPeriodMs)
+    , m_trace(createTrace(trace, threadNum, "s"))
 {
     memset(m_stats, 0, sizeof(m_stats));
 }

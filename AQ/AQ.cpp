@@ -59,9 +59,9 @@ using namespace aq;
 
 //------------------------------------------------------------------------------
 AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
-    : m_ctrl((CtrlOverlay *)mem)
+    : m_trace(trace)
+    , m_ctrl((CtrlOverlay *)mem)
     , m_memSize(memSize)
-    , m_trace(trace)
 #ifdef AQ_TEST_POINT
     , m_tpn(new TestPointNotifier(testPointCount, this))
 #endif
@@ -70,9 +70,9 @@ AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
 
 //------------------------------------------------------------------------------
 AQ::AQ(const AQ& other)
-    : m_ctrl(other.m_ctrl)
+    : m_trace(other.m_trace)
+    , m_ctrl(other.m_ctrl)
     , m_memSize(other.m_memSize)
-    , m_trace(other.m_trace)
 #ifdef AQ_TEST_POINT
     , m_tpn(new TestPointNotifier(other.m_tpn->testPointCount(), this))
 #endif
@@ -84,9 +84,9 @@ AQ& AQ::operator=(const AQ& other)
 {
     if (this != &other)
     {
+        m_trace = other.m_trace;
         m_ctrl = other.m_ctrl;
         m_memSize = other.m_memSize;
-        m_trace = other.m_trace;
     }
     return *this;
 }

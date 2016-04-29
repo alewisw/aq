@@ -8,7 +8,7 @@ ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
 Build Directory Path=file:///home/nas/Share/aq/_Build
-Build Type=Debug
+Build Type=Performance
 CMake Binary=file:///usr/bin/cmake
 Environment Profile=
 Extra Arguments=
@@ -20,7 +20,7 @@ Path=gcc
 Type=GCC
 
 [Launch]
-Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2
+Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3
 
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
@@ -62,4 +62,16 @@ Type=Native Application
 Configured from ProjectItem=AQ,PerfTest,PerfTest
 Project Target=AQ,PerfTest,PerfTest
 Working Directory=file:///home/nas/Share/aq/_Build/PerfTest/
+isExecutable=false
+
+[Launch][Launch Configuration 3]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=UnitTest
+Type=Native Application
+
+[Launch][Launch Configuration 3][Data]
+Configured from ProjectItem=AQ,UnitTest,UnitTest
+Project Target=AQ,UnitTest,UnitTest
+Working Directory=file:///home/nas/Share/aq/_Build/UnitTest/
 isExecutable=false

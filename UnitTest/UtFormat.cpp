@@ -190,7 +190,7 @@ TEST(when_MemorySizeAllowsMoreThanMaxPages_then_MaxPagesUsed)
 //------------------------------------------------------------------------------
 TEST(when_QueueFormattedWithDifferentPageSizeAndCount_then_PagesAligned)
 {
-    for (int pageSizeShift = 2; pageSizeShift < 9; ++pageSizeShift)
+    for (size_t pageSizeShift = 2; pageSizeShift < 9; ++pageSizeShift)
     {
         size_t alignMask = 1 << CtrlOverlay::PAGE_ALIGN_SHIFT;
         if (pageSizeShift < CtrlOverlay::PAGE_ALIGN_SHIFT)

@@ -117,16 +117,16 @@ do                                                                              
 //------------------------------------------------------------------------------
 AQReader::AQReader(void *mem, size_t memSize)
     : AQ(TestPointCount, mem, memSize)
-    , m_pstate(NULL)
     , m_linkProcessor(NULL)
+    , m_pstate(NULL)
 {
 }
 
 //------------------------------------------------------------------------------
 AQReader::AQReader(void *mem, size_t memSize, aq::TraceBuffer *trace)
     : AQ(TestPointCount, mem, memSize, trace)
-    , m_pstate(NULL)
     , m_linkProcessor(NULL)
+    , m_pstate(NULL)
 {
 }
 
@@ -157,12 +157,12 @@ bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
     // | ctrlq[ 0] |
     // |    ...    |
     // | ctrlq[ n] |
-    // +-----------+  --\
+    // +-----------+  ---| 
     // | crc32[ 0] |     |
     // | crc32[ 0] |     | Optional if CRC32 is enabled, one per page
     // |    ...    |     |  OPTIONS_FLAG_CRC32
     // | crc32[ n] |     |
-    // +-----------+  --/
+    // +-----------+  ---| 
     // |  Padding  |
     // +-----------+  <-- Aligned to a min(1 << pageSizeBytes, 64)-byte boundary.
     // |  memq[0]  |
@@ -298,7 +298,7 @@ const volatile uint32_t& AQReader::commitCounter(void) const
 bool AQReader::retrieve(AQItem& item)
 {
     bool res = true;
-    CtrlOverlay *c = ctrlThrowOnUnformatted(__FUNCTION__);
+    ctrlThrowOnUnformatted(__FUNCTION__);
 
     TRACE_CTRL_ENTRY(c);
     if (m_linkProcessor == NULL)
@@ -321,6 +321,9 @@ bool AQReader::retrieve(AQItem& item)
 
             case LinkedItemProcessor::PRODUCED:
                 res = true;
+                break;
+                
+            case LinkedItemProcessor::CONSUMED:
                 break;
             }
         }
@@ -452,7 +455,9 @@ bool AQReader::walk(AQItem *item)
     uint32_t nextTailRef = initTailRef;
 
     // The index into the pstate array where we perform skip updates.
+#ifdef AQ_TEST_TRACE
     uint32_t pstateSkipUpdateRef = initTailRef;
+#endif
     uint32_t pstateSkipUpdateIdx = c->queueRefToIndex(initTailRef);
     while (currHeadRef != currTailRef)
     {
@@ -511,7 +516,7 @@ bool AQReader::walk(AQItem *item)
                 m_pstate[pstateSkipUpdateIdx].skipCount += m_pstate[currTail].skipCount;
                 TRACE_PSTATE(pstateSkipUpdateRef, "->");
             }
-            return walkEnd(item, currTailRef, ctrlPageCount, ctrlSize);
+            return walkEnd(item, currTailRef, ctrlSize);
         }
 
         // We know how many pages to advance the current tail; now we must determine if
@@ -589,7 +594,7 @@ bool AQReader::walk(AQItem *item)
                         m_pstate[pstateSkipUpdateIdx].skipCount += m_pstate[currTail].skipCount;
                         TRACE_PSTATE(pstateSkipUpdateRef, "->");
                     }
-                    return walkEnd(item, currTailRef, ctrlPageCount, ctrlSize);
+                    return walkEnd(item, currTailRef, ctrlSize);
                 }
             }
             else
@@ -603,7 +608,9 @@ bool AQReader::walk(AQItem *item)
             if (nextTailRef != currTailRef)
             {
                 pstateSkipUpdateIdx = currTail;
+#ifdef AQ_TEST_TRACE
                 pstateSkipUpdateRef = currTailRef;
+#endif
             }
 
         }
@@ -640,7 +647,9 @@ bool AQReader::walk(AQItem *item)
                 // Move the skip count to the next pstate entry if any remains then clear the
                 // current pstate entry.
                 pstateSkipUpdateIdx = c->queueRefToIndex(advanceTailRef);
+#ifdef AQ_TEST_TRACE
                 pstateSkipUpdateRef = currTailRef;
+#endif
                 if (m_pstate[currTail].skipCount > ctrlPageCount)
                 {
                     m_pstate[pstateSkipUpdateIdx].skipCount = m_pstate[currTail].skipCount - ctrlPageCount;
@@ -680,8 +689,7 @@ bool AQReader::walk(AQItem *item)
 }
 
 //------------------------------------------------------------------------------
-bool AQReader::walkEnd(AQItem *item, uint32_t ref,
-                              unsigned int advance, size_t memSize)
+bool AQReader::walkEnd(AQItem *item, uint32_t ref, size_t memSize)
 {
     // If we were not requested to actually process the data return false.
     if (item == NULL)

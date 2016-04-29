@@ -267,8 +267,8 @@ public:
     // Perform a claim on 'queue' of size 'size'.
     CommitAction(AQWriter& queue, AQWriterItem& item)
         : TestPointAction<AQWriter>(queue)
-        , m_item(item)
-        , m_result(false) { }
+        , m_result(false) 
+        , m_item(item) { }
     virtual ~CommitAction(void) { }
 
 private:

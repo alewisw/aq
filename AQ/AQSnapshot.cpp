@@ -165,9 +165,6 @@ void AQSnapshot::snap1InitialHead(const AQ& queue)
     }
     m_srcCtrl = c;
 
-    // Calculate the number of control words in the memory.
-    uint32_t ctrlWordCount = offsetof(CtrlOverlay, ctrlq) / sizeof(uint32_t) + m_srcCtrl->pageCount;
-
     // This is the raw destination memory.
     m_mem = new unsigned char[memSize];
     m_memSize = memSize;

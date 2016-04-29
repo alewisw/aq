@@ -65,7 +65,7 @@ Optarg::Optarg(int argc, char* argv[])
         if (argv[i][0] == '-')
         {
             char ch = argv[i][1];
-            if (ch > 32 && ch <= 127)
+            if (ch > 32 && ch < 127)
             {
                 if (argv[i][2] != '\0')
                 {

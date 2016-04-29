@@ -143,7 +143,7 @@ void SnapshotValidator::validate(const AQSnapshot &snap)
         const RecordOrder &ro = it->second;
 
         unsigned long long gap = ro.last - ro.lastSequential;
-        if (gap > m_maxOutstandingRecords)
+        if (gap > (unsigned long long)m_maxOutstandingRecords)
         {
             ostringstream ss;
 

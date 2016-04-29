@@ -64,11 +64,11 @@ Producer::Producer(AQReader &reader, int threadNum, void *shm,
                    bool checkLinkId, unsigned int maxOutstanding, 
                    size_t maxPagesPerAppend, TraceManager *trace)
     : m_writer(shm, shmSize, createTrace(trace, threadNum, "p"))
-    , m_producerGen(threadNum, m_writer.pageSize(), itemPages)
     , m_maxOutstanding(maxOutstanding)
     , m_items(new AQWriterItem*[maxOutstanding])
     , m_prng(threadNum)
     , m_maxPagesPerAppend(maxPagesPerAppend)
+    , m_producerGen(threadNum, m_writer.pageSize(), itemPages)
     , m_consumerChannel(reader, m_producerGen, checkLinkId, maxOutstanding, createTrace(trace, threadNum, "c"))
 {
     memset(m_stats, 0, sizeof(m_stats));
@@ -134,7 +134,7 @@ void Producer::writeItem(void)
 
     // Claim all the item buffers we need.
     size_t pageSize = m_producerGen.pageSize();
-    Timer::Ms_t startMs;
+    Timer::Ms_t startMs = 0;
     for (unsigned int i = 0; i < outstanding; ++i)
     {
         // Generate the item.

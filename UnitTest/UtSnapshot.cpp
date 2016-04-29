@@ -415,7 +415,7 @@ AQTEST(given_FillSeq2Recs_when_LargeRecsAndRefSeqLoops_then_SnapshotDoesNotConta
     aq.advance(aq.pageCount() * 3, 1 * aq.pageSize());
 
     // Exactly fill the queue until the sequence numbers have rotated.
-    for (int i = 0; i < SEQ_ROTATE_COUNT; ++i)
+    for (uint32_t i = 0; i < SEQ_ROTATE_COUNT; ++i)
     {
         aq.advance(2, 4 * aq.pageSize());
         aq.advance(1, 3 * aq.pageSize());

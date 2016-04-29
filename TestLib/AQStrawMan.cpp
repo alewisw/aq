@@ -56,8 +56,6 @@ AQStrawManBase::AQStrawManBase(int pageSizeShift, size_t pageCount)
     : m_pageCount(pageCount)
     , m_pageSizeShift(pageSizeShift)
 {
-    size_t pageSize = 1 << pageSizeShift;
-
     m_mem = new unsigned char[pageCount * offsetof(Page, m_mem) + (pageCount << pageSizeShift)];
 }
 

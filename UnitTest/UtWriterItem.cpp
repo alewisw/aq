@@ -391,9 +391,6 @@ AQTEST_FORMAT(given_WriterItemExtendable_when_WriteWithOffsetLargerThanCapacityF
     ExtendableWitem w(aq);
     unsigned char mem[] = { 1, 2, 3, 4 };
 
-    AQWriterItem *n1 = w.item.next();
-    AQWriterItem *n2 = n1->next();
-
     AQWriterItem& tgt = *w.item.last();
     REQUIRE(tgt.write(tgt.capacity() + 3, mem, sizeof(mem)));
     REQUIRE(w.isContentUnchanged());

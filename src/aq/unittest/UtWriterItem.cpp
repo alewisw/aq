@@ -516,7 +516,7 @@ static void DO_given_WriterItemExtendable_when_WriteWithOffsetLargerThanCapacity
     AQWriterItem *n1 = w.item.next();
     AQWriterItem *n2 = n1->next();
 
-    REQUIRE(n2->write(w.initCapacity() + 3 - n1->capacity() - w.item.capacity(), mem, sizeof(mem), action));
+    REQUIRE(sizeof(mem) == n2->write(w.initCapacity() + 3 - n1->capacity() - w.item.capacity(), mem, sizeof(mem), action));
     REQUIRE(w.isContentUnchanged());
 
     const AQItem& last = *w.item.last();

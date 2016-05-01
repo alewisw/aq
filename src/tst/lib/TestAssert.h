@@ -61,13 +61,13 @@ do                                                                              
 do                                                                              \
 {                                                                               \
     TestExecution::incrementAssertionCounter();                                 \
-    if (!(__expr))                                                              \
+    TestAssert::Decomposer __decomposer;                                        \
+    __decomposer >= __expr;                                                     \
+    if (!__decomposer.outcome())                                                \
     {                                                                           \
         std::string exp;                                                        \
         try                                                                     \
         {                                                                       \
-            TestAssert::Decomposer __decomposer;                                \
-            __decomposer >= __expr;                                             \
             exp = __decomposer.str();                                           \
         }                                                                       \
         catch (...)                                                             \
@@ -129,72 +129,77 @@ public:
     public:
         // Constructs a new LHS object owned by 'owner' with the given initial
         // LHS value.
-        Lhs(Decomposer& owner, T const &lhs) : m_owner(owner)
-        {
-            m_ss << lhs;
-        }
+        Lhs(Decomposer& owner, T const &lhs) : m_owner(owner), m_lhs(lhs) { }
 
         // Constructs a new LHS object owned by 'owner' with the given initial
         // LHS value.
-        Lhs(const Lhs<T>& other) 
-            : m_owner(other.m_owner)
-        {
-            m_ss << other.m_ss.str();
-        }
+        Lhs(const Lhs<T>& other) : m_owner(other.m_owner), m_lhs(other.m_lhs) { }
 
     private:
         // Holds the owner of this LHS.
         Decomposer& m_owner;
-
-        // Holds the decomposed string.
-        std::ostringstream m_ss;
+        
+        // The left hand side of the equation.
+        T const &m_lhs;
 
     public:
         // Decomposer for the '==' operator.
         Decomposer& operator==(T const& rhs)
         {
-            m_ss << " == " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " == " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs == rhs;
             return m_owner;
         }
 
         // Decomposer for the '!=' operator.
         Decomposer& operator!=(T const& rhs)
         {
-            m_ss << " != " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " != " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs != rhs;
             return m_owner;
         }
 
         // Decomposer for the '<' operator.
         Decomposer& operator<(T const& rhs)
         {
-            m_ss << " < " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " < " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs < rhs;
             return m_owner;
         }
 
         // Decomposer for the '>' operator.
         Decomposer& operator>(T const& rhs)
         {
-            m_ss << " > " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " > " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs > rhs;
             return m_owner;
         }
 
         // Decomposer for the '<=' operator.
         Decomposer& operator<=(T const& rhs)
         {
-            m_ss << " <= " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " <= " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs <= rhs;
             return m_owner;
         }
 
         // Decomposer for the '>=' operator.
         Decomposer& operator>=(T const& rhs)
         {
-            m_ss << " >= " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " >= " << rhs;
+            m_owner.m_str = ss.str();
+            m_owner.m_outcome = m_lhs >= rhs;
             return m_owner;
         }
 
@@ -205,16 +210,11 @@ public:
     {
     public:
 
-        // Stores the outcome of the decomposition, called by the LHS object.
-        void store(const std::ostringstream& ss)
-        {
-            m_str = ss.str();
-        }
-
-    private:
-
-        // The outcome of the decomposition.
+        // Holds the decomposed string.
         std::string m_str;
+        
+        // Holds the outcome of the comparison.
+        bool m_outcome;
 
     public:
 
@@ -226,7 +226,10 @@ public:
         }
 
         // Returns the decomposed string.
-        const std::string &str(void) const { return m_str; }
+        const std::string& str(void) const { return m_str; }
+        
+        // Returns the comparison outcome.
+        bool outcome(void) const { return m_outcome; }
 
     };
 

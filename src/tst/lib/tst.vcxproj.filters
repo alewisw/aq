@@ -9,10 +9,10 @@
     <ClCompile Include="TestRunner.cpp" />
     <ClCompile Include="TestSuite.cpp" />
     <ClCompile Include="windows\Event.cpp">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClCompile>
     <ClCompile Include="windows\WorkerThread.cpp">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClCompile>
     <ClCompile Include="TestJUnitXmlReport.cpp" />
     <ClCompile Include="Optarg.cpp" />
@@ -29,25 +29,25 @@
     <ClInclude Include="TestRunner.h" />
     <ClInclude Include="TestSuite.h" />
     <ClInclude Include="windows\CriticalSection.h">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClInclude>
     <ClInclude Include="windows\Event.h">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClInclude>
     <ClInclude Include="windows\Mutex.h">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClInclude>
     <ClInclude Include="windows\WorkerThread.h">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClInclude>
     <ClInclude Include="TestJUnitXmlReport.h" />
     <ClInclude Include="Stopwatch.h">
-      <Filter>Windows</Filter>
+      <Filter>windows</Filter>
     </ClInclude>
     <ClInclude Include="Optarg.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Windows">
+    <Filter Include="windows">
       <UniqueIdentifier>{3dc9a6ed-208c-4f89-923f-bf7b8ca238b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

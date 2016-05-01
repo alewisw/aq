@@ -31,11 +31,11 @@
     <ClInclude Include="ItemGenerator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AQ\AQ.vcxproj">
-      <Project>{083dc91f-3197-4bd4-870d-c9e84d623504}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\TestLib\TestLib.vcxproj">
+    <ProjectReference Include="..\..\tst\lib\tst.vcxproj">
       <Project>{5cebaac5-f673-43c3-824a-22bd1aaf1171}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\lib\aq.vcxproj">
+      <Project>{083dc91f-3197-4bd4-870d-c9e84d623504}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -79,18 +79,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,9 +99,9 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -127,9 +127,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -157,9 +157,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\AQ;.;..\AQ\internal;..\AQ\internal\windows;..\TestLib;..\TestLib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>

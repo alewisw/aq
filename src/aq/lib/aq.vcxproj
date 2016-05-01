@@ -52,7 +52,7 @@
     <ProjectGuid>{083DC91F-3197-4BD4-870D-C9E84D623504}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MpscShmQueue</RootNamespace>
-    <ProjectName>AQ</ProjectName>
+    <ProjectName>aq</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -89,16 +89,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>_Build\Bin\$(Configuration)\</OutDir>
-    <IntDir>_Build\Obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\bin\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -138,7 +138,7 @@
       <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -158,7 +158,7 @@
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)Tools\Windows\doxygen.exe $(SolutionDir)\Documentation\Doxyfile</Command>
+      <Command>$(SolutionDir)tools\windows\doxygen.exe $(SolutionDir)\docs\Doxyfile</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>Generate Documentation</Message>
@@ -175,7 +175,7 @@
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
-      <AssemblerListingLocation>_Build\Asm\$(Configuration)\</AssemblerListingLocation>
+      <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>

@@ -268,6 +268,8 @@ public:
     * and starts the write there.
     * @param mem The buffer that contains the memory to write into this item.
     * @param memSize The number of bytes to write into this item.
+    * @param insufficientSpaceAction The action to take when the item cannot store
+    * the entire buffer (`memSize` bytes).
     * @returns The actual number of bytes written into the buffer.  The possible
     * return values depend on the value of the `insufficientSpaceAction` parameter:
     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0

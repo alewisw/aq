@@ -15,47 +15,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClaimCommitTest.cpp" />
-    <ClCompile Include="ClaimTest.cpp" />
-    <ClCompile Include="CommitTest.cpp" />
-    <ClCompile Include="FullQueueTest.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="AQProvider.cpp" />
-    <ClCompile Include="PerfTest.cpp" />
-    <ClCompile Include="QueueTest.cpp" />
-    <ClCompile Include="ReleaseTest.cpp" />
-    <ClCompile Include="RetrieveReleaseTest.cpp" />
-    <ClCompile Include="RetrieveTest.cpp" />
-    <ClCompile Include="ThreadOverheadTest.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AQStrawManProvider.h" />
-    <ClInclude Include="ClaimCommitTest.h" />
-    <ClInclude Include="ClaimTest.h" />
-    <ClInclude Include="CommitTest.h" />
-    <ClInclude Include="FullQueueTest.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="AQProvider.h" />
-    <ClInclude Include="PerfTest.h" />
-    <ClInclude Include="IQueueProvider.h" />
-    <ClInclude Include="QueueTest.h" />
-    <ClInclude Include="ReleaseTest.h" />
-    <ClInclude Include="RetrieveReleaseTest.h" />
-    <ClInclude Include="RetrieveTest.h" />
-    <ClInclude Include="ThreadOverheadTest.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\tst\lib\tst.vcxproj">
+    <ClCompile Include="Main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="UtTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lib\tst.vcxproj">
       <Project>{5cebaac5-f673-43c3-824a-22bd1aaf1171}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\lib\aq.vcxproj">
-      <Project>{083dc91f-3197-4bd4-870d-c9e84d623504}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C1D4BF39-CB7E-4C88-8A50-EA38DCB1309B}</ProjectGuid>
+    <ProjectGuid>{771D62B3-B4C9-4C57-AD3D-CFD88FE15F5B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>PerfTest</RootNamespace>
+    <RootNamespace>UnitTest</RootNamespace>
+    <ProjectName>tst_unittest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -108,14 +87,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\lib;..\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
+      <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -135,15 +114,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\lib;..\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
+      <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>
@@ -165,15 +144,15 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\lib;..\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
+      <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4127;4100</DisableSpecificWarnings>

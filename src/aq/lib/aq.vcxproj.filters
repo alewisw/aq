@@ -8,29 +8,29 @@
     <ClCompile Include="AQSnapshot.cpp" />
     <ClCompile Include="AQUnformattedException.cpp" />
     <ClCompile Include="internal\Crc32.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\CtrlOverlay.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\LinkedItemProcessor.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\TestPointNotifier.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\Timer.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\TraceBuffer.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="internal\TraceManager.cpp">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="AQWriterItem.cpp" />
     <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp">
-      <Filter>Internal\Windows</Filter>
+      <Filter>internal\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,35 +42,35 @@
     <ClInclude Include="AQSnapshot.h" />
     <ClInclude Include="AQUnformattedException.h" />
     <ClInclude Include="internal\windows\Atomic.h">
-      <Filter>Internal\Windows</Filter>
+      <Filter>internal\windows</Filter>
     </ClInclude>
     <ClInclude Include="internal\windows\Timer.h">
-      <Filter>Internal\Windows</Filter>
+      <Filter>internal\windows</Filter>
     </ClInclude>
     <ClInclude Include="internal\Crc32.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="internal\CtrlOverlay.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="internal\LinkedItemProcessor.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="internal\TestPointNotifier.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="internal\TraceBuffer.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="internal\TraceManager.h">
-      <Filter>Internal</Filter>
+      <Filter>internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Internal">
+    <Filter Include="internal">
       <UniqueIdentifier>{ea6e7806-0ed2-425a-9d97-91620582bc63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Internal\Windows">
+    <Filter Include="internal\windows">
       <UniqueIdentifier>{0e012b98-cbb2-44b7-9929-cfface4ad07c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

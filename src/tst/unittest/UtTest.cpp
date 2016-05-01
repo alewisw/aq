@@ -11,6 +11,8 @@
 
 #include "Main.h"
 
+#include <stdint.h>
+
 
 
 
@@ -43,7 +45,7 @@
 TEST_SUITE(UtTest);
 
 //------------------------------------------------------------------------------
-TEST(give_X50Y20_when_DecomposeXOpY_then_StringValid)
+TEST(given_X50Y20_when_DecomposeXOpY_then_StringValid)
 {
     int x = 50;
     int y = 20;
@@ -76,7 +78,7 @@ TEST(give_X50Y20_when_DecomposeXOpY_then_StringValid)
 }
 
 //------------------------------------------------------------------------------
-TEST(give_X50Y20_when_DecomposeBracketedXOpY_then_StringEmpty)
+TEST(given_X50Y20_when_DecomposeBracketedXOpY_then_StringOneZero)
 {
     int x = 50;
     int y = 20;
@@ -85,23 +87,67 @@ TEST(give_X50Y20_when_DecomposeBracketedXOpY_then_StringEmpty)
 
     d >= (x > y);
     REQUIRE(d.outcome());
-    REQUIRE(d.str() == "");
+    REQUIRE(d.str() == "1");
+
+    d >= (x < y);
+    REQUIRE(!d.outcome());
+    REQUIRE(d.str() == "0");
 }
 
 //------------------------------------------------------------------------------
-TEST(give_BoolTest_when_Decompose_then_StringEmpty)
+TEST(given_BoolTest_when_Decompose_then_StringOneZero)
 {
     bool b = true;
+    bool f = false;
 
     TestAssert::Decomposer d;
 
     d >= b;
     REQUIRE(d.outcome());
-    REQUIRE(d.str() == "");
+    REQUIRE(d.str() == "1");
 
     d >= !b;
     REQUIRE(!d.outcome());
-    REQUIRE(d.str() == "");
+    REQUIRE(d.str() == "0");
+
+    d >= b == f;
+    REQUIRE(!d.outcome());
+    REQUIRE(d.str() == "1 == 0");
+
+    d >= b != f;
+    REQUIRE(d.outcome());
+    REQUIRE(d.str() == "1 != 0");
+}
+
+//------------------------------------------------------------------------------
+TEST(given_PrimitiveTest_when_Decompose_then_StringPrimitiveValue)
+{
+    TestAssert::Decomposer d;
+
+    { static volatile signed char v = 0x35; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "5"); }
+    { static volatile signed char v = 0; d >= v; REQUIRE(!d.outcome()); REQUIRE(d.str() == ""); }
+    { static volatile unsigned char v = 36; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "$"); }
+    { static volatile unsigned char v = 0; d >= v; REQUIRE(!d.outcome());  REQUIRE(d.str() == ""); }
+
+    { static volatile signed short v = -5; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "-5"); }
+    { static volatile signed short v = 0; d >= v; REQUIRE(!d.outcome()); REQUIRE(d.str() == "0"); }
+    { static volatile unsigned short v = 35; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "35"); }
+    { static volatile unsigned short v = 0; d >= v; REQUIRE(!d.outcome());  REQUIRE(d.str() == "0"); }
+
+    { static volatile signed int v = -5; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "-5"); }
+    { static volatile signed int v = 0; d >= v; REQUIRE(!d.outcome()); REQUIRE(d.str() == "0"); }
+    { static volatile unsigned int v = 35; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "35"); }
+    { static volatile unsigned int v = 0; d >= v; REQUIRE(!d.outcome());  REQUIRE(d.str() == "0"); }
+
+    { static volatile signed long v = -5; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "-5"); }
+    { static volatile signed long v = 0; d >= v; REQUIRE(!d.outcome()); REQUIRE(d.str() == "0"); }
+    { static volatile unsigned long v = 35; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "35"); }
+    { static volatile unsigned long v = 0; d >= v; REQUIRE(!d.outcome());  REQUIRE(d.str() == "0"); }
+
+    { static volatile int64_t v = -5; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "-5"); }
+    { static volatile int64_t v = 0; d >= v; REQUIRE(!d.outcome()); REQUIRE(d.str() == "0"); }
+    { static volatile uint64_t v = 35; d >= v; REQUIRE(d.outcome());  REQUIRE(d.str() == "35"); }
+    { static volatile uint64_t v = 0; d >= v; REQUIRE(!d.outcome());  REQUIRE(d.str() == "0"); }
 }
 
 //------------------------------------------------------------------------------
@@ -112,7 +158,7 @@ static int NonReentrantFunction()
     NonReentrantValue += 1;
     return x;
 }
-TEST(give_NonReentrantFunction_when_RequireOrCheck_then_FunctionCalledOnce)
+TEST(given_NonReentrantFunction_when_RequireOrCheck_then_FunctionCalledOnce)
 {
     int y = 31;
 
@@ -127,6 +173,8 @@ TEST(give_NonReentrantFunction_when_RequireOrCheck_then_FunctionCalledOnce)
     CHECK(NonReentrantFunction() > y);
     REQUIRE(NonReentrantValue == 33);
 }
+
+
 
 
 //=============================== End of File ==================================

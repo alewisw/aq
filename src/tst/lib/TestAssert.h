@@ -131,15 +131,18 @@ public:
         // LHS value.
         Lhs(Decomposer& owner, T const &lhs) : m_owner(owner), m_lhs(lhs)
         {
-            m_ss << lhs;
         }
 
         // Constructs a new LHS object owned by 'owner' with the given initial
         // LHS value.
         Lhs(const Lhs<T>& other) : m_owner(other.m_owner), m_lhs(other.m_lhs)
         {
-            m_ss << other.m_ss.str();
         }
+
+    private:
+
+        // Does not support assignment - not implemented.
+        Lhs<T>& operator=(const Lhs<T>& other);
 
     private:
         // Holds the owner of this LHS.
@@ -148,15 +151,13 @@ public:
         // The LHS of the equation.
         T const &m_lhs;
 
-        // Holds the decomposed string.
-        std::ostringstream m_ss;
-
     public:
         // Decomposer for the '==' operator.
         Decomposer& operator==(T const& rhs)
         {
-            m_ss << " == " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " == " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs == rhs;
             return m_owner;
         }
@@ -164,8 +165,9 @@ public:
         // Decomposer for the '!=' operator.
         Decomposer& operator!=(T const& rhs)
         {
-            m_ss << " != " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " != " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs != rhs;
             return m_owner;
         }
@@ -173,8 +175,9 @@ public:
         // Decomposer for the '<' operator.
         Decomposer& operator<(T const& rhs)
         {
-            m_ss << " < " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " < " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs < rhs;
             return m_owner;
         }
@@ -182,8 +185,9 @@ public:
         // Decomposer for the '>' operator.
         Decomposer& operator>(T const& rhs)
         {
-            m_ss << " > " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " > " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs > rhs;
             return m_owner;
         }
@@ -191,8 +195,9 @@ public:
         // Decomposer for the '<=' operator.
         Decomposer& operator<=(T const& rhs)
         {
-            m_ss << " <= " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " <= " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs <= rhs;
             return m_owner;
         }
@@ -200,8 +205,9 @@ public:
         // Decomposer for the '>=' operator.
         Decomposer& operator>=(T const& rhs)
         {
-            m_ss << " >= " << rhs;
-            m_owner.store(m_ss);
+            std::ostringstream ss;
+            ss << m_lhs << " >= " << rhs;
+            m_owner.m_str = ss.str();
             m_owner.m_outcome = m_lhs >= rhs;
             return m_owner;
         }
@@ -216,20 +222,8 @@ public:
         // Constructs a new decomposer with a default outcome of false.
         Decomposer(void) : m_outcome(false) { }
 
-    public:
-
-        // Stores the outcome of the decomposition, called by the LHS object.
-        void store(const std::ostringstream& ss)
-        {
-            m_str = ss.str();
-        }
-
-    private:
-
         // The outcome of the decomposition.
         std::string m_str;
-
-    public:
 
         // The outcome recorded for this assertion.
         bool m_outcome;
@@ -240,7 +234,19 @@ public:
             Lhs<T> lhs(*this, operand);
             std::ostringstream ss;
             ss << operand;
-            m_outcome = ss.str() != "0";
+            m_str = ss.str();
+
+            // The default outcome, in case the LHS is not evaluated (for
+            // example the statement was REQUIRE(true) is based on the fact
+            // that booleans format to '0' in strings.  It also works, conveniently
+            // enough, for other integer values.  The only case it does not
+            // work for is 'char'.  In this case a '\0' is printed as the empty
+            // string.
+            if (m_str.size() == 1 && m_str[0] == '\0')
+            {
+                m_str.erase(m_str.size() - 1, 1);
+            }
+            m_outcome = !(m_str.size() == 0 || m_str == "0");
             return lhs;
         }
 

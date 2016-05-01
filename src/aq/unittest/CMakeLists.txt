@@ -1,5 +1,5 @@
 
-include_directories(. ../TestLib ../TestLib/Linux ../AQ ../AQ/Internal ../AQ/Internal/Linux)
+include_directories(. ../../tst/lib ../../tst/lib/linux ../lib ../lib/internal ../lib/internal/linux)
 set(SOURCE
     AQTest.cpp
     Main.cpp
@@ -19,8 +19,7 @@ set(SOURCE
     UtRelease.cpp
     UtRetrieve.cpp
     UtSnapshot.cpp
-    UtTest.cpp
     UtWriterItem.cpp
    )
-add_executable(UnitTest ${SOURCE})
-target_link_libraries(UnitTest AQ TestLib rt)
+add_executable(aq_unittest ${SOURCE})
+target_link_libraries(aq_unittest aq tst rt)

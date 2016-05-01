@@ -1,5 +1,5 @@
 
-include_directories(. ../TestLib ../TestLib/Linux ../AQ ../AQ/Internal ../AQ/Internal/Linux)
+include_directories(. ../../tst/lib ../../tst/lib/linux ../lib ../lib/internal ../lib/internal/linux)
 set(SOURCE
     AQProvider.cpp
     ClaimCommitTest.cpp
@@ -14,5 +14,5 @@ set(SOURCE
     RetrieveTest.cpp
     ThreadOverheadTest.cpp
    )
-add_executable(PerfTest ${SOURCE})
-target_link_libraries(PerfTest AQ TestLib pthread rt)
+add_executable(aq_perftest ${SOURCE})
+target_link_libraries(aq_perftest aq tst pthread rt)

@@ -1,5 +1,5 @@
 
-include_directories(. Linux ../AQ ../AQ/Internal ../AQ/Internal/Linux)
+include_directories(. linux ../../aq/lib ../../aq/lib/internal ../../aq/lib/internal/linux)
 set(SOURCE
     AQStrawMan.cpp
     Optarg.cpp
@@ -10,7 +10,7 @@ set(SOURCE
     TestRunner.cpp
     TestSuite.cpp
     TestTag.cpp
-    Linux/Event.cpp
-    Linux/WorkerThread.cpp
+    linux/Event.cpp
+    linux/WorkerThread.cpp
    )
-add_library(TestLib STATIC ${SOURCE})
+add_library(tst STATIC ${SOURCE})

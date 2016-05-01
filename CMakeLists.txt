@@ -31,8 +31,9 @@ MARK_AS_ADVANCED(
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE)
     
     
-add_subdirectory(AQ)
-add_subdirectory(TestLib)
-add_subdirectory(UnitTest)
-add_subdirectory(StressTest)
-add_subdirectory(PerfTest)
+add_subdirectory(src/aq/lib)
+add_subdirectory(src/aq/perftest)
+add_subdirectory(src/aq/stresstest)
+add_subdirectory(src/aq/unittest)
+add_subdirectory(src/tst/lib)
+add_subdirectory(src/tst/unittest)

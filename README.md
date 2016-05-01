@@ -10,7 +10,7 @@ AQ is a queue data structure intended for use as an inter-thread and inter-proce
 * The queue content can be fully captured and examined by taking a snapshot-in-time.  This allow for recovery of previously processed items.
 
 ## Usage and Documentation
-Full API documentation including usage and examples can be found [on the github pages project page](http://alewisw.github.io/aq/Appveyor/Doxygen).
+Full API documentation including usage and examples can be found [on the github pages project page](http://alewisw.github.io/aq/appveyor/doxygen).
 
 ## Current Status
 WARNING: AQ is under ACTIVE DEVELOPMENT.  The APIs may change dramatically.  There may be serious bugs.  Use at your own risk.
@@ -25,11 +25,11 @@ These tests are run automatically through online CI services:
 | Operating System | CI Provider | Build | Status |
 | ---------------- | ----------- | ----- | ------ |
 | Linux   | Travis CI | [Unit & Stress Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
-| Linux   | Travis CI | [Unit Test Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/UnitTest) | |
-| Linux   | Travis CI | [Stress Test Code Coverage](http://alewisw.github.io/aq/TravisCI/Coverage/StressTest) | |
+| Linux   | Travis CI | [Unit Test Code Coverage](http://alewisw.github.io/aq/travisci/coverage/aq_unittest) | |
+| Linux   | Travis CI | [Stress Test Code Coverage](http://alewisw.github.io/aq/travisci/coverage/aq_stresstest) | |
 | Linux   | Coveralls | [Unit Test Code Coverage](https://coveralls.io/github/alewisw/aq?branch=master) | [![Coverage Status](https://coveralls.io/repos/github/alewisw/aq/badge.svg?branch=master)](https://coveralls.io/github/alewisw/aq?branch=master) |
 | Windows | Appveyor  | [Unit Tests](https://ci.appveyor.com/project/alewisw/aq) | [![Build status](https://ci.appveyor.com/api/projects/status/avfwa8c4nl9dox1i/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq/branch/master) |
-| Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/Appveyor/Doxygen) | |
+| Windows | Appveyor  | [API Documentation](http://alewisw.github.io/aq/appveyor/doxygen) | |
 | Windows | Appveyor  | [Stress Tests](https://ci.appveyor.com/project/alewisw/aq-a7p4i) | [![Build status](https://ci.appveyor.com/api/projects/status/0ox809apiv7kqh50/branch/master?svg=true)](https://ci.appveyor.com/project/alewisw/aq-a7p4i/branch/master) |
 
 ## License

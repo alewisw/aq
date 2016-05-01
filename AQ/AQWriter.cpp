@@ -114,7 +114,8 @@ size_t AQWriter::sizeToCapacity(size_t size) const
 }
 
 //------------------------------------------------------------------------------
-bool AQWriter::claim(AQWriterItem& item, size_t memSize)
+bool AQWriter::claim(AQWriterItem& item, size_t memSize, 
+    ClaimSizeRule claimSizeRule)
 {
     // Obtain the control overlay; if it is not formatted then throw an 
     // exception indicating that we cannot process it.
@@ -143,10 +144,14 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
     uint32_t nextHeadRef;   // The next head reference after claim.
     uint32_t skipPages = 0; // The number of pages to skip to make a
                             // sequential allocation.
+    uint32_t allocPages;    // The actual number of pages allocated.
     currHeadRef = Atomic::read(&c->headRef);
     for (;;)
     {
         uint32_t cmpHeadRef;
+
+        // Assume we allocate the required pages.
+        allocPages = requiredPages;
 
         // Must read head first, then read tail.  Tail can only change to give
         // us more space but head could change to give us less.
@@ -161,7 +166,7 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
         //   headIdx <  tailIdx --> noting that the SEQ on head will be one more than on tail,
         //                          contiguous space is (tail - head) & INDEX_MASK
         // Luckily, for both calculations, we get a 'very big number' when the precondition
-        // is not hte case (headIdx >= tailIdx, the calculation (tail - head) & INDEX_MASK gives
+        // is not the case (headIdx >= tailIdx, the calculation (tail - head) & INDEX_MASK gives
         // a large number.  Thus we just blindly test less than in both cases.
         currHead = currHeadRef & CtrlOverlay::REF_INDEX_MASK;
         if (   requiredPages < ((currTailRef - currHeadRef) & CtrlOverlay::REF_INDEX_MASK)
@@ -192,10 +197,18 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
                     // Out of space - cannot allocate.  It is believed, but not proved,
                     // that this must ALWAYS be true if the fast path conditions were 
                     // not met.  TODO: further investigation.
-                    TRACE_CTRL_EXIT(c, "out of space H[%u]->T[%u]: %u of %u", 
-                                    currHead, currTail, availPages, requiredPages);
-                    item.clear();
-                    return false;
+                    if (claimSizeRule == CLAIM_AT_MOST && availPages > 0)
+                    {
+                        // Allocate less than requested.
+                        allocPages = availPages;
+                    }
+                    else
+                    {
+                        TRACE_CTRL_EXIT(c, "out of space H[%u]->T[%u]: %u of %u",
+                            currHead, currTail, availPages, requiredPages);
+                        item.clear();
+                        return false;
+                    }
                 }
             }
             else
@@ -210,19 +223,31 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
                     // out of memory.
                     if (currTail < requiredPages + 1)
                     {
-                        TRACE_CTRL_EXIT(c, "out of space H[%u]->T[%u]: (%u or %u - 1) of %u",
-                                        currHead, currTail, endPages, currTail, requiredPages);
-                        item.clear();
-                        return false;
+                        if (claimSizeRule == CLAIM_AT_MOST && endPages > 0)
+                        {
+                            // Allow allocation to occur at the end of the queue - less than
+                            // was requested.
+                            allocPages = endPages;
+                        }
+                        else
+                        {
+                            TRACE_CTRL_EXIT(c, "out of space H[%u]->T[%u]: (%u or %u - 1) of %u",
+                                currHead, currTail, endPages, currTail, requiredPages);
+                            item.clear();
+                            return false;
+                        }
                     }
-                    skipPages = endPages;
+                    else
+                    {
+                        skipPages = endPages;
+                    }
                 }
                 else
                 {
                     skipPages = 0;
                 }
             }
-            nextHeadRef = c->queueRefIncrement(currHeadRef, skipPages + requiredPages);
+            nextHeadRef = c->queueRefIncrement(currHeadRef, skipPages + allocPages);
             testPoint(ClaimBeforeWriteHeadRef);
             cmpHeadRef = Atomic::cmpXchg(&c->headRef, nextHeadRef, currHeadRef);
             if (cmpHeadRef == currHeadRef)
@@ -258,13 +283,17 @@ bool AQWriter::claim(AQWriterItem& item, size_t memSize)
     // Zero the control queue after the first to indicate the are not used.
     // This is critical for valid snapshot recovery.
     testPoint(ClaimBeforeWriteCtrl);
-    for (uint32_t i = 1; i < requiredPages; ++i)
+    for (uint32_t i = 1; i < allocPages; ++i)
     {
         Atomic::write(&c->ctrlq[currHead + i], 0);
     }
 
     // Finally mark the size into the head control queue entry and return the
     // memory.
+    if (allocPages < requiredPages)
+    {
+        memSize = allocPages << m_ctrl->pageSizeShift;
+    }
     uint32_t ctrlVal = memSize | (currHeadRef & CtrlOverlay::CTRLQ_SEQ_MASK) 
                                | CtrlOverlay::CTRLQ_CLAIM_MASK;
     Atomic::write(&c->ctrlq[currHead], ctrlVal);

@@ -343,7 +343,7 @@ public:
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-TEST_SUITE_FIRST(UtUsageExample);
+TEST_SUITE(UtUsageExample);
 
 //------------------------------------------------------------------------------
 TEST(given_UsageExample_when_InitialState_then_ContentMatchesExpected)
@@ -645,6 +645,8 @@ TEST(given_UsageExampleCode_when_Executed_then_Runs)
     REQUIRE(snap1[0][0] == 'A');
 
 }
+
+
 
 
 //=============================== End of File ==================================

@@ -666,6 +666,146 @@ AQTEST(given_Claim_when_PreemptHeadWriteWithAnotherClaimTwice_then_ContentionCou
 }
 #endif
 
+//------------------------------------------------------------------------------
+AQTEST(given_EmptyQueue_when_ClaimEqual11Pages_then_ClaimFails)
+{
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, aq.pageSize() * 11, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_EmptyQueue_when_ClaimEqual10Pages1Byte_then_ClaimFails)
+{
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, 1 + aq.pageSize() * 10, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_EmptyQueue_when_ClaimAtMost10Pages1Byte_then_Claim10Pages)
+{
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, 1 + aq.pageSize() * 10, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 10));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_EmptyQueue_when_ClaimAtMost11Pages_then_Claim10Pages)
+{
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 11, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 10));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_HeadTailAt9_when_ClaimEqual3Pages_then_ClaimSucceedsAtStart)
+{
+    aq.advance(9);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_EXACT));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 3));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_HeadTailAt9_when_ClaimAtMost3Pages_then_ClaimSucceedsAtStart)
+{
+    aq.advance(9);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 3));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head4TailAt9_when_ClaimEquals4Pages1Byte_then_ClaimFails)
+{
+    aq.advance(9);
+    aq.enqueue(6);
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, aq.pageSize() * 4 + 1, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head4TailAt9_when_ClaimEquals5Pages_then_ClaimFails)
+{
+    aq.advance(9);
+    aq.enqueue(6);
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, aq.pageSize() * 5, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head4TailAt9_when_ClaimAtMost4Pages1Byte_then_Claim4Pages)
+{
+    aq.advance(9);
+    aq.enqueue(6);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 4 + 1, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 4, aq.pageSize() * 4));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head4TailAt9_when_ClaimAtMost5Pages_then_Claim4Pages)
+{
+    aq.advance(9);
+    aq.enqueue(6);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 5, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 4, aq.pageSize() * 4));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head9TailAt3_when_ClaimEquals3Pages_then_ClaimFails)
+{
+    aq.advance(3);
+    aq.enqueue(7);
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head9TailAt3_when_ClaimAtMost3Pages_then_Claim1Pages)
+{
+    aq.advance(3);
+    aq.enqueue(7);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 10, aq.pageSize() * 1));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head9TailAt3_when_ClaimAtMost2Pages_then_Claim2PagesAtStart)
+{
+    aq.advance(3);
+    aq.enqueue(7);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 2, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 2));
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head10TailAt3_when_ClaimEquals3Pages_then_ClaimFails)
+{
+    aq.advance(3);
+    aq.enqueue(8);
+    AQWriterItem witem;
+    REQUIRE(!aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_EXACT));
+    REQUIRE(!witem.isAllocated());
+}
+
+//------------------------------------------------------------------------------
+AQTEST(given_Head10TailAt3_when_ClaimAtMost3Pages_then_Claim2Pages)
+{
+    aq.advance(3);
+    aq.enqueue(8);
+    AQWriterItem witem;
+    REQUIRE(aq.writer.claim(witem, aq.pageSize() * 3, AQWriter::CLAIM_AT_MOST));
+    REQUIRE(aq.isItemPage(witem, 0, aq.pageSize() * 2));
+}
+
 
 
 

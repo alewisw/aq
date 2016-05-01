@@ -136,6 +136,24 @@ private:
 public:
 
     /**
+     * Specifies the rule to use when claiming memory.
+     */
+    enum ClaimSizeRule
+    {
+        /**
+         * Claim an item consisting of at least the specified memory size.
+         * The amount claimed will be at least the amount specified.
+         */
+        CLAIM_EXACT,
+
+        /**
+         * Claim an item consisting of at most the specified memory size.
+         * The amount claimed can be less then the specified amount.
+         */
+        CLAIM_AT_MOST,
+    };
+
+    /**
      * Claims an item to be stored in the queue.  The item consists of a 
      * memory region of size memSize bytes that is written into by the
      * caller.  
@@ -148,19 +166,24 @@ public:
      *
      * @param item The writer item, supplied by the caller, which is
      * updated with the allocated memory and related parameters.
-     * @param memSize The minimum amount of memory that is required
+     * @param memSize The amount of memory that is required
      * for this allocation.  This field is treated slightly differently
      * depending on the formatting options for the queue:
-     *  * If AQ::OPTION_EXTENDABLE is not set this represents exactly
+     *  - If AQ::OPTION_EXTENDABLE is not set this represents exactly
      *    the number of bytes occupied by this item.  It cannot be 
      *    subsequetly changed or altered in any way.  AQWriterItem::size() 
      *    and AQWriterItem::capacity() will always return this value.
-     *  * If AQ::OPTION_EXTENDABLE is set then this is the minimum size
+     *  - If AQ::OPTION_EXTENDABLE is set then this is the minimum size
      *    for the first item in the linked-list of extendable items.
      *    The AQWriteItem::size() will initially be set to 0, while
      *    the AQWriteItem::capacity() will be at least memSize although
      *    it may be more.
-     *
+     * @param claimSizeRule Indicates how the `memSize` field is interpreted.
+     * When set to ClaimSizeRule::CLAIM_EXACT the allocated memory is at least
+     * that required by `memSize` (dependent on AQ::OPTION_EXTENDABLE).  When
+     * set to ClaimSizeRule::CLAIM_AT_MOST the allocated memory can be less 
+     * than the specified amount.  It will never be less if there was enough
+     * space in the queue to satisfy the request.
      * @returns If the region could be claimed then true is returned and 
      * item updated to contain the valid memory.  If the item could not be
      * claimed then false is returned and item is marked as not allocated 
@@ -171,7 +194,8 @@ public:
      * parameter was 0.
      * @throws AQUnformattedException When the queue is not formatted.
      */
-    bool claim(AQWriterItem& item, size_t memSize);
+    bool claim(AQWriterItem& item, size_t memSize, 
+        ClaimSizeRule claimSizeRule = ClaimSizeRule::CLAIM_EXACT);
 
     /**
      * Commits an item previously obtained via a claim() call to

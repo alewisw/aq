@@ -340,7 +340,7 @@ bool AQTest::areIdenticalAllocatedItems(const AQItem& a, const AQItem& b, bool f
 //------------------------------------------------------------------------------
 bool AQTest::appendData(AQWriterItem& item, size_t off, size_t size)
 {
-    return item.write(&m_data[off], size);
+    return item.write(&m_data[off], size) == size;
 }
 
 //------------------------------------------------------------------------------

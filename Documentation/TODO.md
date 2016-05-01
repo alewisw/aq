@@ -7,3 +7,4 @@
 6. commitCounter() is not sufficient for reader polling - also need a timer due to commit timeouts.
 7. better way of handling format failures - reporting why they failed, maybe via an exception.
 8. extend coverage of StressTest by adding incomplete item support
+9. unit test expression decomposer causes expression to be evaluated twice

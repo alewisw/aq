@@ -13,6 +13,8 @@
 
 #include "AQItem.h"
 
+#include <stdarg.h>
+
 
 
 
@@ -50,8 +52,8 @@ class AQWriter;
  *
  * The AQWriterItem can be either accessed directly and written with, e.g., 
  * memcpy() or alternatly it can be written to using the 
- * write(const void *, size_t) or similar functions.  When the 
- * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t)
+ * write(const void *, size_t, InsufficientSpaceAction) or similar functions.  When the 
+ * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t, InsufficientSpaceAction)
  * functions are the main mechanism for extending the length of the item
  * by appending new items to the end of the linked list.
  */
@@ -196,6 +198,26 @@ public:
     unsigned char& operator[](size_t idx) { return mem()[idx]; }
 
     /**
+     * Defines the possible actions to be taken when writing
+     * to a queue with insufficient space to contain the entire buffer.
+     */
+    enum InsufficientSpaceAction
+    {
+        /**
+         * When there is not enough space available to contain the entire
+         * buffer, and the item cannot be extended to make the space available,
+         * don't write anything into the item.  The item remains unchanged.
+         */
+        WRITE_NONE,
+
+        /**
+         * Write as much as possible into the item, effectivly truncating
+         * the buffer.
+         */
+        WRITE_PARTIAL
+    };
+
+    /**
      * Writes data into this item at its current write position.  The write
      * position differs depending on whether AQ::OPTION_EXTENDABLE has been
      * configured:
@@ -206,29 +228,36 @@ public:
      *    end of the item, essentially appending and possibly extending the
      *    size of the item by adding to the linked list.
      * If the write succeeds then the write position is incremented by the 
-     * number of bytes written.  If this fail (an exception is thrown or more
+     * number of bytes written.  If this fails (an exception is thrown or more
      * items could not be allocated) no changes are made to this item.
      *
      * @param mem The buffer that contains the memory to write into this item.
      * @param memSize The number of bytes to write into this item.
-     * @returns True if the write succeeded or false if the write failed because
-     * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+     * @param insufficientSpaceAction The action to take when the item cannot store
+     * the entire buffer (`memSize` bytes).
+     * @returns The actual number of bytes written into the buffer.  The possible
+     * return values depend on the value of the `insufficientSpaceAction` parameter:
+     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
+     *    or `memSize` is returned.  When 0 is returned no data was written,
+     *    when `memSize` is returned the entire buffer was written.
+     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
+     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
+     *    written from the buffer.
      * @throws std::domain_error If this item was not populated by a successful 
      * call to AQWriter::claim() or if it has been committed with a call to 
      * AQWriter::commit().
      * @throws std::invalid_argument If the mem argument was NULL and memSize was
      * any value other than 0.
-     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
-     * option set and the current position is at the end of the item.
-     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
-     * option set and there is not enough space left in the queue to store the 
-     * requested number of bytes.
      */
-    bool write(const void *mem, size_t memSize);
+    size_t write(const void *mem, size_t memSize, 
+        InsufficientSpaceAction insufficientSpaceAction = InsufficientSpaceAction::WRITE_NONE)
+    {
+        return write(currentOffset(), mem, memSize, insufficientSpaceAction);
+    }
 
     /**
     * Writes data into this item at a selected position.  If the write succeeds 
-    * then the write position as used by write(const void *, size_t) is set to 
+    * then the write position as used by write(const void *, size_t, InsufficientSpaceAction) is set to 
     * the maximum of its current value and off + memSize.  If the write fails
     * (an exception is thrown or more items could not be allocated) no changes
     * are made to this item.
@@ -239,8 +268,14 @@ public:
     * and starts the write there.
     * @param mem The buffer that contains the memory to write into this item.
     * @param memSize The number of bytes to write into this item.
-    * @returns True if the write succeeded or false if the write failed because
-    * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+    * @returns The actual number of bytes written into the buffer.  The possible
+    * return values depend on the value of the `insufficientSpaceAction` parameter:
+    *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
+    *    or `memSize` is returned.  When 0 is returned no data was written,
+    *    when `memSize` is returned the entire buffer was written.
+    *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
+    *    value is between 0 and `memSize` inclusive and is the actual number of bytes
+    *    written from the buffer.
     * @throws std::domain_error If this item was not populated by a successful
     * call to AQWriter::claim() or if it has been committed with a call to
     * AQWriter::commit().
@@ -252,25 +287,187 @@ public:
     * option set and there is not enough space left in the queue to store the
     * requested number of bytes at the given offset.
     */
-    bool write(size_t off, const void *mem, size_t memSize);
+    size_t write(size_t off, const void *mem, size_t memSize,
+        InsufficientSpaceAction insufficientSpaceAction = InsufficientSpaceAction::WRITE_NONE);
 
 private:
 
+    // Returns the current write offset for this item.
+    size_t currentOffset(void) const;
+
+    // Depending on whether a normal write or extendable write is required this
+    // simply defers to writeAdvanceNormal() or writeAdvanceExtendable().
+    AQWriterItem *writeAdvance(size_t& off, size_t& memSize,
+        InsufficientSpaceAction insufficientSpaceAction);
+
     // Validates the offset and memory size for a normal write, returning this object.
     //
+    // Updates the 'memSize' to reflect the actual number of writeable bytes.
+    //
     // Updates the m_accumulator, if necessary, to the last written byte.
-    AQWriterItem *writeAdvanceNormal(size_t off, size_t memSize);
+    AQWriterItem *writeAdvanceNormal(size_t off, size_t& memSize,
+        InsufficientSpaceAction insufficientSpaceAction);
 
     // Advances the extendable item sufficiently to support a write starting at 'off'
     // and ending at 'off' + 'memSize' - 1.  Returns the object where the writing
-    // is to begin, updating 'off' to refer to that object.
+    // is to begin, updating 'off' to refer to that object and 'memSize' to the actual
+    // number of writeable bytes.
     //
     // If the item could not be extended then NULL is returned.
-    AQWriterItem *writeAdvanceExtendable(size_t& off, size_t memSize);
+    AQWriterItem *writeAdvanceExtendable(size_t& off, size_t& memSize,
+        InsufficientSpaceAction insufficientSpaceAction);
 
     // Extends the current item so that it can contain at least an additional memSize
     // bytes.
-    bool extend(size_t memSize);
+    bool extend(size_t memSize, InsufficientSpaceAction insufficientSpaceAction);
+
+public:
+
+    /**
+     * Prints a formatted string into this item at its current write position.
+     * The write position is incremented by the number of bytes actually written.
+     * If there is not enough space in the item then the print is truncated
+     * to the available space.
+     *
+     * The string written into the item is not nul-terminated.
+     *
+     * @param fmt The printf-style formatting string.
+     * @param ... The printf-style formatting arguments.
+     * @returns There are two possibilities:
+     *  - The return value is non-negative (>= 0).  In this case the string was
+     *    fully written into the item and the total number of bytes consumed is
+     *    returned.
+     *  - The return value is negative (< 0).  In this case it was not possible
+     *    to fully write the string into the item, nor was it possible to allocate
+     *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+     *    Only part of the string has been written.  The length of the partially 
+     *    written string can be obtained by applying the binary 1's-complement 
+     *    operator (~) to the returned value.
+     * @throws std::domain_error If this item was not populated by a successful
+     * call to AQWriter::claim() or if it has been committed with a call to
+     * AQWriter::commit().
+     * @throws std::invalid_argument If the fmt argument was NULL.
+     */
+    int printf(const char *fmt, ...)
+#ifdef __GNUC__
+        __attribute__((format(printf, 1, 2)))
+#endif
+    {
+        va_list argp;
+        va_start(argp, fmt);
+        int res = vprintf(fmt, argp);
+        va_end(argp);
+        return res;
+    }
+
+    /**
+     * Prints a formatted string into this item at its current write position.
+     * The write position is incremented by the number of bytes actually written.
+     * If there is not enough space in the item then the print is truncated
+     * to the available space.
+     *
+     * The string written into the item is not nul-terminated.
+     *
+     * @param fmt The printf-style formatting string.
+     * @param argp The printf-style formatting arguments.
+     * @returns There are two possibilities:
+     *  - The return value is non-negative (>= 0).  In this case the string was
+     *    fully written into the item and the total number of bytes consumed is
+     *    returned.
+     *  - The return value is negative (< 0).  In this case it was not possible
+     *    to fully write the string into the item, nor was it possible to allocate
+     *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+     *    Only part of the string has been written.  The length of the partially
+     *    written string can be obtained by applying the binary 1's-complement
+     *    operator (~) to the returned value.
+     * @throws std::domain_error If this item was not populated by a successful
+     * call to AQWriter::claim() or if it has been committed with a call to
+     * AQWriter::commit().
+     * @throws std::invalid_argument If the fmt argument was NULL.
+     */
+    int vprintf(const char *fmt, va_list argp)
+#ifdef __GNUC__
+        __attribute__((format(printf, 1, 2)))
+#endif
+    {
+        return vprintf(currentOffset(), fmt, argp);
+    }
+
+    /**
+     * Prints a formatted string into this item at a selected position.  If
+     * the write succeeds then the write position as used by
+     * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
+     * and off + memSize.  If there is not enough space in the item then the
+     * print is truncated to the available space.
+     *
+     * The string written into the item is not nul-terminated.
+     *
+     * @param off The offset from this item where the write is to be performed.
+     * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+     * of this item in which case it finds the item that contains that offset
+     * and starts the write there.
+     * @param fmt The printf-style formatting string.
+     * @param ... The printf-style formatting arguments.
+     * @returns There are two possibilities:
+     *  - The return value is non-negative (>= 0).  In this case the string was
+     *    fully written into the item and the total number of bytes consumed is
+     *    returned.
+     *  - The return value is negative (< 0).  In this case it was not possible
+     *    to fully write the string into the item, nor was it possible to allocate
+     *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+     *    Only part of the string has been written.  The length of the partially
+     *    written string can be obtained by applying the binary 1's-complement
+     *    operator (~) to the returned value.
+     * @throws std::domain_error If this item was not populated by a successful
+     * call to AQWriter::claim() or if it has been committed with a call to
+     * AQWriter::commit().
+     * @throws std::invalid_argument If the fmt argument was NULL.
+     */
+    int printf(size_t off, const char *fmt, ...)
+#ifdef __GNUC__
+        __attribute__((format(printf, 2, 3)))
+#endif
+    {
+        va_list argp;
+        va_start(argp, fmt);
+        int res = vprintf(off, fmt, argp);
+        va_end(argp);
+        return res;
+    }
+
+    /**
+    * Prints a formatted string into this item at a selected position.  If
+    * the write succeeds then the write position as used by
+    * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
+    * and off + memSize.  If there is not enough space in the item then the
+    * print is truncated to the available space.
+    *
+    * @param off The offset from this item where the write is to be performed.
+    * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+    * of this item in which case it finds the item that contains that offset
+    * and starts the write there.
+    * @param fmt The printf-style formatting string.
+    * @param argp The printf-style formatting arguments.
+    * @returns There are two possibilities:
+    *  - The return value is non-negative (>= 0).  In this case the string was
+    *    fully written into the item and the total number of bytes consumed is
+    *    returned.
+    *  - The return value is negative (< 0).  In this case it was not possible
+    *    to fully write the string into the item, nor was it possible to allocate
+    *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+    *    Only part of the string has been written.  The length of the partially
+    *    written string can be obtained by applying the binary 1's-complement
+    *    operator (~) to the returned value.
+    * @throws std::domain_error If this item was not populated by a successful
+    * call to AQWriter::claim() or if it has been committed with a call to
+    * AQWriter::commit().
+    * @throws std::invalid_argument If the fmt argument was NULL.
+    */
+    int vprintf(size_t off, const char *fmt, va_list argp)
+#ifdef __GNUC__
+        __attribute__((format(printf, 2, 3)))
+#endif
+        ;
 
 public:
 

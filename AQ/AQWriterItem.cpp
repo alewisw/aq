@@ -56,23 +56,8 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-bool AQWriterItem::write(const void *mem, size_t memSize)
-{
-    if (!isAllocated())
-    {
-        throw domain_error("Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.");
-    }
-
-    size_t off = last()->m_accumulator;
-    if (m_writer->isExtendable())
-    {
-        off += last()->m_memSize;
-    }
-    return write(off, mem, memSize);
-}
-
-//------------------------------------------------------------------------------
-bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)
+size_t AQWriterItem::write(size_t off, const void *mem, size_t memSize, 
+    InsufficientSpaceAction insufficientSpaceAction)
 {
     if (!isAllocated())
     {
@@ -85,22 +70,15 @@ bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)
 
     // Find the item that is to be updated and set the offset to an offset into
     // that item.
-    AQWriterItem *item;
-    if (!m_writer->isExtendable())
+    AQWriterItem *item = writeAdvance(off, memSize, insufficientSpaceAction);
+    if (item == NULL)
     {
-        item = writeAdvanceNormal(off, memSize);
-    }
-    else
-    {
-        item = writeAdvanceExtendable(off, memSize);
-        if (item == NULL)
-        {
-            return false;
-        }
+        return 0;
     }
 
     // Perform the series of memcpy() operations to write into the item.
     const unsigned char *buf = (const unsigned char *)mem;
+    size_t retSize = memSize;
     while (memSize > 0)
     {
         size_t avail = item->capacity() - off;
@@ -114,27 +92,77 @@ bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)
         memSize -= avail;
         item = item->next();
     }
-    return true;
+    return retSize;
 }
 
 //------------------------------------------------------------------------------
-AQWriterItem *AQWriterItem::writeAdvanceNormal(size_t off, size_t memSize)
+size_t AQWriterItem::currentOffset(void) const
 {
-    size_t acc = off + memSize;
+    if (!isAllocated())
+    {
+        throw domain_error("Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.");
+    }
+
+    size_t off = last()->m_accumulator;
+    if (m_writer->isExtendable())
+    {
+        off += last()->m_memSize;
+    }
+    return off;
+}
+
+//------------------------------------------------------------------------------
+AQWriterItem *AQWriterItem::writeAdvance(size_t& off, size_t& memSize,
+    InsufficientSpaceAction insufficientSpaceAction)
+{
+    if (!m_writer->isExtendable())
+    {
+        return writeAdvanceNormal(off, memSize, insufficientSpaceAction);
+    }
+    else
+    {
+        return writeAdvanceExtendable(off, memSize, insufficientSpaceAction);
+    }
+}
+
+//------------------------------------------------------------------------------
+AQWriterItem *AQWriterItem::writeAdvanceNormal(size_t off, size_t& memSize,
+    InsufficientSpaceAction insufficientSpaceAction)
+{
+    // Offset exceeds the capacity of the item.
     if (off >= capacity())
     {
-        ostringstream ss;
-        ss << "Offset " << off << " to write() must be less than or equal to the size "
-            << capacity() << " of a non-extendable item.";
-        throw out_of_range(ss.str());
+        memSize = 0;
+        if (insufficientSpaceAction == WRITE_PARTIAL)
+        {
+            m_accumulator = capacity();
+            return this;
+        }
+        else
+        {
+            return NULL;
+        }
     }
-    else if (acc > capacity())
+
+    // Offset is less than the capacity of the item.
+    size_t acc = off + memSize;
+    if (acc > capacity())
     {
-        ostringstream ss;
-        ss << "Offset " << off << " plus size " << memSize << " exceeeds the buffer length "
-            << capacity() << " of a non-extendable item.";
-        throw length_error(ss.str());
+        // Offset + size exceed the capacity of the item.
+        acc = capacity();
+        if (insufficientSpaceAction == WRITE_PARTIAL)
+        {
+            m_accumulator = capacity();
+            memSize = capacity() - off;
+            return this;
+        }
+        else
+        {
+            return NULL;
+        }
     }
+
+    // Offset + size do not exceed the capacity of the item, all is well.
     if (acc > m_accumulator)
     {
         m_accumulator = acc;
@@ -143,7 +171,8 @@ AQWriterItem *AQWriterItem::writeAdvanceNormal(size_t off, size_t memSize)
 }
 
 //------------------------------------------------------------------------------
-AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t& off, size_t memSize)
+AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t& off, size_t& memSize,
+    InsufficientSpaceAction insufficientSpaceAction)
 {
     AQWriterItem *last = this->last();
     AQWriterItem *item;
@@ -199,17 +228,56 @@ AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t& off, size_t memSize)
     if (rtotal < off || memSize > rtotal - off)
     {
         // Extend the list.  This updates all sizes appropriatly.
-        if (!extend(memSize + off - rtotal))
+        size_t extendSize = memSize + off - rtotal;
+        if (!extend(extendSize, insufficientSpaceAction))
         {
-            return NULL;
-        }
+            if (insufficientSpaceAction != WRITE_PARTIAL)
+            {
+                // Partial write is not permitted, just fail.
+                return NULL;
+            }
 
-        // The offset could be beyond the original last item - if that was the case we
-        // need to adjust item to the last item, and offset appropriatly.
-        if (rtotal < off)
+            // Extend failed but partial write permitted; update the memory size 
+            // to reflect the available space.
+            last->m_memSize = last->capacity();
+            if (off >= last->capacity())
+            {
+                memSize = 0;
+            }
+            else
+            {
+                memSize = last->capacity() - off;
+            }
+            item = last;
+        }
+        else
         {
-            off -= last->capacity();
-            item = this->last();
+            // Did we allocate enough space in the last item?
+            size_t avail = this->last()->capacity();
+            if (avail < extendSize)
+            {
+                size_t diff = extendSize - avail;
+                if (diff < memSize)
+                {
+                    memSize -= diff;
+                }
+                else
+                {
+                    memSize = 0;
+                }
+                if (off >= memSize)
+                {
+                    return NULL;
+                }
+            }
+
+            // The offset could be beyond the original last item - if that was the case we
+            // need to adjust item to the last item, and offset appropriatly.
+            if (rtotal < off)
+            {
+                off -= last->capacity();
+                item = this->last();
+            }
         }
     }
     else
@@ -227,10 +295,11 @@ AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t& off, size_t memSize)
 }
 
 //------------------------------------------------------------------------------
-bool AQWriterItem::extend(size_t memSize)
+bool AQWriterItem::extend(size_t memSize, InsufficientSpaceAction insufficientSpaceAction)
 {
+    AQWriter::ClaimSizeRule claimRule = insufficientSpaceAction == AQWriterItem::WRITE_PARTIAL ? AQWriter::CLAIM_AT_MOST : AQWriter::CLAIM_EXACT;
     AQWriterItem *newItem = new AQWriterItem;
-    if (!m_writer->claim(*newItem, memSize))
+    if (!m_writer->claim(*newItem, memSize, claimRule))
     {
         // Not enough space available.
         delete newItem;
@@ -249,10 +318,12 @@ bool AQWriterItem::extend(size_t memSize)
     // Adjust the sizes of the now next-to-last and last item.
     last->m_memSize = last->capacity();
     newItem->m_accumulator = last->m_accumulator + last->m_memSize;
-    newItem->m_memSize = memSize;
+
+    newItem->m_memSize = std::min(memSize, newItem->capacity());
 
     return true;
 }
+
 
 
 

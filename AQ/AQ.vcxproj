@@ -22,6 +22,7 @@
     <ClCompile Include="AQSnapshot.cpp" />
     <ClCompile Include="AQUnformattedException.cpp" />
     <ClCompile Include="AQWriterItem.cpp" />
+    <ClCompile Include="AQWriterItem_vprintf.cpp" />
     <ClCompile Include="internal\Crc32.cpp" />
     <ClCompile Include="internal\CtrlOverlay.cpp" />
     <ClCompile Include="internal\LinkedItemProcessor.cpp" />

@@ -29,6 +29,9 @@
       <Filter>Internal</Filter>
     </ClCompile>
     <ClCompile Include="AQWriterItem.cpp" />
+    <ClCompile Include="AQWriterItem_vprintf.cpp">
+      <Filter>Internal\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQItem.h" />

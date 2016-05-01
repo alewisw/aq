@@ -263,20 +263,22 @@ AQTEST(given_WriterItemClaimed_when_WriteOffsetMemNull_then_InvalidArgumentExcep
 AQTEST(given_WriterItemClaimed_when_PrintfFmtNull_then_InvalidArgumentException)
 {
     AQWriterItem witem;
+    char *nullPtr = NULL;
 
     CHECK(aq.writer.claim(witem, 7));
 
-    REQUIRE_EXCEPTION(witem.printf(NULL, 5), invalid_argument);
+    REQUIRE_EXCEPTION(witem.printf(nullPtr, 5), invalid_argument);
 }
 
 //------------------------------------------------------------------------------
 AQTEST(given_WriterItemClaimed_when_PrintfOffsetFmtNull_then_InvalidArgumentException)
 {
     AQWriterItem witem;
+    char *nullPtr = NULL;
 
     CHECK(aq.writer.claim(witem, 7));
 
-    REQUIRE_EXCEPTION(witem.printf(2, NULL, 5), invalid_argument);
+    REQUIRE_EXCEPTION(witem.printf(2, nullPtr, 5), invalid_argument);
 }
 
 //------------------------------------------------------------------------------

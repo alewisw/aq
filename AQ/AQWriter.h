@@ -195,7 +195,7 @@ public:
      * @throws AQUnformattedException When the queue is not formatted.
      */
     bool claim(AQWriterItem& item, size_t memSize, 
-        ClaimSizeRule claimSizeRule = ClaimSizeRule::CLAIM_EXACT);
+        ClaimSizeRule claimSizeRule = CLAIM_EXACT);
 
     /**
      * Commits an item previously obtained via a claim() call to

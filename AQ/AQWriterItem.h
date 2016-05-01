@@ -250,7 +250,7 @@ public:
      * any value other than 0.
      */
     size_t write(const void *mem, size_t memSize, 
-        InsufficientSpaceAction insufficientSpaceAction = InsufficientSpaceAction::WRITE_NONE)
+        InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE)
     {
         return write(currentOffset(), mem, memSize, insufficientSpaceAction);
     }
@@ -288,7 +288,7 @@ public:
     * requested number of bytes at the given offset.
     */
     size_t write(size_t off, const void *mem, size_t memSize,
-        InsufficientSpaceAction insufficientSpaceAction = InsufficientSpaceAction::WRITE_NONE);
+        InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE);
 
 private:
 
@@ -350,7 +350,7 @@ public:
      */
     int printf(const char *fmt, ...)
 #ifdef __GNUC__
-        __attribute__((format(printf, 1, 2)))
+        __attribute__((format(printf, 2, 3)))
 #endif
     {
         va_list argp;
@@ -387,7 +387,7 @@ public:
      */
     int vprintf(const char *fmt, va_list argp)
 #ifdef __GNUC__
-        __attribute__((format(printf, 1, 2)))
+        __attribute__((format(printf, 2, 0)))
 #endif
     {
         return vprintf(currentOffset(), fmt, argp);
@@ -425,7 +425,7 @@ public:
      */
     int printf(size_t off, const char *fmt, ...)
 #ifdef __GNUC__
-        __attribute__((format(printf, 2, 3)))
+        __attribute__((format(printf, 3, 4)))
 #endif
     {
         va_list argp;
@@ -465,7 +465,7 @@ public:
     */
     int vprintf(size_t off, const char *fmt, va_list argp)
 #ifdef __GNUC__
-        __attribute__((format(printf, 2, 3)))
+        __attribute__((format(printf, 3, 0)))
 #endif
         ;
 

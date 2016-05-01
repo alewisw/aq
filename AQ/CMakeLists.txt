@@ -15,5 +15,6 @@ set(SOURCE
     Internal/Timer.cpp
     Internal/TraceBuffer.cpp
     Internal/TraceManager.cpp
+    Internal/Linux/AQWriterItem_vprintf.cpp
    )
 add_library(AQ STATIC ${SOURCE})

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-01 02:56:38</td>
+            <td class="headerValue">2016-05-01 03:38:11</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -138,12 +138,12 @@
 <span class="lineNum">      67 </span>                :            :     /**
 <a name="68"><span class="lineNum">      68 </span>                :            :      * Constructs a new item with no initial allocation.</a>
 <span class="lineNum">      69 </span>                :            :      */
-<span class="lineNum">      70 </span>                :<span class="lineCov">     656654 :     AQWriterItem(void)</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">     683359 :     AQWriterItem(void)</span>
 <span class="lineNum">      71 </span>                :            :         : AQItem()
 <span class="lineNum">      72 </span>                :            :         , m_writer(NULL) 
-<span class="lineNum">      73 </span>                :<span class="lineCov">     656654 :         , m_accumulator(0)</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">     683359 :         , m_accumulator(0)</span>
 <span class="lineNum">      74 </span>                :            :     {
-<span class="lineNum">      75 </span>                :<span class="lineCov">     656653 :     }</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">     683358 :     }</span>
 <span class="lineNum">      76 </span>                :            : 
 <span class="lineNum">      77 </span>                :            :     /**
 <span class="lineNum">      78 </span>                :            :      * Constructs a new item so that it is an exact copy of another item.  Note
@@ -190,7 +190,7 @@
 <span class="lineNum">     119 </span>                :            :      * is entirely up to the application to ensure that each item that must
 <a name="120"><span class="lineNum">     120 </span>                :            :      * be committed or released has the appropriate action taken.</a>
 <span class="lineNum">     121 </span>                :            :      */
-<span class="lineNum">     122 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 656652 times"> + </span>]:<span class="lineCov">    1313287 :     virtual ~AQWriterItem(void) { }</span>
+<span class="lineNum">     122 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 683357 times"> + </span>]:<span class="lineCov">    1366707 :     virtual ~AQWriterItem(void) { }</span>
 <span class="lineNum">     123 </span>                :            : 
 <span class="lineNum">     124 </span>                :            : protected:
 <span class="lineNum">     125 </span>                :            : 
@@ -221,7 +221,7 @@
 <span class="lineNum">     150 </span>                :            :      *
 <a name="151"><span class="lineNum">     151 </span>                :            :      * @param lkid The link identifier value to set for this item.</a>
 <span class="lineNum">     152 </span>                :            :      */
-<span class="lineNum">     153 </span>                :<span class="lineCov">     372021 :     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">     393027 :     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }</span>
 <span class="lineNum">     154 </span>                :            : 
 <span class="lineNum">     155 </span>                :            :     /**
 <span class="lineNum">     156 </span>                :            :      * Obtains a reference to one of the bytes within this item.  This
@@ -266,7 +266,7 @@
 <span class="lineNum">     195 </span>                :            :      * or the provided index is outside the range of bytes in this item then the
 <a name="196"><span class="lineNum">     196 </span>                :            :      * returned value is undefined.</a>
 <span class="lineNum">     197 </span>                :            :      */
-<span class="lineNum">     198 </span>                :<span class="lineCov">      10285 :     unsigned char&amp; operator[](size_t idx) { return mem()[idx]; }</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">      10302 :     unsigned char&amp; operator[](size_t idx) { return mem()[idx]; }</span>
 <span class="lineNum">     199 </span>                :            : 
 <span class="lineNum">     200 </span>                :            :     /**
 <span class="lineNum">     201 </span>                :            :      * Defines the possible actions to be taken when writing
@@ -320,10 +320,10 @@
 <span class="lineNum">     249 </span>                :            :      * @throws std::invalid_argument If the mem argument was NULL and memSize was
 <a name="250"><span class="lineNum">     250 </span>                :            :      * any value other than 0.</a>
 <span class="lineNum">     251 </span>                :            :      */
-<span class="lineNum">     252 </span>                :<span class="lineCov">    1472358 :     size_t write(const void *mem, size_t memSize, </span>
+<span class="lineNum">     252 </span>                :<span class="lineCov">    1546104 :     size_t write(const void *mem, size_t memSize, </span>
 <span class="lineNum">     253 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE)
 <span class="lineNum">     254 </span>                :            :     {
-<span class="lineNum">     255 </span>                :<span class="lineCov">    1472358 :         return write(currentOffset(), mem, memSize, insufficientSpaceAction);</span>
+<span class="lineNum">     255 </span>                :<span class="lineCov">    1546104 :         return write(currentOffset(), mem, memSize, insufficientSpaceAction);</span>
 <span class="lineNum">     256 </span>                :            :     }
 <span class="lineNum">     257 </span>                :            : 
 <span class="lineNum">     258 </span>                :            :     /**
@@ -339,288 +339,290 @@
 <span class="lineNum">     268 </span>                :            :     * and starts the write there.
 <span class="lineNum">     269 </span>                :            :     * @param mem The buffer that contains the memory to write into this item.
 <span class="lineNum">     270 </span>                :            :     * @param memSize The number of bytes to write into this item.
-<span class="lineNum">     271 </span>                :            :     * @returns The actual number of bytes written into the buffer.  The possible
-<span class="lineNum">     272 </span>                :            :     * return values depend on the value of the `insufficientSpaceAction` parameter:
-<span class="lineNum">     273 </span>                :            :     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
-<span class="lineNum">     274 </span>                :            :     *    or `memSize` is returned.  When 0 is returned no data was written,
-<span class="lineNum">     275 </span>                :            :     *    when `memSize` is returned the entire buffer was written.
-<span class="lineNum">     276 </span>                :            :     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
-<span class="lineNum">     277 </span>                :            :     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
-<span class="lineNum">     278 </span>                :            :     *    written from the buffer.
-<span class="lineNum">     279 </span>                :            :     * @throws std::domain_error If this item was not populated by a successful
-<span class="lineNum">     280 </span>                :            :     * call to AQWriter::claim() or if it has been committed with a call to
-<span class="lineNum">     281 </span>                :            :     * AQWriter::commit().
-<span class="lineNum">     282 </span>                :            :     * @throws std::invalid_argument If the mem argument was NULL and memSize was
-<span class="lineNum">     283 </span>                :            :     * any value other than 0.
-<span class="lineNum">     284 </span>                :            :     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
-<span class="lineNum">     285 </span>                :            :     * option set and the offest is at the end, or beyond the end, of the item.
-<span class="lineNum">     286 </span>                :            :     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
-<span class="lineNum">     287 </span>                :            :     * option set and there is not enough space left in the queue to store the
-<span class="lineNum">     288 </span>                :            :     * requested number of bytes at the given offset.
-<span class="lineNum">     289 </span>                :            :     */
-<span class="lineNum">     290 </span>                :            :     size_t write(size_t off, const void *mem, size_t memSize,
-<span class="lineNum">     291 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE);
-<span class="lineNum">     292 </span>                :            : 
-<span class="lineNum">     293 </span>                :            : private:
+<span class="lineNum">     271 </span>                :            :     * @param insufficientSpaceAction The action to take when the item cannot store
+<span class="lineNum">     272 </span>                :            :     * the entire buffer (`memSize` bytes).
+<span class="lineNum">     273 </span>                :            :     * @returns The actual number of bytes written into the buffer.  The possible
+<span class="lineNum">     274 </span>                :            :     * return values depend on the value of the `insufficientSpaceAction` parameter:
+<span class="lineNum">     275 </span>                :            :     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
+<span class="lineNum">     276 </span>                :            :     *    or `memSize` is returned.  When 0 is returned no data was written,
+<span class="lineNum">     277 </span>                :            :     *    when `memSize` is returned the entire buffer was written.
+<span class="lineNum">     278 </span>                :            :     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
+<span class="lineNum">     279 </span>                :            :     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
+<span class="lineNum">     280 </span>                :            :     *    written from the buffer.
+<span class="lineNum">     281 </span>                :            :     * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     282 </span>                :            :     * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     283 </span>                :            :     * AQWriter::commit().
+<span class="lineNum">     284 </span>                :            :     * @throws std::invalid_argument If the mem argument was NULL and memSize was
+<span class="lineNum">     285 </span>                :            :     * any value other than 0.
+<span class="lineNum">     286 </span>                :            :     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     287 </span>                :            :     * option set and the offest is at the end, or beyond the end, of the item.
+<span class="lineNum">     288 </span>                :            :     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+<span class="lineNum">     289 </span>                :            :     * option set and there is not enough space left in the queue to store the
+<span class="lineNum">     290 </span>                :            :     * requested number of bytes at the given offset.
+<span class="lineNum">     291 </span>                :            :     */
+<span class="lineNum">     292 </span>                :            :     size_t write(size_t off, const void *mem, size_t memSize,
+<span class="lineNum">     293 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE);
 <span class="lineNum">     294 </span>                :            : 
-<span class="lineNum">     295 </span>                :            :     // Returns the current write offset for this item.
-<span class="lineNum">     296 </span>                :            :     size_t currentOffset(void) const;
-<span class="lineNum">     297 </span>                :            : 
-<span class="lineNum">     298 </span>                :            :     // Depending on whether a normal write or extendable write is required this
-<span class="lineNum">     299 </span>                :            :     // simply defers to writeAdvanceNormal() or writeAdvanceExtendable().
-<span class="lineNum">     300 </span>                :            :     AQWriterItem *writeAdvance(size_t&amp; off, size_t&amp; memSize,
-<span class="lineNum">     301 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
-<span class="lineNum">     302 </span>                :            : 
-<span class="lineNum">     303 </span>                :            :     // Validates the offset and memory size for a normal write, returning this object.
-<span class="lineNum">     304 </span>                :            :     //
-<span class="lineNum">     305 </span>                :            :     // Updates the 'memSize' to reflect the actual number of writeable bytes.
+<span class="lineNum">     295 </span>                :            : private:
+<span class="lineNum">     296 </span>                :            : 
+<span class="lineNum">     297 </span>                :            :     // Returns the current write offset for this item.
+<span class="lineNum">     298 </span>                :            :     size_t currentOffset(void) const;
+<span class="lineNum">     299 </span>                :            : 
+<span class="lineNum">     300 </span>                :            :     // Depending on whether a normal write or extendable write is required this
+<span class="lineNum">     301 </span>                :            :     // simply defers to writeAdvanceNormal() or writeAdvanceExtendable().
+<span class="lineNum">     302 </span>                :            :     AQWriterItem *writeAdvance(size_t&amp; off, size_t&amp; memSize,
+<span class="lineNum">     303 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
+<span class="lineNum">     304 </span>                :            : 
+<span class="lineNum">     305 </span>                :            :     // Validates the offset and memory size for a normal write, returning this object.
 <span class="lineNum">     306 </span>                :            :     //
-<span class="lineNum">     307 </span>                :            :     // Updates the m_accumulator, if necessary, to the last written byte.
-<span class="lineNum">     308 </span>                :            :     AQWriterItem *writeAdvanceNormal(size_t off, size_t&amp; memSize,
-<span class="lineNum">     309 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
-<span class="lineNum">     310 </span>                :            : 
-<span class="lineNum">     311 </span>                :            :     // Advances the extendable item sufficiently to support a write starting at 'off'
-<span class="lineNum">     312 </span>                :            :     // and ending at 'off' + 'memSize' - 1.  Returns the object where the writing
-<span class="lineNum">     313 </span>                :            :     // is to begin, updating 'off' to refer to that object and 'memSize' to the actual
-<span class="lineNum">     314 </span>                :            :     // number of writeable bytes.
-<span class="lineNum">     315 </span>                :            :     //
-<span class="lineNum">     316 </span>                :            :     // If the item could not be extended then NULL is returned.
-<span class="lineNum">     317 </span>                :            :     AQWriterItem *writeAdvanceExtendable(size_t&amp; off, size_t&amp; memSize,
-<span class="lineNum">     318 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
-<span class="lineNum">     319 </span>                :            : 
-<span class="lineNum">     320 </span>                :            :     // Extends the current item so that it can contain at least an additional memSize
-<span class="lineNum">     321 </span>                :            :     // bytes.
-<span class="lineNum">     322 </span>                :            :     bool extend(size_t memSize, InsufficientSpaceAction insufficientSpaceAction);
-<span class="lineNum">     323 </span>                :            : 
-<span class="lineNum">     324 </span>                :            : public:
+<span class="lineNum">     307 </span>                :            :     // Updates the 'memSize' to reflect the actual number of writeable bytes.
+<span class="lineNum">     308 </span>                :            :     //
+<span class="lineNum">     309 </span>                :            :     // Updates the m_accumulator, if necessary, to the last written byte.
+<span class="lineNum">     310 </span>                :            :     AQWriterItem *writeAdvanceNormal(size_t off, size_t&amp; memSize,
+<span class="lineNum">     311 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
+<span class="lineNum">     312 </span>                :            : 
+<span class="lineNum">     313 </span>                :            :     // Advances the extendable item sufficiently to support a write starting at 'off'
+<span class="lineNum">     314 </span>                :            :     // and ending at 'off' + 'memSize' - 1.  Returns the object where the writing
+<span class="lineNum">     315 </span>                :            :     // is to begin, updating 'off' to refer to that object and 'memSize' to the actual
+<span class="lineNum">     316 </span>                :            :     // number of writeable bytes.
+<span class="lineNum">     317 </span>                :            :     //
+<span class="lineNum">     318 </span>                :            :     // If the item could not be extended then NULL is returned.
+<span class="lineNum">     319 </span>                :            :     AQWriterItem *writeAdvanceExtendable(size_t&amp; off, size_t&amp; memSize,
+<span class="lineNum">     320 </span>                :            :         InsufficientSpaceAction insufficientSpaceAction);
+<span class="lineNum">     321 </span>                :            : 
+<span class="lineNum">     322 </span>                :            :     // Extends the current item so that it can contain at least an additional memSize
+<span class="lineNum">     323 </span>                :            :     // bytes.
+<span class="lineNum">     324 </span>                :            :     bool extend(size_t memSize, InsufficientSpaceAction insufficientSpaceAction);
 <span class="lineNum">     325 </span>                :            : 
-<span class="lineNum">     326 </span>                :            :     /**
-<span class="lineNum">     327 </span>                :            :      * Prints a formatted string into this item at its current write position.
-<span class="lineNum">     328 </span>                :            :      * The write position is incremented by the number of bytes actually written.
-<span class="lineNum">     329 </span>                :            :      * If there is not enough space in the item then the print is truncated
-<span class="lineNum">     330 </span>                :            :      * to the available space.
-<span class="lineNum">     331 </span>                :            :      *
-<span class="lineNum">     332 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     326 </span>                :            : public:
+<span class="lineNum">     327 </span>                :            : 
+<span class="lineNum">     328 </span>                :            :     /**
+<span class="lineNum">     329 </span>                :            :      * Prints a formatted string into this item at its current write position.
+<span class="lineNum">     330 </span>                :            :      * The write position is incremented by the number of bytes actually written.
+<span class="lineNum">     331 </span>                :            :      * If there is not enough space in the item then the print is truncated
+<span class="lineNum">     332 </span>                :            :      * to the available space.
 <span class="lineNum">     333 </span>                :            :      *
-<span class="lineNum">     334 </span>                :            :      * @param fmt The printf-style formatting string.
-<span class="lineNum">     335 </span>                :            :      * @param ... The printf-style formatting arguments.
-<span class="lineNum">     336 </span>                :            :      * @returns There are two possibilities:
-<span class="lineNum">     337 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
-<span class="lineNum">     338 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
-<span class="lineNum">     339 </span>                :            :      *    returned.
-<span class="lineNum">     340 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
-<span class="lineNum">     341 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
-<span class="lineNum">     342 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
-<span class="lineNum">     343 </span>                :            :      *    Only part of the string has been written.  The length of the partially 
-<span class="lineNum">     344 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement 
-<span class="lineNum">     345 </span>                :            :      *    operator (~) to the returned value.
-<span class="lineNum">     346 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
-<span class="lineNum">     347 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
-<span class="lineNum">     348 </span>                :            :      * AQWriter::commit().
-<span class="lineNum">     349 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
-<span class="lineNum">     350 </span>                :            :      */
-<span class="lineNum">     351 </span>                :            :     int printf(const char *fmt, ...)
-<span class="lineNum">     352 </span>                :            : #ifdef __GNUC__
-<span class="lineNum">     353 </span>                :            :         __attribute__((format(printf, 2, 3)))
-<span class="lineNum">     354 </span>                :            : #endif
-<span class="lineNum">     355 </span>                :            :     {
-<span class="lineNum">     356 </span>                :            :         va_list argp;
-<span class="lineNum">     357 </span>                :            :         va_start(argp, fmt);
-<span class="lineNum">     358 </span>                :            :         int res = vprintf(fmt, argp);
-<span class="lineNum">     359 </span>                :            :         va_end(argp);
-<span class="lineNum">     360 </span>                :            :         return res;
-<span class="lineNum">     361 </span>                :            :     }
-<span class="lineNum">     362 </span>                :            : 
-<span class="lineNum">     363 </span>                :            :     /**
-<span class="lineNum">     364 </span>                :            :      * Prints a formatted string into this item at its current write position.
-<span class="lineNum">     365 </span>                :            :      * The write position is incremented by the number of bytes actually written.
-<span class="lineNum">     366 </span>                :            :      * If there is not enough space in the item then the print is truncated
-<span class="lineNum">     367 </span>                :            :      * to the available space.
-<span class="lineNum">     368 </span>                :            :      *
-<span class="lineNum">     369 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     334 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     335 </span>                :            :      *
+<span class="lineNum">     336 </span>                :            :      * @param fmt The printf-style formatting string.
+<span class="lineNum">     337 </span>                :            :      * @param ... The printf-style formatting arguments.
+<span class="lineNum">     338 </span>                :            :      * @returns There are two possibilities:
+<span class="lineNum">     339 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
+<span class="lineNum">     340 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
+<span class="lineNum">     341 </span>                :            :      *    returned.
+<span class="lineNum">     342 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
+<span class="lineNum">     343 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
+<span class="lineNum">     344 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+<span class="lineNum">     345 </span>                :            :      *    Only part of the string has been written.  The length of the partially 
+<span class="lineNum">     346 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement 
+<span class="lineNum">     347 </span>                :            :      *    operator (~) to the returned value.
+<span class="lineNum">     348 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     349 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     350 </span>                :            :      * AQWriter::commit().
+<span class="lineNum">     351 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
+<span class="lineNum">     352 </span>                :            :      */
+<span class="lineNum">     353 </span>                :            :     int printf(const char *fmt, ...)
+<span class="lineNum">     354 </span>                :            : #ifdef __GNUC__
+<span class="lineNum">     355 </span>                :            :         __attribute__((format(printf, 2, 3)))
+<span class="lineNum">     356 </span>                :            : #endif
+<span class="lineNum">     357 </span>                :            :     {
+<span class="lineNum">     358 </span>                :            :         va_list argp;
+<span class="lineNum">     359 </span>                :            :         va_start(argp, fmt);
+<span class="lineNum">     360 </span>                :            :         int res = vprintf(fmt, argp);
+<span class="lineNum">     361 </span>                :            :         va_end(argp);
+<span class="lineNum">     362 </span>                :            :         return res;
+<span class="lineNum">     363 </span>                :            :     }
+<span class="lineNum">     364 </span>                :            : 
+<span class="lineNum">     365 </span>                :            :     /**
+<span class="lineNum">     366 </span>                :            :      * Prints a formatted string into this item at its current write position.
+<span class="lineNum">     367 </span>                :            :      * The write position is incremented by the number of bytes actually written.
+<span class="lineNum">     368 </span>                :            :      * If there is not enough space in the item then the print is truncated
+<span class="lineNum">     369 </span>                :            :      * to the available space.
 <span class="lineNum">     370 </span>                :            :      *
-<span class="lineNum">     371 </span>                :            :      * @param fmt The printf-style formatting string.
-<span class="lineNum">     372 </span>                :            :      * @param argp The printf-style formatting arguments.
-<span class="lineNum">     373 </span>                :            :      * @returns There are two possibilities:
-<span class="lineNum">     374 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
-<span class="lineNum">     375 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
-<span class="lineNum">     376 </span>                :            :      *    returned.
-<span class="lineNum">     377 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
-<span class="lineNum">     378 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
-<span class="lineNum">     379 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
-<span class="lineNum">     380 </span>                :            :      *    Only part of the string has been written.  The length of the partially
-<span class="lineNum">     381 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement
-<span class="lineNum">     382 </span>                :            :      *    operator (~) to the returned value.
-<span class="lineNum">     383 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
-<span class="lineNum">     384 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
-<span class="lineNum">     385 </span>                :            :      * AQWriter::commit().
-<span class="lineNum">     386 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
-<span class="lineNum">     387 </span>                :            :      */
-<span class="lineNum">     388 </span>                :            :     int vprintf(const char *fmt, va_list argp)
-<span class="lineNum">     389 </span>                :            : #ifdef __GNUC__
-<span class="lineNum">     390 </span>                :            :         __attribute__((format(printf, 2, 0)))
-<span class="lineNum">     391 </span>                :            : #endif
-<span class="lineNum">     392 </span>                :            :     {
-<span class="lineNum">     393 </span>                :            :         return vprintf(currentOffset(), fmt, argp);
-<span class="lineNum">     394 </span>                :            :     }
-<span class="lineNum">     395 </span>                :            : 
-<span class="lineNum">     396 </span>                :            :     /**
-<span class="lineNum">     397 </span>                :            :      * Prints a formatted string into this item at a selected position.  If
-<span class="lineNum">     398 </span>                :            :      * the write succeeds then the write position as used by
-<span class="lineNum">     399 </span>                :            :      * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
-<span class="lineNum">     400 </span>                :            :      * and off + memSize.  If there is not enough space in the item then the
-<span class="lineNum">     401 </span>                :            :      * print is truncated to the available space.
-<span class="lineNum">     402 </span>                :            :      *
-<span class="lineNum">     403 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     371 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     372 </span>                :            :      *
+<span class="lineNum">     373 </span>                :            :      * @param fmt The printf-style formatting string.
+<span class="lineNum">     374 </span>                :            :      * @param argp The printf-style formatting arguments.
+<span class="lineNum">     375 </span>                :            :      * @returns There are two possibilities:
+<span class="lineNum">     376 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
+<span class="lineNum">     377 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
+<span class="lineNum">     378 </span>                :            :      *    returned.
+<span class="lineNum">     379 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
+<span class="lineNum">     380 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
+<span class="lineNum">     381 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+<span class="lineNum">     382 </span>                :            :      *    Only part of the string has been written.  The length of the partially
+<span class="lineNum">     383 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement
+<span class="lineNum">     384 </span>                :            :      *    operator (~) to the returned value.
+<span class="lineNum">     385 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     386 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     387 </span>                :            :      * AQWriter::commit().
+<span class="lineNum">     388 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
+<span class="lineNum">     389 </span>                :            :      */
+<span class="lineNum">     390 </span>                :            :     int vprintf(const char *fmt, va_list argp)
+<span class="lineNum">     391 </span>                :            : #ifdef __GNUC__
+<span class="lineNum">     392 </span>                :            :         __attribute__((format(printf, 2, 0)))
+<span class="lineNum">     393 </span>                :            : #endif
+<span class="lineNum">     394 </span>                :            :     {
+<span class="lineNum">     395 </span>                :            :         return vprintf(currentOffset(), fmt, argp);
+<span class="lineNum">     396 </span>                :            :     }
+<span class="lineNum">     397 </span>                :            : 
+<span class="lineNum">     398 </span>                :            :     /**
+<span class="lineNum">     399 </span>                :            :      * Prints a formatted string into this item at a selected position.  If
+<span class="lineNum">     400 </span>                :            :      * the write succeeds then the write position as used by
+<span class="lineNum">     401 </span>                :            :      * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
+<span class="lineNum">     402 </span>                :            :      * and off + memSize.  If there is not enough space in the item then the
+<span class="lineNum">     403 </span>                :            :      * print is truncated to the available space.
 <span class="lineNum">     404 </span>                :            :      *
-<span class="lineNum">     405 </span>                :            :      * @param off The offset from this item where the write is to be performed.
-<span class="lineNum">     406 </span>                :            :      * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
-<span class="lineNum">     407 </span>                :            :      * of this item in which case it finds the item that contains that offset
-<span class="lineNum">     408 </span>                :            :      * and starts the write there.
-<span class="lineNum">     409 </span>                :            :      * @param fmt The printf-style formatting string.
-<span class="lineNum">     410 </span>                :            :      * @param ... The printf-style formatting arguments.
-<span class="lineNum">     411 </span>                :            :      * @returns There are two possibilities:
-<span class="lineNum">     412 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
-<span class="lineNum">     413 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
-<span class="lineNum">     414 </span>                :            :      *    returned.
-<span class="lineNum">     415 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
-<span class="lineNum">     416 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
-<span class="lineNum">     417 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
-<span class="lineNum">     418 </span>                :            :      *    Only part of the string has been written.  The length of the partially
-<span class="lineNum">     419 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement
-<span class="lineNum">     420 </span>                :            :      *    operator (~) to the returned value.
-<span class="lineNum">     421 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
-<span class="lineNum">     422 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
-<span class="lineNum">     423 </span>                :            :      * AQWriter::commit().
-<span class="lineNum">     424 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
-<span class="lineNum">     425 </span>                :            :      */
-<span class="lineNum">     426 </span>                :            :     int printf(size_t off, const char *fmt, ...)
-<span class="lineNum">     427 </span>                :            : #ifdef __GNUC__
-<span class="lineNum">     428 </span>                :            :         __attribute__((format(printf, 3, 4)))
-<span class="lineNum">     429 </span>                :            : #endif
-<span class="lineNum">     430 </span>                :            :     {
-<span class="lineNum">     431 </span>                :            :         va_list argp;
-<span class="lineNum">     432 </span>                :            :         va_start(argp, fmt);
-<span class="lineNum">     433 </span>                :            :         int res = vprintf(off, fmt, argp);
-<span class="lineNum">     434 </span>                :            :         va_end(argp);
-<span class="lineNum">     435 </span>                :            :         return res;
-<span class="lineNum">     436 </span>                :            :     }
-<span class="lineNum">     437 </span>                :            : 
-<span class="lineNum">     438 </span>                :            :     /**
-<span class="lineNum">     439 </span>                :            :     * Prints a formatted string into this item at a selected position.  If
-<span class="lineNum">     440 </span>                :            :     * the write succeeds then the write position as used by
-<span class="lineNum">     441 </span>                :            :     * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
-<span class="lineNum">     442 </span>                :            :     * and off + memSize.  If there is not enough space in the item then the
-<span class="lineNum">     443 </span>                :            :     * print is truncated to the available space.
-<span class="lineNum">     444 </span>                :            :     *
-<span class="lineNum">     445 </span>                :            :     * @param off The offset from this item where the write is to be performed.
-<span class="lineNum">     446 </span>                :            :     * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
-<span class="lineNum">     447 </span>                :            :     * of this item in which case it finds the item that contains that offset
-<span class="lineNum">     448 </span>                :            :     * and starts the write there.
-<span class="lineNum">     449 </span>                :            :     * @param fmt The printf-style formatting string.
-<span class="lineNum">     450 </span>                :            :     * @param argp The printf-style formatting arguments.
-<span class="lineNum">     451 </span>                :            :     * @returns There are two possibilities:
-<span class="lineNum">     452 </span>                :            :     *  - The return value is non-negative (&gt;= 0).  In this case the string was
-<span class="lineNum">     453 </span>                :            :     *    fully written into the item and the total number of bytes consumed is
-<span class="lineNum">     454 </span>                :            :     *    returned.
-<span class="lineNum">     455 </span>                :            :     *  - The return value is negative (&lt; 0).  In this case it was not possible
-<span class="lineNum">     456 </span>                :            :     *    to fully write the string into the item, nor was it possible to allocate
-<span class="lineNum">     457 </span>                :            :     *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
-<span class="lineNum">     458 </span>                :            :     *    Only part of the string has been written.  The length of the partially
-<span class="lineNum">     459 </span>                :            :     *    written string can be obtained by applying the binary 1's-complement
-<span class="lineNum">     460 </span>                :            :     *    operator (~) to the returned value.
-<span class="lineNum">     461 </span>                :            :     * @throws std::domain_error If this item was not populated by a successful
-<span class="lineNum">     462 </span>                :            :     * call to AQWriter::claim() or if it has been committed with a call to
-<span class="lineNum">     463 </span>                :            :     * AQWriter::commit().
-<span class="lineNum">     464 </span>                :            :     * @throws std::invalid_argument If the fmt argument was NULL.
-<span class="lineNum">     465 </span>                :            :     */
-<span class="lineNum">     466 </span>                :            :     int vprintf(size_t off, const char *fmt, va_list argp)
-<span class="lineNum">     467 </span>                :            : #ifdef __GNUC__
-<span class="lineNum">     468 </span>                :            :         __attribute__((format(printf, 3, 0)))
-<span class="lineNum">     469 </span>                :            : #endif
-<span class="lineNum">     470 </span>                :            :         ;
-<span class="lineNum">     471 </span>                :            : 
-<span class="lineNum">     472 </span>                :            : public:
+<span class="lineNum">     405 </span>                :            :      * The string written into the item is not nul-terminated.
+<span class="lineNum">     406 </span>                :            :      *
+<span class="lineNum">     407 </span>                :            :      * @param off The offset from this item where the write is to be performed.
+<span class="lineNum">     408 </span>                :            :      * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+<span class="lineNum">     409 </span>                :            :      * of this item in which case it finds the item that contains that offset
+<span class="lineNum">     410 </span>                :            :      * and starts the write there.
+<span class="lineNum">     411 </span>                :            :      * @param fmt The printf-style formatting string.
+<span class="lineNum">     412 </span>                :            :      * @param ... The printf-style formatting arguments.
+<span class="lineNum">     413 </span>                :            :      * @returns There are two possibilities:
+<span class="lineNum">     414 </span>                :            :      *  - The return value is non-negative (&gt;= 0).  In this case the string was
+<span class="lineNum">     415 </span>                :            :      *    fully written into the item and the total number of bytes consumed is
+<span class="lineNum">     416 </span>                :            :      *    returned.
+<span class="lineNum">     417 </span>                :            :      *  - The return value is negative (&lt; 0).  In this case it was not possible
+<span class="lineNum">     418 </span>                :            :      *    to fully write the string into the item, nor was it possible to allocate
+<span class="lineNum">     419 </span>                :            :      *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+<span class="lineNum">     420 </span>                :            :      *    Only part of the string has been written.  The length of the partially
+<span class="lineNum">     421 </span>                :            :      *    written string can be obtained by applying the binary 1's-complement
+<span class="lineNum">     422 </span>                :            :      *    operator (~) to the returned value.
+<span class="lineNum">     423 </span>                :            :      * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     424 </span>                :            :      * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     425 </span>                :            :      * AQWriter::commit().
+<span class="lineNum">     426 </span>                :            :      * @throws std::invalid_argument If the fmt argument was NULL.
+<span class="lineNum">     427 </span>                :            :      */
+<span class="lineNum">     428 </span>                :            :     int printf(size_t off, const char *fmt, ...)
+<span class="lineNum">     429 </span>                :            : #ifdef __GNUC__
+<span class="lineNum">     430 </span>                :            :         __attribute__((format(printf, 3, 4)))
+<span class="lineNum">     431 </span>                :            : #endif
+<span class="lineNum">     432 </span>                :            :     {
+<span class="lineNum">     433 </span>                :            :         va_list argp;
+<span class="lineNum">     434 </span>                :            :         va_start(argp, fmt);
+<span class="lineNum">     435 </span>                :            :         int res = vprintf(off, fmt, argp);
+<span class="lineNum">     436 </span>                :            :         va_end(argp);
+<span class="lineNum">     437 </span>                :            :         return res;
+<span class="lineNum">     438 </span>                :            :     }
+<span class="lineNum">     439 </span>                :            : 
+<span class="lineNum">     440 </span>                :            :     /**
+<span class="lineNum">     441 </span>                :            :     * Prints a formatted string into this item at a selected position.  If
+<span class="lineNum">     442 </span>                :            :     * the write succeeds then the write position as used by
+<span class="lineNum">     443 </span>                :            :     * write(const void *, size_t, InsufficientSpaceAction) is set to the maximum of its current value
+<span class="lineNum">     444 </span>                :            :     * and off + memSize.  If there is not enough space in the item then the
+<span class="lineNum">     445 </span>                :            :     * print is truncated to the available space.
+<span class="lineNum">     446 </span>                :            :     *
+<span class="lineNum">     447 </span>                :            :     * @param off The offset from this item where the write is to be performed.
+<span class="lineNum">     448 </span>                :            :     * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+<span class="lineNum">     449 </span>                :            :     * of this item in which case it finds the item that contains that offset
+<span class="lineNum">     450 </span>                :            :     * and starts the write there.
+<span class="lineNum">     451 </span>                :            :     * @param fmt The printf-style formatting string.
+<span class="lineNum">     452 </span>                :            :     * @param argp The printf-style formatting arguments.
+<span class="lineNum">     453 </span>                :            :     * @returns There are two possibilities:
+<span class="lineNum">     454 </span>                :            :     *  - The return value is non-negative (&gt;= 0).  In this case the string was
+<span class="lineNum">     455 </span>                :            :     *    fully written into the item and the total number of bytes consumed is
+<span class="lineNum">     456 </span>                :            :     *    returned.
+<span class="lineNum">     457 </span>                :            :     *  - The return value is negative (&lt; 0).  In this case it was not possible
+<span class="lineNum">     458 </span>                :            :     *    to fully write the string into the item, nor was it possible to allocate
+<span class="lineNum">     459 </span>                :            :     *    further items to the list if the queue is in AQ::OPTION_EXTENDABLE mode.
+<span class="lineNum">     460 </span>                :            :     *    Only part of the string has been written.  The length of the partially
+<span class="lineNum">     461 </span>                :            :     *    written string can be obtained by applying the binary 1's-complement
+<span class="lineNum">     462 </span>                :            :     *    operator (~) to the returned value.
+<span class="lineNum">     463 </span>                :            :     * @throws std::domain_error If this item was not populated by a successful
+<span class="lineNum">     464 </span>                :            :     * call to AQWriter::claim() or if it has been committed with a call to
+<span class="lineNum">     465 </span>                :            :     * AQWriter::commit().
+<span class="lineNum">     466 </span>                :            :     * @throws std::invalid_argument If the fmt argument was NULL.
+<span class="lineNum">     467 </span>                :            :     */
+<span class="lineNum">     468 </span>                :            :     int vprintf(size_t off, const char *fmt, va_list argp)
+<span class="lineNum">     469 </span>                :            : #ifdef __GNUC__
+<span class="lineNum">     470 </span>                :            :         __attribute__((format(printf, 3, 0)))
+<span class="lineNum">     471 </span>                :            : #endif
+<span class="lineNum">     472 </span>                :            :         ;
 <span class="lineNum">     473 </span>                :            : 
-<span class="lineNum">     474 </span>                :            :     /**
-<span class="lineNum">     475 </span>                :            :      * Obtains a pointer to the first item in the linked list of items.  The 
-<span class="lineNum">     476 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
-<span class="lineNum">     477 </span>                :            :      * has been set for the queue.
-<span class="lineNum">     478 </span>                :            :      *
-<a name="479"><span class="lineNum">     479 </span>                :            :      * @returns The first item.  This is never NULL.</a>
-<span class="lineNum">     480 </span>                :            :      */
-<span class="lineNum">     481 </span>                :<span class="lineCov">     581907 :     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }</span>
-<span class="lineNum">     482 </span>                :            : 
-<span class="lineNum">     483 </span>                :            :     /**
-<span class="lineNum">     484 </span>                :            :      * Obtains a pointer to the last item in the linked list of items.  The 
-<span class="lineNum">     485 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
-<span class="lineNum">     486 </span>                :            :      * has been set for the queue.
-<span class="lineNum">     487 </span>                :            :      *
-<a name="488"><span class="lineNum">     488 </span>                :            :      * @returns The last item.  This is never NULL.</a>
-<span class="lineNum">     489 </span>                :            :      */
-<span class="lineNum">     490 </span>                :<span class="lineCov">    5506279 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
-<span class="lineNum">     491 </span>                :            : 
-<span class="lineNum">     492 </span>                :            :     /**
-<span class="lineNum">     493 </span>                :            :      * Obtains a pointer to the next item in the linked list of items.  If this
-<span class="lineNum">     494 </span>                :            :      * is the last item in the list then NULL is returned.
-<span class="lineNum">     495 </span>                :            :      *
-<span class="lineNum">     496 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
-<a name="497"><span class="lineNum">     497 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
-<span class="lineNum">     498 </span>                :            :      */
-<span class="lineNum">     499 </span>                :<span class="lineCov">    1979810 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
-<span class="lineNum">     500 </span>                :            : 
-<span class="lineNum">     501 </span>                :            :     /**
-<span class="lineNum">     502 </span>                :            :      * Obtains a pointer to the previous item in the linked list of items.  If this
-<span class="lineNum">     503 </span>                :            :      * is the first item in the list then NULL is returned.
-<span class="lineNum">     504 </span>                :            :      *
-<span class="lineNum">     505 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
-<a name="506"><span class="lineNum">     506 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
-<span class="lineNum">     507 </span>                :            :      */
-<span class="lineNum">     508 </span>                :<span class="lineNoCov">          0 :     AQWriterItem *prev(void) { return (AQWriterItem *)AQItem::prev(); }</span>
-<span class="lineNum">     509 </span>                :            : 
-<span class="lineNum">     510 </span>                :            :     /**
-<span class="lineNum">     511 </span>                :            :      * Obtains a read-only pointer to the first item in the linked list of items.  The
-<span class="lineNum">     512 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
-<span class="lineNum">     513 </span>                :            :      * has been set for the queue.
-<span class="lineNum">     514 </span>                :            :      *
-<span class="lineNum">     515 </span>                :            :      * @returns The first item.  This is never NULL.
-<span class="lineNum">     516 </span>                :            :      */
-<span class="lineNum">     517 </span>                :            :     const AQWriterItem *first(void) const { return (const AQWriterItem *)AQItem::first(); }
-<span class="lineNum">     518 </span>                :            : 
-<span class="lineNum">     519 </span>                :            :     /**
-<span class="lineNum">     520 </span>                :            :      * Obtains a read-only pointer to the last item in the linked list of items.  The
-<span class="lineNum">     521 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
-<span class="lineNum">     522 </span>                :            :      * has been set for the queue.
-<span class="lineNum">     523 </span>                :            :      *
-<a name="524"><span class="lineNum">     524 </span>                :            :      * @returns The last item.  This is never NULL.</a>
-<span class="lineNum">     525 </span>                :            :      */
-<span class="lineNum">     526 </span>                :<span class="lineCov">    2944667 :     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }</span>
-<span class="lineNum">     527 </span>                :            :     
-<span class="lineNum">     528 </span>                :            :     /**
-<span class="lineNum">     529 </span>                :            :      * Obtains a read-only pointer to the next item in the linked list of items.  If this
-<span class="lineNum">     530 </span>                :            :      * is the last item in the list then NULL is returned.
-<span class="lineNum">     531 </span>                :            :      *
-<span class="lineNum">     532 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
-<span class="lineNum">     533 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
-<span class="lineNum">     534 </span>                :            :      */
-<span class="lineNum">     535 </span>                :            :     const AQWriterItem *next(void) const { return (const AQWriterItem *)AQItem::next(); }
-<span class="lineNum">     536 </span>                :            :     
-<span class="lineNum">     537 </span>                :            :     /**
-<span class="lineNum">     538 </span>                :            :      * Obtains a read-only pointer to the previous item in the linked list of items.  If this
-<span class="lineNum">     539 </span>                :            :      * is the first item in the list then NULL is returned.
-<span class="lineNum">     540 </span>                :            :      *
-<span class="lineNum">     541 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
-<span class="lineNum">     542 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
-<span class="lineNum">     543 </span>                :            :      */
-<span class="lineNum">     544 </span>                :            :     const AQWriterItem *prev(void) const { return (const AQWriterItem *)AQItem::prev(); }
-<span class="lineNum">     545 </span>                :            : 
-<span class="lineNum">     546 </span>                :            : };
+<span class="lineNum">     474 </span>                :            : public:
+<span class="lineNum">     475 </span>                :            : 
+<span class="lineNum">     476 </span>                :            :     /**
+<span class="lineNum">     477 </span>                :            :      * Obtains a pointer to the first item in the linked list of items.  The 
+<span class="lineNum">     478 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+<span class="lineNum">     479 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     480 </span>                :            :      *
+<a name="481"><span class="lineNum">     481 </span>                :            :      * @returns The first item.  This is never NULL.</a>
+<span class="lineNum">     482 </span>                :            :      */
+<span class="lineNum">     483 </span>                :<span class="lineCov">     615814 :     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }</span>
+<span class="lineNum">     484 </span>                :            : 
+<span class="lineNum">     485 </span>                :            :     /**
+<span class="lineNum">     486 </span>                :            :      * Obtains a pointer to the last item in the linked list of items.  The 
+<span class="lineNum">     487 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE 
+<span class="lineNum">     488 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     489 </span>                :            :      *
+<a name="490"><span class="lineNum">     490 </span>                :            :      * @returns The last item.  This is never NULL.</a>
+<span class="lineNum">     491 </span>                :            :      */
+<span class="lineNum">     492 </span>                :<span class="lineCov">    5802586 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     493 </span>                :            : 
+<span class="lineNum">     494 </span>                :            :     /**
+<span class="lineNum">     495 </span>                :            :      * Obtains a pointer to the next item in the linked list of items.  If this
+<span class="lineNum">     496 </span>                :            :      * is the last item in the list then NULL is returned.
+<span class="lineNum">     497 </span>                :            :      *
+<span class="lineNum">     498 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
+<a name="499"><span class="lineNum">     499 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
+<span class="lineNum">     500 </span>                :            :      */
+<span class="lineNum">     501 </span>                :<span class="lineCov">    2094660 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
+<span class="lineNum">     502 </span>                :            : 
+<span class="lineNum">     503 </span>                :            :     /**
+<span class="lineNum">     504 </span>                :            :      * Obtains a pointer to the previous item in the linked list of items.  If this
+<span class="lineNum">     505 </span>                :            :      * is the first item in the list then NULL is returned.
+<span class="lineNum">     506 </span>                :            :      *
+<span class="lineNum">     507 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
+<a name="508"><span class="lineNum">     508 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
+<span class="lineNum">     509 </span>                :            :      */
+<span class="lineNum">     510 </span>                :<span class="lineNoCov">          0 :     AQWriterItem *prev(void) { return (AQWriterItem *)AQItem::prev(); }</span>
+<span class="lineNum">     511 </span>                :            : 
+<span class="lineNum">     512 </span>                :            :     /**
+<span class="lineNum">     513 </span>                :            :      * Obtains a read-only pointer to the first item in the linked list of items.  The
+<span class="lineNum">     514 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+<span class="lineNum">     515 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     516 </span>                :            :      *
+<span class="lineNum">     517 </span>                :            :      * @returns The first item.  This is never NULL.
+<span class="lineNum">     518 </span>                :            :      */
+<span class="lineNum">     519 </span>                :            :     const AQWriterItem *first(void) const { return (const AQWriterItem *)AQItem::first(); }
+<span class="lineNum">     520 </span>                :            : 
+<span class="lineNum">     521 </span>                :            :     /**
+<span class="lineNum">     522 </span>                :            :      * Obtains a read-only pointer to the last item in the linked list of items.  The
+<span class="lineNum">     523 </span>                :            :      * returned pointer is always identical to this unless AQ::OPTION_EXTENDABLE
+<span class="lineNum">     524 </span>                :            :      * has been set for the queue.
+<span class="lineNum">     525 </span>                :            :      *
+<a name="526"><span class="lineNum">     526 </span>                :            :      * @returns The last item.  This is never NULL.</a>
+<span class="lineNum">     527 </span>                :            :      */
+<span class="lineNum">     528 </span>                :<span class="lineCov">    3092143 :     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     529 </span>                :            :     
+<span class="lineNum">     530 </span>                :            :     /**
+<span class="lineNum">     531 </span>                :            :      * Obtains a read-only pointer to the next item in the linked list of items.  If this
+<span class="lineNum">     532 </span>                :            :      * is the last item in the list then NULL is returned.
+<span class="lineNum">     533 </span>                :            :      *
+<span class="lineNum">     534 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
+<span class="lineNum">     535 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
+<span class="lineNum">     536 </span>                :            :      */
+<span class="lineNum">     537 </span>                :            :     const AQWriterItem *next(void) const { return (const AQWriterItem *)AQItem::next(); }
+<span class="lineNum">     538 </span>                :            :     
+<span class="lineNum">     539 </span>                :            :     /**
+<span class="lineNum">     540 </span>                :            :      * Obtains a read-only pointer to the previous item in the linked list of items.  If this
+<span class="lineNum">     541 </span>                :            :      * is the first item in the list then NULL is returned.
+<span class="lineNum">     542 </span>                :            :      *
+<span class="lineNum">     543 </span>                :            :      * @returns The previous item or NULL if there are no further items.  NULL is always
+<span class="lineNum">     544 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.
+<span class="lineNum">     545 </span>                :            :      */
+<span class="lineNum">     546 </span>                :            :     const AQWriterItem *prev(void) const { return (const AQWriterItem *)AQItem::prev(); }
 <span class="lineNum">     547 </span>                :            : 
-<span class="lineNum">     548 </span>                :            : 
+<span class="lineNum">     548 </span>                :            : };
 <span class="lineNum">     549 </span>                :            : 
 <span class="lineNum">     550 </span>                :            : 
-<span class="lineNum">     551 </span>                :            : #endif
-<span class="lineNum">     552 </span>                :            : //=============================== End of File ==================================
+<span class="lineNum">     551 </span>                :            : 
+<span class="lineNum">     552 </span>                :            : 
+<span class="lineNum">     553 </span>                :            : #endif
+<span class="lineNum">     554 </span>                :            : //=============================== End of File ==================================
 </pre>
       </td>
     </tr>

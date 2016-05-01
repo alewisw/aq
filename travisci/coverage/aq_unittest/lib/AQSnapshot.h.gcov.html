@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Unit Test Code Coverage - lib/AQSnapshot.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">lib</a> - AQSnapshot.h<span style="font-size: 80%;"> (source / <a href="AQSnapshot.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Unit Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-05-01 02:56:08</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : #ifndef AQSNAPSHOT_H</a>
+<span class="lineNum">       2 </span>                :            : #define AQSNAPSHOT_H
+<span class="lineNum">       3 </span>                :            : //==============================================================================
+<span class="lineNum">       4 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       5 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       6 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       7 </span>                :            : //
+<span class="lineNum">       8 </span>                :            : //==============================================================================
+<span class="lineNum">       9 </span>                :            : 
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : // Includes
+<span class="lineNum">      12 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      13 </span>                :            : 
+<span class="lineNum">      14 </span>                :            : #include &quot;AQItem.h&quot;
+<span class="lineNum">      15 </span>                :            : 
+<span class="lineNum">      16 </span>                :            : #include &lt;stdint.h&gt;
+<span class="lineNum">      17 </span>                :            : 
+<span class="lineNum">      18 </span>                :            : #include &lt;vector&gt;
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : 
+<span class="lineNum">      21 </span>                :            : 
+<span class="lineNum">      22 </span>                :            : 
+<span class="lineNum">      23 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      24 </span>                :            : // Exported Macros
+<span class="lineNum">      25 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      31 </span>                :            : // Exported Type Definitions
+<span class="lineNum">      32 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : // Forward declarations.
+<span class="lineNum">      35 </span>                :            : class AQ;
+<span class="lineNum">      36 </span>                :            : namespace aq
+<span class="lineNum">      37 </span>                :            : {
+<span class="lineNum">      38 </span>                :            :     class TraceBuffer;
+<span class="lineNum">      39 </span>                :            :     struct CtrlOverlay;
+<span class="lineNum">      40 </span>                :            : }
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :            : 
+<span class="lineNum">      45 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      46 </span>                :            : // Exported Variable Declarations
+<span class="lineNum">      47 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : 
+<span class="lineNum">      51 </span>                :            : 
+<span class="lineNum">      52 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      53 </span>                :            : // Exported Function and Class Declarations
+<span class="lineNum">      54 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : /**
+<span class="lineNum">      57 </span>                :            :  * Captures and holds a 'snapshot in time' of a Multi-Producer Concurrent 
+<span class="lineNum">      58 </span>                :            :  * Allocating Queue.
+<span class="lineNum">      59 </span>                :            :  */
+<span class="lineNum">      60 </span>                :            : class AQSnapshot
+<span class="lineNum">      61 </span>                :            : {
+<span class="lineNum">      62 </span>                :            : public:
+<span class="lineNum">      63 </span>                :            : 
+<span class="lineNum">      64 </span>                :            :     /**
+<span class="lineNum">      65 </span>                :            :      * Constructs an empty snapshot object with zero items.
+<span class="lineNum">      66 </span>                :            :      */
+<span class="lineNum">      67 </span>                :            :     AQSnapshot(void);
+<span class="lineNum">      68 </span>                :            : 
+<span class="lineNum">      69 </span>                :            :     // Constructs an empty snapshot object with zero items.
+<span class="lineNum">      70 </span>                :            :     //
+<span class="lineNum">      71 </span>                :            :     // The 'trace' argument is used for tracing and logging queue access.
+<span class="lineNum">      72 </span>                :            :     AQSnapshot(aq::TraceBuffer *trace);
+<span class="lineNum">      73 </span>                :            : 
+<span class="lineNum">      74 </span>                :            :     /**
+<span class="lineNum">      75 </span>                :            :      * Constructs a new snapshot containing all the valid items in the queue.
+<span class="lineNum">      76 </span>                :            :      * For a description of what constitutes a valid item see the snap() 
+<span class="lineNum">      77 </span>                :            :      * function.
+<span class="lineNum">      78 </span>                :            :      *
+<span class="lineNum">      79 </span>                :            :      * @param queue The queue to capture in this snapshot.
+<span class="lineNum">      80 </span>                :            :      */
+<span class="lineNum">      81 </span>                :            :     AQSnapshot(const AQ &amp;queue);
+<span class="lineNum">      82 </span>                :            : 
+<span class="lineNum">      83 </span>                :            :     // Constructs a new snapshot containing all the valid items in the queue.
+<span class="lineNum">      84 </span>                :            :     // For a description of what constitutes a valid item see the snap() 
+<span class="lineNum">      85 </span>                :            :     // function.
+<span class="lineNum">      86 </span>                :            :     //
+<span class="lineNum">      87 </span>                :            :     // The 'trace' argument is used for tracing and logging queue access.
+<span class="lineNum">      88 </span>                :            :     AQSnapshot(const AQ &amp;queue, aq::TraceBuffer *trace);
+<span class="lineNum">      89 </span>                :            : 
+<span class="lineNum">      90 </span>                :            :     /**
+<span class="lineNum">      91 </span>                :            :      * Constructs a new snapshot that is an exact copy of an existing snapshot.
+<span class="lineNum">      92 </span>                :            :      * 
+<span class="lineNum">      93 </span>                :            :      * @param other The other snapshot to copy.  All items are copied from that
+<span class="lineNum">      94 </span>                :            :      * snapshot into the new object.
+<span class="lineNum">      95 </span>                :            :      */
+<span class="lineNum">      96 </span>                :            :     AQSnapshot(const AQSnapshot&amp; other);
+<span class="lineNum">      97 </span>                :            : 
+<span class="lineNum">      98 </span>                :            :     /**
+<span class="lineNum">      99 </span>                :            :      * Copies the content of another snapshot into this snapshot.
+<span class="lineNum">     100 </span>                :            :      *
+<span class="lineNum">     101 </span>                :            :      * @param other The other snapshot to copy.  All items are copied from that
+<span class="lineNum">     102 </span>                :            :      * snapshot into the new object.
+<span class="lineNum">     103 </span>                :            :      * @returns A reference to this object.
+<span class="lineNum">     104 </span>                :            :      */
+<span class="lineNum">     105 </span>                :            :     AQSnapshot&amp; operator=(const AQSnapshot&amp; other);
+<span class="lineNum">     106 </span>                :            : 
+<span class="lineNum">     107 </span>                :            :     /**
+<span class="lineNum">     108 </span>                :            :      * Destroys this snapshot.
+<span class="lineNum">     109 </span>                :            :      */
+<span class="lineNum">     110 </span>                :            :     ~AQSnapshot(void);
+<span class="lineNum">     111 </span>                :            : 
+<span class="lineNum">     112 </span>                :            :     /**
+<span class="lineNum">     113 </span>                :            :      * Takes a snapshot of the passed queue, storing it in this object.  If this
+<span class="lineNum">     114 </span>                :            :      * object already contains a snapshot it is deleted before the new snapshot
+<span class="lineNum">     115 </span>                :            :      * is taken.
+<span class="lineNum">     116 </span>                :            :      *
+<span class="lineNum">     117 </span>                :            :      *
+<span class="lineNum">     118 </span>                :            :      *
+<span class="lineNum">     119 </span>                :            :      * @param queue The queue from which the snapshot is captured.  The queue
+<span class="lineNum">     120 </span>                :            :      * must be formatted.
+<span class="lineNum">     121 </span>                :            :      * @throws AQUnformattedException If the queue is not formatted.
+<span class="lineNum">     122 </span>                :            :      */
+<span class="lineNum">     123 </span>                :            :     void snap(const AQ&amp; queue);
+<span class="lineNum">     124 </span>                :            : 
+<span class="lineNum">     125 </span>                :            :     // The four stages of snapshot capture; these are called from snap() in
+<span class="lineNum">     126 </span>                :            :     // the order declared below.
+<span class="lineNum">     127 </span>                :            :     //
+<span class="lineNum">     128 </span>                :            :     // These have been made available for the purpose of unit testing and should
+<span class="lineNum">     129 </span>                :            :     // never be directly called by an application.  Always use 'snap()'.
+<span class="lineNum">     130 </span>                :            :     void snap1InitialHead(const AQ&amp; queue);
+<span class="lineNum">     131 </span>                :            :     void snap2InitialCtrlq(void);
+<span class="lineNum">     132 </span>                :            :     void snap3PageMemory(void);
+<span class="lineNum">     133 </span>                :            :     void snap4FinalHead(void);
+<span class="lineNum">     134 </span>                :            : 
+<span class="lineNum">     135 </span>                :            : private:
+<span class="lineNum">     136 </span>                :            : 
+<span class="lineNum">     137 </span>                :            :     // Resets this snapshot so that it contains no items.
+<span class="lineNum">     138 </span>                :            :     void reset(void);
+<span class="lineNum">     139 </span>                :            : 
+<span class="lineNum">     140 </span>                :            :     // Clones the data from the object 'other' into this object.  The memory 
+<span class="lineNum">     141 </span>                :            :     // for this object must already have been free'd.
+<span class="lineNum">     142 </span>                :            :     void clone(const AQSnapshot&amp; other);
+<span class="lineNum">     143 </span>                :            : 
+<span class="lineNum">     144 </span>                :            :     // The trace buffer for this snapshot.
+<span class="lineNum">     145 </span>                :            :     aq::TraceBuffer *m_trace;
+<span class="lineNum">     146 </span>                :            : 
+<span class="lineNum">     147 </span>                :            :     // The source control overlay that is being captured.
+<span class="lineNum">     148 </span>                :            :     aq::CtrlOverlay *m_srcCtrl;
+<span class="lineNum">     149 </span>                :            : 
+<span class="lineNum">     150 </span>                :            :     // The initial head value captured
+<span class="lineNum">     151 </span>                :            :     uint32_t m_initHeadRef;
+<span class="lineNum">     152 </span>                :            : 
+<span class="lineNum">     153 </span>                :            :     // The final head value captured
+<span class="lineNum">     154 </span>                :            :     uint32_t m_finalHeadRef;
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>                :            :     // The memory for this snapshot including the initial control queue.
+<span class="lineNum">     157 </span>                :            :     unsigned char *m_mem;
+<span class="lineNum">     158 </span>                :            : 
+<span class="lineNum">     159 </span>                :            :     // The memory size that has been allocated.
+<span class="lineNum">     160 </span>                :            :     size_t m_memSize;
+<span class="lineNum">     161 </span>                :            : 
+<span class="lineNum">     162 </span>                :            :     // The set of items decoded from the queue and made availableSize in this 
+<span class="lineNum">     163 </span>                :            :     // snapshot.
+<span class="lineNum">     164 </span>                :            :     AQItem *m_items;
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :            :     // The number of items actually found in m_items.
+<span class="lineNum">     167 </span>                :            :     size_t m_itemCount;
+<span class="lineNum">     168 </span>                :            : 
+<span class="lineNum">     169 </span>                :            : public:
+<a name="170"><span class="lineNum">     170 </span>                :            : </a>
+<a name="171"><span class="lineNum">     171 </span>                :            :     // The initial and final head references from the snapshot capture.</a>
+<span class="lineNum">     172 </span>                :<span class="lineCov">          5 :     uint32_t initHeadRef(void) const { return m_initHeadRef; }</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">          5 :     uint32_t finalHeadRef(void) const { return m_finalHeadRef; }</span>
+<span class="lineNum">     174 </span>                :            : 
+<span class="lineNum">     175 </span>                :            :     /**
+<span class="lineNum">     176 </span>                :            :      * Obtains the number of items in this snapshot.
+<span class="lineNum">     177 </span>                :            :      *
+<span class="lineNum">     178 </span>                :            :      * @returns The number of items captured in the snapshot.  If no snapshot
+<a name="179"><span class="lineNum">     179 </span>                :            :      * has been taken (that is snap() has not bee called) the 0 is returned.</a>
+<span class="lineNum">     180 </span>                :            :      */
+<span class="lineNum">     181 </span>                :<span class="lineCov">        535 :     size_t size(void) const { return m_itemCount; }</span>
+<span class="lineNum">     182 </span>                :            : 
+<span class="lineNum">     183 </span>                :            :     /**
+<span class="lineNum">     184 </span>                :            :      * Obtains a reference to one of the items in this snapshot.
+<span class="lineNum">     185 </span>                :            :      *
+<span class="lineNum">     186 </span>                :            :      * @param idx The index of the item to fetch.  This must be between 0 and 
+<span class="lineNum">     187 </span>                :            :      * (size() - 1) inclusive.  If the value is outside of this range than
+<span class="lineNum">     188 </span>                :            :      * the results are undefined.
+<a name="189"><span class="lineNum">     189 </span>                :            :      * @returns The item at the specified index.</a>
+<span class="lineNum">     190 </span>                :            :      */
+<span class="lineNum">     191 </span>                :<span class="lineCov">        288 :     const AQItem&amp; operator[](size_t idx) const { return m_items[idx]; }</span>
+<span class="lineNum">     192 </span>                :            : 
+<span class="lineNum">     193 </span>                :            : };
+<span class="lineNum">     194 </span>                :            : 
+<span class="lineNum">     195 </span>                :            : 
+<span class="lineNum">     196 </span>                :            : 
+<span class="lineNum">     197 </span>                :            : 
+<span class="lineNum">     198 </span>                :            : #endif
+<span class="lineNum">     199 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

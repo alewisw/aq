@@ -52,35 +52,6 @@ string TestAssert::m_emptyString;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-template<> TestAssert::Decomposer& TestAssert::Lhs<bool>::operator==(bool const& rhs)
-{
-    std::ostringstream ss;
-    ss << (m_lhs ? "true" : "false") << " == " << (rhs ? "true" : "false");
-    m_owner.m_str = ss.str();
-    m_owner.m_outcome = m_lhs == rhs;
-    return m_owner;
-}
-
-//------------------------------------------------------------------------------
-template<> TestAssert::Decomposer& TestAssert::Lhs<bool>::operator!=(bool const& rhs)
-{
-    std::ostringstream ss;
-    ss << (m_lhs ? "true" : "false") << " != " << (rhs ? "true" : "false");
-    m_owner.m_str = ss.str();
-    m_owner.m_outcome = m_lhs != rhs;
-    return m_owner;
-}
-
-//------------------------------------------------------------------------------
-template<> TestAssert::Lhs<bool> TestAssert::Decomposer::operator>=(bool const& operand)
-{
-    Lhs<bool> lhs(*this, operand);
-    m_outcome = operand;
-    m_str = operand ? "true" : "false";
-    return lhs;
-}
-
-//------------------------------------------------------------------------------
 TestAssert::TestAssert(const char *file, const char *func, int line, Type type, 
     const std::string& expr, const std::string& decomp)
     : m_file(file)

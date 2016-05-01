@@ -20,12 +20,12 @@ Path=gcc
 Type=GCC
 
 [Launch]
-Launch Configurations=Launch Configuration 4,Launch Configuration 0
+Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3
 
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=aq_unittest
+Name=New Compiled Binary Launcher
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
@@ -33,27 +33,45 @@ Arguments=
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=
-Executable=file:///home/nas/Share/aq/build/src/aq/unittest/aq_unittest
+Executable=file:///home/nas/Share/aq/
 External Terminal=konsole --noclose --workdir %workdir -e %exe
-Project Target=AQ,src,aq,perftest,aq_perftest
+Project Target=AQ,UnitTest,UnitTest
 Use External Terminal=false
 Working Directory=
-isExecutable=true
+isExecutable=false
 
-[Launch][Launch Configuration 4]
+[Launch][Launch Configuration 1]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=tst_unittest
+Name=StressTest
 Type=Native Application
 
-[Launch][Launch Configuration 4][Data]
-Arguments=
-Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
-Dependency Action=Nothing
-EnvironmentGroup=
-Executable=file:///home/nas/Share/aq/build/src/tst/unittest/tst_unittest
-External Terminal=konsole --noclose --workdir %workdir -e %exe
-Project Target=AQ,src,aq,perftest,aq_perftest
-Use External Terminal=false
-Working Directory=
-isExecutable=true
+[Launch][Launch Configuration 1][Data]
+Configured from ProjectItem=AQ,StressTest,StressTest
+Project Target=AQ,StressTest,StressTest
+Working Directory=file:///home/nas/Share/aq/_Build/StressTest/
+isExecutable=false
+
+[Launch][Launch Configuration 2]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=PerfTest
+Type=Native Application
+
+[Launch][Launch Configuration 2][Data]
+Configured from ProjectItem=AQ,PerfTest,PerfTest
+Project Target=AQ,PerfTest,PerfTest
+Working Directory=file:///home/nas/Share/aq/_Build/PerfTest/
+isExecutable=false
+
+[Launch][Launch Configuration 3]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=UnitTest
+Type=Native Application
+
+[Launch][Launch Configuration 3][Data]
+Configured from ProjectItem=AQ,UnitTest,UnitTest
+Project Target=AQ,UnitTest,UnitTest
+Working Directory=file:///home/nas/Share/aq/_Build/UnitTest/
+isExecutable=false

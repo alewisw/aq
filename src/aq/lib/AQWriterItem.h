@@ -256,39 +256,39 @@ public:
     }
 
     /**
-    * Writes data into this item at a selected position.  If the write succeeds 
-    * then the write position as used by write(const void *, size_t, InsufficientSpaceAction) is set to 
-    * the maximum of its current value and off + memSize.  If the write fails
-    * (an exception is thrown or more items could not be allocated) no changes
-    * are made to this item.
-    *
-    * @param off The offset from this item where the write is to be performed.
-    * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
-    * of this item in which case it finds the item that contains that offset
-    * and starts the write there.
-    * @param mem The buffer that contains the memory to write into this item.
-    * @param memSize The number of bytes to write into this item.
-    * @param insufficientSpaceAction The action to take when the item cannot store
-    * the entire buffer (`memSize` bytes).
-    * @returns The actual number of bytes written into the buffer.  The possible
-    * return values depend on the value of the `insufficientSpaceAction` parameter:
-    *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
-    *    or `memSize` is returned.  When 0 is returned no data was written,
-    *    when `memSize` is returned the entire buffer was written.
-    *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
-    *    value is between 0 and `memSize` inclusive and is the actual number of bytes
-    *    written from the buffer.
-    * @throws std::domain_error If this item was not populated by a successful
-    * call to AQWriter::claim() or if it has been committed with a call to
-    * AQWriter::commit().
-    * @throws std::invalid_argument If the mem argument was NULL and memSize was
-    * any value other than 0.
-    * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
-    * option set and the offest is at the end, or beyond the end, of the item.
-    * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
-    * option set and there is not enough space left in the queue to store the
-    * requested number of bytes at the given offset.
-    */
+     * Writes data into this item at a selected position.  If the write succeeds 
+     * then the write position as used by write(const void *, size_t, InsufficientSpaceAction) is set to 
+     * the maximum of its current value and off + memSize.  If the write fails
+     * (an exception is thrown or more items could not be allocated) no changes
+     * are made to this item.
+     *
+     * @param off The offset from this item where the write is to be performed.
+     * For AQ::OPTION_EXTENDABLE items this offset may be larger than the size()
+     * of this item in which case it finds the item that contains that offset
+     * and starts the write there.
+     * @param mem The buffer that contains the memory to write into this item.
+     * @param memSize The number of bytes to write into this item.
+     * @param insufficientSpaceAction The action to take when the item cannot store
+     * the entire buffer (`memSize` bytes).
+     * @returns The actual number of bytes written into the buffer.  The possible
+     * return values depend on the value of the `insufficientSpaceAction` parameter:
+     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
+     *    or `memSize` is returned.  When 0 is returned no data was written,
+     *    when `memSize` is returned the entire buffer was written.
+     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
+     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
+     *    written from the buffer.
+     * @throws std::domain_error If this item was not populated by a successful
+     * call to AQWriter::claim() or if it has been committed with a call to
+     * AQWriter::commit().
+     * @throws std::invalid_argument If the mem argument was NULL and memSize was
+     * any value other than 0.
+     * @throws std::out_of_range If the queue does not have the AQ::OPTION_EXTENDABLE
+     * option set and the offest is at the end, or beyond the end, of the item.
+     * @throws std::length_error If the queue does not have the AQ::OPTION_EXTENDABLE
+     * option set and there is not enough space left in the queue to store the
+     * requested number of bytes at the given offset.
+     */
     size_t write(size_t off, const void *mem, size_t memSize,
         InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE);
 

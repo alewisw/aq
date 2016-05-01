@@ -61,13 +61,13 @@ do                                                                              
 do                                                                              \
 {                                                                               \
     TestExecution::incrementAssertionCounter();                                 \
-    if (!(__expr))                                                              \
+    TestAssert::Decomposer __decomposer;                                        \
+    __decomposer >= __expr;                                                     \
+    if (!__decomposer.outcome())                                                \
     {                                                                           \
         std::string exp;                                                        \
         try                                                                     \
         {                                                                       \
-            TestAssert::Decomposer __decomposer;                                \
-            __decomposer >= __expr;                                             \
             exp = __decomposer.str();                                           \
         }                                                                       \
         catch (...)                                                             \
@@ -129,15 +129,14 @@ public:
     public:
         // Constructs a new LHS object owned by 'owner' with the given initial
         // LHS value.
-        Lhs(Decomposer& owner, T const &lhs) : m_owner(owner)
+        Lhs(Decomposer& owner, T const &lhs) : m_owner(owner), m_lhs(lhs)
         {
             m_ss << lhs;
         }
 
         // Constructs a new LHS object owned by 'owner' with the given initial
         // LHS value.
-        Lhs(const Lhs<T>& other) 
-            : m_owner(other.m_owner)
+        Lhs(const Lhs<T>& other) : m_owner(other.m_owner), m_lhs(other.m_lhs)
         {
             m_ss << other.m_ss.str();
         }
@@ -145,6 +144,9 @@ public:
     private:
         // Holds the owner of this LHS.
         Decomposer& m_owner;
+
+        // The LHS of the equation.
+        T const &m_lhs;
 
         // Holds the decomposed string.
         std::ostringstream m_ss;
@@ -155,6 +157,7 @@ public:
         {
             m_ss << " == " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs == rhs;
             return m_owner;
         }
 
@@ -163,6 +166,7 @@ public:
         {
             m_ss << " != " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs != rhs;
             return m_owner;
         }
 
@@ -171,6 +175,7 @@ public:
         {
             m_ss << " < " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs < rhs;
             return m_owner;
         }
 
@@ -179,6 +184,7 @@ public:
         {
             m_ss << " > " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs > rhs;
             return m_owner;
         }
 
@@ -187,6 +193,7 @@ public:
         {
             m_ss << " <= " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs <= rhs;
             return m_owner;
         }
 
@@ -195,6 +202,7 @@ public:
         {
             m_ss << " >= " << rhs;
             m_owner.store(m_ss);
+            m_owner.m_outcome = m_lhs >= rhs;
             return m_owner;
         }
 
@@ -203,6 +211,11 @@ public:
     // Used to decompose an expression LHS and RHS.
     class Decomposer
     {
+    public:
+
+        // Constructs a new decomposer with a default outcome of false.
+        Decomposer(void) : m_outcome(false) { }
+
     public:
 
         // Stores the outcome of the decomposition, called by the LHS object.
@@ -218,15 +231,24 @@ public:
 
     public:
 
+        // The outcome recorded for this assertion.
+        bool m_outcome;
+
         // Operator used to trigger the decomposition operation.
         template<typename T> Lhs<T> operator>=(T const& operand)
         {
             Lhs<T> lhs(*this, operand);
+            std::ostringstream ss;
+            ss << operand;
+            m_outcome = ss.str() != "0";
             return lhs;
         }
 
         // Returns the decomposed string.
         const std::string &str(void) const { return m_str; }
+
+        // Returns the outcome of the comparison operation.
+        bool outcome(void) const { return m_outcome; }
 
     };
 

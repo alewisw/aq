@@ -51,21 +51,27 @@ TEST(give_X50Y20_when_DecomposeXOpY_then_StringValid)
     TestAssert::Decomposer d;
 
     d >= x > y;
+    REQUIRE(d.outcome());
     REQUIRE(d.str() == "50 > 20");
 
     d >= x < y;
+    REQUIRE(!d.outcome());
     REQUIRE(d.str() == "50 < 20");
 
     d >= x >= y;
+    REQUIRE(d.outcome());
     REQUIRE(d.str() == "50 >= 20");
 
     d >= x <= y;
+    REQUIRE(!d.outcome());
     REQUIRE(d.str() == "50 <= 20");
 
     d >= x == y;
+    REQUIRE(!d.outcome());
     REQUIRE(d.str() == "50 == 20");
 
     d >= x != y;
+    REQUIRE(d.outcome());
     REQUIRE(d.str() == "50 != 20");
 }
 
@@ -78,6 +84,7 @@ TEST(give_X50Y20_when_DecomposeBracketedXOpY_then_StringEmpty)
     TestAssert::Decomposer d;
 
     d >= (x > y);
+    REQUIRE(d.outcome());
     REQUIRE(d.str() == "");
 }
 
@@ -89,13 +96,37 @@ TEST(give_BoolTest_when_Decompose_then_StringEmpty)
     TestAssert::Decomposer d;
 
     d >= b;
+    REQUIRE(d.outcome());
     REQUIRE(d.str() == "");
 
     d >= !b;
+    REQUIRE(!d.outcome());
     REQUIRE(d.str() == "");
 }
 
+//------------------------------------------------------------------------------
+static int NonReentrantValue = 30;
+static int NonReentrantFunction()
+{
+    int x = NonReentrantValue;
+    NonReentrantValue += 1;
+    return x;
+}
+TEST(give_NonReentrantFunction_when_RequireOrCheck_then_FunctionCalledOnce)
+{
+    int y = 31;
 
+    NonReentrantValue = 30;
+
+    CHECK(NonReentrantFunction() < y);
+    REQUIRE(NonReentrantValue == 31);
+
+    REQUIRE(y == NonReentrantFunction());
+    REQUIRE(NonReentrantValue == 32);
+
+    CHECK(NonReentrantFunction() > y);
+    REQUIRE(NonReentrantValue == 33);
+}
 
 
 //=============================== End of File ==================================

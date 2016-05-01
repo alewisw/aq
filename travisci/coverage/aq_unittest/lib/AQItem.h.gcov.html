@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-01 05:40:29</td>
+            <td class="headerValue">2016-05-01 10:38:08</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">19</td>
@@ -147,7 +147,7 @@
 <span class="lineNum">      76 </span>                :            :     /**
 <a name="77"><span class="lineNum">      77 </span>                :            :      * Constructs a new item with no initial allocation.</a>
 <span class="lineNum">      78 </span>                :            :      */
-<span class="lineNum">      79 </span>                :<span class="lineCov">     326021 :     AQItem(void) </span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">     326213 :     AQItem(void) </span>
 <span class="lineNum">      80 </span>                :            :         : m_ctrl(0)
 <span class="lineNum">      81 </span>                :            :         , m_quid(QUEUE_IDENTIFIER_INVALID)
 <span class="lineNum">      82 </span>                :            :         , m_checksumValid(false)
@@ -156,9 +156,9 @@
 <span class="lineNum">      85 </span>                :            :         , m_first(this)
 <span class="lineNum">      86 </span>                :            :         , m_next(NULL)
 <span class="lineNum">      87 </span>                :            :         , m_prev(this)
-<span class="lineNum">      88 </span>                :<span class="lineCov">     326021 :         , m_lkid(QUEUE_IDENTIFIER_INVALID)</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">     326213 :         , m_lkid(QUEUE_IDENTIFIER_INVALID)</span>
 <span class="lineNum">      89 </span>                :            :     {
-<span class="lineNum">      90 </span>                :<span class="lineCov">     326021 :     }</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">     326213 :     }</span>
 <span class="lineNum">      91 </span>                :            : 
 <span class="lineNum">      92 </span>                :            :     /**
 <span class="lineNum">      93 </span>                :            :      * Constructs a new item so that it is an exact copy of another item.
@@ -204,10 +204,10 @@
 <span class="lineNum">     133 </span>                :            :      * is entirely up to the application to ensure that each item that must
 <a name="134"><span class="lineNum">     134 </span>                :            :      * be committed or released has the appropriate action taken.</a>
 <span class="lineNum">     135 </span>                :            :      */
-<span class="lineNum">     136 </span>                :<span class="lineCov">     327656 :     virtual ~AQItem(void)</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">     326852 :     {</span>
-<span class="lineNum">     138 </span>                :<span class="lineCov">     326852 :         clearList();</span>
-<span class="lineNum">     139 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 326852 times"> + </span>]:<span class="lineCov">     327656 :     }</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">     327848 :     virtual ~AQItem(void)</span>
+<span class="lineNum">     137 </span>                :<span class="lineCov">     327044 :     {</span>
+<span class="lineNum">     138 </span>                :<span class="lineCov">     327044 :         clearList();</span>
+<span class="lineNum">     139 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 327044 times"> + </span>]:<span class="lineCov">     327848 :     }</span>
 <span class="lineNum">     140 </span>                :            : 
 <span class="lineNum">     141 </span>                :            : protected:
 <span class="lineNum">     142 </span>                :            : 
@@ -255,7 +255,7 @@
 <span class="lineNum">     184 </span>                :            :     uint32_t m_lkid;
 <a name="185"><span class="lineNum">     185 </span>                :            : </a>
 <span class="lineNum">     186 </span>                :            :     // Obtains the pointer to the underlying memory.
-<span class="lineNum">     187 </span>                :<span class="lineCov">      87764 :     unsigned char *mem(void) const { return m_mem; }</span>
+<span class="lineNum">     187 </span>                :<span class="lineCov">      87860 :     unsigned char *mem(void) const { return m_mem; }</span>
 <a name="188"><span class="lineNum">     188 </span>                :            : </a>
 <span class="lineNum">     189 </span>                :            :     // Obtains the control word value for this item.
 <span class="lineNum">     190 </span>                :<span class="lineCov">     205872 :     uint32_t ctrl(void) const { return m_ctrl; }</span>
@@ -307,16 +307,16 @@
 <span class="lineNum">     236 </span>                :            :      * item is part of a linked list, but no the first item, it just clears 
 <a name="237"><span class="lineNum">     237 </span>                :            :      * the state of this item without impacting the list itself.</a>
 <span class="lineNum">     238 </span>                :            :      */
-<span class="lineNum">     239 </span>                :<span class="lineCov">     324366 :     void clear(void)</span>
+<span class="lineNum">     239 </span>                :<span class="lineCov">     324558 :     void clear(void)</span>
 <span class="lineNum">     240 </span>                :            :     {
-<span class="lineNum">     241 </span>                :<span class="lineCov">     324366 :         clearList();</span>
-<span class="lineNum">     242 </span>                :<span class="lineCov">     324366 :         m_mem = NULL;</span>
-<span class="lineNum">     243 </span>                :<span class="lineCov">     324366 :         m_memSize = 0;</span>
-<span class="lineNum">     244 </span>                :<span class="lineCov">     324366 :         m_ctrl = 0;</span>
-<span class="lineNum">     245 </span>                :<span class="lineCov">     324366 :         m_checksumValid = false;</span>
-<span class="lineNum">     246 </span>                :<span class="lineCov">     324366 :         m_quid = QUEUE_IDENTIFIER_INVALID;</span>
-<span class="lineNum">     247 </span>                :<span class="lineCov">     324366 :         m_lkid = QUEUE_IDENTIFIER_INVALID;</span>
-<span class="lineNum">     248 </span>                :<span class="lineCov">     324366 :     }</span>
+<span class="lineNum">     241 </span>                :<span class="lineCov">     324558 :         clearList();</span>
+<span class="lineNum">     242 </span>                :<span class="lineCov">     324558 :         m_mem = NULL;</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">     324558 :         m_memSize = 0;</span>
+<span class="lineNum">     244 </span>                :<span class="lineCov">     324558 :         m_ctrl = 0;</span>
+<span class="lineNum">     245 </span>                :<span class="lineCov">     324558 :         m_checksumValid = false;</span>
+<span class="lineNum">     246 </span>                :<span class="lineCov">     324558 :         m_quid = QUEUE_IDENTIFIER_INVALID;</span>
+<span class="lineNum">     247 </span>                :<span class="lineCov">     324558 :         m_lkid = QUEUE_IDENTIFIER_INVALID;</span>
+<span class="lineNum">     248 </span>                :<span class="lineCov">     324558 :     }</span>
 <span class="lineNum">     249 </span>                :            : 
 <span class="lineNum">     250 </span>                :            :     /**
 <span class="lineNum">     251 </span>                :            :      * Determins if this item has been allocated to part of a queue.  This only

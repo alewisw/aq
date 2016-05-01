@@ -31,27 +31,27 @@
             <td class="headerValue">AQ Unit Test Code Coverage</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">24</td>
             <td class="headerCovTableEntry">29</td>
-            <td class="headerCovTableEntryLo">17.2 %</td>
+            <td class="headerCovTableEntryMed">82.8 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-01 04:20:12</td>
+            <td class="headerValue">2016-05-01 04:53:38</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">3</td>
             <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntryLo">20.0 %</td>
+            <td class="headerCovTableEntryLo">60.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntry">18</td>
-            <td class="headerCovTableEntryLo">38.9 %</td>
+            <td class="headerCovTableEntryLo">66.7 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -164,35 +164,35 @@
 <span class="lineNum">      93 </span>                :            : //------------------------------------------------------------------------------
 <a name="94"><span class="lineNum">      94 </span>                :            : </a>
 <span class="lineNum">      95 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      96 </span>                :<span class="lineCov">          4 : int AQWriterItem::vprintf(size_t off, const char *fmt, va_list argp)</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">         37 : int AQWriterItem::vprintf(size_t off, const char *fmt, va_list argp)</span>
 <span class="lineNum">      97 </span>                :            : {
 <span class="lineNum">      98 </span>                :            :     // Validate arguments.
-<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">          4 :     if (!isAllocated())</span>
+<span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 35 times"> + </span>]:<span class="lineCov">         37 :     if (!isAllocated())</span>
 <span class="lineNum">     100 </span>                :            :     {
 <span class="lineNum">     101 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">          2 :         throw domain_error(&quot;Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.&quot;);</span>
 <span class="lineNum">     102 </span>                :            :     }
-<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     if (fmt == NULL)</span>
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>]:<span class="lineCov">         35 :     if (fmt == NULL)</span>
 <span class="lineNum">     104 </span>                :            :     {
 <span class="lineNum">     105 </span>[<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>][<span class="branchCov" title="Branch 5 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]:<span class="lineCov">          2 :         throw invalid_argument(&quot;Cannot printf with fmt set to NULL&quot;);</span>
 <span class="lineNum">     106 </span>                :            :     }
 <span class="lineNum">     107 </span>                :            :     
 <span class="lineNum">     108 </span>                :            :     Cookie_t cookie;
-<span class="lineNum">     109 </span>                :<span class="lineNoCov">          0 :     cookie.item = this;</span>
-<span class="lineNum">     110 </span>                :<span class="lineNoCov">          0 :     cookie.off = off;</span>
-<span class="lineNum">     111 </span>                :<span class="lineNoCov">          0 :     cookie.result = 0;</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">         33 :     cookie.item = this;</span>
+<span class="lineNum">     110 </span>                :<span class="lineCov">         33 :     cookie.off = off;</span>
+<span class="lineNum">     111 </span>                :<span class="lineCov">         33 :     cookie.result = 0;</span>
 <span class="lineNum">     112 </span>                :            :     
-<span class="lineNum">     113 </span>                :<span class="lineNoCov">          0 :     FILE *f = fopencookie(&amp;cookie, &quot;w&quot;, PrintfCookie);</span>
-<span class="lineNum">     114 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (f == NULL)</span>
+<span class="lineNum">     113 </span>                :<span class="lineCov">         33 :     FILE *f = fopencookie(&amp;cookie, &quot;w&quot;, PrintfCookie);</span>
+<span class="lineNum">     114 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>]:<span class="lineCov">         33 :     if (f == NULL)</span>
 <span class="lineNum">     115 </span>                :            :     {
 <span class="lineNum">     116 </span>                :            :         // Open has failed; just indicate that we wrote 0 bytes.
 <span class="lineNum">     117 </span>                :<span class="lineNoCov">          0 :         return ~0;</span>
 <span class="lineNum">     118 </span>                :            :     }
 <span class="lineNum">     119 </span>                :            :     
-<span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :     vfprintf(f, fmt, argp);</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">         33 :     vfprintf(f, fmt, argp);</span>
 <span class="lineNum">     121 </span>                :            :     
-<span class="lineNum">     122 </span>                :<span class="lineNoCov">          0 :     fclose(f);</span>
+<span class="lineNum">     122 </span>                :<span class="lineCov">         33 :     fclose(f);</span>
 <span class="lineNum">     123 </span>                :            :     
-<span class="lineNum">     124 </span>                :<span class="lineNoCov">          0 :     return cookie.result;</span>
+<span class="lineNum">     124 </span>                :<span class="lineCov">         33 :     return cookie.result;</span>
 <span class="lineNum">     125 </span>                :            : }
 <a name="126"><span class="lineNum">     126 </span>                :            : </a>
 <span class="lineNum">     127 </span>                :            : //------------------------------------------------------------------------------
@@ -202,22 +202,22 @@
 <span class="lineNum">     131 </span>                :            : }
 <a name="132"><span class="lineNum">     132 </span>                :            : </a>
 <span class="lineNum">     133 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     134 </span>                :<span class="lineNoCov">          0 : static ssize_t CookieWriter(void *cookie, const char *buffer, size_t size)</span>
+<span class="lineNum">     134 </span>                :<span class="lineCov">         32 : static ssize_t CookieWriter(void *cookie, const char *buffer, size_t size)</span>
 <span class="lineNum">     135 </span>                :            : {
-<span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 :     Cookie_t *c = (Cookie_t *)cookie;</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">         32 :     Cookie_t *c = (Cookie_t *)cookie;</span>
 <span class="lineNum">     137 </span>                :            :     
-<span class="lineNum">     138 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (c-&gt;result &gt;= 0)</span>
+<span class="lineNum">     138 </span>        [<span class="branchCov" title="Branch 0 was taken 32 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         32 :     if (c-&gt;result &gt;= 0)</span>
 <span class="lineNum">     139 </span>                :            :     {
-<span class="lineNum">     140 </span>                :<span class="lineNoCov">          0 :         size_t written = c-&gt;item-&gt;write(c-&gt;off, buffer, size, AQWriterItem::WRITE_PARTIAL);</span>
+<span class="lineNum">     140 </span>                :<span class="lineCov">         32 :         size_t written = c-&gt;item-&gt;write(c-&gt;off, buffer, size, AQWriterItem::WRITE_PARTIAL);</span>
 <span class="lineNum">     141 </span>                :            :         
-<span class="lineNum">     142 </span>                :<span class="lineNoCov">          0 :         c-&gt;off += written;</span>
-<span class="lineNum">     143 </span>                :<span class="lineNoCov">          0 :         c-&gt;result += written;</span>
-<span class="lineNum">     144 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if (written != size)</span>
+<span class="lineNum">     142 </span>                :<span class="lineCov">         32 :         c-&gt;off += written;</span>
+<span class="lineNum">     143 </span>                :<span class="lineCov">         32 :         c-&gt;result += written;</span>
+<span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 0 was taken 8 times"> + </span><span class="branchCov" title="Branch 1 was taken 24 times"> + </span>]:<span class="lineCov">         32 :         if (written != size)</span>
 <span class="lineNum">     145 </span>                :            :         {
-<span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :             c-&gt;result = ~c-&gt;result;</span>
+<span class="lineNum">     146 </span>                :<span class="lineCov">          8 :             c-&gt;result = ~c-&gt;result;</span>
 <span class="lineNum">     147 </span>                :            :         }
 <span class="lineNum">     148 </span>                :            :     }
-<span class="lineNum">     149 </span>                :<span class="lineNoCov">          0 :     return size;</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">         32 :     return size;</span>
 <span class="lineNum">     150 </span>                :            : }
 <a name="151"><span class="lineNum">     151 </span>                :            : </a>
 <span class="lineNum">     152 </span>                :            : //------------------------------------------------------------------------------
@@ -227,9 +227,9 @@
 <span class="lineNum">     156 </span>                :            : }
 <a name="157"><span class="lineNum">     157 </span>                :            : </a>
 <span class="lineNum">     158 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     159 </span>                :<span class="lineNoCov">          0 : static int CookieCleaner(void *cookie)</span>
+<span class="lineNum">     159 </span>                :<span class="lineCov">         33 : static int CookieCleaner(void *cookie)</span>
 <span class="lineNum">     160 </span>                :            : {
-<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     161 </span>                :<span class="lineCov">         33 :     return 0;</span>
 <span class="lineNum">     162 </span>                :            : }
 <span class="lineNum">     163 </span>                :            : 
 <span class="lineNum">     164 </span>                :            : 

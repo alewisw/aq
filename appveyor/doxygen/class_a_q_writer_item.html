@@ -84,6 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_a_q_writer_item-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -105,6 +106,9 @@ Inheritance diagram for AQWriterItem:</div>
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afdcdefe235f169332e99ea46160f4445"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#afdcdefe235f169332e99ea46160f4445">AQWriterItem</a> (void)</td></tr>
@@ -128,12 +132,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b1cf82c67ef0f1aa6a52786124d2d64"><td class="memItemLeft" align="right" valign="top">unsigned char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a4b1cf82c67ef0f1aa6a52786124d2d64">operator[]</a> (size_t idx)</td></tr>
 <tr class="memdesc:a4b1cf82c67ef0f1aa6a52786124d2d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains a reference to one of the bytes within this item.  <a href="#a4b1cf82c67ef0f1aa6a52786124d2d64">More...</a><br /></td></tr>
 <tr class="separator:a4b1cf82c67ef0f1aa6a52786124d2d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06d5dcc6535fbbc3f06bc2a56ed2ae18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18">write</a> (const void *mem, size_t memSize)</td></tr>
-<tr class="memdesc:a06d5dcc6535fbbc3f06bc2a56ed2ae18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data into this item at its current write position.  <a href="#a06d5dcc6535fbbc3f06bc2a56ed2ae18">More...</a><br /></td></tr>
-<tr class="separator:a06d5dcc6535fbbc3f06bc2a56ed2ae18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a108cb5fa1ed80fd8dab609581283010d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a108cb5fa1ed80fd8dab609581283010d">write</a> (size_t off, const void *mem, size_t memSize)</td></tr>
-<tr class="memdesc:a108cb5fa1ed80fd8dab609581283010d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data into this item at a selected position.  <a href="#a108cb5fa1ed80fd8dab609581283010d">More...</a><br /></td></tr>
-<tr class="separator:a108cb5fa1ed80fd8dab609581283010d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae61fd55e679bcc4e1cca54d43050eb49"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49">write</a> (const void *mem, size_t memSize, <a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270c">InsufficientSpaceAction</a> insufficientSpaceAction=<a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270ca4451fd34d77a815ab03beec5c69bc110">WRITE_NONE</a>)</td></tr>
+<tr class="memdesc:ae61fd55e679bcc4e1cca54d43050eb49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data into this item at its current write position.  <a href="#ae61fd55e679bcc4e1cca54d43050eb49">More...</a><br /></td></tr>
+<tr class="separator:ae61fd55e679bcc4e1cca54d43050eb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7cde73b83928c82856b848b1731ecfe"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#aa7cde73b83928c82856b848b1731ecfe">write</a> (size_t off, const void *mem, size_t memSize, <a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270c">InsufficientSpaceAction</a> insufficientSpaceAction=<a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270ca4451fd34d77a815ab03beec5c69bc110">WRITE_NONE</a>)</td></tr>
+<tr class="memdesc:aa7cde73b83928c82856b848b1731ecfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes data into this item at a selected position.  <a href="#aa7cde73b83928c82856b848b1731ecfe">More...</a><br /></td></tr>
+<tr class="separator:aa7cde73b83928c82856b848b1731ecfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a893ab519917df67ea80a3d30aec95635"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a893ab519917df67ea80a3d30aec95635">printf</a> (const char *fmt,...)</td></tr>
+<tr class="memdesc:a893ab519917df67ea80a3d30aec95635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted string into this item at its current write position.  <a href="#a893ab519917df67ea80a3d30aec95635">More...</a><br /></td></tr>
+<tr class="separator:a893ab519917df67ea80a3d30aec95635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b40b615a8109b07239becfa33040ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#ad1b40b615a8109b07239becfa33040ff">vprintf</a> (const char *fmt, va_list argp)</td></tr>
+<tr class="memdesc:ad1b40b615a8109b07239becfa33040ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted string into this item at its current write position.  <a href="#ad1b40b615a8109b07239becfa33040ff">More...</a><br /></td></tr>
+<tr class="separator:ad1b40b615a8109b07239becfa33040ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c9d2075bc9a13d6a19fe7d81a06042f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a0c9d2075bc9a13d6a19fe7d81a06042f">printf</a> (size_t off, const char *fmt,...)</td></tr>
+<tr class="memdesc:a0c9d2075bc9a13d6a19fe7d81a06042f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted string into this item at a selected position.  <a href="#a0c9d2075bc9a13d6a19fe7d81a06042f">More...</a><br /></td></tr>
+<tr class="separator:a0c9d2075bc9a13d6a19fe7d81a06042f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0af3b0f7f13a40da14ea9cf10adb25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a0e0af3b0f7f13a40da14ea9cf10adb25">vprintf</a> (size_t off, const char *fmt, va_list argp)</td></tr>
+<tr class="memdesc:a0e0af3b0f7f13a40da14ea9cf10adb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted string into this item at a selected position.  <a href="#a0e0af3b0f7f13a40da14ea9cf10adb25">More...</a><br /></td></tr>
+<tr class="separator:a0e0af3b0f7f13a40da14ea9cf10adb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8efccaf791f519033681a23cbce1ed0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_writer_item.html">AQWriterItem</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer_item.html#a8efccaf791f519033681a23cbce1ed0a">first</a> (void)</td></tr>
 <tr class="memdesc:a8efccaf791f519033681a23cbce1ed0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains a pointer to the first item in the linked list of items.  <a href="#a8efccaf791f519033681a23cbce1ed0a">More...</a><br /></td></tr>
 <tr class="separator:a8efccaf791f519033681a23cbce1ed0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,8 +248,32 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. </p>
-<p>The <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> can be either accessed directly and written with, e.g., memcpy() or alternatly it can be written to using the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> or similar functions. When the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option has been set the <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> functions are the main mechanism for extending the length of the item by appending new items to the end of the linked list. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p>The <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> can be either accessed directly and written with, e.g., memcpy() or alternatly it can be written to using the <a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49" title="Writes data into this item at its current write position. ">write(const void *, size_t, InsufficientSpaceAction)</a> or similar functions. When the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option has been set the <a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49" title="Writes data into this item at its current write position. ">write(const void *, size_t, InsufficientSpaceAction)</a> functions are the main mechanism for extending the length of the item by appending new items to the end of the linked list. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a class="anchor" id="a7bbcd0ae136379aaac816db02d51270c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270c">AQWriterItem::InsufficientSpaceAction</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the possible actions to be taken when writing to a queue with insufficient space to contain the entire buffer. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a7bbcd0ae136379aaac816db02d51270ca4451fd34d77a815ab03beec5c69bc110"></a>WRITE_NONE&#160;</td><td class="fielddoc">
+<p>When there is not enough space available to contain the entire buffer, and the item cannot be extended to make the space available, don't write anything into the item. </p>
+<p>The item remains unchanged. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a7bbcd0ae136379aaac816db02d51270cacfd43b19abf489062be468612931de7c"></a>WRITE_PARTIAL&#160;</td><td class="fielddoc">
+<p>Write as much as possible into the item, effectivly truncating the buffer. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afdcdefe235f169332e99ea46160f4445"></a>
 <div class="memitem">
 <div class="memproto">
@@ -649,6 +689,127 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a893ab519917df67ea80a3d30aec95635"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AQWriterItem::printf </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints a formatted string into this item at its current write position. </p>
+<p>The write position is incremented by the number of bytes actually written. If there is not enough space in the item then the print is truncated to the available space.</p>
+<p>The string written into the item is not nul-terminated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The printf-style formatting string. </td></tr>
+    <tr><td class="paramname">...</td><td>The printf-style formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>There are two possibilities:<ul>
+<li>The return value is non-negative (&gt;= 0). In this case the string was fully written into the item and the total number of bytes consumed is returned.</li>
+<li>The return value is negative (&lt; 0). In this case it was not possible to fully write the string into the item, nor was it possible to allocate further items to the list if the queue is in <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> mode. Only part of the string has been written. The length of the partially written string can be obtained by applying the binary 1's-complement operator (~) to the returned value. </li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the fmt argument was NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0c9d2075bc9a13d6a19fe7d81a06042f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AQWriterItem::printf </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>off</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints a formatted string into this item at a selected position. </p>
+<p>If the write succeeds then the write position as used by <a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49" title="Writes data into this item at its current write position. ">write(const void *, size_t, InsufficientSpaceAction)</a> is set to the maximum of its current value and off + memSize. If there is not enough space in the item then the print is truncated to the available space.</p>
+<p>The string written into the item is not nul-terminated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">off</td><td>The offset from this item where the write is to be performed. For <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> items this offset may be larger than the <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">size()</a> of this item in which case it finds the item that contains that offset and starts the write there. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The printf-style formatting string. </td></tr>
+    <tr><td class="paramname">...</td><td>The printf-style formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>There are two possibilities:<ul>
+<li>The return value is non-negative (&gt;= 0). In this case the string was fully written into the item and the total number of bytes consumed is returned.</li>
+<li>The return value is negative (&lt; 0). In this case it was not possible to fully write the string into the item, nor was it possible to allocate further items to the list if the queue is in <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> mode. Only part of the string has been written. The length of the partially written string can be obtained by applying the binary 1's-complement operator (~) to the returned value. </li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the fmt argument was NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a52f19448fb3ca5fd9e1afbeb7d60027a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -682,21 +843,84 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a06d5dcc6535fbbc3f06bc2a56ed2ae18"></a>
+<a class="anchor" id="ad1b40b615a8109b07239becfa33040ff"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool AQWriterItem::write </td>
+          <td class="memname">int AQWriterItem::vprintf </td>
           <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>argp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints a formatted string into this item at its current write position. </p>
+<p>The write position is incremented by the number of bytes actually written. If there is not enough space in the item then the print is truncated to the available space.</p>
+<p>The string written into the item is not nul-terminated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The printf-style formatting string. </td></tr>
+    <tr><td class="paramname">argp</td><td>The printf-style formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>There are two possibilities:<ul>
+<li>The return value is non-negative (&gt;= 0). In this case the string was fully written into the item and the total number of bytes consumed is returned.</li>
+<li>The return value is negative (&lt; 0). In this case it was not possible to fully write the string into the item, nor was it possible to allocate further items to the list if the queue is in <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> mode. Only part of the string has been written. The length of the partially written string can be obtained by applying the binary 1's-complement operator (~) to the returned value. </li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the fmt argument was NULL. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e0af3b0f7f13a40da14ea9cf10adb25"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AQWriterItem::vprintf </td>
+          <td>(</td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>memSize</em>&#160;</td>
+          <td class="paramname"><em>off</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>argp</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -706,37 +930,103 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Writes data into this item at its current write position. </p>
-<p>The write position differs depending on whether <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been configured:</p><ul>
-<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set then the item internaly tracks the highest index where no write operation has been performed. The write occurs at that index.</li>
-<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then the write occurs at the very end of the item, essentially appending and possibly extending the size of the item by adding to the linked list. If the write succeeds then the write position is incremented by the number of bytes written. If this fail (an exception is thrown or more items could not be allocated) no changes are made to this item.</li>
-</ul>
+<p>Prints a formatted string into this item at a selected position. </p>
+<p>If the write succeeds then the write position as used by <a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49" title="Writes data into this item at its current write position. ">write(const void *, size_t, InsufficientSpaceAction)</a> is set to the maximum of its current value and off + memSize. If there is not enough space in the item then the print is truncated to the available space.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mem</td><td>The buffer that contains the memory to write into this item. </td></tr>
-    <tr><td class="paramname">memSize</td><td>The number of bytes to write into this item. </td></tr>
+    <tr><td class="paramname">off</td><td>The offset from this item where the write is to be performed. For <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> items this offset may be larger than the <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">size()</a> of this item in which case it finds the item that contains that offset and starts the write there. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The printf-style formatting string. </td></tr>
+    <tr><td class="paramname">argp</td><td>The printf-style formatting arguments. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the write succeeded or false if the write failed because it was not possible to allocate another <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> via <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>There are two possibilities:<ul>
+<li>The return value is non-negative (&gt;= 0). In this case the string was fully written into the item and the total number of bytes consumed is returned.</li>
+<li>The return value is negative (&lt; 0). In this case it was not possible to fully write the string into the item, nor was it possible to allocate further items to the list if the queue is in <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> mode. Only part of the string has been written. The length of the partially written string can be obtained by applying the binary 1's-complement operator (~) to the returned value. </li>
+</ul>
+</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
-    <tr><td class="paramname">std::invalid_argument</td><td>If the mem argument was NULL and memSize was any value other than 0. </td></tr>
-    <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the current position is at the end of the item. </td></tr>
-    <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes. </td></tr>
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the fmt argument was NULL. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="a108cb5fa1ed80fd8dab609581283010d"></a>
+<a class="anchor" id="ae61fd55e679bcc4e1cca54d43050eb49"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AQWriterItem::write </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>memSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270c">InsufficientSpaceAction</a>&#160;</td>
+          <td class="paramname"><em>insufficientSpaceAction</em> = <code><a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270ca4451fd34d77a815ab03beec5c69bc110">WRITE_NONE</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes data into this item at its current write position. </p>
+<p>The write position differs depending on whether <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> has been configured:</p><ul>
+<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set then the item internaly tracks the highest index where no write operation has been performed. The write occurs at that index.</li>
+<li>When <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then the write occurs at the very end of the item, essentially appending and possibly extending the size of the item by adding to the linked list. If the write succeeds then the write position is incremented by the number of bytes written. If this fails (an exception is thrown or more items could not be allocated) no changes are made to this item.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mem</td><td>The buffer that contains the memory to write into this item. </td></tr>
+    <tr><td class="paramname">memSize</td><td>The number of bytes to write into this item. </td></tr>
+    <tr><td class="paramname">insufficientSpaceAction</td><td>The action to take when the item cannot store the entire buffer (<code>memSize</code> bytes). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The actual number of bytes written into the buffer. The possible return values depend on the value of the <code>insufficientSpaceAction</code> parameter:<ul>
+<li>When <code>insufficientSpaceAction</code> is InsufficientSpaceAction::WRITE_NONE then either 0 or <code>memSize</code> is returned. When 0 is returned no data was written, when <code>memSize</code> is returned the entire buffer was written.</li>
+<li>When <code>insufficientSpaceAction</code> is InsufficientSpaceAction::WRITE_PARTIAL the return value is between 0 and <code>memSize</code> inclusive and is the actual number of bytes written from the buffer. </li>
+</ul>
+</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the mem argument was NULL and memSize was any value other than 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa7cde73b83928c82856b848b1731ecfe"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool AQWriterItem::write </td>
+          <td class="memname">size_t AQWriterItem::write </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>off</em>, </td>
@@ -751,7 +1041,13 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>memSize</em>&#160;</td>
+          <td class="paramname"><em>memSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270c">InsufficientSpaceAction</a>&#160;</td>
+          <td class="paramname"><em>insufficientSpaceAction</em> = <code><a class="el" href="class_a_q_writer_item.html#a7bbcd0ae136379aaac816db02d51270ca4451fd34d77a815ab03beec5c69bc110">WRITE_NONE</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -762,19 +1058,24 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Writes data into this item at a selected position. </p>
-<p>If the write succeeds then the write position as used by <a class="el" href="class_a_q_writer_item.html#a06d5dcc6535fbbc3f06bc2a56ed2ae18" title="Writes data into this item at its current write position. ">write(const void *, size_t)</a> is set to the maximum of its current value and off + memSize. If the write fails (an exception is thrown or more items could not be allocated) no changes are made to this item.</p>
+<p>If the write succeeds then the write position as used by <a class="el" href="class_a_q_writer_item.html#ae61fd55e679bcc4e1cca54d43050eb49" title="Writes data into this item at its current write position. ">write(const void *, size_t, InsufficientSpaceAction)</a> is set to the maximum of its current value and off + memSize. If the write fails (an exception is thrown or more items could not be allocated) no changes are made to this item.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">off</td><td>The offset from this item where the write is to be performed. For <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> items this offset may be larger than the <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">size()</a> of this item in which case it finds the item that contains that offset and starts the write there. </td></tr>
     <tr><td class="paramname">mem</td><td>The buffer that contains the memory to write into this item. </td></tr>
     <tr><td class="paramname">memSize</td><td>The number of bytes to write into this item. </td></tr>
+    <tr><td class="paramname">insufficientSpaceAction</td><td>The action to take when the item cannot store the entire buffer (<code>memSize</code> bytes). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the write succeeded or false if the write failed because it was not possible to allocate another <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> via <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The actual number of bytes written into the buffer. The possible return values depend on the value of the <code>insufficientSpaceAction</code> parameter:<ul>
+<li>When <code>insufficientSpaceAction</code> is InsufficientSpaceAction::WRITE_NONE then either 0 or <code>memSize</code> is returned. When 0 is returned no data was written, when <code>memSize</code> is returned the entire buffer was written.</li>
+<li>When <code>insufficientSpaceAction</code> is InsufficientSpaceAction::WRITE_PARTIAL the return value is between 0 and <code>memSize</code> inclusive and is the actual number of bytes written from the buffer. </li>
+</ul>
+</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
+    <tr><td class="paramname">std::domain_error</td><td>If this item was not populated by a successful call to <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> or if it has been committed with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </td></tr>
     <tr><td class="paramname">std::invalid_argument</td><td>If the mem argument was NULL and memSize was any value other than 0. </td></tr>
     <tr><td class="paramname">std::out_of_range</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and the offest is at the end, or beyond the end, of the item. </td></tr>
     <tr><td class="paramname">std::length_error</td><td>If the queue does not have the <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> option set and there is not enough space left in the queue to store the requested number of bytes at the given offset. </td></tr>
@@ -791,7 +1092,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 29 2016 14:06:16 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun May 1 2016 03:49:52 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

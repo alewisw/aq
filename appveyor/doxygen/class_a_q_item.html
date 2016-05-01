@@ -415,7 +415,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Determines if this item was committed to the queue with a call to <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>. </p>
 <p>There are a number of situations to consider when inspecting this value:</p><ul>
-<li>For items claimed by calling <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> this always returns false.</li>
+<li>For items claimed by calling <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> this always returns false.</li>
 <li>When an item is retrieved from <a class="el" href="class_a_q_reader.html#a6746d86b29c04ff19032106323cdef6f" title="Obtains the next item from the queue. ">AQReader::retrieve()</a> this indicates whether the item was actually successfully committed. Items might not have been commited if, for example, the process that claimed the item was terminated before it was able to call <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a>.</li>
 <li>When an item is retrieved from <a class="el" href="class_a_q_snapshot.html#ad2b0f8616beab3e8fd012031a712bd0a" title="Obtains a reference to one of the items in this snapshot. ">AQSnapshot::operator[]</a> this indicates whether the item was committed at the time the snapshot taken.</li>
 </ul>
@@ -784,7 +784,7 @@ Static Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 29 2016 14:06:16 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun May 1 2016 03:49:51 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

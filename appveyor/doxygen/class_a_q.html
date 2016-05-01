@@ -122,10 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0ee7e5627bf61ece4b47712d363aaeb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of pages in the queue.  <a href="#a0ee7e5627bf61ece4b47712d363aaeb9">More...</a><br /></td></tr>
 <tr class="separator:a0ee7e5627bf61ece4b47712d363aaeb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a526b75b1f633fc6f96b6591ff47ef515"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a526b75b1f633fc6f96b6591ff47ef515">availableSize</a> (void) const </td></tr>
-<tr class="memdesc:a526b75b1f633fc6f96b6591ff47ef515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request.  <a href="#a526b75b1f633fc6f96b6591ff47ef515">More...</a><br /></td></tr>
+<tr class="memdesc:a526b75b1f633fc6f96b6591ff47ef515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request.  <a href="#a526b75b1f633fc6f96b6591ff47ef515">More...</a><br /></td></tr>
 <tr class="separator:a526b75b1f633fc6f96b6591ff47ef515"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83b0ae9501fdbc209a26868ff4c64ac3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a83b0ae9501fdbc209a26868ff4c64ac3">claimContentionCount</a> (void) const </td></tr>
-<tr class="memdesc:a83b0ae9501fdbc209a26868ff4c64ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls.  <a href="#a83b0ae9501fdbc209a26868ff4c64ac3">More...</a><br /></td></tr>
+<tr class="memdesc:a83b0ae9501fdbc209a26868ff4c64ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls.  <a href="#a83b0ae9501fdbc209a26868ff4c64ac3">More...</a><br /></td></tr>
 <tr class="separator:a83b0ae9501fdbc209a26868ff4c64ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
@@ -158,7 +158,7 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request. </p>
+<p>Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request. </p>
 <p>This may be less than the actual amount of space available in the queue because this returns the maximum contiguous allocation. If the queue has been split (i.e, there are two unused sections) it will be the size of the largest of the two sections.</p>
 <dl class="section return"><dt>Returns</dt><dd>The maximum number of contiguous bytes that can be allocated from the queue at the current time. </dd></dl>
 
@@ -178,8 +178,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls. </p>
-<p>Contention occurs when two threads call <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> at the same time resulting in only one thread succeeding and the second thread needing to perform a retry. Contention can be seen as wasted time - so the higher the contention the more wasted CPU cycles are occuring when claiming items from the queue.</p>
+<p>Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls. </p>
+<p>Contention occurs when two threads call <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> at the same time resulting in only one thread succeeding and the second thread needing to perform a retry. Contention can be seen as wasted time - so the higher the contention the more wasted CPU cycles are occuring when claiming items from the queue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The monotonically increasing contention counter. When the counter reaches its limit (4,294,967,295) it wraps back to 0. </dd></dl>
 
 </div>
@@ -305,7 +305,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>When formatting a queue set this flag to allow items to be extended in a linked list. </p>
-<p>This is generally only suitable when the full length of the item cannot be known when <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> is called. When this option is enable the <a class="el" href="class_a_q_item.html#a8e2e1414d09863cf3b733119a068dbb8" title="Obtains the link identifier for this item. ">AQItem::linkIdentifier()</a> is used to track the linked-list of items. As such the application can no longer use <a class="el" href="class_a_q_writer_item.html#a52f19448fb3ca5fd9e1afbeb7d60027a" title="Sets the link identifier for this item. ">AQWriterItem::setLinkIdentifier()</a> as any value set there will be overridden when the item is committed to the queue. </p>
+<p>This is generally only suitable when the full length of the item cannot be known when <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> is called. When this option is enable the <a class="el" href="class_a_q_item.html#a8e2e1414d09863cf3b733119a068dbb8" title="Obtains the link identifier for this item. ">AQItem::linkIdentifier()</a> is used to track the linked-list of items. As such the application can no longer use <a class="el" href="class_a_q_writer_item.html#a52f19448fb3ca5fd9e1afbeb7d60027a" title="Sets the link identifier for this item. ">AQWriterItem::setLinkIdentifier()</a> as any value set there will be overridden when the item is committed to the queue. </p>
 
 </div>
 </div>
@@ -339,7 +339,7 @@ Static Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Apr 29 2016 14:06:16 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun May 1 2016 03:49:51 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

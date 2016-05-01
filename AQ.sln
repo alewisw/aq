@@ -24,6 +24,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst", "src\tst\lib\tst.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_unittest", "src\tst\unittest\tst_unittest.vcxproj", "{771D62B3-B4C9-4C57-AD3D-CFD88FE15F5B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aqlog", "src\aqlog\lib\aqlog.vcxproj", "{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aqlog_unittest", "src\aqlog\unittest\aqlog_unittest.vcxproj", "{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +71,18 @@ Global
 		{771D62B3-B4C9-4C57-AD3D-CFD88FE15F5B}.Performance|x86.Build.0 = Performance|Win32
 		{771D62B3-B4C9-4C57-AD3D-CFD88FE15F5B}.Release|x86.ActiveCfg = Release|Win32
 		{771D62B3-B4C9-4C57-AD3D-CFD88FE15F5B}.Release|x86.Build.0 = Release|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Debug|x86.ActiveCfg = Debug|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Debug|x86.Build.0 = Debug|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Performance|x86.ActiveCfg = Performance|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Performance|x86.Build.0 = Performance|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Release|x86.ActiveCfg = Release|Win32
+		{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}.Release|x86.Build.0 = Release|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Debug|x86.ActiveCfg = Debug|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Debug|x86.Build.0 = Debug|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Performance|x86.ActiveCfg = Performance|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Performance|x86.Build.0 = Performance|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Release|x86.ActiveCfg = Release|Win32
+		{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

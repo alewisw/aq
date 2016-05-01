@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 		Documentation\TODO.md = Documentation\TODO.md
 		Documentation\USAGE.md = Documentation\USAGE.md
-		USAGE_EXAMPLES.md = USAGE_EXAMPLES.md
+		Documentation\USAGE_EXAMPLES.md = Documentation\USAGE_EXAMPLES.md
 		AQ\_Build\Documentation\Warnings.txt = AQ\_Build\Documentation\Warnings.txt
 	EndProjectSection
 EndProject

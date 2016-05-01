@@ -22,7 +22,6 @@
     <ClCompile Include="AQSnapshot.cpp" />
     <ClCompile Include="AQUnformattedException.cpp" />
     <ClCompile Include="AQWriterItem.cpp" />
-    <ClCompile Include="AQWriterItem_vprintf.cpp" />
     <ClCompile Include="internal\Crc32.cpp" />
     <ClCompile Include="internal\CtrlOverlay.cpp" />
     <ClCompile Include="internal\LinkedItemProcessor.cpp" />
@@ -30,6 +29,7 @@
     <ClCompile Include="internal\Timer.cpp" />
     <ClCompile Include="internal\TraceBuffer.cpp" />
     <ClCompile Include="internal\TraceManager.cpp" />
+    <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQItem.h" />

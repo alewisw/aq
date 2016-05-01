@@ -29,7 +29,7 @@
       <Filter>Internal</Filter>
     </ClCompile>
     <ClCompile Include="AQWriterItem.cpp" />
-    <ClCompile Include="AQWriterItem_vprintf.cpp">
+    <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp">
       <Filter>Internal\Windows</Filter>
     </ClCompile>
   </ItemGroup>

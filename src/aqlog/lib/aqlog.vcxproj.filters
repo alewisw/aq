@@ -1,18 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="internal\LLHash.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
+    <Filter Include="internal">
+      <UniqueIdentifier>{90085c89-6e8d-4e44-a495-c6fab672878e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="internal\LLHash.h">
+    <ClInclude Include="internal\LogLevelHash.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="AQLog.h" />
+    <ClInclude Include="AQLogHandler.h" />
+    <ClInclude Include="AQLogFilter.h" />
+    <ClInclude Include="AQLogRecord.h" />
+    <ClInclude Include="internal\HashFunction.h">
       <Filter>internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="internal">
-      <UniqueIdentifier>{90085c89-6e8d-4e44-a495-c6fab672878e}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AQLogHandler.cpp" />
+    <ClCompile Include="AQLogFilter.cpp" />
+    <ClCompile Include="AQLogRecord.cpp" />
+    <ClCompile Include="internal\LogLevelHash.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\HashFunction.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AQLog.cpp" />
   </ItemGroup>
 </Project>

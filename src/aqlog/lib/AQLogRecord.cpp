@@ -9,9 +9,9 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "Main.h"
+#include "AQLogRecord.h"
 
-#include "AQLog.h"
+using namespace std;
 
 
 
@@ -41,7 +41,6 @@
 // Variable Declarations
 //------------------------------------------------------------------------------
 
-uint32_t LogLevelHashTable_g[AQLOG_HASH_TABLE_WORDS];
 
 
 
@@ -50,15 +49,47 @@ uint32_t LogLevelHashTable_g[AQLOG_HASH_TABLE_WORDS];
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-int main(int argc, char* argv[])
+AQLogRecord::AQLogRecord(AQLogLevel_t level, const std::string& componentId, 
+    const std::string& tagId, const std::string& file, const std::string& message)
+    : m_level(level)
+    , m_message(message)
 {
-    AQLog_LevelHashTable_g = LogLevelHashTable_g;
-
-    cout << "HASH SIZE = " << AQLOG_HASH_TABLE_WORDS << endl;
-    TestRunner testRunner(argc, argv);
-
-    return testRunner.run();
+    m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = componentId;
+    m_tierId[AQLOG_LOOKUP_TIER_TAGID] = tagId;
+    m_tierId[AQLOG_LOOKUP_TIER_FILE] = file;
 }
+
+//------------------------------------------------------------------------------
+AQLogRecord::AQLogRecord(const AQLogRecord& other)
+    : m_level(other.m_level)
+    , m_message(other.m_message)
+{
+    for (size_t i = 0; i < AQLOG_LOOKUP_TIER_COUNT; ++i)
+    {
+        m_tierId[i] = other.m_tierId[i];
+    }
+}
+
+//------------------------------------------------------------------------------
+AQLogRecord& AQLogRecord::operator=(const AQLogRecord& other)
+{
+    if (this != &other)
+    {
+        m_level = other.m_level;
+        m_message = other.m_message;
+        for (size_t i = 0; i < AQLOG_LOOKUP_TIER_COUNT; ++i)
+        {
+            m_tierId[i] = other.m_tierId[i];
+        }
+    }
+    return *this;
+}
+
+//------------------------------------------------------------------------------
+AQLogRecord::~AQLogRecord(void)
+{
+}
+
 
 
 

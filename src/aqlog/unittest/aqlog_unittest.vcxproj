@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
+    <ClInclude Include="UtLogLevelHash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -23,7 +24,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="UtLLHash.cpp" />
+    <ClCompile Include="UtHashFunction.cpp" />
+    <ClCompile Include="UtLogLevelHashFilter.cpp" />
+    <ClCompile Include="UtLogLevelHash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\aq\lib\aq.vcxproj">

@@ -9,9 +9,12 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "Main.h"
-
 #include "AQLog.h"
+
+#include "HashFunction.h"
+
+using namespace aqlog;
+using namespace std;
 
 
 
@@ -34,6 +37,10 @@
 // Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
+// Calculates the hash value of a string str_ consisting of strLen characters
+// in the string.  The hash is returned.
+static AQLOG_HASH_EXTERN_ATTRIBUTE uint32_t AQLog_HashTierExtern(const char *str, size_t strLen);
+
 
 
 
@@ -41,7 +48,8 @@
 // Variable Declarations
 //------------------------------------------------------------------------------
 
-uint32_t LogLevelHashTable_g[AQLOG_HASH_TABLE_WORDS];
+const uint32_t *AQLog_LevelHashTable_g;
+
 
 
 
@@ -50,15 +58,21 @@ uint32_t LogLevelHashTable_g[AQLOG_HASH_TABLE_WORDS];
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-int main(int argc, char* argv[])
+AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size)
 {
-    AQLog_LevelHashTable_g = LogLevelHashTable_g;
+    uint32_t tier0Hash = HashFunction::standard(str1, str1Size);
+    uint32_t tier1Hash = HashFunction::standard(str2, str2Size);
+    uint32_t tier2Hash = HashFunction::standard(str3, str3Size);
 
-    cout << "HASH SIZE = " << AQLOG_HASH_TABLE_WORDS << endl;
-    TestRunner testRunner(argc, argv);
+    uint32_t index = ((tier0Hash & AQLOG_TIER_0_MASK) << AQLOG_TIER_0_BITNUM)
+        | ((tier1Hash & AQLOG_TIER_1_MASK) << AQLOG_TIER_1_BITNUM)
+        | ((tier2Hash & AQLOG_TIER_2_MASK) << AQLOG_TIER_2_BITNUM);
+    uint32_t word = index >> AQLOG_HASH_INDEX_WORD_BITNUM;
+    uint32_t bitnum = (index & AQLOG_HASH_INDEX_LEVEL_MASK) << AQLOG_HASH_LEVEL_BITS_MUL_SHIFT;
 
-    return testRunner.run();
+    return (AQLog_LevelHashTable_g[word] & (AQLOG_HASH_LEVEL_MASK << bitnum)) >= ((uint32_t)level << bitnum);
 }
+
 
 
 

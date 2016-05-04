@@ -15,10 +15,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="internal\LLHash.cpp" />
+    <ClCompile Include="AQLog.cpp" />
+    <ClCompile Include="AQLogFilter.cpp" />
+    <ClCompile Include="AQLogHandler.cpp" />
+    <ClCompile Include="AQLogRecord.cpp" />
+    <ClCompile Include="internal\HashFunction.cpp" />
+    <ClCompile Include="internal\LogLevelHash.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="internal\LLHash.h" />
+    <ClInclude Include="AQLog.h" />
+    <ClInclude Include="AQLogFilter.h" />
+    <ClInclude Include="AQLogHandler.h" />
+    <ClInclude Include="AQLogRecord.h" />
+    <ClInclude Include="internal\HashFunction.h" />
+    <ClInclude Include="internal\LogLevelHash.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}</ProjectGuid>

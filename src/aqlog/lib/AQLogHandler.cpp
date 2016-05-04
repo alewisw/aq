@@ -9,11 +9,9 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "LLHash.h"
+#include "AQLogHandler.h"
 
 using namespace std;
-
-namespace aqlog {
 
 
 
@@ -21,8 +19,6 @@ namespace aqlog {
 //------------------------------------------------------------------------------
 // Private Macros
 //------------------------------------------------------------------------------
-
-//#define CRC_DEBUG
 
 
 
@@ -53,16 +49,24 @@ namespace aqlog {
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-LLHash::LLHash(void)
+AQLogHandler::AQLogHandler(void)
 {
 }
 
 //------------------------------------------------------------------------------
-LLHash::~LLHash(void)
+AQLogHandler::~AQLogHandler(void)
 {
 }
 
-
-
+//------------------------------------------------------------------------------
+void AQLogHandler::addFilter(AQLogLevel_t level, const std::string& key1,
+    const std::string& key2, const std::string& key3)
+{
+    m_filters.push_back(AQLogFilter(*this, level, key1, key2, key3));
 }
+
+
+
+
+
 //=============================== End of File ==================================

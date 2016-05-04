@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------
 
 #include <stdint.h>
+#include <windows.h>
 
 
 
@@ -47,7 +48,7 @@ class Stopwatch
 public:
 
     // Constructs new stopwatch.
-    Stopwatch(void) : m_start(0) { }
+    Stopwatch(void) : m_start(GetTickCount()) { }
 
     // Copy constructor.
     Stopwatch(const Stopwatch& other) : m_start(other.m_start) { }
@@ -75,7 +76,7 @@ public:
     // Returns the elapsed time in seconds.
     double elapsedSecs(void) const
     {
-        uint32_t ms = 0 - m_start;
+        uint32_t ms = GetTickCount() - m_start;
 
         return (double)ms / 1000.0;
     }

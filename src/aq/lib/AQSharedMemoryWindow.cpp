@@ -1,5 +1,3 @@
-#ifndef MAIN_H
-#define MAIN_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -11,61 +9,73 @@
 // Includes
 //------------------------------------------------------------------------------
 
-// Test framework.
-#include "Test.h"
-
-// AQ exported classes
-#include "AQHeapMemory.h"
-#include "AQReader.h"
 #include "AQSharedMemoryWindow.h"
-#include "AQSnapshot.h"
-#include "AQUnformattedException.h"
-#include "AQWriter.h"
-#include "AQWriterItem.h"
 
-// AQ internal classes
-#include "CtrlOverlay.h"
-#include "Timer.h"
-#include "TraceBuffer.h"
-#include "TraceManager.h"
+#include <stdexcept>
 
-// Standard libraries
-#include <sstream>
-#include <set>
-
-using namespace aq;
 using namespace std;
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Macros
+// Private Macros
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Type Definitions
+// Private Type Definitions
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Variable Declarations
+// Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Function and Class Declarations
+// Variable Declarations
 //------------------------------------------------------------------------------
 
 
 
 
-#endif
+//------------------------------------------------------------------------------
+// Function and Class Implementation
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+AQSharedMemoryWindow::AQSharedMemoryWindow(IAQSharedMemory& sm, size_t off,
+    size_t size)
+    : m_sm(sm)
+    , m_mem((unsigned char *)sm.baseAddress() + off)
+    , m_size(size)
+{
+    if (off >= sm.size())
+    {
+        throw out_of_range("Offset for AQSharedMemoryWindows is beyond the "
+                           "size of the passed IAQSharedMemory object");
+    }
+    if (off + size > sm.size())
+    {
+        throw length_error("Offset + size for AQSharedMemoryWindows is beyond the "
+                           "size of the passed IAQSharedMemory object");
+    }
+}
+
+//------------------------------------------------------------------------------
+AQSharedMemoryWindow::~AQSharedMemoryWindow(void)
+{
+
+}
+
+
+
+
 //=============================== End of File ==================================

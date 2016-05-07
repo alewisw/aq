@@ -33,6 +33,7 @@
       <Filter>internal\windows</Filter>
     </ClCompile>
     <ClCompile Include="AQHeapMemory.cpp" />
+    <ClCompile Include="AQSharedMemoryWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQItem.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="IAQSharedMemory.h" />
     <ClInclude Include="AQHeapMemory.h" />
     <ClInclude Include="AQExternMemory.h" />
+    <ClInclude Include="AQSharedMemoryWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="internal">
@@ -77,5 +79,8 @@
     <Filter Include="internal\windows">
       <UniqueIdentifier>{0e012b98-cbb2-44b7-9929-cfface4ad07c}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

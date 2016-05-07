@@ -2,12 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="UtHashFunction.cpp" />
+    <ClCompile Include="UtLogLevelHashFilter.cpp" />
+    <ClCompile Include="UtLogLevelHash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="UtLogLevelHash.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HashData.raw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

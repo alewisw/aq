@@ -43,6 +43,9 @@
   <ItemGroup>
     <None Include="HashData.raw" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

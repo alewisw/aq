@@ -2,8 +2,10 @@
 include_directories(. internal internal/linux)
 set(SOURCE
     AQ.cpp
+    AQHeapMemory.cpp
     AQItem.cpp
     AQReader.cpp
+    AQSharedMemoryWindow.cpp
     AQSnapshot.cpp
     AQUnformattedException.cpp
     AQWriter.cpp

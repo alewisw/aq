@@ -30,6 +30,9 @@
     <ClInclude Include="internal\HashFunction.h" />
     <ClInclude Include="internal\LogLevelHash.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F15EEB5-87CC-421F-9D2B-D68DEAD4ACD6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

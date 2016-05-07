@@ -46,6 +46,9 @@
     <ClInclude Include="windows\Mutex.h" />
     <ClInclude Include="windows\WorkerThread.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5CEBAAC5-F673-43C3-824A-22BD1AAF1171}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

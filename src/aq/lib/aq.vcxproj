@@ -18,6 +18,7 @@
     <ClCompile Include="AQ.cpp" />
     <ClCompile Include="AQHeapMemory.cpp" />
     <ClCompile Include="AQReader.cpp" />
+    <ClCompile Include="AQSharedMemoryWindow.cpp" />
     <ClCompile Include="AQWriter.cpp" />
     <ClCompile Include="AQItem.cpp" />
     <ClCompile Include="AQSnapshot.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="AQExternMemory.h" />
     <ClInclude Include="AQHeapMemory.h" />
     <ClInclude Include="AQItem.h" />
+    <ClInclude Include="AQSharedMemoryWindow.h" />
     <ClInclude Include="AQWriterItem.h" />
     <ClInclude Include="AQ.h" />
     <ClInclude Include="AQReader.h" />
@@ -51,6 +53,9 @@
     <ClInclude Include="internal\TraceManager.h" />
     <ClInclude Include="internal\windows\Atomic.h" />
     <ClInclude Include="internal\windows\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{083DC91F-3197-4BD4-870D-C9E84D623504}</ProjectGuid>

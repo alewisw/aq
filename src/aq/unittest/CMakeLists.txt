@@ -18,6 +18,7 @@ set(SOURCE
     UtQueueId.cpp
     UtRelease.cpp
     UtRetrieve.cpp
+    UtSharedMemory.cpp
     UtSnapshot.cpp
     UtUsageExample.cpp
     UtWriterItem.cpp

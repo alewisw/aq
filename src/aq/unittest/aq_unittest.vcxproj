@@ -45,6 +45,7 @@
     <ClCompile Include="UtQueueId.cpp" />
     <ClCompile Include="UtRelease.cpp" />
     <ClCompile Include="UtRetrieve.cpp" />
+    <ClCompile Include="UtSharedMemory.cpp" />
     <ClCompile Include="UtSnapshot.cpp" />
     <ClCompile Include="UtUsageExample.cpp" />
     <ClCompile Include="UtWriterItem.cpp" />
@@ -56,6 +57,9 @@
     <ProjectReference Include="..\lib\aq.vcxproj">
       <Project>{083dc91f-3197-4bd4-870d-c9e84d623504}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{191B8237-6766-4B5C-8B2A-3B5B1B7E0069}</ProjectGuid>

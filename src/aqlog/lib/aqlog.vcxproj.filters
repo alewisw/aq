@@ -29,4 +29,7 @@
     </ClCompile>
     <ClCompile Include="AQLog.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
 </Project>

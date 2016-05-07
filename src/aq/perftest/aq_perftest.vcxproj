@@ -52,6 +52,9 @@
       <Project>{083dc91f-3197-4bd4-870d-c9e84d623504}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C1D4BF39-CB7E-4C88-8A50-EA38DCB1309B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

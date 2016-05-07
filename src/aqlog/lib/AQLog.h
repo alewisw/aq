@@ -12,6 +12,7 @@
 //------------------------------------------------------------------------------
 
 #include <stdint.h>
+#include <stdlib.h>
 
 
 
@@ -150,46 +151,61 @@ case __index_:                                                                  
 
 // Calculates the hash value of a string __str_ consisting of __size_ characters
 // in the string.  The hash is stored in the variable __hash_.
-#define AQLOG_HASHTIER_INLINE(__hash_, __str_, __size_)                         \
+#define AQLOG_HASHTIER_INLINE(__hash_, __mask_, __str_, __size_, __rehashzero_) \
 {                                                                               \
-    __hash_ = AQLOG_HASH_INIT;                                                  \
-  	switch (__size_)                                                            \
+    if ((__size_) == 0 && (__rehashzero_))                                      \
     {                                                                           \
-      	default:                                                                \
-		AQLOG_HASHTIER_INLINE_CASE(32, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(31, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(30, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(29, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(28, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(27, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(26, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(25, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(24, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(23, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(22, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(21, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(20, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(19, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(18, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(17, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(16, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(15, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(14, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(13, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(12, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(11, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE(10, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 9, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 8, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 7, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 6, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 5, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 4, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 3, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 2, __hash_, __str_, __size_)                \
-		AQLOG_HASHTIER_INLINE_CASE( 1, __hash_, __str_, __size_)                \
-        case 0:                                                                 \
-            break;                                                              \
+        __hash_ = 0;                                                            \
+    }                                                                           \
+    else                                                                        \
+    {                                                                           \
+        __hash_ = AQLOG_HASH_INIT;                                              \
+  	    switch (__size_)                                                        \
+        {                                                                       \
+      	    default:                                                            \
+		    AQLOG_HASHTIER_INLINE_CASE(32, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(31, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(30, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(29, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(28, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(27, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(26, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(25, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(24, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(23, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(22, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(21, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(20, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(19, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(18, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(17, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(16, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(15, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(14, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(13, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(12, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(11, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE(10, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 9, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 8, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 7, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 6, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 5, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 4, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 3, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 2, __hash_, __str_, __size_)            \
+		    AQLOG_HASHTIER_INLINE_CASE( 1, __hash_, __str_, __size_)            \
+            case 0: break;                                                      \
+        }                                                                       \
+        __hash_ &= __mask_;                                                     \
+        if (__hash_ == 0 && (__rehashzero_))                                    \
+        {                                                                       \
+            __hash_ = (__str_)[(__size_) - 1] & (__mask_);                      \
+            if (__hash_ == 0)                                                   \
+            {                                                                   \
+                __hash_ = 1;                                                    \
+            }                                                                   \
+        }                                                                       \
     }                                                                           \
 }
 
@@ -253,17 +269,17 @@ AQLOG_HASH_INLINE_ATTRIBUTE bool AQLog_HashIsLevelInline(int level,
     const char *str3, size_t str3Size)
 {
     uint32_t tier0Hash;
-    AQLOG_HASHTIER_INLINE(tier0Hash, str1, str1Size);
+    AQLOG_HASHTIER_INLINE(tier0Hash, AQLOG_TIER_0_MASK, str1, str1Size, AQLOG_LOOKUP_TIER_TAGID == 0);
 
     uint32_t tier1Hash;
-    AQLOG_HASHTIER_INLINE(tier1Hash, str2, str2Size);
+    AQLOG_HASHTIER_INLINE(tier1Hash, AQLOG_TIER_1_MASK, str2, str2Size, AQLOG_LOOKUP_TIER_TAGID == 1);
 
     uint32_t tier2Hash;
-    AQLOG_HASHTIER_INLINE(tier2Hash, str3, str3Size);
+    AQLOG_HASHTIER_INLINE(tier2Hash, AQLOG_TIER_2_MASK, str3, str3Size, AQLOG_LOOKUP_TIER_TAGID == 2);
 
-    uint32_t index = ((tier0Hash & AQLOG_TIER_0_MASK) << AQLOG_TIER_0_BITNUM)
-        | ((tier1Hash & AQLOG_TIER_1_MASK) << AQLOG_TIER_1_BITNUM)
-        | ((tier2Hash & AQLOG_TIER_2_MASK) << AQLOG_TIER_2_BITNUM);
+    uint32_t index = (tier0Hash << AQLOG_TIER_0_BITNUM)
+        | (tier1Hash << AQLOG_TIER_1_BITNUM)
+        | (tier2Hash << AQLOG_TIER_2_BITNUM);
     uint32_t word = index >> AQLOG_HASH_INDEX_WORD_BITNUM;
     uint32_t bitnum = (index & AQLOG_HASH_INDEX_LEVEL_MASK) << AQLOG_HASH_LEVEL_BITS_MUL_SHIFT;
 
@@ -274,6 +290,17 @@ AQLOG_HASH_INLINE_ATTRIBUTE bool AQLog_HashIsLevelInline(int level,
 // str3 using the exernal function calculation method.  The lengths represent 
 // the number of characters in the string that participate in the hash.
 extern AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size);
+
+/*
+#include <stdio.h>
+void testInline(void)
+{
+    if (AQLOG_HASHISLEVEL_INLINE(7, "fozzie", "fooble", __FILE__))
+    {
+        printf("hello world");
+    }
+}
+*/
 
 
 

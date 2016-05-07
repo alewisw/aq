@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HashData.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="UtLogLevelHash.h" />
   </ItemGroup>
@@ -38,6 +39,9 @@
     <ProjectReference Include="..\lib\aqlog.vcxproj">
       <Project>{0f15eeb5-87cc-421f-9d2b-d68dead4acd6}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HashData.raw" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D1932A80-0D8A-4CE9-B1A3-AA3F9779B19F}</ProjectGuid>

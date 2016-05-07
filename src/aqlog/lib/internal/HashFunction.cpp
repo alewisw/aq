@@ -54,81 +54,137 @@ namespace aqlog
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-uint32_t HashFunction::standard(const char *str, size_t strLen)
+uint32_t HashFunction::standard(uint32_t mask, const char *str, size_t strLen, 
+    bool zeroLengthHashToZero)
 {
+    if (strLen == 0 && zeroLengthHashToZero)
+    {
+        return 0;
+    }
     size_t limit = strLen <= AQLOG_HASH_CHARMAX ? 0 : (strLen - AQLOG_HASH_CHARMAX);
 
     uint32_t hash = AQLOG_HASH_INIT;
-
-    while (strLen > limit)
+    size_t i = strLen;
+    while (i > limit)
     {
-        strLen--;
-        if (AQLOG_HASH_ISEND(str[strLen]))
+        i--;
+        if (AQLOG_HASH_ISEND(str[i]))
         {
             return hash;
         }
 
-        hash = AQLOG_HASH_STEP(hash, AQLOG_HASH_CHARMAP(str[strLen]));
+        hash = AQLOG_HASH_STEP(hash, AQLOG_HASH_CHARMAP(str[i]));
+    }
+    hash &= mask;
+    if (hash == 0 && zeroLengthHashToZero)
+    {
+        hash = str[strLen - 1] & mask;
+        if (hash == 0)
+        {
+            hash = 1;
+        }
     }
     return hash;
 }
 
 //------------------------------------------------------------------------------
-uint32_t HashFunction::djb2a(const char *str, size_t strLen)
+uint32_t HashFunction::djb2(uint32_t mask, const char *str, size_t strLen,
+    bool zeroLengthHashToZero)
 {
+    if (strLen == 0 && zeroLengthHashToZero)
+    {
+        return 0;
+    }
     size_t limit = strLen <= AQLOG_HASH_CHARMAX ? 0 : (strLen - AQLOG_HASH_CHARMAX);
 
-    uint32_t hash = 5381;
-
-    while (strLen > limit)
+    uint32_t hash = AQLOG_HASH_INIT;
+    size_t i = strLen;
+    while (i > limit)
     {
-        strLen--;
-        if (AQLOG_HASH_ISEND(str[strLen]))
+        i--;
+        if (AQLOG_HASH_ISEND(str[i]))
         {
             return hash;
         }
 
         hash = ((hash << 5) + hash) + str[strLen];
     }
+    hash &= mask;
+    if (hash == 0 && zeroLengthHashToZero)
+    {
+        hash = str[strLen - 1] & mask;
+        if (hash == 0)
+        {
+            hash = 1;
+        }
+    }
     return hash;
 }
 
 //------------------------------------------------------------------------------
-uint32_t HashFunction::djb2b(const char *str, size_t strLen)
+uint32_t HashFunction::djb2a(uint32_t mask, const char *str, size_t strLen,
+    bool zeroLengthHashToZero)
 {
+    if (strLen == 0 && zeroLengthHashToZero)
+    {
+        return 0;
+    }
     size_t limit = strLen <= AQLOG_HASH_CHARMAX ? 0 : (strLen - AQLOG_HASH_CHARMAX);
 
-    uint32_t hash = 5381;
-
-    while (strLen > limit)
+    uint32_t hash = AQLOG_HASH_INIT;
+    size_t i = strLen;
+    while (i > limit)
     {
-        strLen--;
-        if (AQLOG_HASH_ISEND(str[strLen]))
+        i--;
+        if (AQLOG_HASH_ISEND(str[i]))
         {
             return hash;
         }
 
         hash = ((hash << 5) + hash) ^ str[strLen];
     }
+    hash &= mask;
+    if (hash == 0 && zeroLengthHashToZero)
+    {
+        hash = str[strLen - 1] & mask;
+        if (hash == 0)
+        {
+            hash = 1;
+        }
+    }
     return hash;
 }
 
 //------------------------------------------------------------------------------
-uint32_t HashFunction::sdbm(const char *str, size_t strLen)
+uint32_t HashFunction::sdbm(uint32_t mask, const char *str, size_t strLen,
+    bool zeroLengthHashToZero)
 {
+    if (strLen == 0 && zeroLengthHashToZero)
+    {
+        return 0;
+    }
     size_t limit = strLen <= AQLOG_HASH_CHARMAX ? 0 : (strLen - AQLOG_HASH_CHARMAX);
 
-    uint32_t hash = 5381;
-
-    while (strLen > limit)
+    uint32_t hash = AQLOG_HASH_INIT;
+    size_t i = strLen;
+    while (i > limit)
     {
-        strLen--;
-        if (AQLOG_HASH_ISEND(str[strLen]))
+        i--;
+        if (AQLOG_HASH_ISEND(str[i]))
         {
             return hash;
         }
 
         hash = str[strLen] + (hash << 6) + (hash << 16) - hash;
+    }
+    hash &= mask;
+    if (hash == 0 && zeroLengthHashToZero)
+    {
+        hash = str[strLen - 1] & mask;
+        if (hash == 0)
+        {
+            hash = 1;
+        }
     }
     return hash;
 }

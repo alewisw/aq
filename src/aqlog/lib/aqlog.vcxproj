@@ -140,10 +140,12 @@
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)tools\windows\doxygen.exe $(SolutionDir)\docs\Doxyfile</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Generate Documentation</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">

@@ -21,6 +21,7 @@ namespace aqlog
 }
 
 // Standard libraries
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <map>

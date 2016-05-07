@@ -66,6 +66,14 @@ public:
     // memory.
     ~LogLevelHash(void);
 
+    // Freezes hash table recalculation.  The hash table is not updated as handlers 
+    // are added and removed.  When unfreezeHash() is called, if any changes were
+    // made that needed the table to be rebuilt, the it is rebuilt.
+    void freezeHash(void);
+
+    // Unfreezes the hash and rebuilds the table if required.
+    void unfreezeHash(void);
+
     // Adds a log handler to this log level hash.  After calling this function the
     // handler may not be further modified.
     void addHandler(AQLogHandler *handler);
@@ -77,6 +85,22 @@ public:
     void handle(const AQLogRecord& rec);
 
 private:
+
+    // The possible states for the hash rebuild freezer.
+    enum FreezeState
+    {
+        // Freezing is off - rebuild inline.
+        FREEZE_OFF,
+
+        // Freezing is on but no change has been made that needs a rebuild.
+        FREEZE_ON,
+
+        // Freezing is on and a change has been made that needs a rebuild.
+        FREEZE_REBUILD,
+    };
+
+    // The state of the hash table rebuild freezer.
+    FreezeState m_freezeState;
 
     // Define the map of filters at a particular log key.
     struct FilterMap
@@ -101,8 +125,13 @@ private:
         FilterMap& fm, size_t tier);
 
     // Populates the hash with the filter specified in 'filter'.
-    void populateHash(const AQLogFilter& filter, uint32_t index, 
-        uint32_t tierOffset, uint32_t tier);
+    void populateHash(uint32_t *hashMem, const AQLogFilter& filter, uint32_t index, uint32_t tier);
+
+    // Rebuilds the entire hash.
+    void rebuildHash(void);
+
+    // Repopulates the hash memory in 'hashMem' starting at filter 'fm'.
+    void repopulateHash(uint32_t *hashMem, FilterMap& fm);
 
     // The collection of top-level filters.
     FilterMap m_filters;

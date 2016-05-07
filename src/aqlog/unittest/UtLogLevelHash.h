@@ -11,6 +11,8 @@
 // Includes
 //------------------------------------------------------------------------------
 
+#include "HashData.h"
+
 #include "AQLogHandler.h"
 #include "AQLogRecord.h"
 
@@ -98,7 +100,7 @@ public:
 
     // Constructs a new random handler colection - there are 'n' handlers
     // added to 'hash'.
-    RandomHandlers(LogLevelHash& hash, size_t n = 100)
+    RandomHandlers(LogLevelHash& hash, AQLogLevel_t maxLevel = AQLOG_LEVEL_TRACE, size_t n = 100)
     {
         for (size_t i = 0; i < n; ++i)
         {
@@ -108,30 +110,39 @@ public:
             size_t nFilters = (rand() % 5) + 1;
             for (size_t j = 0; j < nFilters; ++j)
             {
-                AQLogLevel_t level = (AQLogLevel_t)(rand() % 8);
+                AQLogLevel_t level = (AQLogLevel_t)(rand() % (maxLevel + 1));
                 const char *componentId;
                 switch (rand() % 4)
                 {
-                default:    componentId = "";           break;
-                case 0:     componentId = "comp_foo";   break;
-                case 1:     componentId = "comp_bar";   break;
-                case 2:     componentId = "comp_baz";   break;
+                case 0:     
+                    componentId = "";           
+                    break;
+
+                default:     
+                    componentId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                    break;
                 }
                 const char *tagId;
                 switch (rand() % 4)
                 {
-                default:    tagId = "";           break;
-                case 0:     tagId = "tag_foo";    break;
-                case 1:     tagId = "tag_bar";    break;
-                case 2:     tagId = "tag_baz";    break;
+                case 0:
+                    tagId = "";
+                    break;
+
+                default:
+                    tagId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                    break;
                 }
                 const char *fileId;
                 switch (rand() % 4)
                 {
-                default:    fileId = "";           break;
-                case 0:     fileId = "file_foo";   break;
-                case 1:     fileId = "file_bar";   break;
-                case 2:     fileId = "file_baz";   break;
+                case 0:
+                    fileId = "";
+                    break;
+
+                default:
+                    fileId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                    break;
                 }
                 h->addFilter(level, componentId, tagId, fileId);
             }

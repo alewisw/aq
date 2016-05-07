@@ -40,7 +40,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -94,26 +93,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#aeebf829c023e70e4a358a15225f90be6">AQWriter</a>(void *mem, size_t memSize)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_a_q_writer.html#adfec5d995bc6262d4381e630aae16bea">AQWriter</a>(const AQWriter &amp;other)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a526b75b1f633fc6f96b6591ff47ef515">availableSize</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9">claim</a>(AQWriterItem &amp;item, size_t memSize, ClaimSizeRule claimSizeRule=CLAIM_EXACT)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93a9c2d8bfaa70c7ad982992fcd0ad98e48">CLAIM_AT_MOST</a> enum value</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93acf9558ae64cffdb27a4ec0cffc2e0bff">CLAIM_EXACT</a> enum value</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a">claim</a>(AQWriterItem &amp;item, size_t memSize)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a83b0ae9501fdbc209a26868ff4c64ac3">claimContentionCount</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93">ClaimSizeRule</a> enum name</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56">commit</a>(AQWriterItem &amp;item)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>(void) const </td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a7d869cae253ba0b35bd92cb38f647fda">isExtendable</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q.html#a40ff86ec57b5e791b7e20c14e372999f">isFormatted</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#a4f1d7b7322b0e47b2573f2ba7da844ed">operator=</a>(const AQWriter &amp;other)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q.html#ae5926cd2aa448ec7963d49c91fe0b0aa">OPTION_CRC32</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056">OPTION_EXTENDABLE</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745">OPTION_LINK_IDENTIFIER</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a0ee7e5627bf61ece4b47712d363aaeb9">pageCount</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_a_q.html#ab47a5c88e8a23ec7a6e05f6d833c7d01">pageSize</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#a403cad7810a21611bf27c493241007fe">~AQWriter</a>(void)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56">commit</a>(AQWriterItem &amp;item)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>(void) const </td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q.html#a7d869cae253ba0b35bd92cb38f647fda">isExtendable</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a40ff86ec57b5e791b7e20c14e372999f">isFormatted</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a4f1d7b7322b0e47b2573f2ba7da844ed">operator=</a>(const AQWriter &amp;other)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#ae5926cd2aa448ec7963d49c91fe0b0aa">OPTION_CRC32</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056">OPTION_EXTENDABLE</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#a8c1b45770a35b703df2b1f1f17ca4745">OPTION_LINK_IDENTIFIER</a></td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q.html#a0ee7e5627bf61ece4b47712d363aaeb9">pageCount</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_a_q.html#ab47a5c88e8a23ec7a6e05f6d833c7d01">pageSize</a>(void) const </td><td class="entry"><a class="el" href="class_a_q.html">AQ</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_a_q_writer.html#a403cad7810a21611bf27c493241007fe">~AQWriter</a>(void)</td><td class="entry"><a class="el" href="class_a_q_writer.html">AQWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 04:05:35 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 7 2016 08:21:58 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -40,7 +40,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -85,7 +84,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_a_q_writer-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -107,9 +105,6 @@ Inheritance diagram for AQWriter:</div>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aeebf829c023e70e4a358a15225f90be6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#aeebf829c023e70e4a358a15225f90be6">AQWriter</a> (void *mem, size_t memSize)</td></tr>
@@ -127,11 +122,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6eb5b715a284fc141a8671ebee3bd293"><td class="memItemLeft" align="right" valign="top">const volatile uint32_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a> (void) const </td></tr>
 <tr class="memdesc:a6eb5b715a284fc141a8671ebee3bd293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains a reference to a memory address that changes whenever space is made available in the queue for further write operations.  <a href="#a6eb5b715a284fc141a8671ebee3bd293">More...</a><br /></td></tr>
 <tr class="separator:a6eb5b715a284fc141a8671ebee3bd293"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a412092999c2edc4612107512c86ab4b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9">claim</a> (<a class="el" href="class_a_q_writer_item.html">AQWriterItem</a> &amp;item, size_t memSize, <a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93">ClaimSizeRule</a> claimSizeRule=<a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93acf9558ae64cffdb27a4ec0cffc2e0bff">CLAIM_EXACT</a>)</td></tr>
-<tr class="memdesc:a412092999c2edc4612107512c86ab4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Claims an item to be stored in the queue.  <a href="#a412092999c2edc4612107512c86ab4b9">More...</a><br /></td></tr>
-<tr class="separator:a412092999c2edc4612107512c86ab4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e2eeac326abd648b6aa60a1fb5315a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a">claim</a> (<a class="el" href="class_a_q_writer_item.html">AQWriterItem</a> &amp;item, size_t memSize)</td></tr>
+<tr class="memdesc:ae0e2eeac326abd648b6aa60a1fb5315a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Claims an item to be stored in the queue.  <a href="#ae0e2eeac326abd648b6aa60a1fb5315a">More...</a><br /></td></tr>
+<tr class="separator:ae0e2eeac326abd648b6aa60a1fb5315a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a598bba1f79e007e038ab76d8939a5b56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56">commit</a> (<a class="el" href="class_a_q_writer_item.html">AQWriterItem</a> &amp;item)</td></tr>
-<tr class="memdesc:a598bba1f79e007e038ab76d8939a5b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits an item previously obtained via a <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">claim()</a> call to the queue so that it is available for consumption by the <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a>.  <a href="#a598bba1f79e007e038ab76d8939a5b56">More...</a><br /></td></tr>
+<tr class="memdesc:a598bba1f79e007e038ab76d8939a5b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Commits an item previously obtained via a <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">claim()</a> call to the queue so that it is available for consumption by the <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a>.  <a href="#a598bba1f79e007e038ab76d8939a5b56">More...</a><br /></td></tr>
 <tr class="separator:a598bba1f79e007e038ab76d8939a5b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_a_q"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_a_q')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_a_q.html">AQ</a></td></tr>
 <tr class="memitem:a40ff86ec57b5e791b7e20c14e372999f inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a40ff86ec57b5e791b7e20c14e372999f">isFormatted</a> (void) const </td></tr>
@@ -147,10 +142,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0ee7e5627bf61ece4b47712d363aaeb9 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of pages in the queue.  <a href="#a0ee7e5627bf61ece4b47712d363aaeb9">More...</a><br /></td></tr>
 <tr class="separator:a0ee7e5627bf61ece4b47712d363aaeb9 inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a526b75b1f633fc6f96b6591ff47ef515 inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a526b75b1f633fc6f96b6591ff47ef515">availableSize</a> (void) const </td></tr>
-<tr class="memdesc:a526b75b1f633fc6f96b6591ff47ef515 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request.  <a href="#a526b75b1f633fc6f96b6591ff47ef515">More...</a><br /></td></tr>
+<tr class="memdesc:a526b75b1f633fc6f96b6591ff47ef515 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the current maximum size of a single <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> request.  <a href="#a526b75b1f633fc6f96b6591ff47ef515">More...</a><br /></td></tr>
 <tr class="separator:a526b75b1f633fc6f96b6591ff47ef515 inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83b0ae9501fdbc209a26868ff4c64ac3 inherit pub_methods_class_a_q"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q.html#a83b0ae9501fdbc209a26868ff4c64ac3">claimContentionCount</a> (void) const </td></tr>
-<tr class="memdesc:a83b0ae9501fdbc209a26868ff4c64ac3 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls.  <a href="#a83b0ae9501fdbc209a26868ff4c64ac3">More...</a><br /></td></tr>
+<tr class="memdesc:a83b0ae9501fdbc209a26868ff4c64ac3 inherit pub_methods_class_a_q"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of times contention has occurred during <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> calls.  <a href="#a83b0ae9501fdbc209a26868ff4c64ac3">More...</a><br /></td></tr>
 <tr class="separator:a83b0ae9501fdbc209a26868ff4c64ac3 inherit pub_methods_class_a_q"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -168,33 +163,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the writer side of a Multi-Producer Concurrent Allocating Queue. </p>
-<p>Given a single memory region any number of writers in any number of threads may write into the queue at the same time. The <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">claim()</a> and <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">commit()</a> functions are thread-safe with respect to both reading and writing the queue with one exception. If the queue is concurrently formatted by the reader then the behavior is undefined. </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a class="anchor" id="a8f572d7d88ec7ed2462bda3ff42ffa93"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93">AQWriter::ClaimSizeRule</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Specifies the rule to use when claiming memory. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a8f572d7d88ec7ed2462bda3ff42ffa93acf9558ae64cffdb27a4ec0cffc2e0bff"></a>CLAIM_EXACT&#160;</td><td class="fielddoc">
-<p>Claim an item consisting of at least the specified memory size. </p>
-<p>The amount claimed will be at least the amount specified. </p>
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="a8f572d7d88ec7ed2462bda3ff42ffa93a9c2d8bfaa70c7ad982992fcd0ad98e48"></a>CLAIM_AT_MOST&#160;</td><td class="fielddoc">
-<p>Claim an item consisting of at most the specified memory size. </p>
-<p>The amount claimed can be less then the specified amount. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p>Given a single memory region any number of writers in any number of threads may write into the queue at the same time. The <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">claim()</a> and <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">commit()</a> functions are thread-safe with respect to both reading and writing the queue with one exception. If the queue is concurrently formatted by the reader then the behavior is undefined. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aeebf829c023e70e4a358a15225f90be6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -279,13 +249,13 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destroys this queue writer. </p>
-<p>Any outstanding <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> objects otained by calling <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> but not yet committed through <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may no longer be accessed; accessing these objects results in undefined behavior.</p>
+<p>Any outstanding <a class="el" href="class_a_q_writer_item.html" title="Encapsulates an item is being written to a Multi-Producer Concurrent Allocating Queue. ">AQWriterItem</a> objects otained by calling <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">AQWriter::claim()</a> but not yet committed through <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">AQWriter::commit()</a> may no longer be accessed; accessing these objects results in undefined behavior.</p>
 <p>The underlying memory of the queue is not impacted by this operation. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a412092999c2edc4612107512c86ab4b9"></a>
+<a class="anchor" id="ae0e2eeac326abd648b6aa60a1fb5315a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -299,13 +269,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>memSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93">ClaimSizeRule</a>&#160;</td>
-          <td class="paramname"><em>claimSizeRule</em> = <code><a class="el" href="class_a_q_writer.html#a8f572d7d88ec7ed2462bda3ff42ffa93acf9558ae64cffdb27a4ec0cffc2e0bff">CLAIM_EXACT</a></code>&#160;</td>
+          <td class="paramname"><em>memSize</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -321,12 +285,11 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>The writer item, supplied by the caller, which is updated with the allocated memory and related parameters. </td></tr>
-    <tr><td class="paramname">memSize</td><td>The amount of memory that is required for this allocation. This field is treated slightly differently depending on the formatting options for the queue:<ul>
+    <tr><td class="paramname">memSize</td><td>The minimum amount of memory that is required for this allocation. This field is treated slightly differently depending on the formatting options for the queue:<ul>
 <li>If <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is not set this represents exactly the number of bytes occupied by this item. It cannot be subsequetly changed or altered in any way. <a class="el" href="class_a_q_item.html#a346237d15617f812d325c173f21892b9" title="Obtains the total number of bytes that have been stored by the user into this item. ">AQWriterItem::size()</a> and <a class="el" href="class_a_q_item.html#aba43b837efe456e423cf290b7bdae608" title="Obtains the total number of bytes that can be stored in this item. ">AQWriterItem::capacity()</a> will always return this value.</li>
 <li>If <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a> is set then this is the minimum size for the first item in the linked-list of extendable items. The AQWriteItem::size() will initially be set to 0, while the AQWriteItem::capacity() will be at least memSize although it may be more. </li>
 </ul>
 </td></tr>
-    <tr><td class="paramname">claimSizeRule</td><td>Indicates how the <code>memSize</code> field is interpreted. When set to ClaimSizeRule::CLAIM_EXACT the allocated memory is at least that required by <code>memSize</code> (dependent on <a class="el" href="class_a_q.html#adaa41d392733b3f668d4b5be8064e056" title="When formatting a queue set this flag to allow items to be extended in a linked list. ">AQ::OPTION_EXTENDABLE</a>). When set to ClaimSizeRule::CLAIM_AT_MOST the allocated memory can be less than the specified amount. It will never be less if there was enough space in the queue to satisfy the request. </td></tr>
   </table>
   </dd>
 </dl>
@@ -355,7 +318,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Commits an item previously obtained via a <a class="el" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9" title="Claims an item to be stored in the queue. ">claim()</a> call to the queue so that it is available for consumption by the <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a>. </p>
+<p>Commits an item previously obtained via a <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">claim()</a> call to the queue so that it is available for consumption by the <a class="el" href="class_a_q_reader.html" title="Implements the reader side of a Multi-Producer Concurrent Allocating Queue. ">AQReader</a>. </p>
 <p>Once this function is called the claimed memory must no longer be accessed or the results are undefined.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -389,7 +352,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Obtains a reference to a memory address that changes whenever space is made available in the queue for further write operations. </p>
 <p>This can be used as a cheap method of polling for 'space available'.</p>
-<p>The main purpose of this is to implement efficient polling: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> pollClaim(<a class="code" href="class_a_q_writer.html">AQWriter</a>&amp; writer, <a class="code" href="class_a_q_writer_item.html">AQWriterItem</a>&amp; item, <span class="keywordtype">size_t</span> memSize)</div><div class="line">{</div><div class="line">    <span class="keyword">const</span> <span class="keyword">volatile</span> uint32_t&amp; <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a> = writer.<a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>();</div><div class="line">    uint32_t count = <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>;</div><div class="line">    <span class="keywordflow">while</span> (!writer.<a class="code" href="class_a_q_writer.html#a412092999c2edc4612107512c86ab4b9">claim</a>(item, memSize))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">while</span> (count == freeCounter)</div><div class="line">        {</div><div class="line">            ... perform some other processing, sleep, etc ...</div><div class="line">        }</div><div class="line">        count = <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>;</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>A reference to an integer whose value changes whenever space is made available in the queue. </dd></dl>
+<p>The main purpose of this is to implement efficient polling: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> pollClaim(<a class="code" href="class_a_q_writer.html">AQWriter</a>&amp; writer, <a class="code" href="class_a_q_writer_item.html">AQWriterItem</a>&amp; item, <span class="keywordtype">size_t</span> memSize)</div><div class="line">{</div><div class="line">    <span class="keyword">const</span> <span class="keyword">volatile</span> uint32_t&amp; <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a> = writer.<a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>();</div><div class="line">    uint32_t count = <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>;</div><div class="line">    <span class="keywordflow">while</span> (!writer.<a class="code" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a">claim</a>(item, memSize))</div><div class="line">    {</div><div class="line">        <span class="keywordflow">while</span> (count == freeCounter)</div><div class="line">        {</div><div class="line">            ... perform some other processing, sleep, etc ...</div><div class="line">        }</div><div class="line">        count = <a class="code" href="class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293">freeCounter</a>;</div><div class="line">    }</div><div class="line">}</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>A reference to an integer whose value changes whenever space is made available in the queue. </dd></dl>
 
 </div>
 </div>
@@ -425,7 +388,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 04:05:35 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 7 2016 08:21:58 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

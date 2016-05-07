@@ -40,7 +40,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -84,6 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_a_q_log_handler-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -91,11 +91,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Log handlers are used to handle log records.  
+<p>Log handlers are used to process log records writing them out to their ultimate destination.  
  <a href="class_a_q_log_handler.html#details">More...</a></p>
 
 <p><code>#include &lt;AQLogHandler.h&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a882b2e93da10233362bb07251a90e746"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_handler.html#a882b2e93da10233362bb07251a90e746">addFilter</a> (AQLogLevel_t level, const std::string &amp;componentId=&quot;&quot;, const std::string &amp;tagId=&quot;&quot;, const std::string &amp;file=&quot;&quot;)</td></tr>
+<tr class="memdesc:a882b2e93da10233362bb07251a90e746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a filter to this handler.  <a href="#a882b2e93da10233362bb07251a90e746">More...</a><br /></td></tr>
+<tr class="separator:a882b2e93da10233362bb07251a90e746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8a9b966bfd544231cc3e5906e6d6f3f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_handler.html#af8a9b966bfd544231cc3e5906e6d6f3f">handle</a> (const <a class="el" href="class_a_q_log_record.html">AQLogRecord</a> &amp;rec)=0</td></tr>
+<tr class="memdesc:af8a9b966bfd544231cc3e5906e6d6f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called whenever a log record is received that needs to be handled by this log handler.  <a href="#af8a9b966bfd544231cc3e5906e6d6f3f">More...</a><br /></td></tr>
+<tr class="separator:af8a9b966bfd544231cc3e5906e6d6f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ae6f6b042dbc2ec1176a976553ce9ec09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_handler.html#ae6f6b042dbc2ec1176a976553ce9ec09">AQLogHandler</a> (void)</td></tr>
@@ -106,9 +115,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a0f58b75a805ef7389663fc09cdd4a5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Log handlers are used to handle log records. </p>
+<div class="textblock"><p>Log handlers are used to process log records writing them out to their ultimate destination. </p>
 <p>Each log handler contains a set of filters, and if a record matches any one of those filters then it is passed to the log handler for proessing.</p>
-<p>This is an abstract class; concrete implementations override the handle() method to actually process the log record. </p>
+<p>This is an abstract class; concrete implementations override the <a class="el" href="class_a_q_log_handler.html#af8a9b966bfd544231cc3e5906e6d6f3f" title="Called whenever a log record is received that needs to be handled by this log handler. ">handle()</a> method to actually process the log record. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae6f6b042dbc2ec1176a976553ce9ec09"></a>
 <div class="memitem">
@@ -163,6 +172,101 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a882b2e93da10233362bb07251a90e746"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AQLogHandler::addFilter </td>
+          <td>(</td>
+          <td class="paramtype">AQLogLevel_t&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>componentId</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tagId</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a filter to this handler. </p>
+<p>Any log record that matches the filter is passed to the <a class="el" href="class_a_q_log_handler.html#af8a9b966bfd544231cc3e5906e6d6f3f" title="Called whenever a log record is received that needs to be handled by this log handler. ">handle()</a> function. All the filter conditions must match on the log record in order for it to be handled.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>The log level for the filter. Log records must have a level equal to or less than this value to be handled. Any log record with a level higher than this number is ignored by this handler. Note that the lowest log level corresponds to the highest severity level. </td></tr>
+    <tr><td class="paramname">componentId</td><td>The component required for this filter.<ul>
+<li>If this string is non-empty then each log record must originate from this component. Log records from any other component are ignored.</li>
+<li>If this is the empty string then no filtering is applied to the component. All log records will be accepted regardless of their component state. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">tagId</td><td>The tag required for this filter.<ul>
+<li>If this string is non-empty then each log record must have exactly the tag specified in this parameter. Log records with any other tag, or no tag at all, are ignored.</li>
+<li>If this is the empty string then no filtering is applied to the tag. All log records will be accepted regardless of their tag value. </li>
+</ul>
+</td></tr>
+    <tr><td class="paramname">file</td><td>The filename required for this filter. Filenames never include the file directory path, only the filename itself.<ul>
+<li>If this string is non-empty then each log record must originate from a file with this name. Log records from any other file are ignored.</li>
+<li>If this is the empty string then no filtering is applied base on the originating file name. All log records will be accepted regardless of their file name. It is recommended that when specifying a file-based filter that either a tag or a component is also provided. Only specifying a file can lead to poor performance as other third party components could contain files with the same name, and moreover many files may hash to the same position in the log level hash table leading to records being generated for other components that are never actually handled by a log handler. </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af8a9b966bfd544231cc3e5906e6d6f3f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void AQLogHandler::handle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_record.html">AQLogRecord</a> &amp;&#160;</td>
+          <td class="paramname"><em>rec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called whenever a log record is received that needs to be handled by this log handler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rec</td><td>The record to handle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>AQLogHandler.h</li>
 <li>AQLogHandler.cpp</li>
@@ -170,7 +274,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 04:08:25 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 7 2016 08:25:19 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

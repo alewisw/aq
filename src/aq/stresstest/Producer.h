@@ -58,8 +58,8 @@ public:
     // producer is allocated thread number 'threadNum'.
     //
     // If <trace> is non-NULL a trace buffer is created for the queue.
-    Producer(AQReader& reader, int threadNum, void *shm, 
-        size_t shmSize, const std::vector<unsigned int> &itemPages, 
+    Producer(AQReader& reader, int threadNum, IAQSharedMemory& sm,
+        const std::vector<unsigned int> &itemPages, 
         bool checkLinkId, unsigned int maxOutstanding, 
         size_t maxPagesPerAppend, TraceManager *trace);
 

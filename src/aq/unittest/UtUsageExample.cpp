@@ -13,6 +13,8 @@
 
 #include "AQTest.h"
 
+#include "AQHeapMemory.h"
+
 #include <string.h>
 
 
@@ -42,9 +44,10 @@ class UsageAQ
 
 public:
     UsageAQ(void)
-        : ctrl((CtrlOverlay *)mem)
-        , writer(mem, sizeof(mem), m_tm.createBuffer("wrt"))
-        , reader(mem, sizeof(mem), m_tm.createBuffer("rdr"))
+        : m_sm(mem, sizeof(mem))
+        , ctrl((CtrlOverlay *)mem)
+        , writer(m_sm, m_tm.createBuffer("wrt"))
+        , reader(m_sm, m_tm.createBuffer("rdr"))
     {
         CHECK(reader.format(0, AQTest::COMMIT_TIMEOUT_MS - 25));
 
@@ -300,6 +303,9 @@ public:
 
     // The dummy trace manager.
     TraceManager m_tm;
+
+    // The shared memory.
+    AQExternMemory m_sm;
 
     // The control overlay.
     CtrlOverlay *ctrl;
@@ -565,10 +571,9 @@ TEST(given_UsageExampleAtStep7_when_Retrieve1Page_then_ContentMatchesExpected)
 TEST(given_UsageExampleCode_when_Executed_then_Runs)
 {
     // EXAMPLE (1)
-    unsigned char mem[146];
-
-    AQWriter writer(mem, sizeof(mem));
-    AQReader reader(mem, sizeof(mem));
+    AQHeapMemory mem(146);
+    AQWriter writer(mem);
+    AQReader reader(mem);
     reader.format(1, 500);
     cout << "Page Size        = " << reader.pageSize()  << endl;    // Page Size        = 2
     cout << "Page Count       = " << reader.pageCount() << endl;    // Page Count       = 15

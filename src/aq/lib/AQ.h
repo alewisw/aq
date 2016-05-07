@@ -43,6 +43,7 @@ namespace aq
     struct CtrlOverlay;
 }
 class AQItem;
+class IAQSharedMemory;
 
 
 
@@ -69,14 +70,14 @@ class AQ
 
 protected:
 
-    // Constructs a queue object that uses the passed shared memory region mem
-    // of total size memSize bytes.  This does not read or write the memory -
-    // it just sets up the internal pointers and references.
+    // Constructs a queue object that uses the passed shared memory region.  
+    // This does not read or write the memory - it just sets up the internal 
+    // pointers and references.
     //
     // The trace argument is an optional tracing buffer that holds all queue 
     // access logs.  This is only used in the unit and stress tests to track 
     // queue accesses and help debug issues.
-    AQ(int testPointCount, void *mem, size_t memSize, 
+    AQ(int testPointCount, IAQSharedMemory& sm, 
        aq::TraceBuffer *trace = NULL);
 
     // Constructs this queue such that it references exactly the same underlying
@@ -144,7 +145,7 @@ public:
     bool isExtendable(void) const;
 
     // Obtains the size of the memory region containing the queue.
-    size_t memorySize(void) const { return m_memSize;  }
+    size_t memorySize(void) const;
 
     /**
      * Obtains the size of each page in the queue.  Using an integer multiple of pageSize()
@@ -194,11 +195,11 @@ protected:
     // the queue is headerXref returns the m_ctrl object.
     aq::CtrlOverlay *ctrlThrowOnUnformatted(const char *func) const;
 
+    // The shared memory.
+    IAQSharedMemory *m_sm;
+
     // Defines the control region of the shared memory.
     aq::CtrlOverlay *m_ctrl;
-
-    // The total size, as passed into this class, of the shared memory.
-    size_t m_memSize;
 
 
     // Test point management - only used as part of the automated unit testing

@@ -74,9 +74,10 @@ AQTest::AQTest(unsigned int formatOptions)
     , m_shmSize(SHM_SIZE + ((formatOptions & AQ::OPTION_CRC32) ? SHM_CRC32_OVERHEAD_SIZE : 0)
                          + ((formatOptions & (AQ::OPTION_LINK_IDENTIFIER | AQ::OPTION_EXTENDABLE)) ? SHM_LINK_IDENTIFIER_OVERHEAD_SIZE : 0))
     , m_shmEndGuardSize(SHM_GUARD_SIZE + SHM_SIZE + SHM_CRC32_OVERHEAD_SIZE + SHM_LINK_IDENTIFIER_OVERHEAD_SIZE - m_shmSize)
+    , m_sm(&m_shm[SHM_GUARD_SIZE], m_shmSize)
     , ctrl((aq::CtrlOverlay *)&m_shm[SHM_GUARD_SIZE])
-    , reader(&m_shm[SHM_GUARD_SIZE], m_shmSize, m_tm.createBuffer("rdr"))
-    , writer(&m_shm[SHM_GUARD_SIZE], m_shmSize, m_tm.createBuffer("wrt"))
+    , reader(m_sm, m_tm.createBuffer("rdr"))
+    , writer(m_sm, m_tm.createBuffer("wrt"))
     , trace(m_tm.createBuffer("tst"))
 
 {

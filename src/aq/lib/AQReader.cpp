@@ -85,16 +85,16 @@ do                                                                              
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQReader::AQReader(void *mem, size_t memSize)
-    : AQ(TestPointCount, mem, memSize)
+AQReader::AQReader(IAQSharedMemory& sm)
+    : AQ(TestPointCount, sm)
     , m_linkProcessor(NULL)
     , m_pstate(NULL)
 {
 }
 
 //------------------------------------------------------------------------------
-AQReader::AQReader(void *mem, size_t memSize, aq::TraceBuffer *trace)
-    : AQ(TestPointCount, mem, memSize, trace)
+AQReader::AQReader(IAQSharedMemory& sm, aq::TraceBuffer *trace)
+    : AQ(TestPointCount, sm, trace)
     , m_linkProcessor(NULL)
     , m_pstate(NULL)
 {
@@ -149,7 +149,8 @@ bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
     // |   Waste   |
     // +-----------+
     CtrlOverlay *c = m_ctrl;
-    if (c == NULL || m_memSize < offsetof(CtrlOverlay, headerXref) + sizeof(c->headerXref))
+    size_t memSize = memorySize();
+    if (c == NULL || memSize < offsetof(CtrlOverlay, headerXref) + sizeof(c->headerXref))
     {
         return false;
     }
@@ -179,7 +180,7 @@ bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
 
 
     // Calculate the maximum possible page size, then reduce the page size until
-    size_t pageCount = (m_memSize - overhead) / pageSize;
+    size_t pageCount = (memSize - overhead) / pageSize;
     if (pageCount > CtrlOverlay::PAGE_COUNT_MAX)
     {
         pageCount = CtrlOverlay::PAGE_COUNT_MAX;
@@ -187,7 +188,7 @@ bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
 
     // Calculate the required memory queue address for this page size aligned 
     // to the appropriate boundary address.
-    size_t memqEnd = (size_t)c + m_memSize;
+    size_t memqEnd = (size_t)c + memSize;
     size_t memqStart = 0;
     for (;;)
     {
@@ -207,7 +208,7 @@ bool AQReader::format(uint32_t pageSizeShift, uint32_t commitTimeoutMs,
     }
 
     // Construct the memory region.
-    c->size = m_memSize;
+    c->size = memSize;
     c->pageSizeShift = pageSizeShift;
     c->pageCount = pageCount;
     c->memOffset = memqStart - (size_t)c;

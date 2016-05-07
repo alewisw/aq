@@ -58,7 +58,8 @@ TEST_SUITE(UtSnapshot);
 //------------------------------------------------------------------------------
 TEST(given_QueueMemoryNull_when_Snapshot_then_AQUnformattedException)
 {
-    AQReader q(NULL, 10000);
+    AQExternMemory sm(NULL, 10000);
+    AQReader q(sm);
 
     AQSnapshot snap;
     REQUIRE_EXCEPTION(snap.snap(q), AQUnformattedException);
@@ -69,7 +70,8 @@ TEST(given_QueueMemoryNull_when_Snapshot_then_AQUnformattedException)
 TEST(given_QueueMemoryTooSmall_when_Snapshot_then_AQUnformattedException)
 {
     char mem[1000];
-    AQReader q(mem, sizeof(CtrlOverlay) - 1);
+    AQExternMemory sm(mem, sizeof(CtrlOverlay) - 1);
+    AQReader q(sm);
 
     AQSnapshot snap;
     REQUIRE_EXCEPTION(snap.snap(q), AQUnformattedException);

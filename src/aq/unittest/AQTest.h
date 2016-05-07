@@ -11,6 +11,8 @@
 // Includes
 //------------------------------------------------------------------------------
 
+#include "AQExternMemory.h"
+
 
 
 
@@ -109,6 +111,9 @@ private:
 
     // The size of the end guard region.
     size_t m_shmEndGuardSize;
+
+    // The shared memory.
+    AQExternMemory m_sm;
 
     // The random data available for writing.
     char m_data[SHM_SIZE * 2];

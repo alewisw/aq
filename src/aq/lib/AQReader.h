@@ -59,24 +59,23 @@ class AQReader : public AQ
 public:
 
     /**
-     * Constructs a queue reader object that uses the passed shared memory region mem
-     * of total size memSize bytes.  This does not read or write the memory -
-     * it just sets up the internal pointers and references.
+     * Constructs a queue reader object that uses the passed shared memory region.  
+     * This does not read or write the memory - it just sets up the internal pointers
+     * and references.
      *
      * Only a single AQReader object can be constructed for any one shared memory
      * region.  Having more than one AQReader object results in undefined behavior.
      *
      * Before the queue can be accesed it must be formatted with AQReader::format().
      *
-     * @param mem The memory address where the queue is stored.
-     * @param memSize The total size of the memory region where the queue is stored.
+     * @param sm The shared memory region where the queue is stored.
      */
-    AQReader(void *mem, size_t memSize);
+    AQReader(IAQSharedMemory& sm);
 
     // As above with the addition of a tracing buffer that holds all queue access logs.
     // This is only used in the unit and stress tests to track queue accesses and help
     // debug issues.
-    AQReader(void *mem, size_t memSize, aq::TraceBuffer *trace);
+    AQReader(IAQSharedMemory& sm, aq::TraceBuffer *trace);
 
 private:
 

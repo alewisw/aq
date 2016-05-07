@@ -57,21 +57,20 @@ class AQWriter : public AQ
 public:
 
     /**
-     * Constructs a queue writer object that uses the passed shared memory region mem
-     * of total size memSize bytes.  This does not read or write the memory -
-     * it just sets up the internal pointers and references.
+     * Constructs a queue writer object that uses the passed shared memory region.  
+     * This does not read or write the memory - it just sets up the internal pointers
+     * and references.
      *
      * Before the queue can be accesed it must be formatted with AQReader::format().
      *
-     * @param mem The memory address where the queue is stored.
-     * @param memSize The total size of the memory region where the queue is stored.
+     * @param sm The shared memory region where the queue is stored.
      */
-    AQWriter(void *mem, size_t memSize);
+    AQWriter(IAQSharedMemory& sm);
 
     // As above with the addition of a tracing buffer that holds all queue access logs.
     // This is only used in the unit and stress tests to track queue accesses and help
     // debug issues.
-    AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace);
+    AQWriter(IAQSharedMemory& sm, aq::TraceBuffer *trace);
 
     /**
      * Constructs this queue writer such that it references exactly the same underlying

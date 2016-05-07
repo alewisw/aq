@@ -146,7 +146,7 @@ void AQSnapshot::snap1InitialHead(const AQ& queue)
     reset();
 
     const void *mem = (const void *)queue.m_ctrl;
-    size_t memSize = queue.m_memSize;
+    size_t memSize = queue.memorySize();
 
     if (mem == NULL || memSize < offsetof(CtrlOverlay, ctrlq))
     {

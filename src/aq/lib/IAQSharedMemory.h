@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef IAQSHAREDMEMORY_H
+#define IAQSHAREDMEMORY_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -11,29 +11,8 @@
 // Includes
 //------------------------------------------------------------------------------
 
-// Test framework.
-#include "Test.h"
-
-// AQ exported classes
-#include "AQHeapMemory.h"
-#include "AQReader.h"
-#include "AQSnapshot.h"
-#include "AQUnformattedException.h"
-#include "AQWriter.h"
-#include "AQWriterItem.h"
-
-// AQ internal classes
-#include "CtrlOverlay.h"
-#include "Timer.h"
-#include "TraceBuffer.h"
-#include "TraceManager.h"
-
-// Standard libraries
-#include <sstream>
-#include <set>
-
-using namespace aq;
-using namespace std;
+#include <stdint.h>
+#include <stdlib.h>
 
 
 
@@ -62,6 +41,48 @@ using namespace std;
 //------------------------------------------------------------------------------
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
+
+/**
+ * Defines an interface that shared memory regions can use to expose their 
+ * address and size.
+ *
+ * Some shared memory implementations will simply allocate memory on the local
+ * heap, while others could use a memory mapped file or operating system 
+ * supported shared memory.
+ */
+class IAQSharedMemory
+{
+protected:
+
+    /**
+     * Constructs a new IAQSharedMemory object.
+     */
+    IAQSharedMemory(void) { }
+
+public:
+
+    /**
+    * Destroys this IAQSharedMemory object.
+    */
+    virtual ~IAQSharedMemory(void) { }
+
+    /**
+     * Obtains the base address of the shared memory.
+     *
+     * @returns The base address of the shared memory or NULL if the shared
+     * memory is not available.
+     */
+    virtual void *baseAddress(void) const = 0;
+
+    /**
+     * Obtains the size of the shared memory region.  The first byte is the one
+     * pointed to by baseAddress() with the last byte at baseAddress() + size() - 1.
+     *
+     * @returns The size of the shared memory in bytes.
+     */
+    virtual size_t size(void) const = 0;
+
+};
 
 
 

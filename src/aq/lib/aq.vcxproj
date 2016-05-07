@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AQ.cpp" />
+    <ClCompile Include="AQHeapMemory.cpp" />
     <ClCompile Include="AQReader.cpp" />
     <ClCompile Include="AQWriter.cpp" />
     <ClCompile Include="AQItem.cpp" />
@@ -32,6 +33,8 @@
     <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AQExternMemory.h" />
+    <ClInclude Include="AQHeapMemory.h" />
     <ClInclude Include="AQItem.h" />
     <ClInclude Include="AQWriterItem.h" />
     <ClInclude Include="AQ.h" />
@@ -39,6 +42,7 @@
     <ClInclude Include="AQWriter.h" />
     <ClInclude Include="AQSnapshot.h" />
     <ClInclude Include="AQUnformattedException.h" />
+    <ClInclude Include="IAQSharedMemory.h" />
     <ClInclude Include="internal\Crc32.h" />
     <ClInclude Include="internal\CtrlOverlay.h" />
     <ClInclude Include="internal\LinkedItemProcessor.h" />

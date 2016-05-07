@@ -12,6 +12,7 @@
 #include "AQ.h"
 #include "AQItem.h"
 #include "AQUnformattedException.h"
+#include "IAQSharedMemory.h"
 
 #include "CtrlOverlay.h"
 #include "TestPointNotifier.h"
@@ -58,10 +59,10 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
+AQ::AQ(int testPointCount, IAQSharedMemory& sm, aq::TraceBuffer *trace)
     : m_trace(trace)
-    , m_ctrl((CtrlOverlay *)mem)
-    , m_memSize(memSize)
+    , m_sm(&sm)
+    , m_ctrl((CtrlOverlay *)sm.baseAddress())
 #ifdef AQ_TEST_POINT
     , m_tpn(new TestPointNotifier(testPointCount, this))
 #endif
@@ -71,8 +72,8 @@ AQ::AQ(int testPointCount, void *mem, size_t memSize, aq::TraceBuffer *trace)
 //------------------------------------------------------------------------------
 AQ::AQ(const AQ& other)
     : m_trace(other.m_trace)
+    , m_sm(other.m_sm)
     , m_ctrl(other.m_ctrl)
-    , m_memSize(other.m_memSize)
 #ifdef AQ_TEST_POINT
     , m_tpn(new TestPointNotifier(other.m_tpn->testPointCount(), this))
 #endif
@@ -85,8 +86,8 @@ AQ& AQ::operator=(const AQ& other)
     if (this != &other)
     {
         m_trace = other.m_trace;
+        m_sm = other.m_sm;
         m_ctrl = other.m_ctrl;
-        m_memSize = other.m_memSize;
     }
     return *this;
 }
@@ -103,14 +104,15 @@ AQ::~AQ(void)
 //------------------------------------------------------------------------------
 bool AQ::isFormatted(void) const
 {
-    if (m_ctrl == NULL || m_memSize <   offsetof(CtrlOverlay, headerXref) 
-                                      + sizeof(m_ctrl->headerXref))
+    size_t memSize = memorySize();
+    if (m_ctrl == NULL || memSize <   offsetof(CtrlOverlay, headerXref) 
+                                    + sizeof(m_ctrl->headerXref))
     {
         return false;
     }
     else
     {
-        return m_ctrl->isFormatted(m_memSize);
+        return m_ctrl->isFormatted(memSize);
     }
 }
 
@@ -118,6 +120,12 @@ bool AQ::isFormatted(void) const
 bool AQ::isExtendable(void) const
 {
     return isFormatted() && (m_ctrl->options & OPTION_EXTENDABLE) != 0;
+}
+
+//------------------------------------------------------------------------------
+size_t AQ::memorySize(void) const 
+{ 
+    return m_sm->size();
 }
 
 //------------------------------------------------------------------------------

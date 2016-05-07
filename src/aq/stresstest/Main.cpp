@@ -16,6 +16,7 @@
 #include "SnapshotValidator.h"
 
 #include "AQReader.h"
+#include "AQExternMemory.h"
 
 #include "CtrlOverlay.h"
 #include "Timer.h"
@@ -267,8 +268,10 @@ int main(int argc, char* argv[])
     // Create the trace manager if required.
     Trace = (TraceEnableConsumer || TraceEnableProducer) ? new TraceManager(TraceManager::String, 1000) : NULL;
 
+    AQExternMemory sm(&Shm[SHM_GUARD_SIZE], ShmSize);
+
     // Create the reader and format the memory.
-    AQReader consumer(&Shm[SHM_GUARD_SIZE], ShmSize,
+    AQReader consumer(sm,
         TraceEnableConsumer ? Trace->createBuffer("con" /*, 1000000*/) : NULL);
     consumer.format(PageSizeShift, CommitTimeoutMs, FormatOptions);
     SnapValidator = new SnapshotValidator(consumer, MaxOutstanding);
@@ -278,8 +281,8 @@ int main(int argc, char* argv[])
     bool checkLinkId = (FormatOptions & CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER) == AQ::OPTION_LINK_IDENTIFIER;
     for (int i = 0; i < ProducerCount; ++i)
     {
-        Producers.push_back(new Producer(consumer, i + 1, &Shm[SHM_GUARD_SIZE], 
-            ShmSize, PageSizeAlloc, checkLinkId, MaxOutstanding, MaxPagesPerAppend,
+        Producers.push_back(new Producer(consumer, i + 1, sm, 
+            PageSizeAlloc, checkLinkId, MaxOutstanding, MaxPagesPerAppend,
             TraceEnableProducer ? Trace : NULL));
 #ifdef AQ_TEST_POINT
         if (TpDelayClaimBeforeWriteHeadRef)

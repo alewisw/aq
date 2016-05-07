@@ -51,7 +51,9 @@ TEST_SUITE(UtFormat);
 //------------------------------------------------------------------------------
 TEST(when_MemoryNull_then_FormatFails)
 {
-    AQReader q(NULL, 10000);
+    AQExternMemory sm(NULL, 10000);
+
+    AQReader q(sm);
     REQUIRE(!q.format(2, 100));
     REQUIRE(!q.isFormatted());
     REQUIRE(q.pageCount() == 0);
@@ -61,7 +63,9 @@ TEST(when_MemoryNull_then_FormatFails)
 TEST(given_Formatted_when_CorruptFormatMask_then_FormatFails)
 {
     unsigned char mem[10000];
-    AQReader q(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+
+    AQReader q(sm);
     CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
     CHECK(q.isExtendable());
     mem[0] = 0xFF;
@@ -72,7 +76,9 @@ TEST(given_Formatted_when_CorruptFormatMask_then_FormatFails)
 TEST(given_Formatted_when_CorruptFormatMask_then_PageSizeZero)
 {
     unsigned char mem[10000];
-    AQReader q(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+
+    AQReader q(sm);
     CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
     CHECK(q.pageSize() == 4);
     mem[0] = 0xFF;
@@ -83,7 +89,9 @@ TEST(given_Formatted_when_CorruptFormatMask_then_PageSizeZero)
 TEST(given_Formatted_when_CorruptFormatMask_then_PageCountZero)
 {
     unsigned char mem[10000];
-    AQReader q(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+
+    AQReader q(sm);
     CHECK(q.format(2, 100, AQ::OPTION_EXTENDABLE));
     CHECK(q.pageCount() > 0);
     mem[0] = 0xFF;
@@ -94,8 +102,9 @@ TEST(given_Formatted_when_CorruptFormatMask_then_PageCountZero)
 TEST(when_MemorySizeZero_then_FormatFails)
 {
     unsigned char mem[10000];
+    AQExternMemory sm(mem, 0);
 
-    AQReader q(mem, 0);
+    AQReader q(sm);
     REQUIRE(!q.format(2, 100));
     REQUIRE(!q.isFormatted());
     REQUIRE(q.pageCount() == 0);
@@ -105,8 +114,9 @@ TEST(when_MemorySizeZero_then_FormatFails)
 TEST(when_MemorySizeCtrlOverlaySize_then_FormatFails)
 {
     unsigned char mem[10000];
+    AQExternMemory sm(mem, sizeof(CtrlOverlay));
 
-    AQReader q(mem, sizeof(CtrlOverlay));
+    AQReader q(sm);
     REQUIRE(!q.format(2, 100));
     REQUIRE(!q.isFormatted());
     REQUIRE(q.pageCount() == 0);
@@ -116,9 +126,9 @@ TEST(when_MemorySizeCtrlOverlaySize_then_FormatFails)
 TEST(when_MemorySizeAllowsOnePage_then_FormatFails)
 {
     const size_t nPages = 1;
-    unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
+    AQHeapMemory sm(sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4);
 
-    AQReader q(mem, sizeof(mem));
+    AQReader q(sm);
     REQUIRE(!q.format(2, 100));
     REQUIRE(!q.isFormatted());
     REQUIRE(q.pageCount() == 0);
@@ -128,9 +138,9 @@ TEST(when_MemorySizeAllowsOnePage_then_FormatFails)
 TEST(when_MemorySizeAllowsTwoPages_then_FormatSucceeds)
 {
     const size_t nPages = 2;
-    unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
+    AQHeapMemory sm(sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4);
 
-    AQReader q(mem, sizeof(mem));
+    AQReader q(sm);
     REQUIRE(q.format(2, 100));
     REQUIRE(q.isFormatted());
     REQUIRE(q.pageCount() == nPages);
@@ -140,9 +150,9 @@ TEST(when_MemorySizeAllowsTwoPages_then_FormatSucceeds)
 TEST(when_MemorySizeExactlyFitsNPages_then_NPagesUsed)
 {
     const size_t nPages = 10;
-    unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4];
+    AQHeapMemory sm(sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4);
 
-    AQReader q(mem, sizeof(mem));
+    AQReader q(sm);
     q.format(2, 100);
     REQUIRE(q.isFormatted());
     REQUIRE(q.pageCount() == nPages);
@@ -152,9 +162,9 @@ TEST(when_MemorySizeExactlyFitsNPages_then_NPagesUsed)
 TEST(when_MemorySizeOneLessThanNPages_then_NTake1PagesUsed)
 {
     const size_t nPages = 10;
-    unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 - 1];
+    AQHeapMemory sm(sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 - 1);
 
-    AQReader q(mem, sizeof(mem));
+    AQReader q(sm);
     q.format(2, 100);
     REQUIRE(q.isFormatted());
     REQUIRE(q.pageCount() == nPages - 1);
@@ -164,9 +174,9 @@ TEST(when_MemorySizeOneLessThanNPages_then_NTake1PagesUsed)
 TEST(when_MemorySizeOneMoreThanNPages_then_NPagesUsed)
 {
     const size_t nPages = 10;
-    unsigned char mem[sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 + 1];
+    AQHeapMemory sm(sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4 + 1);
 
-    AQReader q(mem, sizeof(mem));
+    AQReader q(sm);
     q.format(2, 100);
     REQUIRE(q.isFormatted());
     REQUIRE(q.pageCount() == nPages);
@@ -177,14 +187,13 @@ TEST(when_MemorySizeAllowsMoreThanMaxPages_then_MaxPagesUsed)
 {
     const size_t nPages = CtrlOverlay::PAGE_COUNT_MAX + 1;
     size_t sz = sizeof(CtrlOverlay) + (nPages - 1) * sizeof(uint32_t) + nPages * 4;
-    unsigned char *mem = new unsigned char[sz];
+    
+    AQHeapMemory sm(sz);
 
-    AQReader q(mem, sz);
+    AQReader q(sm);
     q.format(2, 100);
     REQUIRE(q.isFormatted());
     REQUIRE(q.pageCount() == CtrlOverlay::PAGE_COUNT_MAX);
-
-    delete[] mem;
 }
 
 //------------------------------------------------------------------------------
@@ -203,13 +212,13 @@ TEST(when_QueueFormattedWithDifferentPageSizeAndCount_then_PagesAligned)
 
         for (size_t memSize = memMin; memSize < memMin + (1U << (pageSizeShift + 4)); ++memSize)
         {
-            unsigned char *mem = new unsigned char[memSize];
+            AQHeapMemory mem(memSize);
 
-            AQReader q(mem, memSize);
+            AQReader q(mem);
             q.format(pageSizeShift, 100);
             REQUIRE(q.isFormatted());
 
-            AQWriter p(mem, memSize);
+            AQWriter p(mem);
             REQUIRE(p.isFormatted());
             for (size_t i = 0; i < q.pageCount(); ++i)
             {
@@ -222,8 +231,6 @@ TEST(when_QueueFormattedWithDifferentPageSizeAndCount_then_PagesAligned)
                 REQUIRE(q.retrieve(ritem));
                 q.release(ritem);
             }
-
-            delete[] mem;
         }
     }
 }
@@ -233,7 +240,8 @@ TEST(given_QueueFormatted_when_HeaderXrefChanged_then_IndicateUnformatted)
 {
     char mem[1000];
     CtrlOverlay *ctrl = (CtrlOverlay *)&mem[0];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(5, 100);
     REQUIRE(c.isFormatted());
     ctrl->headerXref |= 1 << 30;
@@ -245,7 +253,8 @@ TEST(given_QueueFormatted_when_FormatVersionLow_then_IndicateUnformatted)
 {
     char mem[1000];
     CtrlOverlay *ctrl = (CtrlOverlay *)&mem[0];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(5, 100);
     REQUIRE(c.isFormatted());
     ctrl->formatVersion = 0;
@@ -257,7 +266,8 @@ TEST(given_QueueFormatted_when_FormatVersionHigh_then_IndicateUnformatted)
 {
     char mem[1000];
     CtrlOverlay *ctrl = (CtrlOverlay *)&mem[0];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(5, 100);
     REQUIRE(c.isFormatted());
     ctrl->formatVersion++;
@@ -269,7 +279,8 @@ TEST(given_QueueFormatted_when_OptionInvalid_then_IndicateUnformatted)
 {
     char mem[1000];
     CtrlOverlay *ctrl = (CtrlOverlay *)&mem[0];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(5, 100);
     REQUIRE(c.isFormatted());
     ctrl->options |= 1 << 31;
@@ -282,8 +293,9 @@ TEST(given_QueueUnformatted_when_Claim_then_Fails)
     // First we create a valid queue and claim an item; then we memset() the
     // memory to clear the formatted status.
     char mem[1000];
-    AQReader c(mem, sizeof(mem));
-    AQWriter p(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
+    AQWriter p(sm);
     c.format(2, 100);
 
     AQWriterItem witem;
@@ -297,8 +309,9 @@ TEST(given_QueueUnformatted_when_Retrieve_then_Fails)
     // First we create a valid queue and claim an item; then we memset() the
     // memory to clear the formatted status.
     char mem[1000];
-    AQReader c(mem, sizeof(mem));
-    AQWriter p(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
+    AQWriter p(sm);
     c.format(2, 100);
 
     AQWriterItem witem;
@@ -313,10 +326,12 @@ TEST(given_QueueUnformatted_when_Retrieve_then_Fails)
 TEST(given_QueueFormatted_when_ProducerMemoryTooSmall_then_ProducerUnformatted)
 {
     char mem[1000];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(2, 100);
 
-    AQWriter p(mem, sizeof(mem) - 1);
+    AQExternMemory sm2(mem, sizeof(mem) - 1);
+    AQWriter p(sm2);
 
     REQUIRE(c.isFormatted());
     REQUIRE(!p.isFormatted());
@@ -326,10 +341,12 @@ TEST(given_QueueFormatted_when_ProducerMemoryTooSmall_then_ProducerUnformatted)
 TEST(given_QueueFormatted_when_ProducerMemoryTooLarge_then_ProducerFormatted)
 {
     char mem[1000];
-    AQReader c(mem, sizeof(mem));
+    AQExternMemory sm(mem, sizeof(mem));
+    AQReader c(sm);
     c.format(2, 100);
 
-    AQWriter p(mem, sizeof(mem) + 1);
+    AQExternMemory sm2(mem, sizeof(mem) + 1);
+    AQWriter p(sm2);
 
     REQUIRE(c.isFormatted());
     REQUIRE(p.isFormatted());

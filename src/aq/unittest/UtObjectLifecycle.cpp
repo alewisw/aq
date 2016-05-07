@@ -98,13 +98,13 @@ TEST(given_AQUnformattedException_when_SelfAssigned_then_ObjectUnchanged)
 //------------------------------------------------------------------------------
 TEST(given_AQWriter_when_CopyConstructed_then_ObjectsIdentical)
 {
-    unsigned char mem[1000];
-    AQWriter a(mem, sizeof(mem));
+    AQHeapMemory sm(1000);
+    AQWriter a(sm);
     AQWriter b(a);
 
     REQUIRE(a.memorySize() == b.memorySize());
 
-    AQReader r(mem, sizeof(mem));
+    AQReader r(sm);
     r.format(2, 1000, AQ::OPTION_EXTENDABLE);
 
     REQUIRE(a.isExtendable());
@@ -119,16 +119,16 @@ TEST(given_AQWriter_when_CopyConstructed_then_ObjectsIdentical)
 //------------------------------------------------------------------------------
 TEST(given_AQWriter_when_Assigned_then_ObjectsIdentical)
 {
-    unsigned char mem[1000];
-    unsigned char memb[500];
-    AQWriter a(mem, sizeof(mem));
-    AQWriter *b = new AQWriter(memb, sizeof(memb));
+    AQHeapMemory sm(1000);
+    AQHeapMemory smb(500);
+    AQWriter a(sm);
+    AQWriter *b = new AQWriter(smb);
 
     *b = a;
 
     REQUIRE(a.memorySize() == b->memorySize());
 
-    AQReader r(mem, sizeof(mem));
+    AQReader r(sm);
     r.format(2, 1000, AQ::OPTION_EXTENDABLE);
 
     REQUIRE(a.isExtendable());
@@ -145,10 +145,11 @@ TEST(given_AQWriter_when_Assigned_then_ObjectsIdentical)
 //------------------------------------------------------------------------------
 TEST(given_AQWriter_when_SelfAssigned_then_ObjectUnchanged)
 {
-    unsigned char mem[1000];
-    unsigned char memb[500];
-    AQWriter a(mem, sizeof(mem));
-    AQWriter b(memb, sizeof(memb));
+    AQHeapMemory sm(100);
+    AQHeapMemory smb(500);
+
+    AQWriter a(sm);
+    AQWriter b(smb);
 
     b = a;
     a = a;
@@ -159,8 +160,8 @@ TEST(given_AQWriter_when_SelfAssigned_then_ObjectUnchanged)
 //------------------------------------------------------------------------------
 TEST(given_NewAQWriter_when_Deleted_then_ObjectDestroyed)
 {
-    unsigned char mem[1000];
-    AQReader *a = new AQReader(mem, sizeof(mem));
+    AQHeapMemory sm(1000);
+    AQReader *a = new AQReader(sm);
     delete a;
 }
 

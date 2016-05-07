@@ -58,14 +58,14 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQWriter::AQWriter(void *mem, size_t memSize)
-    : AQ(TestPointCount, mem, memSize)
+AQWriter::AQWriter(IAQSharedMemory& sm)
+    : AQ(TestPointCount, sm)
 {
 }
 
 //------------------------------------------------------------------------------
-AQWriter::AQWriter(void *mem, size_t memSize, aq::TraceBuffer *trace)
-    : AQ(TestPointCount, mem, memSize, trace)
+AQWriter::AQWriter(IAQSharedMemory& sm, aq::TraceBuffer *trace)
+    : AQ(TestPointCount, sm, trace)
 {
 }
 

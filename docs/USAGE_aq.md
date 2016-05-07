@@ -46,10 +46,9 @@ In order to use an %AQ, the application must supply a region of memory and then 
  - The `options` argument is a bit-mask of formatting options.  These are defined in the AQ class.
 In this example the queue is formatted such that it has 15 pages of 2 bytes each.  Having such small pages is not recommended in practice, however it is convenient for demonstration purposes.
 ~~~{.cpp}
-unsigned char mem[146];
-
-AQWriter writer(mem, sizeof(mem));
-AQReader reader(mem, sizeof(mem));
+AQHeapMemory mem(146);
+AQWriter writer(mem);
+AQReader reader(mem);
 reader.format(1, 500);
 cout << "Page Size        = " << reader.pageSize()  << endl;    // Page Size        = 2
 cout << "Page Count       = " << reader.pageCount() << endl;    // Page Count       = 15

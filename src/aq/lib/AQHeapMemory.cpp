@@ -1,5 +1,3 @@
-#ifndef MAIN_H
-#define MAIN_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -11,60 +9,59 @@
 // Includes
 //------------------------------------------------------------------------------
 
-// Test framework.
-#include "Test.h"
-
-// AQ exported classes
 #include "AQHeapMemory.h"
-#include "AQReader.h"
-#include "AQSnapshot.h"
-#include "AQUnformattedException.h"
-#include "AQWriter.h"
-#include "AQWriterItem.h"
 
-// AQ internal classes
-#include "CtrlOverlay.h"
-#include "Timer.h"
-#include "TraceBuffer.h"
-#include "TraceManager.h"
-
-// Standard libraries
-#include <sstream>
-#include <set>
-
-using namespace aq;
 using namespace std;
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Macros
+// Private Macros
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Type Definitions
+// Private Type Definitions
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Variable Declarations
+// Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Function and Class Declarations
+// Variable Declarations
 //------------------------------------------------------------------------------
 
 
 
 
-#endif
+//------------------------------------------------------------------------------
+// Function and Class Implementation
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+AQHeapMemory::AQHeapMemory(size_t size)
+    : m_size(size)
+{
+    m_mem = new unsigned long long[(size + sizeof(unsigned long long) - 1) / sizeof(unsigned long long)];
+}
+
+//------------------------------------------------------------------------------
+AQHeapMemory::~AQHeapMemory(void)
+{
+    delete m_mem;
+}
+
+
+
+
 //=============================== End of File ==================================

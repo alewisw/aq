@@ -30,6 +30,7 @@
 // Forward declarations.
 class AQReader;
 class AQWriter;
+class IAQSharedMemory;
 
 
 
@@ -91,10 +92,7 @@ private:
     size_t m_pageCount;
 
     // The memory for this queue provider.
-    unsigned char *m_mem;
-
-    // The memory size for this queue provider.
-    size_t m_memSize;
+    IAQSharedMemory *m_mem;
 
     // The one and only reader from this queue.
     IAQReader *m_ireader;

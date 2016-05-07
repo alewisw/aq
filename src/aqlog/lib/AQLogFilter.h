@@ -48,10 +48,8 @@ class AQLogHandler;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-/**
- * Defines a log filter.  A log filter is used to identify which log records
- * are passed to a log handler.
- */
+// Defines a log filter.  A log filter is used to identify which log records
+// are passed to a log handler.
 class AQLogFilter
 {
 public:

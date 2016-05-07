@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['isallocated',['isAllocated',['../class_a_q_item.html#a21513e2a0208dbbd000c1821913ff595',1,'AQItem']]],
-  ['ischecksumvalid',['isChecksumValid',['../class_a_q_item.html#a2313675d412d90c4b54da718dbd487fc',1,'AQItem']]],
-  ['iscommitted',['isCommitted',['../class_a_q_item.html#a09f66df9383cbeec05990270d2517397',1,'AQItem']]],
-  ['isextendable',['isExtendable',['../class_a_q.html#a7d869cae253ba0b35bd92cb38f647fda',1,'AQ']]],
-  ['isformatted',['isFormatted',['../class_a_q.html#a40ff86ec57b5e791b7e20c14e372999f',1,'AQ']]],
-  ['isreleased',['isReleased',['../class_a_q_item.html#ac3eb62c6b4c6dee0c2afafafd8bea06f',1,'AQItem']]]
+  ['first',['first',['../class_a_q_item.html#ab109099474cb358ce7b2cd0cbbf4a530',1,'AQItem::first()'],['../class_a_q_writer_item.html#a8efccaf791f519033681a23cbce1ed0a',1,'AQWriterItem::first(void)'],['../class_a_q_writer_item.html#a20ad481c8956678a122c39f921767440',1,'AQWriterItem::first(void) const ']]],
+  ['format',['format',['../class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3',1,'AQReader']]],
+  ['freecounter',['freeCounter',['../class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293',1,'AQWriter']]]
 ];

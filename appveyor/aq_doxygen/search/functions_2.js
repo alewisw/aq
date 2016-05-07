@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['first',['first',['../class_a_q_item.html#ab109099474cb358ce7b2cd0cbbf4a530',1,'AQItem::first()'],['../class_a_q_writer_item.html#a8efccaf791f519033681a23cbce1ed0a',1,'AQWriterItem::first(void)'],['../class_a_q_writer_item.html#a20ad481c8956678a122c39f921767440',1,'AQWriterItem::first(void) const ']]],
-  ['format',['format',['../class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3',1,'AQReader']]],
-  ['freecounter',['freeCounter',['../class_a_q_writer.html#a6eb5b715a284fc141a8671ebee3bd293',1,'AQWriter']]]
+  ['capacity',['capacity',['../class_a_q_item.html#aba43b837efe456e423cf290b7bdae608',1,'AQItem']]],
+  ['claim',['claim',['../class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a',1,'AQWriter']]],
+  ['claimcontentioncount',['claimContentionCount',['../class_a_q.html#a83b0ae9501fdbc209a26868ff4c64ac3',1,'AQ']]],
+  ['clear',['clear',['../class_a_q_item.html#ae169220dd19f29c74d891935d2d9d4b8',1,'AQItem']]],
+  ['commit',['commit',['../class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56',1,'AQWriter']]],
+  ['commitcounter',['commitCounter',['../class_a_q_reader.html#a97babb3a8853758a2c37c68ecd27fe3f',1,'AQReader']]]
 ];

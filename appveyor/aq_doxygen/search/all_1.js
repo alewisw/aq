@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['capacity',['capacity',['../class_a_q_item.html#aba43b837efe456e423cf290b7bdae608',1,'AQItem']]],
-  ['claim',['claim',['../class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a',1,'AQWriter']]],
-  ['claimcontentioncount',['claimContentionCount',['../class_a_q.html#a83b0ae9501fdbc209a26868ff4c64ac3',1,'AQ']]],
-  ['clear',['clear',['../class_a_q_item.html#ae169220dd19f29c74d891935d2d9d4b8',1,'AQItem']]],
-  ['commit',['commit',['../class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56',1,'AQWriter']]],
-  ['commitcounter',['commitCounter',['../class_a_q_reader.html#a97babb3a8853758a2c37c68ecd27fe3f',1,'AQReader']]]
+  ['baseaddress',['baseAddress',['../class_a_q_extern_memory.html#ad12a3463b85ffde43c511ba681866734',1,'AQExternMemory::baseAddress()'],['../class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482',1,'AQHeapMemory::baseAddress()'],['../class_i_a_q_shared_memory.html#a24a0a735652e0a3d7657338c4ba809e0',1,'IAQSharedMemory::baseAddress()']]]
 ];

@@ -107,9 +107,9 @@ Inheritance diagram for AQWriter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeebf829c023e70e4a358a15225f90be6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#aeebf829c023e70e4a358a15225f90be6">AQWriter</a> (void *mem, size_t memSize)</td></tr>
-<tr class="memdesc:aeebf829c023e70e4a358a15225f90be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a queue writer object that uses the passed shared memory region mem of total size memSize bytes.  <a href="#aeebf829c023e70e4a358a15225f90be6">More...</a><br /></td></tr>
-<tr class="separator:aeebf829c023e70e4a358a15225f90be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12178a16f2ff5800369162d9f6c9177"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#af12178a16f2ff5800369162d9f6c9177">AQWriter</a> (<a class="el" href="class_i_a_q_shared_memory.html">IAQSharedMemory</a> &amp;sm)</td></tr>
+<tr class="memdesc:af12178a16f2ff5800369162d9f6c9177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a queue writer object that uses the passed shared memory region.  <a href="#af12178a16f2ff5800369162d9f6c9177">More...</a><br /></td></tr>
+<tr class="separator:af12178a16f2ff5800369162d9f6c9177"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfec5d995bc6262d4381e630aae16bea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_writer.html#adfec5d995bc6262d4381e630aae16bea">AQWriter</a> (const <a class="el" href="class_a_q_writer.html">AQWriter</a> &amp;other)</td></tr>
 <tr class="memdesc:adfec5d995bc6262d4381e630aae16bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs this queue writer such that it references exactly the same underlying memory range as another queue writer.  <a href="#adfec5d995bc6262d4381e630aae16bea">More...</a><br /></td></tr>
 <tr class="separator:adfec5d995bc6262d4381e630aae16bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,37 +165,26 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Implements the writer side of a Multi-Producer Concurrent Allocating Queue. </p>
 <p>Given a single memory region any number of writers in any number of threads may write into the queue at the same time. The <a class="el" href="class_a_q_writer.html#ae0e2eeac326abd648b6aa60a1fb5315a" title="Claims an item to be stored in the queue. ">claim()</a> and <a class="el" href="class_a_q_writer.html#a598bba1f79e007e038ab76d8939a5b56" title="Commits an item previously obtained via a claim() call to the queue so that it is available for consu...">commit()</a> functions are thread-safe with respect to both reading and writing the queue with one exception. If the queue is concurrently formatted by the reader then the behavior is undefined. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aeebf829c023e70e4a358a15225f90be6"></a>
+<a class="anchor" id="af12178a16f2ff5800369162d9f6c9177"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">AQWriter::AQWriter </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="class_i_a_q_shared_memory.html">IAQSharedMemory</a> &amp;&#160;</td>
+          <td class="paramname"><em>sm</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>memSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructs a queue writer object that uses the passed shared memory region mem of total size memSize bytes. </p>
+<p>Constructs a queue writer object that uses the passed shared memory region. </p>
 <p>This does not read or write the memory - it just sets up the internal pointers and references.</p>
 <p>Before the queue can be accesed it must be formatted with <a class="el" href="class_a_q_reader.html#a8f3540da41dd5f50f4509bc62b23f2d3" title="Formats the shared memory for this queue so it can be used by the reader and writers. ">AQReader::format()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mem</td><td>The memory address where the queue is stored. </td></tr>
-    <tr><td class="paramname">memSize</td><td>The total size of the memory region where the queue is stored. </td></tr>
+    <tr><td class="paramname">sm</td><td>The shared memory region where the queue is stored. </td></tr>
   </table>
   </dd>
 </dl>
@@ -388,7 +377,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 08:57:34 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 7 2016 11:16:50 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-07 08:21:06</td>
+            <td class="headerValue">2016-05-07 11:55:01</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -217,7 +217,7 @@
 <span class="lineNum">     146 </span>                :<span class="lineCov">         88 :     reset();</span>
 <span class="lineNum">     147 </span>                :            : 
 <span class="lineNum">     148 </span>                :<span class="lineCov">         88 :     const void *mem = (const void *)queue.m_ctrl;</span>
-<span class="lineNum">     149 </span>                :<span class="lineCov">         88 :     size_t memSize = queue.m_memSize;</span>
+<span class="lineNum">     149 </span>                :<span class="lineCov">         88 :     size_t memSize = queue.memorySize();</span>
 <span class="lineNum">     150 </span>                :            : 
 <span class="lineNum">     151 </span>[<span class="branchCov" title="Branch 0 was taken 87 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 87 times"> + </span>]:<span class="lineCov">         88 :     if (mem == NULL || memSize &lt; offsetof(CtrlOverlay, ctrlq))</span>
 <span class="lineNum">     152 </span>                :            :     {

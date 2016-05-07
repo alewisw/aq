@@ -1,4 +1,4 @@
-# A Fast C / C++ Logging System
+# A Fast Lock-Free C / C++ Logging System
 
 
 

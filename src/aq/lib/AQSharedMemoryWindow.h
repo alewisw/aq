@@ -80,11 +80,11 @@ private:
     // The root shared memory into which this is a window.
     IAQSharedMemory& m_sm;
 
-    // The size of the memory region.
-    size_t m_size;
-
     // The memory region.
     void *m_mem;
+
+    // The size of the memory region.
+    size_t m_size;
 
 public:
 

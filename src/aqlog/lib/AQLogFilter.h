@@ -48,8 +48,10 @@ class AQLogHandler;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Defines a log filter.  The filter specifies the log level as applied at each
-// filter level.
+/**
+ * Defines a log filter.  A log filter is used to identify which log records
+ * are passed to a log handler.
+ */
 class AQLogFilter
 {
 public:
@@ -57,8 +59,9 @@ public:
     // Creates a new filter.  The filter must match the key1, key2, and
     // key3 strings as specified.  If any of the arguments are empty then
     // the rule is applied fully at the specified level.
-    AQLogFilter(AQLogHandler& handler, AQLogLevel_t level, const std::string& key1, 
-                const std::string& key2, const std::string& key3);
+    AQLogFilter(AQLogHandler& handler, AQLogLevel_t level, 
+        const std::string& componentId, const std::string& tagId, 
+        const std::string& file);
 
     // Constructs a filter such that it is the exact copy of another filter.
     AQLogFilter(const AQLogFilter& other);
@@ -71,9 +74,6 @@ public:
 
 private:
 
-    // The number of filter keys.
-    static const uint32_t KEY_COUNT = 3;
-
     // The handler that owns this filter.
     AQLogHandler *m_handler;
 
@@ -81,22 +81,22 @@ private:
     AQLogLevel_t m_level;
 
     // The three strings used for this filter.
-    std::string m_keys[KEY_COUNT];
+    std::string m_tierId[AQLOG_LOOKUP_TIER_COUNT];
 
     // The number of keys in this filter.
-    size_t m_keyCount;
+    size_t m_tierIdCount;
 
 public:
 
     // The handler that owns this filter.
     AQLogHandler& handler(void) const { return *m_handler; }
 
-    // Gets one of the keys for this filter.  There are KEY_COUNT keys in the
-    // array.
-    const std::string& key(size_t idx) const { return m_keys[idx]; }
+    // Gets one of the tier identifiers for this filter.  There are 
+    // AQLOG_LOOKUP_TIER_COUNT identifiers available.
+    const std::string& tierId(size_t idx) const { return m_tierId[idx]; }
 
     // The number of keys in this filter.
-    size_t keyCount(void) const { return m_keyCount; }
+    size_t tierIdCount(void) const { return m_tierIdCount; }
 
     // Gets the logging level for this filter.
     AQLogLevel_t level(void) const { return m_level; }

@@ -5,10 +5,12 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BD4EA6A1-734E-43F5-8CD9-6A047929A457}"
 	ProjectSection(SolutionItems) = preProject
-		docs\Doxyfile = docs\Doxyfile
+		docs\Doxyfile_aq = docs\Doxyfile_aq
+		docs\Doxyfile_aqlog = docs\Doxyfile_aqlog
 		README.md = README.md
 		docs\TODO.md = docs\TODO.md
-		docs\USAGE.md = docs\USAGE.md
+		docs\USAGE_aq.md = docs\USAGE_aq.md
+		docs\USAGE_aqlog.md = docs\USAGE_aqlog.md
 		docs\USAGE_EXAMPLES.md = docs\USAGE_EXAMPLES.md
 	EndProjectSection
 EndProject

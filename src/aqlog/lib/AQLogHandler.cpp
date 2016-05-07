@@ -59,10 +59,10 @@ AQLogHandler::~AQLogHandler(void)
 }
 
 //------------------------------------------------------------------------------
-void AQLogHandler::addFilter(AQLogLevel_t level, const std::string& key1,
-    const std::string& key2, const std::string& key3)
+void AQLogHandler::addFilter(AQLogLevel_t level, const std::string& componentId, 
+    const std::string& tagId, const std::string& file)
 {
-    m_filters.push_back(AQLogFilter(*this, level, key1, key2, key3));
+    m_filters.push_back(AQLogFilter(*this, level, componentId, tagId, file));
 }
 
 

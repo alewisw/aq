@@ -33,43 +33,45 @@
 // mode.  If all is well use the inline functions - otherwise we have to fall back to
 // the extern functions.
 #if defined(_MSC_VER)
-// Compiler identified as Microsoft Visual C++.
-#define AQLOG_HASH_INLINE_ATTRIBUTE static __forceinline
-#define AQLOG_HASH_EXTERN_ATTRIBUTE
+    // Compiler identified as Microsoft Visual C++.
+    #define AQLOG_HASH_INLINE_ATTRIBUTE static __forceinline
+    #define AQLOG_HASH_EXTERN_ATTRIBUTE
 
-#if defined(_DEBUG)
-// Debug build - in this mode the compiler will not inline functions.
-#undef AQLOG_HASH_USE_INLINE
-#else
-// Non-debug build - the compiler can be forced to inline.
-#define AQLOG_HASH_USE_INLINE
-#endif
+    #if defined(_DEBUG)
+        // Debug build - in this mode the compiler will not inline functions.
+        #undef AQLOG_HASH_USE_INLINE
+    #else
+        // Non-debug build - the compiler can be forced to inline.
+        #define AQLOG_HASH_USE_INLINE
+    #endif
 
 #elif defined(__GNUC__)
-// Compiler identified as GCC.
-#define AQLOG_HASH_INLINE_ATTRIBUTE static inline __attribute__((always_inline)) __attribute__((flatten)) __attribute__((pure))
-#define AQLOG_HASH_EXTERN_ATTRIBUTE     __attribute__((pure))
+    // Compiler identified as GCC.
+    #define AQLOG_HASH_INLINE_ATTRIBUTE static inline __attribute__((always_inline)) __attribute__((flatten)) __attribute__((pure))
+    #define AQLOG_HASH_EXTERN_ATTRIBUTE __attribute__((pure))
 
-#if defined(__NO_INLINE__)
-// Inlining has been disabled.
-#undef AQLOG_HASH_USE_INLINE
-#elif defined(__OPTIMIZE__)
-// Optimizations are turned on meaning we can support inlining.
-#define AQLOG_HASH_USE_INLINE
+    #if defined(__NO_INLINE__)
+        // Inlining has been disabled.
+        #undef AQLOG_HASH_USE_INLINE
+    #elif defined(__OPTIMIZE__)
+        // Optimizations are turned on meaning we can support inlining.
+        #define AQLOG_HASH_USE_INLINE
+    #else
+        // Optimizations are turned off hence the compiler will not inline.
+        #undef AQLOG_HASH_USE_INLINE
+    #endif
 #else
-// Optimizations are turned off hence the compiler will not inline.
-#undef AQLOG_HASH_USE_INLINE
-#endif
-#else
-// Unidentified compiler - don't use the inline function, clear the extern attributes.
-#undef AQLOG_HASH_USE_INLINE
+    // Unidentified compiler - don't use the inline function, clear the extern attributes.
+    #undef AQLOG_HASH_USE_INLINE
+    #define AQLOG_HASH_INLINE_ATTRIBUTE static inline
+    #define AQLOG_HASH_EXTERN_ATTRIBUTE
 #endif
 
 // Select the function used for inlining.
 #if defined(AQLOG_HASH_USE_INLINE)
-#define AQLOG_HASHISLEVEL(__level_, __str1_, __str2_, __str3_)  AQLOG_HASHISLEVEL_INLINE(__level_, __str1_, __str2_, __str3_)
+    #define AQLOG_HASHISLEVEL(__level_, __str1_, __str2_, __str3_)  AQLOG_HASHISLEVEL_INLINE(__level_, __str1_, __str2_, __str3_)
 #else
-#define AQLOG_HASHISLEVEL(__level_, __str1_, __str2_, __str3_)  AQLOG_HASHISLEVEL_EXTERN(__level_, __str1_, __str2_, __str3_)
+    #define AQLOG_HASHISLEVEL(__level_, __str1_, __str2_, __str3_)  AQLOG_HASHISLEVEL_EXTERN(__level_, __str1_, __str2_, __str3_)
 #endif
 
 // The initial value for the hash.
@@ -230,16 +232,52 @@ case __index_:                                                                  
 // Exported Type Definitions
 //------------------------------------------------------------------------------
 
+/**
+ * Defines the logging levels.
+ */
 typedef enum AQLOG_LEVEL_T
 {
+    /** 
+     * Critical situation - whole application failure is very likely.
+     */
     AQLOG_LEVEL_CRITICAL    = 0,
+
+    /**
+     * An error condition occurred - it is likely to be recoverable.
+     */
     AQLOG_LEVEL_ERROR       = 1,
+
+    /**
+     * Indicate that a serious condition occurred, but that the system has 
+     * recovered.
+     */
     AQLOG_LEVEL_WARNING     = 2,
+
+    /**
+     * A general notice of operation.
+     */
     AQLOG_LEVEL_NOTICE      = 3,
+
+    /**
+     * Informational message.
+     */
     AQLOG_LEVEL_INFO        = 4,
+
+    /**
+     * Detailed informational message.
+     */
     AQLOG_LEVEL_DETAIL      = 5,
+
+    /**
+     * Developer debugging message.
+     */
     AQLOG_LEVEL_DEBUG       = 6,
+
+    /**
+     * Low-level tracing message.
+     */
     AQLOG_LEVEL_TRACE       = 7,
+
 } AQLogLevel_t;
 
 
@@ -289,7 +327,7 @@ AQLOG_HASH_INLINE_ATTRIBUTE bool AQLog_HashIsLevelInline(int level,
 // Calculates the log level hash value for lookup strings str1, str2, and
 // str3 using the exernal function calculation method.  The lengths represent 
 // the number of characters in the string that participate in the hash.
-extern AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size);
+extern "C" AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size);
 
 /*
 #include <stdio.h>

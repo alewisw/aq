@@ -142,9 +142,9 @@ void LogLevelHash::removeHandler(AQLogHandler *handler)
 void LogLevelHash::addFilter(const AQLogFilter *filter)
 {
     FilterMap *fm = &m_filters;
-    for (size_t i = 0; i < filter->keyCount(); ++i)
+    for (size_t i = 0; i < filter->tierIdCount(); ++i)
     {
-        const string& key = filter->key(i);
+        const string& key = filter->tierId(i);
 
         map<string, FilterMap>::iterator it = fm->m_children.find(key);
         if (it == fm->m_children.end())
@@ -191,9 +191,9 @@ void LogLevelHash::addFilter(const AQLogFilter *filter)
 void LogLevelHash::removeFilter(const AQLogFilter *filter)
 {
     FilterMap *fm = &m_filters;
-    for (size_t i = 0; i < filter->keyCount(); ++i)
+    for (size_t i = 0; i < filter->tierIdCount(); ++i)
     {
-        const string& key = filter->key(i);
+        const string& key = filter->tierId(i);
 
         map<string, FilterMap>::iterator it = fm->m_children.find(key);
         if (it == fm->m_children.end())
@@ -285,7 +285,7 @@ void LogLevelHash::populateHash(uint32_t *hashMem, const AQLogFilter& filter,
 {
     if (tier < AQLOG_LOOKUP_TIER_COUNT)
     {
-        const std::string& t = filter.key(tier);
+        const std::string& t = filter.tierId(tier);
         uint32_t bits = TierBits[tier];
 
         if (t.size() == 0)

@@ -46,21 +46,34 @@ class AQLogRecord;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Defines a log filter.  The filter specifies the log level as applied at each
-// filter level.
+/**
+ * Log handlers are used to handle log records.  Each log handler contains a set
+ * of filters, and if a record matches any one of those filters then it is
+ * passed to the log handler for proessing.
+ *
+ * This is an abstract class; concrete implementations override the handle() 
+ * method to actually process the log record.
+ */
 class AQLogHandler
 {
-public:
+protected:
 
-    // Constructs a new log handler.
+    /**
+     * Constructs a new log handler.  The log handler has no associated
+     * filters.
+     */
     AQLogHandler(void);
 
-    // Destroys this log handler.
+    /**
+     * Destroys this log handler.
+     */
     virtual ~AQLogHandler(void);
 
+public:
+
     // Adds a filter to this handler.
-    void addFilter(AQLogLevel_t level, const std::string& key1 = "",
-        const std::string& key2 = "", const std::string& key3 = "");
+    void addFilter(AQLogLevel_t level, const std::string& componentId = "", 
+        const std::string& tagId = "", const std::string& file = "");
 
     // Handles the passed log record.
     virtual void handle(const AQLogRecord& rec) = 0;

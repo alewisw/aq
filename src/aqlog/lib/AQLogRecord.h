@@ -48,7 +48,10 @@ class AQLogHandler;
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Defines a log record.
+/**
+ * Encapsuates a single log record retrieved from the log queue and decoded into
+ * usable fields.
+ */
 class AQLogRecord
 {
 public:

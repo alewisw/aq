@@ -50,28 +50,29 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 AQLogFilter::AQLogFilter(AQLogHandler& handler, AQLogLevel_t level, 
-    const std::string& key1, const std::string& key2, const std::string& key3)
+    const std::string& componentId, const std::string& tagId,
+    const std::string& file)
     : m_handler(&handler)
     , m_level(level)
 {
-    m_keys[0] = key1;
-    m_keys[1] = key2;
-    m_keys[2] = key3;
-    if (key3.size() > 0)
+    m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = componentId;
+    m_tierId[AQLOG_LOOKUP_TIER_TAGID] = tagId;
+    m_tierId[AQLOG_LOOKUP_TIER_FILE] = file;
+    if (m_tierId[2].size() > 0)
     {
-        m_keyCount = 3;
+        m_tierIdCount = 3;
     }
-    else if (key2.size() > 0)
+    else if (m_tierId[1].size() > 0)
     {
-        m_keyCount = 2;
+        m_tierIdCount = 2;
     }
-    else if (key1.size() > 0)
+    else if (m_tierId[0].size() > 0)
     {
-        m_keyCount = 1;
+        m_tierIdCount = 1;
     }
     else
     {
-        m_keyCount = 0;
+        m_tierIdCount = 0;
     }
 }
 
@@ -79,11 +80,11 @@ AQLogFilter::AQLogFilter(AQLogHandler& handler, AQLogLevel_t level,
 AQLogFilter::AQLogFilter(const AQLogFilter& other)
     : m_handler(other.m_handler)
     , m_level(other.m_level)
-    , m_keyCount(other.m_keyCount)
+    , m_tierIdCount(other.m_tierIdCount)
 {
-    m_keys[0] = other.m_keys[0];
-    m_keys[1] = other.m_keys[1];
-    m_keys[2] = other.m_keys[2];
+    m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = other.m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID];
+    m_tierId[AQLOG_LOOKUP_TIER_TAGID] = other.m_tierId[AQLOG_LOOKUP_TIER_TAGID];
+    m_tierId[AQLOG_LOOKUP_TIER_FILE] = other.m_tierId[AQLOG_LOOKUP_TIER_FILE];
 }
 
 //------------------------------------------------------------------------------
@@ -93,10 +94,10 @@ AQLogFilter& AQLogFilter::operator=(const AQLogFilter& other)
     {
         m_handler = other.m_handler;
         m_level = other.m_level;
-        m_keys[0] = other.m_keys[0];
-        m_keys[1] = other.m_keys[1];
-        m_keys[2] = other.m_keys[2];
-        m_keyCount = other.m_keyCount;
+        m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = other.m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID];
+        m_tierId[AQLOG_LOOKUP_TIER_TAGID] = other.m_tierId[AQLOG_LOOKUP_TIER_TAGID];
+        m_tierId[AQLOG_LOOKUP_TIER_FILE] = other.m_tierId[AQLOG_LOOKUP_TIER_FILE];
+        m_tierIdCount = other.m_tierIdCount;
 
     }
     return *this;

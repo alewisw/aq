@@ -158,7 +158,7 @@
       </Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>$(SolutionDir)tools\windows\doxygen.exe $(SolutionDir)\docs\Doxyfile</Command>
+      <Command>$(SolutionDir)tools\windows\doxygen.exe $(SolutionDir)\docs\Doxyfile_aq</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>Generate Documentation</Message>

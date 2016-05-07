@@ -58,7 +58,9 @@ const uint32_t *AQLog_LevelHashTable_g;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size)
+extern "C" AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, 
+    const char *str1, size_t str1Size, const char *str2, size_t str2Size, 
+    const char *str3, size_t str3Size)
 {
     uint32_t tier0Hash = HashFunction::standard(AQLOG_TIER_0_MASK, str1, str1Size, AQLOG_LOOKUP_TIER_TAGID == 0);
     uint32_t tier1Hash = HashFunction::standard(AQLOG_TIER_1_MASK, str2, str2Size, AQLOG_LOOKUP_TIER_TAGID == 1);

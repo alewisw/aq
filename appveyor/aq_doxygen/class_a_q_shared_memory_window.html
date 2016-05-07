@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>AQ: AQHeapMemory Class Reference</title>
+<title>AQ: AQSharedMemoryWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,40 +85,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="class_a_q_heap_memory-members.html">List of all members</a>  </div>
+<a href="class_a_q_shared_memory_window-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">AQHeapMemory Class Reference</div>  </div>
+<div class="title">AQSharedMemoryWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides a shared memory region allocated on the local process heap using 'new'.  
- <a href="class_a_q_heap_memory.html#details">More...</a></p>
+<p>Provides a limited window into a shared memory region.  
+ <a href="class_a_q_shared_memory_window.html#details">More...</a></p>
 
-<p><code>#include &lt;AQHeapMemory.h&gt;</code></p>
+<p><code>#include &lt;AQSharedMemoryWindow.h&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for AQHeapMemory:</div>
+Inheritance diagram for AQSharedMemoryWindow:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_a_q_heap_memory.png" usemap="#AQHeapMemory_map" alt=""/>
-  <map id="AQHeapMemory_map" name="AQHeapMemory_map">
-<area href="class_i_a_q_shared_memory.html" title="Defines an interface that shared memory regions can use to expose their address and size..." alt="IAQSharedMemory" shape="rect" coords="0,0,121,24"/>
+  <img src="class_a_q_shared_memory_window.png" usemap="#AQSharedMemoryWindow_map" alt=""/>
+  <map id="AQSharedMemoryWindow_map" name="AQSharedMemoryWindow_map">
+<area href="class_i_a_q_shared_memory.html" title="Defines an interface that shared memory regions can use to expose their address and size..." alt="IAQSharedMemory" shape="rect" coords="0,0,162,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a765fe62c09ae786193e36c06e8ea64b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_heap_memory.html#a765fe62c09ae786193e36c06e8ea64b4">AQHeapMemory</a> (size_t <a class="el" href="class_a_q_heap_memory.html#a82985862dddbb0b63bcc6066db971d8b">size</a>)</td></tr>
-<tr class="memdesc:a765fe62c09ae786193e36c06e8ea64b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. ">AQHeapMemory</a> object of a particular size.  <a href="#a765fe62c09ae786193e36c06e8ea64b4">More...</a><br /></td></tr>
-<tr class="separator:a765fe62c09ae786193e36c06e8ea64b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae324ad5b19f62a16f117d2adb5be8784"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_heap_memory.html#ae324ad5b19f62a16f117d2adb5be8784">~AQHeapMemory</a> (void)</td></tr>
-<tr class="memdesc:ae324ad5b19f62a16f117d2adb5be8784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. ">AQHeapMemory</a> object.  <a href="#ae324ad5b19f62a16f117d2adb5be8784">More...</a><br /></td></tr>
-<tr class="separator:ae324ad5b19f62a16f117d2adb5be8784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae869b7804dfa1e74008fd7314a175482"><td class="memItemLeft" align="right" valign="top">virtual void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482">baseAddress</a> (void) const </td></tr>
-<tr class="memdesc:ae869b7804dfa1e74008fd7314a175482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the base address of the shared memory.  <a href="#ae869b7804dfa1e74008fd7314a175482">More...</a><br /></td></tr>
-<tr class="separator:ae869b7804dfa1e74008fd7314a175482"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82985862dddbb0b63bcc6066db971d8b"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_heap_memory.html#a82985862dddbb0b63bcc6066db971d8b">size</a> (void) const </td></tr>
-<tr class="memdesc:a82985862dddbb0b63bcc6066db971d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of the shared memory region.  <a href="#a82985862dddbb0b63bcc6066db971d8b">More...</a><br /></td></tr>
-<tr class="separator:a82985862dddbb0b63bcc6066db971d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b2cbed2806df8e37f950679c74a04c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_shared_memory_window.html#ac3b2cbed2806df8e37f950679c74a04c">AQSharedMemoryWindow</a> (<a class="el" href="class_i_a_q_shared_memory.html">IAQSharedMemory</a> &amp;sm, size_t off, size_t <a class="el" href="class_a_q_shared_memory_window.html#a546c678d1d908e2fb49400d0aa1109be">size</a>)</td></tr>
+<tr class="memdesc:ac3b2cbed2806df8e37f950679c74a04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="class_a_q_shared_memory_window.html" title="Provides a limited window into a shared memory region. ">AQSharedMemoryWindow</a> object that provides a window into another shared memory object.  <a href="#ac3b2cbed2806df8e37f950679c74a04c">More...</a><br /></td></tr>
+<tr class="separator:ac3b2cbed2806df8e37f950679c74a04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8273a0884207e7a040895c509f7c72d4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_shared_memory_window.html#a8273a0884207e7a040895c509f7c72d4">~AQSharedMemoryWindow</a> (void)</td></tr>
+<tr class="memdesc:a8273a0884207e7a040895c509f7c72d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_a_q_shared_memory_window.html" title="Provides a limited window into a shared memory region. ">AQSharedMemoryWindow</a> object.  <a href="#a8273a0884207e7a040895c509f7c72d4">More...</a><br /></td></tr>
+<tr class="separator:a8273a0884207e7a040895c509f7c72d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6016997be4bf5bfcbbe856fba9019a8"><td class="memItemLeft" align="right" valign="top">virtual void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_shared_memory_window.html#ab6016997be4bf5bfcbbe856fba9019a8">baseAddress</a> (void) const </td></tr>
+<tr class="memdesc:ab6016997be4bf5bfcbbe856fba9019a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the base address of the shared memory.  <a href="#ab6016997be4bf5bfcbbe856fba9019a8">More...</a><br /></td></tr>
+<tr class="separator:ab6016997be4bf5bfcbbe856fba9019a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a546c678d1d908e2fb49400d0aa1109be"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_shared_memory_window.html#a546c678d1d908e2fb49400d0aa1109be">size</a> (void) const </td></tr>
+<tr class="memdesc:a546c678d1d908e2fb49400d0aa1109be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the size of the shared memory region.  <a href="#a546c678d1d908e2fb49400d0aa1109be">More...</a><br /></td></tr>
+<tr class="separator:a546c678d1d908e2fb49400d0aa1109be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_i_a_q_shared_memory"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_i_a_q_shared_memory')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_i_a_q_shared_memory.html">IAQSharedMemory</a></td></tr>
 <tr class="memitem:a007589748db5f4cd6e27344957f1014b inherit pub_methods_class_i_a_q_shared_memory"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_a_q_shared_memory.html#a007589748db5f4cd6e27344957f1014b">~IAQSharedMemory</a> (void)</td></tr>
 <tr class="memdesc:a007589748db5f4cd6e27344957f1014b inherit pub_methods_class_i_a_q_shared_memory"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this <a class="el" href="class_i_a_q_shared_memory.html" title="Defines an interface that shared memory regions can use to expose their address and size...">IAQSharedMemory</a> object.  <a href="#a007589748db5f4cd6e27344957f1014b">More...</a><br /></td></tr>
@@ -132,33 +132,59 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a859090823cd1e56850e18955a566ffa5 inherit pro_methods_class_i_a_q_shared_memory"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Provides a shared memory region allocated on the local process heap using 'new'. </p>
+<div class="textblock"><p>Provides a limited window into a shared memory region. </p>
+<p>This is effectivy a subregion of an existing shared memory region. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a765fe62c09ae786193e36c06e8ea64b4"></a>
+<a class="anchor" id="ac3b2cbed2806df8e37f950679c74a04c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">AQHeapMemory::AQHeapMemory </td>
+          <td class="memname">AQSharedMemoryWindow::AQSharedMemoryWindow </td>
           <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_i_a_q_shared_memory.html">IAQSharedMemory</a> &amp;&#160;</td>
+          <td class="paramname"><em>sm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>off</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructs a new <a class="el" href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. ">AQHeapMemory</a> object of a particular size. </p>
+<p>Constructs a new <a class="el" href="class_a_q_shared_memory_window.html" title="Provides a limited window into a shared memory region. ">AQSharedMemoryWindow</a> object that provides a window into another shared memory object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>The size in bytes of the heap shared memory region. </td></tr>
+    <tr><td class="paramname">sm</td><td>The other shared memory object. The sm object must remain valid and in scope so long as this object is valid and in scope. </td></tr>
+    <tr><td class="paramname">off</td><td>The offset into the other shared memory object. </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the region in the other shared memory objet to provide a window into. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>If off is greater than or equal to the size of the passed shared memory region. </td></tr>
+    <tr><td class="paramname">std::length_error</td><td>If off plus size is greater than the size of the passed shared memory region. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a class="anchor" id="ae324ad5b19f62a16f117d2adb5be8784"></a>
+<a class="anchor" id="a8273a0884207e7a040895c509f7c72d4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -166,7 +192,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">AQHeapMemory::~AQHeapMemory </td>
+          <td class="memname">AQSharedMemoryWindow::~AQSharedMemoryWindow </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -180,12 +206,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys this <a class="el" href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. ">AQHeapMemory</a> object. </p>
+<p>Destroys this <a class="el" href="class_a_q_shared_memory_window.html" title="Provides a limited window into a shared memory region. ">AQSharedMemoryWindow</a> object. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae869b7804dfa1e74008fd7314a175482"></a>
+<a class="anchor" id="ab6016997be4bf5bfcbbe856fba9019a8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -193,7 +219,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void* AQHeapMemory::baseAddress </td>
+          <td class="memname">virtual void* AQSharedMemoryWindow::baseAddress </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -214,7 +240,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a82985862dddbb0b63bcc6066db971d8b"></a>
+<a class="anchor" id="a546c678d1d908e2fb49400d0aa1109be"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -222,7 +248,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual size_t AQHeapMemory::size </td>
+          <td class="memname">virtual size_t AQSharedMemoryWindow::size </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -237,7 +263,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Obtains the size of the shared memory region. </p>
-<p>The first byte is the one pointed to by <a class="el" href="class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482" title="Obtains the base address of the shared memory. ">baseAddress()</a> with the last byte at <a class="el" href="class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482" title="Obtains the base address of the shared memory. ">baseAddress()</a> + <a class="el" href="class_a_q_heap_memory.html#a82985862dddbb0b63bcc6066db971d8b" title="Obtains the size of the shared memory region. ">size()</a> - 1.</p>
+<p>The first byte is the one pointed to by <a class="el" href="class_a_q_shared_memory_window.html#ab6016997be4bf5bfcbbe856fba9019a8" title="Obtains the base address of the shared memory. ">baseAddress()</a> with the last byte at <a class="el" href="class_a_q_shared_memory_window.html#ab6016997be4bf5bfcbbe856fba9019a8" title="Obtains the base address of the shared memory. ">baseAddress()</a> + <a class="el" href="class_a_q_shared_memory_window.html#a546c678d1d908e2fb49400d0aa1109be" title="Obtains the size of the shared memory region. ">size()</a> - 1.</p>
 <dl class="section return"><dt>Returns</dt><dd>The size of the shared memory in bytes. </dd></dl>
 
 <p>Implements <a class="el" href="class_i_a_q_shared_memory.html#a00f1318eb9ba74c6fac54fdd80675db5">IAQSharedMemory</a>.</p>
@@ -245,8 +271,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>AQHeapMemory.h</li>
-<li>AQHeapMemory.cpp</li>
+<li>AQSharedMemoryWindow.h</li>
+<li>AQSharedMemoryWindow.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

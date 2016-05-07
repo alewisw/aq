@@ -5,6 +5,7 @@ var searchData=
   ['aqheapmemory',['AQHeapMemory',['../class_a_q_heap_memory.html',1,'']]],
   ['aqitem',['AQItem',['../class_a_q_item.html',1,'']]],
   ['aqreader',['AQReader',['../class_a_q_reader.html',1,'']]],
+  ['aqsharedmemorywindow',['AQSharedMemoryWindow',['../class_a_q_shared_memory_window.html',1,'']]],
   ['aqsnapshot',['AQSnapshot',['../class_a_q_snapshot.html',1,'']]],
   ['aqunformattedexception',['AQUnformattedException',['../class_a_q_unformatted_exception.html',1,'']]],
   ['aqwriter',['AQWriter',['../class_a_q_writer.html',1,'']]],

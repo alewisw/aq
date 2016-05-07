@@ -102,8 +102,9 @@ Inheritance diagram for IAQSharedMemory:</div>
  <div class="center">
   <img src="class_i_a_q_shared_memory.png" usemap="#IAQSharedMemory_map" alt=""/>
   <map id="IAQSharedMemory_map" name="IAQSharedMemory_map">
-<area href="class_a_q_extern_memory.html" title="Provides a shared memory region where the actual memory is allocated and managed externally. " alt="AQExternMemory" shape="rect" coords="0,56,121,80"/>
-<area href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. " alt="AQHeapMemory" shape="rect" coords="131,56,252,80"/>
+<area href="class_a_q_extern_memory.html" title="Provides a shared memory region where the actual memory is allocated and managed externally. " alt="AQExternMemory" shape="rect" coords="0,56,162,80"/>
+<area href="class_a_q_heap_memory.html" title="Provides a shared memory region allocated on the local process heap using &#39;new&#39;. " alt="AQHeapMemory" shape="rect" coords="172,56,334,80"/>
+<area href="class_a_q_shared_memory_window.html" title="Provides a limited window into a shared memory region. " alt="AQSharedMemoryWindow" shape="rect" coords="344,56,506,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -207,7 +208,7 @@ Protected Member Functions</h2></td></tr>
 <p>Obtains the base address of the shared memory. </p>
 <dl class="section return"><dt>Returns</dt><dd>The base address of the shared memory or NULL if the shared memory is not available. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_a_q_extern_memory.html#ad12a3463b85ffde43c511ba681866734">AQExternMemory</a>, and <a class="el" href="class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482">AQHeapMemory</a>.</p>
+<p>Implemented in <a class="el" href="class_a_q_shared_memory_window.html#ab6016997be4bf5bfcbbe856fba9019a8">AQSharedMemoryWindow</a>, <a class="el" href="class_a_q_extern_memory.html#ad12a3463b85ffde43c511ba681866734">AQExternMemory</a>, and <a class="el" href="class_a_q_heap_memory.html#ae869b7804dfa1e74008fd7314a175482">AQHeapMemory</a>.</p>
 
 </div>
 </div>
@@ -237,7 +238,7 @@ Protected Member Functions</h2></td></tr>
 <p>The first byte is the one pointed to by <a class="el" href="class_i_a_q_shared_memory.html#a24a0a735652e0a3d7657338c4ba809e0" title="Obtains the base address of the shared memory. ">baseAddress()</a> with the last byte at <a class="el" href="class_i_a_q_shared_memory.html#a24a0a735652e0a3d7657338c4ba809e0" title="Obtains the base address of the shared memory. ">baseAddress()</a> + <a class="el" href="class_i_a_q_shared_memory.html#a00f1318eb9ba74c6fac54fdd80675db5" title="Obtains the size of the shared memory region. ">size()</a> - 1.</p>
 <dl class="section return"><dt>Returns</dt><dd>The size of the shared memory in bytes. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_a_q_extern_memory.html#a86ffcfcd3ab2d14cecaa256c583f90ff">AQExternMemory</a>, and <a class="el" href="class_a_q_heap_memory.html#a82985862dddbb0b63bcc6066db971d8b">AQHeapMemory</a>.</p>
+<p>Implemented in <a class="el" href="class_a_q_shared_memory_window.html#a546c678d1d908e2fb49400d0aa1109be">AQSharedMemoryWindow</a>, <a class="el" href="class_a_q_extern_memory.html#a86ffcfcd3ab2d14cecaa256c583f90ff">AQExternMemory</a>, and <a class="el" href="class_a_q_heap_memory.html#a82985862dddbb0b63bcc6066db971d8b">AQHeapMemory</a>.</p>
 
 </div>
 </div>
@@ -247,7 +248,7 @@ Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 11:16:50 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 7 2016 11:31:22 for AQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

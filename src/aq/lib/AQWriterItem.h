@@ -52,8 +52,8 @@ class AQWriter;
  *
  * The AQWriterItem can be either accessed directly and written with, e.g., 
  * memcpy() or alternatly it can be written to using the 
- * write(const void *, size_t, InsufficientSpaceAction) or similar functions.  When the 
- * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t, InsufficientSpaceAction)
+ * write(const void *, size_t) or similar functions.  When the
+ * AQ::OPTION_EXTENDABLE option has been set the write(const void *, size_t)
  * functions are the main mechanism for extending the length of the item
  * by appending new items to the end of the linked list.
  */
@@ -198,26 +198,6 @@ public:
     unsigned char& operator[](size_t idx) { return mem()[idx]; }
 
     /**
-     * Defines the possible actions to be taken when writing
-     * to a queue with insufficient space to contain the entire buffer.
-     */
-    enum InsufficientSpaceAction
-    {
-        /**
-         * When there is not enough space available to contain the entire
-         * buffer, and the item cannot be extended to make the space available,
-         * don't write anything into the item.  The item remains unchanged.
-         */
-        WRITE_NONE,
-
-        /**
-         * Write as much as possible into the item, effectivly truncating
-         * the buffer.
-         */
-        WRITE_PARTIAL
-    };
-
-    /**
      * Writes data into this item at its current write position.  The write
      * position differs depending on whether AQ::OPTION_EXTENDABLE has been
      * configured:
@@ -233,31 +213,22 @@ public:
      *
      * @param mem The buffer that contains the memory to write into this item.
      * @param memSize The number of bytes to write into this item.
-     * @param insufficientSpaceAction The action to take when the item cannot store
-     * the entire buffer (`memSize` bytes).
-     * @returns The actual number of bytes written into the buffer.  The possible
-     * return values depend on the value of the `insufficientSpaceAction` parameter:
-     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
-     *    or `memSize` is returned.  When 0 is returned no data was written,
-     *    when `memSize` is returned the entire buffer was written.
-     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
-     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
-     *    written from the buffer.
-     * @throws std::domain_error If this item was not populated by a successful 
+     * @returns True if the write succeeded or false if the write failed because
+     * it was not possible to allocate another AQWriterItem via AQWriter::claim().
+     * @throws std::domain_error If this item was not populated by a successful
      * call to AQWriter::claim() or if it has been committed with a call to 
      * AQWriter::commit().
      * @throws std::invalid_argument If the mem argument was NULL and memSize was
      * any value other than 0.
      */
-    size_t write(const void *mem, size_t memSize, 
-        InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE)
+    bool write(const void *mem, size_t memSize)
     {
-        return write(currentOffset(), mem, memSize, insufficientSpaceAction);
+        return write(currentOffset(), mem, memSize);
     }
 
     /**
      * Writes data into this item at a selected position.  If the write succeeds 
-     * then the write position as used by write(const void *, size_t, InsufficientSpaceAction) is set to 
+     * then the write position as used by write(const void *, size_t) is set to 
      * the maximum of its current value and off + memSize.  If the write fails
      * (an exception is thrown or more items could not be allocated) no changes
      * are made to this item.
@@ -268,16 +239,8 @@ public:
      * and starts the write there.
      * @param mem The buffer that contains the memory to write into this item.
      * @param memSize The number of bytes to write into this item.
-     * @param insufficientSpaceAction The action to take when the item cannot store
-     * the entire buffer (`memSize` bytes).
-     * @returns The actual number of bytes written into the buffer.  The possible
-     * return values depend on the value of the `insufficientSpaceAction` parameter:
-     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_NONE then either 0
-     *    or `memSize` is returned.  When 0 is returned no data was written,
-     *    when `memSize` is returned the entire buffer was written.
-     *  - When `insufficientSpaceAction` is InsufficientSpaceAction::WRITE_PARTIAL the return
-     *    value is between 0 and `memSize` inclusive and is the actual number of bytes
-     *    written from the buffer.
+     * @returns True if the write succeeded or false if the write failed because
+     * it was not possible to allocate another AQWriterItem via AQWriter::claim().
      * @throws std::domain_error If this item was not populated by a successful
      * call to AQWriter::claim() or if it has been committed with a call to
      * AQWriter::commit().
@@ -289,39 +252,36 @@ public:
      * option set and there is not enough space left in the queue to store the
      * requested number of bytes at the given offset.
      */
-    size_t write(size_t off, const void *mem, size_t memSize,
-        InsufficientSpaceAction insufficientSpaceAction = WRITE_NONE);
+    bool write(size_t off, const void *mem, size_t memSize);
 
 private:
 
     // Returns the current write offset for this item.
     size_t currentOffset(void) const;
 
+    // Given the offset 'off' returns the number of bytes that can be written into
+    // this item without needing to expand it.
+    size_t availableBytes(size_t off) const;
+
     // Depending on whether a normal write or extendable write is required this
     // simply defers to writeAdvanceNormal() or writeAdvanceExtendable().
-    AQWriterItem *writeAdvance(size_t& off, size_t& memSize,
-        InsufficientSpaceAction insufficientSpaceAction);
+    AQWriterItem *writeAdvance(size_t& off, size_t memSize);
 
     // Validates the offset and memory size for a normal write, returning this object.
     //
-    // Updates the 'memSize' to reflect the actual number of writeable bytes.
-    //
     // Updates the m_accumulator, if necessary, to the last written byte.
-    AQWriterItem *writeAdvanceNormal(size_t off, size_t& memSize,
-        InsufficientSpaceAction insufficientSpaceAction);
+    AQWriterItem *writeAdvanceNormal(size_t off, size_t memSize);
 
     // Advances the extendable item sufficiently to support a write starting at 'off'
     // and ending at 'off' + 'memSize' - 1.  Returns the object where the writing
-    // is to begin, updating 'off' to refer to that object and 'memSize' to the actual
-    // number of writeable bytes.
+    // is to begin, updating 'off' to refer to that object.
     //
     // If the item could not be extended then NULL is returned.
-    AQWriterItem *writeAdvanceExtendable(size_t& off, size_t& memSize,
-        InsufficientSpaceAction insufficientSpaceAction);
+    AQWriterItem *writeAdvanceExtendable(size_t& off, size_t memSize);
 
     // Extends the current item so that it can contain at least an additional memSize
-    // bytes.
-    bool extend(size_t memSize, InsufficientSpaceAction insufficientSpaceAction);
+    // bytes returning true on success or false on failure.
+    bool extend(size_t memSize);
 
 public:
 

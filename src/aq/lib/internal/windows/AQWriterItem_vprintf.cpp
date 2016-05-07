@@ -79,7 +79,7 @@ int AQWriterItem::vprintf(size_t off, const char *fmt, va_list argp)
 
     // Find the item into which we are going to print.
     size_t memSize = 0;
-    AQWriterItem *item = writeAdvance(off, memSize, WRITE_PARTIAL);
+    AQWriterItem *item = writeAdvance(off, memSize);
     if (item == NULL)
     {
         return ~0;
@@ -115,24 +115,42 @@ int AQWriterItem::vprintf(size_t off, const char *fmt, va_list argp)
     {
         // Not enough space available - format into a buffer then write into 
         // the item instead.
-        size_t actLen;
+        size_t actLen = (size_t)count;
+        bool writeRes;
         if (reqLen <= HEURISTIC_MAXIMUM_BYTES_FOR_ALLOCA)
         {
             // Small enough that we can safely use the stack rather than the heap.
             char *buf = (char *)alloca(reqLen);
             _vsnprintf(buf, reqLen, fmt, argp);
-            actLen = write(buf, reqLen, AQWriterItem::WRITE_PARTIAL);
+            writeRes = item->write(off, buf, reqLen);
+            if (!writeRes)
+            {
+                actLen = item->availableBytes(off);
+                if (actLen > 0)
+                {
+                    item->write(off, buf, actLen);
+                }
+            }
         }
         else
         {
             // Too large for the stack - use the heap to store the buffer.
             char *buf = (char *)malloc(reqLen);
             _vsnprintf(buf, reqLen, fmt, argp);
-            actLen = write(buf, reqLen, AQWriterItem::WRITE_PARTIAL);
+            writeRes = item->write(off, buf, reqLen);
+            if (!writeRes)
+            {
+                actLen = item->availableBytes(off);
+                if (actLen > 0)
+                {
+                    item->write(off, buf, actLen);
+                }
+            }
             free(buf);
         }
-        if (actLen < reqLen)
+        if (!writeRes)
         {
+            // Find out how much space we have and write that.
             count = ~((int)actLen);
         }
     }

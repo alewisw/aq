@@ -8,3 +8,4 @@
 7. better way of handling format failures - reporting why they failed, maybe via an exception.
 8. extend coverage of StressTest by adding incomplete item support
 9. unit test expression decomposer causes expression to be evaluated twice
+10. more large string unit tests, esp. for windows, for AWriterItem.printf(); check code coverage

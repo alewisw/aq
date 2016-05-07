@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-07 04:07:54</td>
+            <td class="headerValue">2016-05-07 08:21:37</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -127,31 +127,31 @@
 <span class="lineNum">      56 </span>                :            :     typedef uint32_t Ms_t;
 <a name="57"><span class="lineNum">      57 </span>                :            : </a>
 <span class="lineNum">      58 </span>                :            :     // Returns the current millisecond timer - used to start timing a duration.
-<span class="lineNum">      59 </span>                :<span class="lineCov">   87578759 :     static Ms_t start(void)</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">   87525881 :     static Ms_t start(void)</span>
 <span class="lineNum">      60 </span>                :            :     {
 <span class="lineNum">      61 </span>                :            :         struct timespec ts;
 <span class="lineNum">      62 </span>                :            :         
-<span class="lineNum">      63 </span>                :<span class="lineCov">   87578759 :         clock_gettime(CLOCK_MONOTONIC, &amp;ts);</span>
-<span class="lineNum">      64 </span>                :<span class="lineCov">   87588881 :         uint64_t nsCount = (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;</span>
-<span class="lineNum">      65 </span>                :<span class="lineCov">   87588881 :         uint32_t tickCount = (uint32_t)((nsCount / 1000000ULL) &amp; 0xFFFFFFFF);</span>
+<span class="lineNum">      63 </span>                :<span class="lineCov">   87525881 :         clock_gettime(CLOCK_MONOTONIC, &amp;ts);</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">   87536025 :         uint64_t nsCount = (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;</span>
+<span class="lineNum">      65 </span>                :<span class="lineCov">   87536025 :         uint32_t tickCount = (uint32_t)((nsCount / 1000000ULL) &amp; 0xFFFFFFFF);</span>
 <span class="lineNum">      66 </span>                :            :         
 <span class="lineNum">      67 </span>                :            :         
 <span class="lineNum">      68 </span>                :            : #ifdef AQ_TEST_UNIT
 <span class="lineNum">      69 </span>                :            :         return m_fixClock ? m_fixClockMs : tickCount;
 <span class="lineNum">      70 </span>                :            : #else
-<span class="lineNum">      71 </span>                :<span class="lineCov">   87588881 :         return tickCount;</span>
+<span class="lineNum">      71 </span>                :<span class="lineCov">   87536025 :         return tickCount;</span>
 <span class="lineNum">      72 </span>                :            : #endif
 <span class="lineNum">      73 </span>                :            :     }
 <a name="74"><span class="lineNum">      74 </span>                :            : </a>
 <span class="lineNum">      75 </span>                :            :     // Returns the number of milliseconds that have elapsed since a starting time.
-<span class="lineNum">      76 </span>                :<span class="lineCov">   81956930 :     static Ms_t elapsed(Ms_t startMs)</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">   82115266 :     static Ms_t elapsed(Ms_t startMs)</span>
 <span class="lineNum">      77 </span>                :            :     {
-<span class="lineNum">      78 </span>                :<span class="lineCov">   81956930 :         return start() - startMs;</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">   82115266 :         return start() - startMs;</span>
 <span class="lineNum">      79 </span>                :            :     }
 <span class="lineNum">      80 </span>                :            : 
 <a name="81"><span class="lineNum">      81 </span>                :            :     // Sleeps for the given period in milliseconds.</a>
 <span class="lineNum">      82 </span>                :            :     // TODO: Should we move this into testlib?  Only used in unit tests and is duplicated inside WorkerThread.
-<span class="lineNum">      83 </span>                :<span class="lineCov">      21064 :     static void sleep(Ms_t ms)</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">      21295 :     static void sleep(Ms_t ms)</span>
 <span class="lineNum">      84 </span>                :            :     {
 <span class="lineNum">      85 </span>                :            : #ifdef AQ_TEST_UNIT
 <span class="lineNum">      86 </span>                :            :         if (m_fixClock)
@@ -163,11 +163,11 @@
 <span class="lineNum">      92 </span>                :            :         {
 <span class="lineNum">      93 </span>                :            :             struct timespec ts;
 <span class="lineNum">      94 </span>                :            :             
-<span class="lineNum">      95 </span>                :<span class="lineCov">      21064 :             ts.tv_sec = ms / 1000;</span>
-<span class="lineNum">      96 </span>                :<span class="lineCov">      21064 :             ts.tv_nsec = (ms % 1000) * 1000000;</span>
-<span class="lineNum">      97 </span>                :<span class="lineCov">      21064 :             nanosleep(&amp;ts, NULL);</span>
+<span class="lineNum">      95 </span>                :<span class="lineCov">      21295 :             ts.tv_sec = ms / 1000;</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">      21295 :             ts.tv_nsec = (ms % 1000) * 1000000;</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">      21295 :             nanosleep(&amp;ts, NULL);</span>
 <span class="lineNum">      98 </span>                :            :         }
-<span class="lineNum">      99 </span>                :<span class="lineCov">      21063 :     }</span>
+<span class="lineNum">      99 </span>                :<span class="lineCov">      21295 :     }</span>
 <span class="lineNum">     100 </span>                :            : 
 <span class="lineNum">     101 </span>                :            :     // Sets the clock to return the fixed value 'ms'.  Used for unit tests.
 <span class="lineNum">     102 </span>                :            : #ifdef AQ_TEST_UNIT

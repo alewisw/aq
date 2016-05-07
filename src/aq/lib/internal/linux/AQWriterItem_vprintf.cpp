@@ -137,14 +137,21 @@ static ssize_t CookieWriter(void *cookie, const char *buffer, size_t size)
     
     if (c->result >= 0)
     {
-        size_t written = c->item->write(c->off, buffer, size, AQWriterItem::WRITE_PARTIAL);
-        
-        c->off += written;
-        c->result += written;
-        if (written != size)
+        if (!c->item->write(c->off, buffer, size))
         {
+            size = c->item->availableBytes(c->off);
+            if (size > 0)
+            {
+                c->item->write(c->off, buffer, size);
+            }
+            c->result += size;
             c->result = ~c->result;
-        }
+       }
+       else
+       {
+           c->result += size;
+       }
+       c->off += size;
     }
     return size;
 }

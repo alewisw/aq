@@ -254,14 +254,14 @@ public:
      */
     bool write(size_t off, const void *mem, size_t memSize);
 
+    // Given the offset 'off' returns the number of bytes that can be written into
+    // this item without needing to expand it.
+    size_t availableBytes(size_t off) const;
+
 private:
 
     // Returns the current write offset for this item.
     size_t currentOffset(void) const;
-
-    // Given the offset 'off' returns the number of bytes that can be written into
-    // this item without needing to expand it.
-    size_t availableBytes(size_t off) const;
 
     // Depending on whether a normal write or extendable write is required this
     // simply defers to writeAdvanceNormal() or writeAdvanceExtendable().

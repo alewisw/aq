@@ -19,6 +19,7 @@ set(SOURCE
     UtRelease.cpp
     UtRetrieve.cpp
     UtSnapshot.cpp
+    UtUsageExample.cpp
     UtWriterItem.cpp
    )
 add_executable(aq_unittest ${SOURCE})

@@ -20,7 +20,7 @@ Path=gcc
 Type=GCC
 
 [Launch]
-Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3
+Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3,Launch Configuration 4
 
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
@@ -74,4 +74,15 @@ Type=Native Application
 Configured from ProjectItem=AQ,UnitTest,UnitTest
 Project Target=AQ,UnitTest,UnitTest
 Working Directory=file:///home/nas/Share/aq/_Build/UnitTest/
+isExecutable=false
+
+[Launch][Launch Configuration 4]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=aq_unittest
+Type=Native Application
+
+[Launch][Launch Configuration 4][Data]
+Project Target=AQ,src,aq,unittest,aq_unittest
+Working Directory=file:///home/nas/Share/aq/build/src/aq/unittest/
 isExecutable=false

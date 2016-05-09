@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-07 11:55:34</td>
+            <td class="headerValue">2016-05-09 23:14:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -132,33 +132,33 @@
 <span class="lineNum">      61 </span>                :            : //------------------------------------------------------------------------------
 <a name="62"><span class="lineNum">      62 </span>                :            : </a>
 <span class="lineNum">      63 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      64 </span>                :<span class="lineCov">    2143691 : uint32_t aq::CalculateItemCrc32(const AQItem&amp; item, uint32_t options)</span>
+<span class="lineNum">      64 </span>                :<span class="lineCov">    2225176 : uint32_t aq::CalculateItemCrc32(const AQItem&amp; item, uint32_t options)</span>
 <span class="lineNum">      65 </span>                :            : {
-<span class="lineNum">      66 </span>                :<span class="lineCov">    2143691 :     uint32_t quid = item.queueIdentifier();</span>
-<span class="lineNum">      67 </span>                :<span class="lineCov">    2144963 :     uint32_t size = item.capacity(); // TODO: Change to size() after XAQ merged such that CRC calculated AFTER size update.</span>
-<span class="lineNum">      68 </span>                :<span class="lineCov">    2146238 :     const unsigned char *data = &amp;item[0];</span>
+<span class="lineNum">      66 </span>                :<span class="lineCov">    2225176 :     uint32_t quid = item.queueIdentifier();</span>
+<span class="lineNum">      67 </span>                :<span class="lineCov">    2226357 :     uint32_t size = item.capacity(); // TODO: Change to size() after XAQ merged such that CRC calculated AFTER size update.</span>
+<span class="lineNum">      68 </span>                :<span class="lineCov">    2227338 :     const unsigned char *data = &amp;item[0];</span>
 <span class="lineNum">      69 </span>                :            :     unsigned char prefix[11];
-<span class="lineNum">      70 </span>                :<span class="lineCov">    2146369 :     size_t prefixSize = 7;</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">    2227401 :     size_t prefixSize = 7;</span>
 <span class="lineNum">      71 </span>                :            : 
-<span class="lineNum">      72 </span>                :<span class="lineCov">    2146369 :     prefix[0] = (quid &gt;&gt; 24) &amp; 0xFF;</span>
-<span class="lineNum">      73 </span>                :<span class="lineCov">    2146369 :     prefix[1] = (quid &gt;&gt; 16) &amp; 0xFF;</span>
-<span class="lineNum">      74 </span>                :<span class="lineCov">    2146369 :     prefix[2] = (quid &gt;&gt;  8) &amp; 0xFF;</span>
-<span class="lineNum">      75 </span>                :<span class="lineCov">    2146369 :     prefix[3] = (quid &gt;&gt;  0) &amp; 0xFF;</span>
-<span class="lineNum">      76 </span>                :<span class="lineCov">    2146369 :     prefix[4] = (size &gt;&gt; 16) &amp; 0xFF;</span>
-<span class="lineNum">      77 </span>                :<span class="lineCov">    2146369 :     prefix[5] = (size &gt;&gt;  8) &amp; 0xFF;</span>
-<span class="lineNum">      78 </span>                :<span class="lineCov">    2146369 :     prefix[6] = (size &gt;&gt;  0) &amp; 0xFF;</span>
-<span class="lineNum">      79 </span>           [<span class="branchCov" title="Branch 0 was taken 2146431 times"> + </span>]:<span class="lineCov">    2146369 :     if (options &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">    2227401 :     prefix[0] = (quid &gt;&gt; 24) &amp; 0xFF;</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">    2227401 :     prefix[1] = (quid &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      74 </span>                :<span class="lineCov">    2227401 :     prefix[2] = (quid &gt;&gt;  8) &amp; 0xFF;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">    2227401 :     prefix[3] = (quid &gt;&gt;  0) &amp; 0xFF;</span>
+<span class="lineNum">      76 </span>                :<span class="lineCov">    2227401 :     prefix[4] = (size &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      77 </span>                :<span class="lineCov">    2227401 :     prefix[5] = (size &gt;&gt;  8) &amp; 0xFF;</span>
+<span class="lineNum">      78 </span>                :<span class="lineCov">    2227401 :     prefix[6] = (size &gt;&gt;  0) &amp; 0xFF;</span>
+<span class="lineNum">      79 </span>           [<span class="branchCov" title="Branch 0 was taken 2227477 times"> + </span>]:<span class="lineCov">    2227401 :     if (options &amp; CtrlOverlay::OPTION_HAS_LINK_IDENTIFIER)</span>
 <span class="lineNum">      80 </span>                :            :     {
-<span class="lineNum">      81 </span>                :<span class="lineCov">    2146431 :         uint32_t lkid = item.linkIdentifier();</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">    2227477 :         uint32_t lkid = item.linkIdentifier();</span>
 <span class="lineNum">      82 </span>                :            : 
-<span class="lineNum">      83 </span>                :<span class="lineCov">    2146416 :         prefixSize += 4;</span>
-<span class="lineNum">      84 </span>                :<span class="lineCov">    2146416 :         prefix[7]  = (lkid &gt;&gt; 24) &amp; 0xFF;</span>
-<span class="lineNum">      85 </span>                :<span class="lineCov">    2146416 :         prefix[8]  = (lkid &gt;&gt; 16) &amp; 0xFF;</span>
-<span class="lineNum">      86 </span>                :<span class="lineCov">    2146416 :         prefix[9]  = (lkid &gt;&gt; 8) &amp; 0xFF;</span>
-<span class="lineNum">      87 </span>                :<span class="lineCov">    2146416 :         prefix[10] = (lkid &gt;&gt; 0) &amp; 0xFF;</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">    2227501 :         prefixSize += 4;</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">    2227501 :         prefix[7]  = (lkid &gt;&gt; 24) &amp; 0xFF;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">    2227501 :         prefix[8]  = (lkid &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">    2227501 :         prefix[9]  = (lkid &gt;&gt; 8) &amp; 0xFF;</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">    2227501 :         prefix[10] = (lkid &gt;&gt; 0) &amp; 0xFF;</span>
 <span class="lineNum">      88 </span>                :            :     }
 <span class="lineNum">      89 </span>                :            : 
-<span class="lineNum">      90 </span>                :<span class="lineCov">    2146354 :     uint32_t crc = crc32(crc32(0xFFFFFFFF, prefix, prefixSize), data, size);</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">    2227425 :     uint32_t crc = crc32(crc32(0xFFFFFFFF, prefix, prefixSize), data, size);</span>
 <span class="lineNum">      91 </span>                :            : 
 <span class="lineNum">      92 </span>                :            : #ifdef CRC_DEBUG
 <span class="lineNum">      93 </span>                :            :     ostringstream ss;
@@ -176,11 +176,11 @@
 <span class="lineNum">     105 </span>                :            :     cout &lt;&lt; ss.str();
 <span class="lineNum">     106 </span>                :            : #endif
 <span class="lineNum">     107 </span>                :            : 
-<span class="lineNum">     108 </span>                :<span class="lineCov">    2146027 :     return crc;</span>
+<span class="lineNum">     108 </span>                :<span class="lineCov">    2227028 :     return crc;</span>
 <span class="lineNum">     109 </span>                :            : }
 <a name="110"><span class="lineNum">     110 </span>                :            : </a>
 <span class="lineNum">     111 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     112 </span>                :<span class="lineCov">    4290059 : static uint32_t crc32(uint32_t crc, const void *data, size_t size)</span>
+<span class="lineNum">     112 </span>                :<span class="lineCov">    4452185 : static uint32_t crc32(uint32_t crc, const void *data, size_t size)</span>
 <span class="lineNum">     113 </span>                :            : {
 <span class="lineNum">     114 </span>                :            :     static const uint32_t table[] =
 <span class="lineNum">     115 </span>                :            :     {
@@ -218,12 +218,12 @@
 <span class="lineNum">     147 </span>                :            :         0xbdbdf21c, 0xcabac28a, 0x53b39330, 0x24b4a3a6, 0xbad03605, 0xcdd70693, 0x54de5729, 0x23d967bf,
 <span class="lineNum">     148 </span>                :            :         0xb3667a2e, 0xc4614ab8, 0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d
 <span class="lineNum">     149 </span>                :            :     };
-<span class="lineNum">     150 </span>                :<span class="lineCov">    4290059 :     const unsigned char *buf = (unsigned char *)data;</span>
-<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 0 was taken 138044050 times"> + </span><span class="branchCov" title="Branch 1 was taken 4290059 times"> + </span>]:<span class="lineCov">  142334109 :     while (size--)</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">    4452185 :     const unsigned char *buf = (unsigned char *)data;</span>
+<span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 0 was taken 142821509 times"> + </span><span class="branchCov" title="Branch 1 was taken 4452185 times"> + </span>]:<span class="lineCov">  147273694 :     while (size--)</span>
 <span class="lineNum">     152 </span>                :            :     {
-<span class="lineNum">     153 </span>                :<span class="lineCov">  138044050 :         crc = table[(crc ^ *buf++) &amp; 0xFF] ^ (crc &gt;&gt; 8);</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">  142821509 :         crc = table[(crc ^ *buf++) &amp; 0xFF] ^ (crc &gt;&gt; 8);</span>
 <a name="154"><span class="lineNum">     154 </span>                :            :     }</a>
-<span class="lineNum">     155 </span>                :<span class="lineCov">    4290059 :     return crc;</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">    4452185 :     return crc;</span>
 <span class="lineNum">     156 </span>[<span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         12 : }</span>
 <span class="lineNum">     157 </span>                :            : 
 <span class="lineNum">     158 </span>                :            : 

@@ -41,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -63,6 +64,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -83,6 +85,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_a_q_log_record-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AQLogRecord Class Reference</div>  </div>
@@ -93,16 +97,480 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="class_a_q_log_record.html#details">More...</a></p>
 
 <p><code>#include &lt;AQLogRecord.h&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>Overlay</b></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a923366a5926d10305b34d2f272cdf6ed"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a923366a5926d10305b34d2f272cdf6ed">timestampNs</a> (void) const </td></tr>
+<tr class="memdesc:a923366a5926d10305b34d2f272cdf6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the timestamp when this record was generated.  <a href="#a923366a5926d10305b34d2f272cdf6ed">More...</a><br /></td></tr>
+<tr class="separator:a923366a5926d10305b34d2f272cdf6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa42ace7bec455138389d7774bd65c714"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_a_q_log_8h.html#a2fa6b1fc3b6fbda13767965aac9f8421">AQLogLevel_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#aa42ace7bec455138389d7774bd65c714">level</a> (void) const </td></tr>
+<tr class="memdesc:aa42ace7bec455138389d7774bd65c714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the logging level for this record.  <a href="#aa42ace7bec455138389d7774bd65c714">More...</a><br /></td></tr>
+<tr class="separator:aa42ace7bec455138389d7774bd65c714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a297c3a601f5db644191a4a41c5636478"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a297c3a601f5db644191a4a41c5636478">dataSize</a> (void) const </td></tr>
+<tr class="memdesc:a297c3a601f5db644191a4a41c5636478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the number of data bytes associated with this record.  <a href="#a297c3a601f5db644191a4a41c5636478">More...</a><br /></td></tr>
+<tr class="separator:a297c3a601f5db644191a4a41c5636478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac739b8332e1d2a66212b64859c328d14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#ac739b8332e1d2a66212b64859c328d14">isDataTruncated</a> (void) const </td></tr>
+<tr class="memdesc:ac739b8332e1d2a66212b64859c328d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the data provided by this log record has been truncated.  <a href="#ac739b8332e1d2a66212b64859c328d14">More...</a><br /></td></tr>
+<tr class="separator:ac739b8332e1d2a66212b64859c328d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13181df658a88735654082d1cc56eef0"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a13181df658a88735654082d1cc56eef0">data</a> (void) const </td></tr>
+<tr class="memdesc:a13181df658a88735654082d1cc56eef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains a pointer to the data associated with this record.  <a href="#a13181df658a88735654082d1cc56eef0">More...</a><br /></td></tr>
+<tr class="separator:a13181df658a88735654082d1cc56eef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af936541fb31de3555f716d6e0cb67f5a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#af936541fb31de3555f716d6e0cb67f5a">processName</a> (void) const </td></tr>
+<tr class="memdesc:af936541fb31de3555f716d6e0cb67f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the name of the process that generated this log record.  <a href="#af936541fb31de3555f716d6e0cb67f5a">More...</a><br /></td></tr>
+<tr class="separator:af936541fb31de3555f716d6e0cb67f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f375991ea13c22587cf02137bd371a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#ad9f375991ea13c22587cf02137bd371a">processId</a> (void) const </td></tr>
+<tr class="memdesc:ad9f375991ea13c22587cf02137bd371a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the identifier of the process that generated this log record.  <a href="#ad9f375991ea13c22587cf02137bd371a">More...</a><br /></td></tr>
+<tr class="separator:ad9f375991ea13c22587cf02137bd371a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bd5fd9672b6606f457517f610ba8291"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a4bd5fd9672b6606f457517f610ba8291">threadId</a> (void) const </td></tr>
+<tr class="memdesc:a4bd5fd9672b6606f457517f610ba8291"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the identifier of the thread that generated this log record.  <a href="#a4bd5fd9672b6606f457517f610ba8291">More...</a><br /></td></tr>
+<tr class="separator:a4bd5fd9672b6606f457517f610ba8291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321e62c17ecb516f5f3d2b5b56fdcf35"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a321e62c17ecb516f5f3d2b5b56fdcf35">componentId</a> (void) const </td></tr>
+<tr class="memdesc:a321e62c17ecb516f5f3d2b5b56fdcf35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the component identifier for this record.  <a href="#a321e62c17ecb516f5f3d2b5b56fdcf35">More...</a><br /></td></tr>
+<tr class="separator:a321e62c17ecb516f5f3d2b5b56fdcf35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af39ab5fa3ef6546c8ee3bfa562c1e0a3"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#af39ab5fa3ef6546c8ee3bfa562c1e0a3">tagId</a> (void) const </td></tr>
+<tr class="memdesc:af39ab5fa3ef6546c8ee3bfa562c1e0a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the tag identifier for this record.  <a href="#af39ab5fa3ef6546c8ee3bfa562c1e0a3">More...</a><br /></td></tr>
+<tr class="separator:af39ab5fa3ef6546c8ee3bfa562c1e0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed9a88bc1e2df99a101f6e6cea972533"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#aed9a88bc1e2df99a101f6e6cea972533">file</a> (void) const </td></tr>
+<tr class="memdesc:aed9a88bc1e2df99a101f6e6cea972533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the name of the file where this record was generated.  <a href="#aed9a88bc1e2df99a101f6e6cea972533">More...</a><br /></td></tr>
+<tr class="separator:aed9a88bc1e2df99a101f6e6cea972533"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9005435b614817186eaa5565ad8ba33c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a9005435b614817186eaa5565ad8ba33c">lineNumber</a> (void) const </td></tr>
+<tr class="memdesc:a9005435b614817186eaa5565ad8ba33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the line number in the file (given by <a class="el" href="class_a_q_log_record.html#aed9a88bc1e2df99a101f6e6cea972533" title="Obtains the name of the file where this record was generated. ">file()</a>) where this record was generated.  <a href="#a9005435b614817186eaa5565ad8ba33c">More...</a><br /></td></tr>
+<tr class="separator:a9005435b614817186eaa5565ad8ba33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa6343b59955fc55bc768b8342532d3f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#aaa6343b59955fc55bc768b8342532d3f">function</a> (void) const </td></tr>
+<tr class="memdesc:aaa6343b59955fc55bc768b8342532d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the name of the function that generated this record.  <a href="#aaa6343b59955fc55bc768b8342532d3f">More...</a><br /></td></tr>
+<tr class="separator:aaa6343b59955fc55bc768b8342532d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a176751af2ab92601ee28eb918cb2c2dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a176751af2ab92601ee28eb918cb2c2dc">isMessageTruncated</a> (void) const </td></tr>
+<tr class="memdesc:a176751af2ab92601ee28eb918cb2c2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the message provided by this log record has been truncated.  <a href="#a176751af2ab92601ee28eb918cb2c2dc">More...</a><br /></td></tr>
+<tr class="separator:a176751af2ab92601ee28eb918cb2c2dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ac85486fa1ddeeba8f81e40988a6f39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_record.html#a2ac85486fa1ddeeba8f81e40988a6f39">message</a> (void) const </td></tr>
+<tr class="memdesc:a2ac85486fa1ddeeba8f81e40988a6f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the message for this log record.  <a href="#a2ac85486fa1ddeeba8f81e40988a6f39">More...</a><br /></td></tr>
+<tr class="separator:a2ac85486fa1ddeeba8f81e40988a6f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsuates a single log record retrieved from the log queue and decoded into usable fields. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a321e62c17ecb516f5f3d2b5b56fdcf35"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* AQLogRecord::componentId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the component identifier for this record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The component identifier string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a13181df658a88735654082d1cc56eef0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const void* AQLogRecord::data </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains a pointer to the data associated with this record. </p>
+<p>This pointer is only valid if <a class="el" href="class_a_q_log_record.html#a297c3a601f5db644191a4a41c5636478" title="Obtains the number of data bytes associated with this record. ">dataSize()</a> returned a non-zero value.</p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the data associated with this record. If <a class="el" href="class_a_q_log_record.html#a297c3a601f5db644191a4a41c5636478" title="Obtains the number of data bytes associated with this record. ">dataSize()</a> is 0 the return value is undefined. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a297c3a601f5db644191a4a41c5636478"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AQLogRecord::dataSize </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the number of data bytes associated with this record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of data bytes or 0 if there is no data associated with this record. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aed9a88bc1e2df99a101f6e6cea972533"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* AQLogRecord::file </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the name of the file where this record was generated. </p>
+<dl class="section return"><dt>Returns</dt><dd>The file name string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa6343b59955fc55bc768b8342532d3f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* AQLogRecord::function </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the name of the function that generated this record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The function name string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac739b8332e1d2a66212b64859c328d14"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AQLogRecord::isDataTruncated </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if the data provided by this log record has been truncated. </p>
+<p>Data truncation occurs when it is not possible to allocate enough space in the queue to contain all the data provided when the record was logged.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if the data is truncated, false if the data is complete. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a176751af2ab92601ee28eb918cb2c2dc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AQLogRecord::isMessageTruncated </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if the message provided by this log record has been truncated. </p>
+<p>Message truncation occurs when it is not possible to allocate enough space in the queue to contain the entire message that was supplied with the record was logged.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if the message is truncated, false if the message is complete. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa42ace7bec455138389d7774bd65c714"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_a_q_log_8h.html#a2fa6b1fc3b6fbda13767965aac9f8421">AQLogLevel_t</a> AQLogRecord::level </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the logging level for this record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The logging level. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9005435b614817186eaa5565ad8ba33c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t AQLogRecord::lineNumber </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the line number in the file (given by <a class="el" href="class_a_q_log_record.html#aed9a88bc1e2df99a101f6e6cea972533" title="Obtains the name of the file where this record was generated. ">file()</a>) where this record was generated. </p>
+<dl class="section return"><dt>Returns</dt><dd>The line number. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2ac85486fa1ddeeba8f81e40988a6f39"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogRecord::message </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the message for this log record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The message for this log record. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad9f375991ea13c22587cf02137bd371a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t AQLogRecord::processId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the identifier of the process that generated this log record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The process identifier as an unsigned 32-bit integer. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af936541fb31de3555f716d6e0cb67f5a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* AQLogRecord::processName </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the name of the process that generated this log record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The process name string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af39ab5fa3ef6546c8ee3bfa562c1e0a3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* AQLogRecord::tagId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the tag identifier for this record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The tag identifier string. This is the empty string if no tag identifier was specified when the record was logged. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4bd5fd9672b6606f457517f610ba8291"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t AQLogRecord::threadId </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the identifier of the thread that generated this log record. </p>
+<dl class="section return"><dt>Returns</dt><dd>The thread identifier as an unsigned 32-bit integer. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a923366a5926d10305b34d2f272cdf6ed"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t AQLogRecord::timestampNs </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtains the timestamp when this record was generated. </p>
+<p>The timestamp is measured in nanoseconds since 1 January 1970, the start of the Unix epoch.</p>
+<dl class="section return"><dt>Returns</dt><dd>The timestamp in nanoseconds. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>AQLogRecord.h</li>
 <li>AQLogRecord.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 7 2016 12:28:07 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 9 2016 23:29:52 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

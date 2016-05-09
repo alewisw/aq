@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-07 11:55:01</td>
+            <td class="headerValue">2016-05-09 23:13:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -261,12 +261,12 @@
 <span class="lineNum">     190 </span>                :            :     // to the appropriate boundary address.
 <span class="lineNum">     191 </span>                :<span class="lineCov">       8533 :     size_t memqEnd = (size_t)c + memSize;</span>
 <span class="lineNum">     192 </span>                :<span class="lineCov">       8533 :     size_t memqStart = 0;</span>
-<span class="lineNum">     193 </span>                :<span class="lineCov">       1787 :     for (;;)</span>
+<span class="lineNum">     193 </span>                :<span class="lineCov">       1783 :     for (;;)</span>
 <span class="lineNum">     194 </span>                :            :     {
-<span class="lineNum">     195 </span>                :<span class="lineCov">      10320 :         memqStart = ((size_t)c + overhead + pageCount * sizeof(c-&gt;ctrlq[0]) * ctrlqMultiplier + alignMask) &amp; ~alignMask;</span>
-<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 1787 times"> + </span><span class="branchCov" title="Branch 1 was taken 8533 times"> + </span>]:<span class="lineCov">      10320 :         if (memqStart + (pageCount &lt;&lt; pageSizeShift) &gt; memqEnd)</span>
+<span class="lineNum">     195 </span>                :<span class="lineCov">      10316 :         memqStart = ((size_t)c + overhead + pageCount * sizeof(c-&gt;ctrlq[0]) * ctrlqMultiplier + alignMask) &amp; ~alignMask;</span>
+<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 0 was taken 1783 times"> + </span><span class="branchCov" title="Branch 1 was taken 8533 times"> + </span>]:<span class="lineCov">      10316 :         if (memqStart + (pageCount &lt;&lt; pageSizeShift) &gt; memqEnd)</span>
 <span class="lineNum">     197 </span>                :            :         {
-<span class="lineNum">     198 </span>                :<span class="lineCov">       1787 :             pageCount--;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">       1783 :             pageCount--;</span>
 <span class="lineNum">     199 </span>                :            :         }
 <span class="lineNum">     200 </span>                :            :         else
 <span class="lineNum">     201 </span>                :            :         {

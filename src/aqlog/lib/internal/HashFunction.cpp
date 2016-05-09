@@ -70,7 +70,7 @@ uint32_t HashFunction::standard(uint32_t mask, const char *str, size_t strLen,
         i--;
         if (AQLOG_HASH_ISEND(str[i]))
         {
-            return hash;
+            break;
         }
 
         hash = AQLOG_HASH_STEP(hash, AQLOG_HASH_CHARMAP(str[i]));
@@ -104,7 +104,7 @@ uint32_t HashFunction::djb2(uint32_t mask, const char *str, size_t strLen,
         i--;
         if (AQLOG_HASH_ISEND(str[i]))
         {
-            return hash;
+            break;
         }
 
         hash = ((hash << 5) + hash) + str[strLen];
@@ -138,7 +138,7 @@ uint32_t HashFunction::djb2a(uint32_t mask, const char *str, size_t strLen,
         i--;
         if (AQLOG_HASH_ISEND(str[i]))
         {
-            return hash;
+            break;
         }
 
         hash = ((hash << 5) + hash) ^ str[strLen];
@@ -172,7 +172,7 @@ uint32_t HashFunction::sdbm(uint32_t mask, const char *str, size_t strLen,
         i--;
         if (AQLOG_HASH_ISEND(str[i]))
         {
-            return hash;
+            break;
         }
 
         hash = str[strLen] + (hash << 6) + (hash << 16) - hash;

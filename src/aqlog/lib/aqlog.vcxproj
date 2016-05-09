@@ -19,16 +19,27 @@
     <ClCompile Include="AQLogFilter.cpp" />
     <ClCompile Include="AQLogHandler.cpp" />
     <ClCompile Include="AQLogRecord.cpp" />
+    <ClCompile Include="AQLogStringBuilder.cpp" />
     <ClCompile Include="internal\HashFunction.cpp" />
     <ClCompile Include="internal\LogLevelHash.cpp" />
+    <ClCompile Include="internal\LogMemory.cpp" />
+    <ClCompile Include="internal\LogReader.cpp" />
+    <ClCompile Include="internal\ProcessIdentifier.cpp" />
+    <ClCompile Include="internal\Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQLog.h" />
     <ClInclude Include="AQLogFilter.h" />
     <ClInclude Include="AQLogHandler.h" />
     <ClInclude Include="AQLogRecord.h" />
+    <ClInclude Include="AQLogStringBuilder.h" />
     <ClInclude Include="internal\HashFunction.h" />
     <ClInclude Include="internal\LogLevelHash.h" />
+    <ClInclude Include="internal\LogMemory.h" />
+    <ClInclude Include="internal\LogReader.h" />
+    <ClInclude Include="internal\windows\Atomic.h" />
+    <ClInclude Include="internal\windows\ProcessIdentifier.h" />
+    <ClInclude Include="internal\windows\Timestamp.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

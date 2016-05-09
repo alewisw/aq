@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BD4EA6A1-7
 		docs\USAGE_aq.md = docs\USAGE_aq.md
 		docs\USAGE_aqlog.md = docs\USAGE_aqlog.md
 		docs\USAGE_EXAMPLES.md = docs\USAGE_EXAMPLES.md
+		build\aqlog_doxygen\Warnings.txt = build\aqlog_doxygen\Warnings.txt
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aq", "src\aq\lib\aq.vcxproj", "{083DC91F-3197-4BD4-870D-C9E84D623504}"

@@ -11,7 +11,11 @@
 
 #include "Main.h"
 
-#include "UtLogLevelHash.h"
+#include "HashMemory.h"
+#include "RandomHandlers.h"
+#include "TestHandler.h"
+
+#include "AQLogRecord.h"
 
 
 
@@ -54,12 +58,13 @@ TEST_SUITE(UtLogLevelHashFilter);
 //------------------------------------------------------------------------------
 TEST(given_InfoFilter_when_InfoMessageSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO);
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -69,12 +74,13 @@ TEST(given_InfoFilter_when_InfoMessageSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoFilter_when_NoticeMessageSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     RandomHandlers rh(hash);
     TestHandler h1(AQLOG_LEVEL_INFO);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -84,12 +90,13 @@ TEST(given_InfoFilter_when_NoticeMessageSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoFilter_when_DetailMessageSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO);
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -98,7 +105,8 @@ TEST(given_InfoFilter_when_DetailMessageSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_NoticeAndTwoInfoFilters_when_InfoMessageSubmitted_then_InfoHandlersCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_NOTICE);
     TestHandler h2(AQLOG_LEVEL_INFO);
     TestHandler h3(AQLOG_LEVEL_INFO);
@@ -107,7 +115,7 @@ TEST(given_NoticeAndTwoInfoFilters_when_InfoMessageSubmitted_then_InfoHandlersCa
     hash.addHandler(&h1);
     hash.addHandler(&h3);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -120,7 +128,8 @@ TEST(given_NoticeAndTwoInfoFilters_when_InfoMessageSubmitted_then_InfoHandlersCa
 //------------------------------------------------------------------------------
 TEST(given_NoticeAndTwoInfoFilters_when_NoticeMessageSubmitted_then_AllHandlersCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_NOTICE);
     TestHandler h2(AQLOG_LEVEL_INFO);
     TestHandler h3(AQLOG_LEVEL_INFO);
@@ -129,7 +138,7 @@ TEST(given_NoticeAndTwoInfoFilters_when_NoticeMessageSubmitted_then_AllHandlersC
     hash.addHandler(&h3);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -143,7 +152,8 @@ TEST(given_NoticeAndTwoInfoFilters_when_NoticeMessageSubmitted_then_AllHandlersC
 //------------------------------------------------------------------------------
 TEST(given_InfoAndTwoNoticeFilters_when_InfoMessageSubmitted_then_InfoHandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO);
     TestHandler h2(AQLOG_LEVEL_NOTICE);
     TestHandler h3(AQLOG_LEVEL_NOTICE);
@@ -152,7 +162,7 @@ TEST(given_InfoAndTwoNoticeFilters_when_InfoMessageSubmitted_then_InfoHandlerCal
     hash.addHandler(&h1);
     hash.addHandler(&h3);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -164,12 +174,13 @@ TEST(given_InfoAndTwoNoticeFilters_when_InfoMessageSubmitted_then_InfoHandlerCal
 //------------------------------------------------------------------------------
 TEST(given_InfoComponentFilter_when_MatchingInfoComponentSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -179,12 +190,13 @@ TEST(given_InfoComponentFilter_when_MatchingInfoComponentSubmitted_then_HandlerC
 //------------------------------------------------------------------------------
 TEST(given_InfoComponentFilter_when_MatchingNoticeComponentSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -194,12 +206,13 @@ TEST(given_InfoComponentFilter_when_MatchingNoticeComponentSubmitted_then_Handle
 //------------------------------------------------------------------------------
 TEST(given_InfoComponentFilter_when_MatchingDetailComponentSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -208,12 +221,13 @@ TEST(given_InfoComponentFilter_when_MatchingDetailComponentSubmitted_then_Handle
 //------------------------------------------------------------------------------
 TEST(given_ComponentFilter_when_DifferentComponentSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_foo");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -222,12 +236,13 @@ TEST(given_ComponentFilter_when_DifferentComponentSubmitted_then_HandlerNotCalle
 //------------------------------------------------------------------------------
 TEST(given_InfoTagFilter_when_MatchingInfoTagSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -237,12 +252,13 @@ TEST(given_InfoTagFilter_when_MatchingInfoTagSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoTagFilter_when_MatchingNoticeTagSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -252,12 +268,13 @@ TEST(given_InfoTagFilter_when_MatchingNoticeTagSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoTagFilter_when_MatchingDetailTagSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -266,12 +283,13 @@ TEST(given_InfoTagFilter_when_MatchingDetailTagSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_TagFilter_when_DifferentTagSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_foo");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -280,12 +298,13 @@ TEST(given_TagFilter_when_DifferentTagSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoFileFilter_when_MatchingInfoFileSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -295,12 +314,13 @@ TEST(given_InfoFileFilter_when_MatchingInfoFileSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoFileFilter_when_MatchingNoticeFileSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -310,12 +330,13 @@ TEST(given_InfoFileFilter_when_MatchingNoticeFileSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_InfoFileFilter_when_MatchingDetailFileSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -324,12 +345,13 @@ TEST(given_InfoFileFilter_when_MatchingDetailFileSubmitted_then_HandlerNotCalled
 //------------------------------------------------------------------------------
 TEST(given_FileFilter_when_DifferentFileSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_foo");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -338,12 +360,13 @@ TEST(given_FileFilter_when_DifferentFileSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -353,12 +376,13 @@ TEST(given_ComponentTagFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFilter_when_MismatchComponentSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_foo", "tag_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -367,12 +391,13 @@ TEST(given_ComponentTagFilter_when_MismatchComponentSubmitted_then_HandlerNotCal
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "tag_foo");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -381,12 +406,13 @@ TEST(given_ComponentTagFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_ComponentFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "", "file_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -396,12 +422,13 @@ TEST(given_ComponentFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_ComponentFileFilter_when_MismatchComponentSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_foo", "", "file_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -410,12 +437,13 @@ TEST(given_ComponentFileFilter_when_MismatchComponentSubmitted_then_HandlerNotCa
 //------------------------------------------------------------------------------
 TEST(given_ComponentFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "", "file_foo");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -424,12 +452,13 @@ TEST(given_ComponentFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_TagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_bar", "file_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -439,12 +468,13 @@ TEST(given_TagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 //------------------------------------------------------------------------------
 TEST(given_TagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_foo", "file_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -453,12 +483,13 @@ TEST(given_TagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_TagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "", "tag_bar", "file_foo");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -467,12 +498,13 @@ TEST(given_TagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);
@@ -482,12 +514,13 @@ TEST(given_ComponentTagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalle
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFileFilter_when_MismatchComponentSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_foo", "tag_bar", "file_bar");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -496,12 +529,13 @@ TEST(given_ComponentTagFileFilter_when_MismatchComponentSubmitted_then_HandlerNo
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "tag_foo", "file_bar");
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -510,12 +544,13 @@ TEST(given_ComponentTagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalle
 //------------------------------------------------------------------------------
 TEST(given_ComponentTagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_foo");
     hash.addHandler(&h1);
     RandomHandlers rh(hash);
 
-    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == NULL);
@@ -524,14 +559,15 @@ TEST(given_ComponentTagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCall
 //------------------------------------------------------------------------------
 TEST(given_HandlerHasMultipleFilters_when_MatchesAllFilters_then_HandlerCalledOnce)
 {
-    LogLevelHash hash;
+    HashMemory hm;
+    LogLevelHash hash(hm);
     TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
     h1.addFilter(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar");
     h1.addFilter(AQLOG_LEVEL_NOTICE);
     RandomHandlers rh(hash);
     hash.addHandler(&h1);
 
-    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar", "bar");
+    AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
     hash.handle(rec);
 
     REQUIRE(h1.record(0) == &rec);

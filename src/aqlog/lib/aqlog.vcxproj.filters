@@ -4,6 +4,9 @@
     <Filter Include="internal">
       <UniqueIdentifier>{90085c89-6e8d-4e44-a495-c6fab672878e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="internal\windows">
+      <UniqueIdentifier>{8d6d2e63-4dbd-4c35-8129-84d318a849a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="internal\LogLevelHash.h">
@@ -16,6 +19,22 @@
     <ClInclude Include="internal\HashFunction.h">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="internal\LogReader.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\LogMemory.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\windows\Atomic.h">
+      <Filter>internal\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\windows\ProcessIdentifier.h">
+      <Filter>internal\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\windows\Timestamp.h">
+      <Filter>internal\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="AQLogStringBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AQLogHandler.cpp" />
@@ -28,6 +47,19 @@
       <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="AQLog.cpp" />
+    <ClCompile Include="internal\LogReader.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\LogMemory.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\ProcessIdentifier.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\Timestamp.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AQLogStringBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

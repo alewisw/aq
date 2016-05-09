@@ -9,10 +9,17 @@
 // Includes
 //------------------------------------------------------------------------------
 
-#include "Main.h"
+#include "AQLog.h"
 
-#include "Timer.h"
+#include "LogMemory.h"
 
+#include <sstream>
+#include <stdexcept>
+
+using namespace std;
+
+namespace aqlog
+{
 
 
 
@@ -49,17 +56,38 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-int main(int argc, char* argv[])
+LogMemory::LogMemory(IAQSharedMemory& sm)
+    : m_aqMemory(sm, 0, calculateAqMemorySize(sm))
+    , m_logLevelHashMemory(sm, m_aqMemory.size(), AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t))
 {
-#ifdef AQ_TEST_UNIT
-    aq::Timer::fixClock(0);
-#endif
 
-    TestRunner testRunner(argc, argv);
+}
 
-    return testRunner.run();
+//------------------------------------------------------------------------------
+size_t LogMemory::calculateAqMemorySize(IAQSharedMemory& sm)
+{
+    // Align the memory.
+    size_t msize = sm.size() & ~0x3;
+
+    if (msize < AQLOG_SHM_MINIMUM_SIZE)
+    {
+        ostringstream ss;
+
+        ss << "The log shared memory must be at least " << msize 
+           << " bytes in size, however the provided shared memory region was only " << sm.size();
+        throw length_error(ss.str());
+    }
+
+    return msize - AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t);
+}
+
+//------------------------------------------------------------------------------
+LogMemory::~LogMemory(void)
+{
+
 }
 
 
 
+}
 //=============================== End of File ==================================

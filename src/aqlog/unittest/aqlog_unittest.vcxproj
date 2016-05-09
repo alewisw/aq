@@ -16,18 +16,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HashData.h" />
+    <ClInclude Include="HashMemory.h" />
+    <ClInclude Include="LogReaderTest.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="UtLogLevelHash.h" />
+    <ClInclude Include="RandomHandlers.h" />
+    <ClInclude Include="TestHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HashMemory.cpp" />
+    <ClCompile Include="LogReaderTest.cpp" />
     <ClCompile Include="Main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Performance|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RandomHandlers.cpp" />
+    <ClCompile Include="TestHandler.cpp" />
     <ClCompile Include="UtHashFunction.cpp" />
     <ClCompile Include="UtLogLevelHashFilter.cpp" />
     <ClCompile Include="UtLogLevelHash.cpp" />
+    <ClCompile Include="UtLogMemory.cpp" />
+    <ClCompile Include="UtAQLogMacros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\aq\lib\aq.vcxproj">
@@ -107,7 +116,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\aq\lib;..\..\aq\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
@@ -135,7 +144,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\aq\lib;..\..\aq\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>
@@ -165,7 +174,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;.;..\lib\internal;..\lib\internal\windows;..\..\aq\lib;..\..\aq\lib\internal\windows;..\..\tst\lib;..\..\tst\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <PrecompiledHeaderFile>Main.h</PrecompiledHeaderFile>

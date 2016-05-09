@@ -1,5 +1,3 @@
-#ifndef MAIN_H
-#define MAIN_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -11,61 +9,81 @@
 // Includes
 //------------------------------------------------------------------------------
 
-// Test framework.
-#include "Test.h"
+#include "Main.h"
 
-// aqlog Library
-namespace aqlog
-{
-    class LogLevelHash;
+#include "TestHandler.h"
+
+
+
+
+//------------------------------------------------------------------------------
+// Private Macros
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+// Private Type Definitions
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+// Private Function and Class Declarations
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+// Variable Declarations
+//------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------
+// Function and Class Implementation
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+TestHandler::TestHandler(void) 
+{ 
 }
 
-// Standard libraries
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <set>
-#include <string>
-#include <sstream>
-#include <vector>
-
-#include <stdint.h>
-#include <string.h>
-
-using namespace aqlog;
-using namespace std;
-
-
-
+//------------------------------------------------------------------------------
+TestHandler::TestHandler(AQLogLevel_t level, string tier1, string tier2, 
+    string tier3)
+{
+    addFilter(level, tier1, tier2, tier3);
+}
 
 //------------------------------------------------------------------------------
-// Exported Macros
-//------------------------------------------------------------------------------
-
-
-
+TestHandler::~TestHandler(void)
+{
+}
 
 //------------------------------------------------------------------------------
-// Exported Type Definitions
-//------------------------------------------------------------------------------
-
-
-
-
-//------------------------------------------------------------------------------
-// Exported Variable Declarations
-//------------------------------------------------------------------------------
-
-
-
+void TestHandler::handle(const AQLogRecord& rec)
+{
+    m_records.push_back(&rec);
+}
 
 //------------------------------------------------------------------------------
-// Exported Function and Class Declarations
-//------------------------------------------------------------------------------
+const AQLogRecord *TestHandler::record(size_t idx) const
+{
+    if (idx < m_records.size())
+    {
+        return m_records[idx];
+    }
+    else
+    {
+        return NULL;
+    }
+}
 
 
 
-
-#endif
 //=============================== End of File ==================================

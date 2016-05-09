@@ -15,6 +15,8 @@
 #include "AQLogHandler.h"
 #include "AQLogRecord.h"
 
+#include "IAQSharedMemory.h"
+
 #include <set>
 
 using namespace std;
@@ -81,15 +83,12 @@ static const uint32_t TierSize[AQLOG_LOOKUP_TIER_COUNT] =
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-LogLevelHash::LogLevelHash(uint32_t *hashMem, HashFunction_fn hashFn)
+LogLevelHash::LogLevelHash(IAQSharedMemory& hashMem, HashFunction_fn hashFn)
     : m_freezeState(FREEZE_OFF)
     , m_hashMem(hashMem)
     , m_hashFn(hashFn)
 {
-    if (hashMem != NULL)
-    {
-        memset(hashMem, 0, sizeof(uint32_t) * AQLOG_HASH_TABLE_WORDS);
-    }
+    memset(hashMem.baseAddress(), 0, sizeof(uint32_t) * AQLOG_HASH_TABLE_WORDS);
 }
 
 //------------------------------------------------------------------------------
@@ -171,11 +170,11 @@ void LogLevelHash::addFilter(const AQLogFilter *filter)
     //    than anything else in the queue.
     //  - the last item in the list has a filter level less than the new 
     //    level.
-    if (m_hashMem != NULL && (it == fm->m_handlers.end() || fm->m_handlers.back()->level() < filter->level()))
+    if (it == fm->m_handlers.end() || fm->m_handlers.back()->level() < filter->level())
     {
         if (m_freezeState == FREEZE_OFF)
         {
-            populateHash(m_hashMem, *filter, 0, 0);
+            populateHash((uint32_t *)m_hashMem.baseAddress(), *filter, 0, 0);
         }
         else
         {
@@ -338,7 +337,7 @@ void LogLevelHash::rebuildHash(void)
     repopulateHash(tmpHashMem, m_filters);
 
     // Finally copy it over our current hash.
-    memcpy(m_hashMem, tmpHashMem, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
+    memcpy(m_hashMem.baseAddress(), tmpHashMem, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
 }
 
 //------------------------------------------------------------------------------

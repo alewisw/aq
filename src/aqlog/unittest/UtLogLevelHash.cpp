@@ -11,8 +11,14 @@
 
 #include "Main.h"
 
+#include "AQLog.h"
+
 #include "HashData.h"
-#include "UtLogLevelHash.h"
+#include "HashMemory.h"
+#include "RandomHandlers.h"
+#include "TestHandler.h"
+
+#include "AQLogRecord.h"
 
 
 
@@ -62,7 +68,7 @@ public:
     HashComparer(void)
     {
         m_cmpHash = new uint32_t[AQLOG_HASH_TABLE_WORDS];
-        memcpy(m_cmpHash, LogLevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
+        memcpy(m_cmpHash, AQLog_LevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
     }
 
     ~HashComparer(void)
@@ -72,7 +78,7 @@ public:
 
     bool matches(void)
     {
-        return memcmp(m_cmpHash, LogLevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t)) == 0;
+        return memcmp(m_cmpHash, AQLog_LevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t)) == 0;
     }
 
 private:
@@ -96,12 +102,13 @@ private:
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-TEST_SUITE_FIRST(UtLogLevelHash);
+TEST_SUITE(UtLogLevelHash);
 
 //------------------------------------------------------------------------------
 TEST(given_NoFilter_when_Record_then_AcceptOnlyCritical)
 {
-    LogLevelHash hash(LogLevelHashTable_g);
+    HashMemory hm;
+    LogLevelHash hash(hm);
 
     checkRegion(0, AQLOG_HASH_TABLE_WORDS, AQLOG_LEVEL_CRITICAL);
     REQUIRE(AQLOG_HASHISLEVEL(AQLOG_LEVEL_CRITICAL, HASHIDX_97_B, HASHIDX_108_B, HASHIDX_2_B));
@@ -115,7 +122,8 @@ TEST(given_NoFilter_when_AddInfoFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO);
         hash.addHandler(&h1);
@@ -134,7 +142,8 @@ TEST(given_InfoFilter_when_AddDetailFilter_then_AcceptAtMostDetail)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO);
         hash.addHandler(&h1);
@@ -155,7 +164,8 @@ TEST(given_InfoFilter_when_AddNoticeFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO);
         hash.addHandler(&h1);
@@ -176,7 +186,8 @@ TEST(given_NoFilter_when_AddComponentInfoFilter_then_AcceptAtMostInfoForComponen
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_97_A);
         hash.addHandler(&h1);
@@ -198,7 +209,8 @@ TEST(given_ComponentInfoFilter_when_AddNoticeFilter_then_AcceptAtMostInfoForComp
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_62_A);
         hash.addHandler(&h1);
@@ -222,7 +234,8 @@ TEST(given_ComponentInfoFilter_when_AddDetailFilter_then_AcceptAtMostDetail)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_61_A);
         hash.addHandler(&h1);
@@ -244,7 +257,8 @@ TEST(given_ComponentInfoFilter_when_AddComponentNotice_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_15_A);
         hash.addHandler(&h1);
@@ -268,7 +282,8 @@ TEST(given_ComponentNoticeFilter_when_AddInfoNotice_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_NOTICE, HASHIDX_111_A);
         hash.addHandler(&h1);
@@ -292,7 +307,8 @@ TEST(given_ComponentANoticeFilter_when_AddComponentBInfo_then_AcceptAtMostNotice
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_NOTICE, HASHIDX_97_A);
         hash.addHandler(&h1);
@@ -318,7 +334,8 @@ TEST(given_NoFilter_when_AddTagInfoFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_33_A);
         hash.addHandler(&h1);
@@ -339,7 +356,8 @@ TEST(given_AddTagInfoFilter_when_AddNoticeFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_100_A);
         hash.addHandler(&h1);
@@ -364,7 +382,8 @@ TEST(given_TagInfoFilter_when_AddDetailFilter_then_AcceptAtMostDetail)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_1_A);
         hash.addHandler(&h1);
@@ -386,7 +405,8 @@ TEST(given_AddTagInfoFilter_when_AddComponentDetailFilter_then_AcceptAtMostDetai
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_98_A);
         hash.addHandler(&h1);
@@ -411,7 +431,8 @@ TEST(given_ComponentDetailFilter_when_AddTagInfoFilter_then_AcceptAtMostDetailFo
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_DETAIL, HASHIDX_34_A);
         hash.addHandler(&h1);
@@ -436,7 +457,8 @@ TEST(given_ComponentInfoFilter_when_AddTagDetailFilter_then_AcceptAtMostDetailFo
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_34_A);
         hash.addHandler(&h1);
@@ -460,7 +482,8 @@ TEST(given_ComponentTagDetail_when_AddTagInfoFilter_then_AcceptAtMostDetailForTa
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_DETAIL, HASHIDX_4_A, HASHIDX_8_A);
         hash.addHandler(&h1);
@@ -482,7 +505,8 @@ TEST(given_TagInfoFilter_when_AddComponentTagDetail_then_AcceptAtMostDetailForTa
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_4_A);
         hash.addHandler(&h1);
@@ -504,7 +528,8 @@ TEST(given_TagDetailFilter_when_AddComponentNoticeAndTagInfo_then_AcceptAtMostDe
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_DETAIL, "", HASHIDX_48_A);
         hash.addHandler(&h1);
@@ -531,7 +556,8 @@ TEST(given_ComponentTagInfoFilter_when_AddComponentNoticeAndTagDetail_then_Accep
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_13_A, HASHIDX_109_A);
         hash.addHandler(&h1);
@@ -558,7 +584,8 @@ TEST(given_NoFilter_when_AddFileInfoFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", "", HASHIDX_6_A);
         hash.addHandler(&h1);
@@ -576,7 +603,8 @@ TEST(given_FileInfoFilter_when_AddComponentNoticeFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", "", HASHIDX_6_A);
         hash.addHandler(&h1);
@@ -598,7 +626,8 @@ TEST(given_FileInfoFilter_when_AddTagNoticeFilter_then_AcceptAtMostInfo)
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, "", "", HASHIDX_6_A);
         hash.addHandler(&h1);
@@ -620,7 +649,8 @@ TEST(given_ComponentNoticeFilter_when_AddTagFileInfoFilter_then_AcceptInfoForTha
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_NOTICE, HASHIDX_101_A);
         hash.addHandler(&h1);
@@ -648,7 +678,8 @@ TEST(given_TagFileInfoFilter_when_AddComponentNoticeFilter_then_AcceptInfoForTha
 {
     for (size_t i = 0; i < 2; ++i)
     {
-        LogLevelHash hash(LogLevelHashTable_g);
+        HashMemory hm;
+        LogLevelHash hash(hm);
         if (i == 1) { hash.freezeHash(); }
         TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_101_A, HASHIDX_72_A, HASHIDX_3_A);
         hash.addHandler(&h1);

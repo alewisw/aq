@@ -11,6 +11,8 @@
 
 #include "AQLogRecord.h"
 
+#include "Timer.h"
+
 using namespace std;
 
 
@@ -49,10 +51,14 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-AQLogRecord::AQLogRecord(AQLogLevel_t level, const std::string& componentId, 
-    const std::string& tagId, const std::string& file, const std::string& message)
+AQLogRecord::AQLogRecord(void)
+{
+}
+
+//------------------------------------------------------------------------------
+AQLogRecord::AQLogRecord(AQLogLevel_t level, const char *componentId,
+    const char *tagId, const char *file)
     : m_level(level)
-    , m_message(message)
 {
     m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = componentId;
     m_tierId[AQLOG_LOOKUP_TIER_TAGID] = tagId;
@@ -60,34 +66,69 @@ AQLogRecord::AQLogRecord(AQLogLevel_t level, const std::string& componentId,
 }
 
 //------------------------------------------------------------------------------
-AQLogRecord::AQLogRecord(const AQLogRecord& other)
-    : m_level(other.m_level)
-    , m_message(other.m_message)
-{
-    for (size_t i = 0; i < AQLOG_LOOKUP_TIER_COUNT; ++i)
-    {
-        m_tierId[i] = other.m_tierId[i];
-    }
-}
-
-//------------------------------------------------------------------------------
-AQLogRecord& AQLogRecord::operator=(const AQLogRecord& other)
-{
-    if (this != &other)
-    {
-        m_level = other.m_level;
-        m_message = other.m_message;
-        for (size_t i = 0; i < AQLOG_LOOKUP_TIER_COUNT; ++i)
-        {
-            m_tierId[i] = other.m_tierId[i];
-        }
-    }
-    return *this;
-}
-
-//------------------------------------------------------------------------------
 AQLogRecord::~AQLogRecord(void)
 {
+}
+
+//------------------------------------------------------------------------------
+AQLogRecord::PopulateOutcome AQLogRecord::populate(void)
+{
+    m_message.clear();
+    m_processTimeMs = aq::Timer::start();
+
+    // Check the item - make sure it is valid.
+    if (!m_item.isCommitted())
+    {
+        return POPULATE_ERROR_UNCOMMITTED;
+    }
+    else if (!m_item.isChecksumValid())
+    {
+        return POPULATE_ERROR_CHECKSUM;
+    }
+    else if (m_item.size() < offsetof(Overlay, strData))
+    {
+        return POPULATE_ERROR_TRUNCATED_HEADER;
+    }
+
+    // Header is valid.
+    m_overlay = (Overlay *)&m_item[0];
+    m_level = (AQLogLevel_t)m_overlay->logLevel;
+
+    // Check the data field.
+    if (m_item.size() < offsetof(Overlay, strData) + m_overlay->dataSize)
+    {
+        return POPULATE_ERROR_TRUNCATED_DATA;
+    }
+
+    // Obtain all the string fields.
+    const char *str = &m_overlay->strData[m_overlay->dataSize];
+    size_t strLen = m_item.size() - offsetof(Overlay, strData) - m_overlay->dataSize;
+    for (int i = 0; i < AQLOG_LOOKUP_TIER_COUNT + AQLOG_EXTRA_TIER_COUNT; ++i)
+    {
+        size_t len = 1 + strnlen(str, strLen);
+        if (len > strLen)
+        {
+            // Out of space in the buffer.  Looks to be corrupted.
+            return (PopulateOutcome)(POPULATE_ERROR_TRUNCATED_COMPONENT_ID + i);
+        }
+        m_tierId[i] = str;
+        str += len;
+        strLen -= len;
+    }
+
+    // Obtain the message.
+    if (strLen > 0)
+    {
+        AQLogStringBuilder::iterator it = m_message.end();
+        m_message.insertPointer(it, str, strLen);
+        for (const AQItem *mi = m_item.next(); mi != NULL; mi = mi->next())
+        {
+            it = m_message.end();
+            m_message.insertPointer(it, (const char *)&(*mi)[0], mi->size());
+        }
+    }
+
+    return POPULATE_SUCCESS;
 }
 
 

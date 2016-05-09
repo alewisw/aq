@@ -1,5 +1,3 @@
-#ifndef MAIN_H
-#define MAIN_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -11,61 +9,60 @@
 // Includes
 //------------------------------------------------------------------------------
 
-// Test framework.
-#include "Test.h"
-
-// aqlog Library
-namespace aqlog
-{
-    class LogLevelHash;
-}
-
-// Standard libraries
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <set>
-#include <string>
-#include <sstream>
-#include <vector>
-
-#include <stdint.h>
-#include <string.h>
-
-using namespace aqlog;
-using namespace std;
+#include "ProcessIdentifier.h"
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Macros
+// Private Macros
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Type Definitions
+// Private Type Definitions
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Variable Declarations
+// Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported Function and Class Declarations
+// Variable Declarations
 //------------------------------------------------------------------------------
 
+#ifdef AQ_TEST_UNIT
 
+//------------------------------------------------------------------------------
+bool aqlog::ProcessIdentifier::m_fix = false;
 
+//------------------------------------------------------------------------------
+std::string aqlog::ProcessIdentifier::m_fixProcessName;
+
+//------------------------------------------------------------------------------
+uint32_t aqlog::ProcessIdentifier::m_fixProcessId;
+
+//------------------------------------------------------------------------------
+uint32_t aqlog::ProcessIdentifier::m_fixThreadId;
 
 #endif
+
+
+
+
+//------------------------------------------------------------------------------
+// Function and Class Implementation
+//------------------------------------------------------------------------------
+
+
+
+
 //=============================== End of File ==================================

@@ -11,7 +11,10 @@
 
 #include "Main.h"
 
-#include "Timer.h"
+#include "RandomHandlers.h"
+
+#include "TestHandler.h"
+#include "HashData.h"
 
 
 
@@ -49,15 +52,64 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-int main(int argc, char* argv[])
+RandomHandlers::RandomHandlers(LogLevelHash& hash, AQLogLevel_t maxLevel, size_t n)
 {
-#ifdef AQ_TEST_UNIT
-    aq::Timer::fixClock(0);
-#endif
+    for (size_t i = 0; i < n; ++i)
+    {
+        TestHandler *h = new TestHandler;
+        m_handlers.push_back(h);
 
-    TestRunner testRunner(argc, argv);
+        size_t nFilters = (rand() % 5) + 1;
+        for (size_t j = 0; j < nFilters; ++j)
+        {
+            AQLogLevel_t level = (AQLogLevel_t)(rand() % (maxLevel + 1));
+            const char *componentId;
+            switch (rand() % 4)
+            {
+            case 0:
+                componentId = "";
+                break;
 
-    return testRunner.run();
+            default:
+                componentId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                break;
+            }
+            const char *tagId;
+            switch (rand() % 4)
+            {
+            case 0:
+                tagId = "";
+                break;
+
+            default:
+                tagId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                break;
+            }
+            const char *fileId;
+            switch (rand() % 4)
+            {
+            case 0:
+                fileId = "";
+                break;
+
+            default:
+                fileId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
+                break;
+            }
+            h->addFilter(level, componentId, tagId, fileId);
+        }
+
+        hash.addHandler(h);
+    }
+}
+
+//------------------------------------------------------------------------------
+RandomHandlers::~RandomHandlers(void)
+{
+    for (size_t i = 0; i < m_handlers.size(); ++i)
+    {
+        delete m_handlers[i];
+    }
 }
 
 

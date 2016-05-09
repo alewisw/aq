@@ -7,6 +7,8 @@
 //
 //==============================================================================
 
+/** @file */
+
 //------------------------------------------------------------------------------
 // Includes
 //------------------------------------------------------------------------------
@@ -86,6 +88,10 @@
 #define AQLOG_LOOKUP_TIER_FILE          2
 #define AQLOG_LOOKUP_TIER_COUNT         3
 
+#define AQLOG_EXTRA_TIER_PROCESS_NAME   3
+#define AQLOG_EXTRA_TIER_FUNCTION       4
+#define AQLOG_EXTRA_TIER_COUNT          2
+
 // The number of bits per tier.
 #define AQLOG_TIER_0_BITS               7
 #define AQLOG_TIER_1_BITS               7
@@ -113,6 +119,20 @@
                                                + AQLOG_TIER_1_BITS              \
                                                + AQLOG_TIER_2_BITS              \
                                                - AQLOG_HASH_INDEX_WORD_BITNUM))
+
+// The minimum acceptable size for the logging shared memory region.
+#define AQLOG_SHM_MINIMUM_SIZE          (  10 * 1024 + AQLOG_HASH_TABLE_WORDS   \
+                                         * sizeof(uint32_t))
+
+
+// When allocating a record in the queue, allow for at least this number
+// of bytes for the message text.  If the message is larger then the item will
+// be extended.
+#define AQLOG_RESERVE_MESSAGE_SIZE      100
+
+// When allocating a record in the queue, if allocation fails try to reduce the 
+// number of data bytes to this number.
+#define AQLOG_DATA_TRUNCATE_SIZE        64
 
 // The number of characters considered in the hash.  Characters are counted from
 // the end of the string.
@@ -227,6 +247,456 @@ case __index_:                                                                  
                                       __str3_, sizeof(__str3_) - 1)
 
 
+// Helper macros for generating calls to __AQLog_Write() with log level pre-check.
+#define AQLOG_WRITE(level, tagId, fmt, ...)                                     \
+    AQLOG_WRITEDATA(level, tagId, NULL, 0, fmt, __VA_ARGS__)
+#define AQLOG_WRITEDATA(level, tagId, data, dataSize, fmt, ...)                 \
+do                                                                              \
+{                                                                               \
+    if (AQLOG_HASHISLEVEL(level, AQLOG_COMPONENT_ID, tagId, __FILE__))          \
+    {                                                                           \
+        __AQLog_Write(level, AQLOG_COMPONENT_ID, sizeof(AQLOG_COMPONENT_ID),    \
+                      tagId, sizeof(tagId), __FILE__, sizeof(__FILE__),         \
+                      __FUNCTION__, sizeof(__FUNCTION__), __LINE__,             \
+                      data, dataSize, fmt, __VA_ARGS__);                        \
+    }                                                                           \
+} while (0)
+
+
+/**
+ * Writes a message at the AQLOG_LEVEL_CRITICAL level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no 
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Critical(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_CRITICAL, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_CRITICAL level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TCritical(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_CRITICAL, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_CRITICAL level to the log with an 
+ * associated data dump.  The log message is constructed from a printf-style 
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DCritical(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_CRITICAL, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_CRITICAL level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDCritical(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_CRITICAL, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_ERROR level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Error(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_ERROR, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_ERROR level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TError(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_ERROR, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_ERROR level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DError(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_ERROR, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_ERROR level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDError(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_ERROR, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_WARNING level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Warning(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_WARNING, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_WARNING level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TWarning(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_WARNING, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_WARNING level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DWarning(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_WARNING, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_WARNING level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDWarning(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_WARNING, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_NOTICE level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Notice(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_NOTICE, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_NOTICE level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TNotice(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_NOTICE, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_NOTICE level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DNotice(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_NOTICE, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_NOTICE level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDNotice(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_NOTICE, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_INFO level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Info(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_INFO, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_INFO level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TInfo(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_INFO, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_INFO level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DInfo(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_INFO, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_INFO level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDInfo(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_INFO, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DETAIL level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Detail(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_DETAIL, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DETAIL level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDetail(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_DETAIL, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DETAIL level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DDetail(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_DETAIL, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DETAIL level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDDetail(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_DETAIL, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DEBUG level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Debug(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_DEBUG, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DEBUG level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDebug(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_DEBUG, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DEBUG level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DDebug(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_DEBUG, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_DEBUG level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDDebug(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_DEBUG, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_TRACE level to the log.  The log
+ * message is constructed from a printf-style formatting string and has no
+ * associated tag or data dump.
+ *
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_Trace(fmt, ...)                                                \
+    AQLOG_WRITE(AQLOG_LEVEL_TRACE, "", fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_TRACE level to the log.  The log
+ * message is constructed from a printf-style formatting string and is tagged
+ * for the purpose of log filtering.  The log has no associated data dump.
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TTrace(tag, fmt, ...)                                        \
+    AQLOG_WRITE(AQLOG_LEVEL_TRACE, #tag, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_TRACE level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string and has no associated tag.
+ *
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_DTrace(data, dataSize, fmt, ...)                               \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_TRACE, "", data, dataSize, fmt, __VA_ARGS__)
+
+/**
+ * Writes a message at the AQLOG_LEVEL_TRACE level to the log with an
+ * associated data dump.  The log message is constructed from a printf-style
+ * formatting string  and is tagged for the purpose of log filtering
+ *
+ * @param tag (literal) The tag associated with this log record.  The tag is not
+ * a string, is is just plain text that is converted into a string by this macro.
+ * @param data (void *) A pointer to the data to process
+ * @param dataSize (size_t) The number of data bytes to capture from the data
+ * pointer to store in this log record.
+ * @param fmt (const char *) The printf-style formatting string for the log message.
+ * @param ... The formatting arguments for the log message.
+ */
+#define AQLog_TDTrace(tag, data, dataSize, fmt, ...)                         \
+    AQLOG_WRITEDATA(AQLOG_LEVEL_TRACE, #tag, data, dataSize, fmt, __VA_ARGS__)
+
+
+
 
 //------------------------------------------------------------------------------
 // Exported Type Definitions
@@ -281,6 +751,30 @@ typedef enum AQLOG_LEVEL_T
 } AQLogLevel_t;
 
 
+/**
+* Defines the possible outcomes from initialising the AQLog.
+*/
+typedef enum AQLOG_INITOUTCOME_T
+{
+    /**
+     * Log successfully initialised.
+     */
+    AQLOG_INITOUTCOME_SUCCESS = 0,
+
+    /**
+     * It was not possible to initialise the log because the length of the
+     * shared memory region was insufficient to contain the required data
+     * structures.
+     */
+    AQLOG_INITOUTCOME_SHM_TOO_SMALL = 1,
+
+    /**
+     * It was not possible to initialise the log because the AQ memory 
+     * region had not been formatted to contain a valid AQ.
+     */
+    AQLOG_INITOUTCOME_AQ_UNFORMATTED = 2,
+
+} AQLogInitOutcome_t;
 
 
 //------------------------------------------------------------------------------
@@ -328,6 +822,30 @@ AQLOG_HASH_INLINE_ATTRIBUTE bool AQLog_HashIsLevelInline(int level,
 // str3 using the exernal function calculation method.  The lengths represent 
 // the number of characters in the string that participate in the hash.
 extern "C" AQLOG_HASH_EXTERN_ATTRIBUTE bool AQLog_HashIsLevelExtern(int level, const char *str1, size_t str1Size, const char *str2, size_t str2Size, const char *str3, size_t str3Size);
+
+// Used to initialise the log producer directly from a shared memory region.
+// This should not be called by applications.
+class IAQSharedMemory;
+extern "C" AQLogInitOutcome_t AQLog_InitSharedMemory(IAQSharedMemory& sm);
+
+/**
+ * Deinitialise and clean-up the AQLog interface.  Once this function is called
+ * the logging interface becomes inoperative.  Any attempt to access the logging
+ * interface after this point results in undefined behavior (likey a crash).
+ */
+extern "C" void AQLog_Deinit(void);
+
+// The single entry-point for actually writing a log message into the shared
+// log buffer.  
+extern "C" void __AQLog_Write(AQLogLevel_t level, const char *componentId,
+    size_t componentIdSize, const char *tagId, size_t tagIdSize,
+    const char *file, size_t fileSize, const char *func, size_t funcSize,
+    int line, const void *data, size_t dataSize, const char *msg, ...)
+#ifdef __GNUC__
+    __attribute__((format(printf, 13, 14)))
+#endif
+    ;
+
 
 /*
 #include <stdio.h>

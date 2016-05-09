@@ -39,6 +39,8 @@ class AQLogFilter;
 class AQLogHandler;
 class AQLogRecord;
 
+class IAQSharedMemory;
+
 
 
 
@@ -60,11 +62,19 @@ public:
 
     // Constructs a new log level hash in the memory 'hashMem'.  This memory must
     // be at least AQLOG_HASH_TABLE_WORDS uint32_t words in length.
-    LogLevelHash(uint32_t *hashMem = NULL, HashFunction_fn hashFn = HashFunction::standard);
+    LogLevelHash(IAQSharedMemory& hashMem, HashFunction_fn hashFn = HashFunction::standard);
 
     // Destroys this log level hash.  This does not change the content of the hash
     // memory.
     ~LogLevelHash(void);
+
+private:
+    // Copy and assignment are not supported for log level hash due to the
+    // use of shared memory.
+    LogLevelHash(const LogLevelHash& other);
+    LogLevelHash& operator=(const LogLevelHash& other);
+
+public:
 
     // Freezes hash table recalculation.  The hash table is not updated as handlers 
     // are added and removed.  When unfreezeHash() is called, if any changes were
@@ -137,7 +147,7 @@ private:
     FilterMap m_filters;
 
     // The hash memory.
-    uint32_t *m_hashMem;
+    IAQSharedMemory& m_hashMem;
 
     // The hash function.
     HashFunction_fn m_hashFn;

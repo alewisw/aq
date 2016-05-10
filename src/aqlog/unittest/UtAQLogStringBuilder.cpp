@@ -296,6 +296,21 @@ TEST(given_SbEmpty_when_InsertCopy_ContentEqualsInsertedText)
 }
 
 //------------------------------------------------------------------------------
+TEST(given_SbEmpty_when_InsertHugeCopy_ContentEqualsInsertedText)
+{
+    AQLogStringBuilder msg(0);
+    ostringstream ss;
+    size_t total = 0;
+    while (total < 256 * 1024)
+    {
+        REQUIRE(&msg == &msg.insertCopy(msg.end(), LONG_STR));
+        ss << LONG_STR;
+        total += LONG_STR_LEN;
+    }
+    REQUIRE(msg.toString() == ss.str());
+}
+
+//------------------------------------------------------------------------------
 TEST(given_SbSingle_when_InsertCopyAtEnd_ContentEqualsInsertedText)
 {
     AQLogStringBuilder msg(0);
@@ -1862,6 +1877,21 @@ TEST(given_SbEmpty_when_AppendCopy_ContentEqualsConcatenatedText)
 }
 
 //------------------------------------------------------------------------------
+TEST(given_SbEmpty_when_AppendHugeCopy_ContentEqualsInsertedText)
+{
+    AQLogStringBuilder msg(0);
+    ostringstream ss;
+    size_t total = 0;
+    while (total < 256 * 1024)
+    {
+        REQUIRE(&msg == &msg.appendCopy(LONG_STR));
+        ss << LONG_STR;
+        total += LONG_STR_LEN;
+    }
+    REQUIRE(msg.toString() == ss.str());
+}
+
+//------------------------------------------------------------------------------
 TEST(given_SbSingle_when_AppendCopy_ContentEqualsConcatenatedText)
 {
     AQLogStringBuilder msg(0);
@@ -2398,8 +2428,24 @@ TEST(given_SbSplit_when_LargeAppendftime_ContentEqualsFormattedText)
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         , STRFTIME_TEST_TIME));
     REQUIRE(msg.toString() == "Ut enim ad minim veniam"
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
@@ -2482,7 +2528,15 @@ TEST(given_SbSplit_when_LargeInsertftimeAfterSplit_ContentEqualsFormattedText)
     AQLogStringBuilder msg(0);
     msg.insertPointer(msg.begin(), "q");
     msg.insertPointer(msg.end(), "uis nostrud exercitation");
-    REQUIRE(sizeof(STRFTIME_TEST_TIME_STR) * 4 * 8 == msg.insertftime(msg.begin() + 2,
+    REQUIRE(sizeof(STRFTIME_TEST_TIME_STR) * 4 * 16 == msg.insertftime(msg.begin() + 2,
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
+        ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
         ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT ":" STRFTIME_TEST_TIME_FMT
@@ -2494,6 +2548,14 @@ TEST(given_SbSplit_when_LargeInsertftimeAfterSplit_ContentEqualsFormattedText)
         , STRFTIME_TEST_TIME));
 
     REQUIRE(msg.toString() == "qu"
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
+        ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
         ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR ":" STRFTIME_TEST_TIME_STR
@@ -2557,6 +2619,16 @@ TEST(given_SplitCoalesce_when_PopulateFragmented_BuffersCoalesced)
     size_t f = makeFragmentedStringBuilder(msg);
     REQUIRE(msg.iovCount() < f);
     REQUIRE(msg.toString() == FRAG_STR);
+}
+
+//------------------------------------------------------------------------------
+TEST(given_SbFragmented_when_WrittenToOstream_OstreamContainsString)
+{
+    AQLogStringBuilder msg;
+    makeFragmentedStringBuilder(msg);
+    ostringstream ss;
+    ss << msg;
+    REQUIRE(ss.str() == FRAG_STR);
 }
 
 

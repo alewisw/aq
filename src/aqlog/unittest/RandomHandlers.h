@@ -51,15 +51,33 @@ class RandomHandlers
 {
 public:
 
-    // Constructs a new random handler colection - there are 'n' handlers
+    // Constructs a new random handler collection - there are 'n' handlers
     // added to 'hash'.
     RandomHandlers(LogLevelHash& hash, AQLogLevel_t maxLevel = AQLOG_LEVEL_TRACE, 
         size_t n = 100);
+
+    // Constructs a new random handler collection using a fixed seed - there are 'n' handlers
+    // added to 'hash'.
+    RandomHandlers(uint32_t seed, LogLevelHash& hash, 
+        AQLogLevel_t maxLevel = AQLOG_LEVEL_TRACE, size_t n = 100);
+
+private:
+    // Duplication and asignment are not supported.
+    RandomHandlers(const RandomHandlers& other);
+    RandomHandlers& operator=(const RandomHandlers& other);
+
+public:
 
     // Destroys the handlers.
     ~RandomHandlers(void);
 
 private:
+
+    // Generates the random handlers.
+    void generate(uint32_t seed, LogLevelHash& hash, AQLogLevel_t maxLevel, size_t n);
+
+    // The hash.
+    LogLevelHash& m_hash;
 
     // The handlers that have been added.
     std::vector<TestHandler *> m_handlers;

@@ -586,6 +586,78 @@ TEST(given_HandlerHasMultipleFilters_when_MatchesAllFilters_then_HandlerCalledOn
     REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
+//------------------------------------------------------------------------------
+TEST(given_ComponentHandlerAddedLastInGroup_when_HandlerRemoved_then_NoLongerInMatchSet)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
+    RandomHandlers rh(hash);
+    hash.addHandler(&h1);
+
+    hash.removeHandler(&h1);
+
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
+
+    REQUIRE((handlers.find(&h1) == handlers.end()));
+}
+
+//------------------------------------------------------------------------------
+TEST(given_ComponentHandlerAddFirstInGroup_when_HandlerRemoved_then_NoLongerInMatchSet)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    TestHandler h1(AQLOG_LEVEL_INFO, "comp_bar");
+    hash.addHandler(&h1);
+    RandomHandlers rh(hash);
+
+    hash.removeHandler(&h1);
+
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
+
+    REQUIRE((handlers.find(&h1) == handlers.end()));
+}
+
+//------------------------------------------------------------------------------
+TEST(given_FileHandlerAddedLastInGroup_when_HandlerRemoved_then_NoLongerInMatchSet)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_bar");
+    RandomHandlers rh(hash);
+    hash.addHandler(&h1);
+
+    hash.removeHandler(&h1);
+
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
+
+    REQUIRE((handlers.find(&h1) == handlers.end()));
+}
+
+//------------------------------------------------------------------------------
+TEST(given_FileHandlerAddFirstInGroup_when_HandlerRemoved_then_NoLongerInMatchSet)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    TestHandler h1(AQLOG_LEVEL_INFO, "", "", "file_bar");
+    hash.addHandler(&h1);
+    RandomHandlers rh(hash);
+
+    hash.removeHandler(&h1);
+
+    AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
+
+    REQUIRE((handlers.find(&h1) == handlers.end()));
+}
+
 
 
 

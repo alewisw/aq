@@ -68,12 +68,17 @@ public:
     HashComparer(void)
     {
         m_cmpHash = new uint32_t[AQLOG_HASH_TABLE_WORDS];
-        memcpy(m_cmpHash, AQLog_LevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
+        capture();
     }
 
     ~HashComparer(void)
     {
         delete[] m_cmpHash;
+    }
+
+    void capture(void)
+    {
+        memcpy(m_cmpHash, AQLog_LevelHashTable_g, AQLOG_HASH_TABLE_WORDS * sizeof(uint32_t));
     }
 
     bool matches(void)
@@ -94,6 +99,8 @@ private:
 // Variable Declarations
 //------------------------------------------------------------------------------
 
+// Used to seed the PRNG reliably.
+static uint32_t PrngSeed = 1;
 
 
 
@@ -700,6 +707,278 @@ TEST(given_TagFileInfoFilter_when_AddComponentNoticeFilter_then_AcceptInfoForTha
         REQUIRE(AQLOG_HASHISLEVEL(AQLOG_LEVEL_NOTICE, HASHIDX_101_B, HASHIDX_73_B, HASHIDX_3_B));
         REQUIRE(!AQLOG_HASHISLEVEL(AQLOG_LEVEL_INFO, HASHIDX_101_B, HASHIDX_73_B, HASHIDX_3_B));
     }
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveComponentInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_101_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveComponentInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_81_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveTagInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_19_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveTagInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_1_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, "", "", HASHIDX_2_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, "", "", HASHIDX_4_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveComponentTagInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_10_A, HASHIDX_90_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveComponentTagInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_1_A, HASHIDX_88_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveComponentFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_13_A, "", HASHIDX_65_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveComponentFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_84_A, "", HASHIDX_22_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveTagFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_14_A, HASHIDX_5_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveTagFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, "", HASHIDX_34_A, HASHIDX_6_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RandomHandlers_when_AddRemoveComponentTagFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    RandomHandlers rh(hash, AQLOG_LEVEL_NOTICE);
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_33_A, HASHIDX_3_A, HASHIDX_1_A);
+
+    HashComparer hc;
+    hash.addHandler(&h1);
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
+}
+
+//------------------------------------------------------------------------------
+TEST(given_AddInfoHandlerAndRandomHandlers_when_RemoveComponentTagFileInfoHandler_then_HashTableUnchanged)
+{
+    HashMemory hm;
+    LogLevelHash hash(hm);
+    HashComparer hc;
+    {
+        RandomHandlers rh(++PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+        hc.capture();
+    }
+    TestHandler h1(AQLOG_LEVEL_INFO, HASHIDX_24_A, HASHIDX_127_A, HASHIDX_4_A);
+    hash.addHandler(&h1);
+    RandomHandlers rh(PrngSeed, hash, AQLOG_LEVEL_NOTICE);
+
+    CHECK(!hc.matches());
+    hash.removeHandler(&h1);
+    REQUIRE(hc.matches());
 }
 
 //------------------------------------------------------------------------------

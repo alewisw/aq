@@ -25,7 +25,7 @@ using namespace std;
 #define STRFTIME_SCOPY_MIN_SIZE         20
 
 // The base size of the memory to allocated for dynamic strftime generation.
-#define STRFTIME_DCOPY_BASE_SIZE        4096
+#define STRFTIME_DCOPY_BASE_SIZE        512
 
 
 

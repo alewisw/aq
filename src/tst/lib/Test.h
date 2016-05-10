@@ -45,40 +45,6 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Encapsulates a simple pseudo-random number generator.  The generator is 
-// completly predictable - given the same starting seed it will always generate
-// the same seqeunce of numbers.
-class Prng
-{
-public:
-
-    // Constructs a new record generator which seeds based on the thread number.
-    Prng(unsigned int seed);
-
-    // Creats an exact copy of this record generator including its current PRNG
-    // state.
-    Prng(const Prng& other);
-
-    // Assigns the value of this record generator to exactly match another.
-    Prng& operator=(const Prng& other);
-
-    // Destroys this record generator.
-    virtual ~Prng(void);
-
-private:
-
-    // The current PRNG value.
-    unsigned long long m_prng;
-
-public:
-
-    // Gets the current m_prng value.
-    unsigned int get(void) const;
-
-    // Advances the m_prng field to the next value in the sequence.
-    unsigned int next(void);
-
-};
 
 
 

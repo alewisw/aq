@@ -32,6 +32,7 @@
     </ClCompile>
     <ClCompile Include="RandomHandlers.cpp" />
     <ClCompile Include="TestHandler.cpp" />
+    <ClCompile Include="UtAQLogStringBuilder.cpp" />
     <ClCompile Include="UtHashFunction.cpp" />
     <ClCompile Include="UtLogLevelHashFilter.cpp" />
     <ClCompile Include="UtLogLevelHash.cpp" />

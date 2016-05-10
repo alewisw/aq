@@ -11,6 +11,7 @@
     <ClCompile Include="HashMemory.cpp" />
     <ClCompile Include="RandomHandlers.cpp" />
     <ClCompile Include="TestHandler.cpp" />
+    <ClCompile Include="UtAQLogStringBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />

@@ -26,6 +26,7 @@
     <ClCompile Include="internal\LogReader.cpp" />
     <ClCompile Include="internal\ProcessIdentifier.cpp" />
     <ClCompile Include="internal\Timestamp.cpp" />
+    <ClCompile Include="internal\windows\AQLogRecord_windows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQLog.h" />

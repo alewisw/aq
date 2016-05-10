@@ -60,6 +60,9 @@
       <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="AQLogStringBuilder.cpp" />
+    <ClCompile Include="internal\windows\AQLogRecord_windows.cpp">
+      <Filter>internal\windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

@@ -10,10 +10,24 @@
 //------------------------------------------------------------------------------
 
 #include "Main.h"
-
-#include "RandomHandlers.h"
 #include "DataSets.h"
-#include "TestHandler.h"
+#include "LogReaderTest.h"
+
+#include "AQLog.h"
+
+#include "LogLevelHash.h"
+#include "LogMemory.h"
+#include "LogReader.h"
+
+#include "ProcessIdentifier.h"
+#include "Timestamp.h"
+
+#include "AQExternMemory.h"
+#include "AQWriter.h"
+
+#include "Timer.h"
+
+using namespace aqlog;
 
 
 
@@ -21,6 +35,10 @@
 //------------------------------------------------------------------------------
 // Private Macros
 //------------------------------------------------------------------------------
+
+#undef AQLOG_COMPONENT_ID
+#define AQLOG_COMPONENT_ID "aqlog"
+
 
 
 
@@ -45,71 +63,13 @@
 
 
 
-
 //------------------------------------------------------------------------------
 // Function and Class Implementation
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-RandomHandlers::RandomHandlers(LogLevelHash& hash, AQLogLevel_t maxLevel, size_t n)
-{
-    for (size_t i = 0; i < n; ++i)
-    {
-        TestHandler *h = new TestHandler;
-        m_handlers.push_back(h);
+TEST_SUITE_FIRST(UtAQLogRecord);
 
-        size_t nFilters = (rand() % 5) + 1;
-        for (size_t j = 0; j < nFilters; ++j)
-        {
-            AQLogLevel_t level = (AQLogLevel_t)(rand() % (maxLevel + 1));
-            const char *componentId;
-            switch (rand() % 4)
-            {
-            case 0:
-                componentId = "";
-                break;
-
-            default:
-                componentId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
-                break;
-            }
-            const char *tagId;
-            switch (rand() % 4)
-            {
-            case 0:
-                tagId = "";
-                break;
-
-            default:
-                tagId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
-                break;
-            }
-            const char *fileId;
-            switch (rand() % 4)
-            {
-            case 0:
-                fileId = "";
-                break;
-
-            default:
-                fileId = HashIdxTable_g[rand() % HASHIDX_TABLE_COUNT];
-                break;
-            }
-            h->addFilter(level, componentId, tagId, fileId);
-        }
-
-        hash.addHandler(h);
-    }
-}
-
-//------------------------------------------------------------------------------
-RandomHandlers::~RandomHandlers(void)
-{
-    for (size_t i = 0; i < m_handlers.size(); ++i)
-    {
-        delete m_handlers[i];
-    }
-}
 
 
 

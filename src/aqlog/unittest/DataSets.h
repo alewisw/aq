@@ -1,5 +1,5 @@
-#ifndef HASHDATA_H
-#define HASHDATA_H
+#ifndef DATASETS_H
+#define DATASETS_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -417,6 +417,7 @@
 
 extern const char *const HashIdxTable_g[HASHIDX_TABLE_COUNT];
 
+extern const uint32_t BinaryData_g[256];
 
 
 

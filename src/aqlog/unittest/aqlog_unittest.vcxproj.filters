@@ -6,20 +6,23 @@
     <ClCompile Include="UtLogLevelHashFilter.cpp" />
     <ClCompile Include="UtLogLevelHash.cpp" />
     <ClCompile Include="UtLogMemory.cpp" />
-    <ClCompile Include="UtAQLogMacros.cpp" />
     <ClCompile Include="LogReaderTest.cpp" />
     <ClCompile Include="HashMemory.cpp" />
     <ClCompile Include="RandomHandlers.cpp" />
     <ClCompile Include="TestHandler.cpp" />
     <ClCompile Include="UtAQLogStringBuilder.cpp" />
+    <ClCompile Include="UtAQLog.cpp" />
+    <ClCompile Include="UtAQLogEncodeDecode.cpp" />
+    <ClCompile Include="UtAQLogRecord.cpp" />
+    <ClCompile Include="DataSets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
-    <ClInclude Include="HashData.h" />
     <ClInclude Include="LogReaderTest.h" />
     <ClInclude Include="HashMemory.h" />
     <ClInclude Include="RandomHandlers.h" />
     <ClInclude Include="TestHandler.h" />
+    <ClInclude Include="DataSets.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HashData.raw" />

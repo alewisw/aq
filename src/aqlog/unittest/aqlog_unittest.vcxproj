@@ -15,7 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HashData.h" />
+    <ClInclude Include="DataSets.h" />
     <ClInclude Include="HashMemory.h" />
     <ClInclude Include="LogReaderTest.h" />
     <ClInclude Include="Main.h" />
@@ -23,6 +23,7 @@
     <ClInclude Include="TestHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DataSets.cpp" />
     <ClCompile Include="HashMemory.cpp" />
     <ClCompile Include="LogReaderTest.cpp" />
     <ClCompile Include="Main.cpp">
@@ -32,12 +33,14 @@
     </ClCompile>
     <ClCompile Include="RandomHandlers.cpp" />
     <ClCompile Include="TestHandler.cpp" />
+    <ClCompile Include="UtAQLog.cpp" />
+    <ClCompile Include="UtAQLogEncodeDecode.cpp" />
+    <ClCompile Include="UtAQLogRecord.cpp" />
     <ClCompile Include="UtAQLogStringBuilder.cpp" />
     <ClCompile Include="UtHashFunction.cpp" />
     <ClCompile Include="UtLogLevelHashFilter.cpp" />
     <ClCompile Include="UtLogLevelHash.cpp" />
     <ClCompile Include="UtLogMemory.cpp" />
-    <ClCompile Include="UtAQLogMacros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\aq\lib\aq.vcxproj">

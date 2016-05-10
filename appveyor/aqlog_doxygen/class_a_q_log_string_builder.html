@@ -93,7 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Foo.  
+<p>Provides functions for constructing a string as series of linked buffers, avoiding buffer copying on string expansion or insertion.  
  <a href="class_a_q_log_string_builder.html#details">More...</a></p>
 
 <p><code>#include &lt;AQLogStringBuilder.h&gt;</code></p>
@@ -109,48 +109,141 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b0937d4b3d74cfe1cbaf082a495310b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a5b0937d4b3d74cfe1cbaf082a495310b">AQLogStringBuilder</a> (void)</td></tr>
 <tr class="memdesc:a5b0937d4b3d74cfe1cbaf082a495310b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new string builder.  <a href="#a5b0937d4b3d74cfe1cbaf082a495310b">More...</a><br /></td></tr>
 <tr class="separator:a5b0937d4b3d74cfe1cbaf082a495310b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b8c69132731e98b7859c84790074867"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a4b8c69132731e98b7859c84790074867">AQLogStringBuilder</a> (const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;other)</td></tr>
+<tr class="memdesc:a4b8c69132731e98b7859c84790074867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new string builder that contains exactly the content of another string builder.  <a href="#a4b8c69132731e98b7859c84790074867">More...</a><br /></td></tr>
+<tr class="separator:a4b8c69132731e98b7859c84790074867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bd9baa0f20793beff0d0d59142fb33e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a4bd9baa0f20793beff0d0d59142fb33e">operator=</a> (const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;other)</td></tr>
+<tr class="memdesc:a4bd9baa0f20793beff0d0d59142fb33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes this string builder so that it contains exactly the same data as another string builder.  <a href="#a4bd9baa0f20793beff0d0d59142fb33e">More...</a><br /></td></tr>
+<tr class="separator:a4bd9baa0f20793beff0d0d59142fb33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaac1d4ef860d85024593b93e29fdba6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#aaaac1d4ef860d85024593b93e29fdba6">~AQLogStringBuilder</a> (void)</td></tr>
 <tr class="memdesc:aaaac1d4ef860d85024593b93e29fdba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this string builder.  <a href="#aaaac1d4ef860d85024593b93e29fdba6">More...</a><br /></td></tr>
 <tr class="separator:aaaac1d4ef860d85024593b93e29fdba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72934eed04034cdc612fa500a4cc9152"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a72934eed04034cdc612fa500a4cc9152">begin</a> (void)</td></tr>
-<tr class="memdesc:a72934eed04034cdc612fa500a4cc9152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the iterator that points to the start of this string.  <a href="#a72934eed04034cdc612fa500a4cc9152">More...</a><br /></td></tr>
-<tr class="separator:a72934eed04034cdc612fa500a4cc9152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40ecb4a5253c7d6c6101d672382040fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a40ecb4a5253c7d6c6101d672382040fc">end</a> (void)</td></tr>
-<tr class="memdesc:a40ecb4a5253c7d6c6101d672382040fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the iterator that points to the end of this string.  <a href="#a40ecb4a5253c7d6c6101d672382040fc">More...</a><br /></td></tr>
-<tr class="separator:a40ecb4a5253c7d6c6101d672382040fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6b9a94c3e09e24b8bbb6c817993e80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a2c6b9a94c3e09e24b8bbb6c817993e80">clear</a> (void)</td></tr>
-<tr class="memdesc:a2c6b9a94c3e09e24b8bbb6c817993e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears this string builder, reducing its size to 0.  <a href="#a2c6b9a94c3e09e24b8bbb6c817993e80">More...</a><br /></td></tr>
-<tr class="separator:a2c6b9a94c3e09e24b8bbb6c817993e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c6a6626e587b94d94427a928fe1ca76"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a1c6a6626e587b94d94427a928fe1ca76">insertEmpty</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, size_t len)</td></tr>
-<tr class="memdesc:a1c6a6626e587b94d94427a928fe1ca76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts an empty string into this string at the specified position.  <a href="#a1c6a6626e587b94d94427a928fe1ca76">More...</a><br /></td></tr>
-<tr class="separator:a1c6a6626e587b94d94427a928fe1ca76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852a59c01372a84dc23f360e6427ce34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a852a59c01372a84dc23f360e6427ce34">insertCopy</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
-<tr class="memdesc:a852a59c01372a84dc23f360e6427ce34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a852a59c01372a84dc23f360e6427ce34">More...</a><br /></td></tr>
-<tr class="separator:a852a59c01372a84dc23f360e6427ce34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9607946e8c1d0256f910b0e4d8a658e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a9607946e8c1d0256f910b0e4d8a658e3">insertCopy</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str, size_t len)</td></tr>
-<tr class="memdesc:a9607946e8c1d0256f910b0e4d8a658e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a9607946e8c1d0256f910b0e4d8a658e3">More...</a><br /></td></tr>
-<tr class="separator:a9607946e8c1d0256f910b0e4d8a658e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17a6379ca8bddcf48e1bfc33e76ece2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a17a6379ca8bddcf48e1bfc33e76ece2d">insertFree</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char *str)</td></tr>
-<tr class="memdesc:a17a6379ca8bddcf48e1bfc33e76ece2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a17a6379ca8bddcf48e1bfc33e76ece2d">More...</a><br /></td></tr>
-<tr class="separator:a17a6379ca8bddcf48e1bfc33e76ece2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a434125fd24dfeb4d2316c1e7b761bb75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a434125fd24dfeb4d2316c1e7b761bb75">insertFree</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char *str, size_t len)</td></tr>
-<tr class="memdesc:a434125fd24dfeb4d2316c1e7b761bb75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a434125fd24dfeb4d2316c1e7b761bb75">More...</a><br /></td></tr>
-<tr class="separator:a434125fd24dfeb4d2316c1e7b761bb75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c6feab5b52cc8e51588581676583414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a7c6feab5b52cc8e51588581676583414">insertPointer</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
-<tr class="memdesc:a7c6feab5b52cc8e51588581676583414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a constant string into this string builder at the specified iterator position.  <a href="#a7c6feab5b52cc8e51588581676583414">More...</a><br /></td></tr>
-<tr class="separator:a7c6feab5b52cc8e51588581676583414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a638f8c216fc773c002c72448ee12e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a4a638f8c216fc773c002c72448ee12e9">insertPointer</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str, size_t len)</td></tr>
-<tr class="memdesc:a4a638f8c216fc773c002c72448ee12e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a constant string into this string builder at the specified iterator position.  <a href="#a4a638f8c216fc773c002c72448ee12e9">More...</a><br /></td></tr>
-<tr class="separator:a4a638f8c216fc773c002c72448ee12e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a388d0baa548ac92e0d3ae7a912900dd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a388d0baa548ac92e0d3ae7a912900dd7">erase</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, size_t len)</td></tr>
-<tr class="memdesc:a388d0baa548ac92e0d3ae7a912900dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases part of this string.  <a href="#a388d0baa548ac92e0d3ae7a912900dd7">More...</a><br /></td></tr>
-<tr class="separator:a388d0baa548ac92e0d3ae7a912900dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496c3f3e3b22c1772c7d1ac283216540"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a496c3f3e3b22c1772c7d1ac283216540">find</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char ch)</td></tr>
-<tr class="memdesc:a496c3f3e3b22c1772c7d1ac283216540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the passed iterator until the specified character is found or the end of the string is reached.  <a href="#a496c3f3e3b22c1772c7d1ac283216540">More...</a><br /></td></tr>
-<tr class="separator:a496c3f3e3b22c1772c7d1ac283216540"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6607cd87d5b2f7563a77414092771fa0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a6607cd87d5b2f7563a77414092771fa0">find</a> (<a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
-<tr class="memdesc:a6607cd87d5b2f7563a77414092771fa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the passed iterator until the specified string is found or the end of the string is reached.  <a href="#a6607cd87d5b2f7563a77414092771fa0">More...</a><br /></td></tr>
-<tr class="separator:a6607cd87d5b2f7563a77414092771fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4cc90a4934ccbd2fe3b452672eb3fde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#aa4cc90a4934ccbd2fe3b452672eb3fde">begin</a> (void) const </td></tr>
+<tr class="memdesc:aa4cc90a4934ccbd2fe3b452672eb3fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the iterator that points to the start of this string.  <a href="#aa4cc90a4934ccbd2fe3b452672eb3fde">More...</a><br /></td></tr>
+<tr class="separator:aa4cc90a4934ccbd2fe3b452672eb3fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912ef307a84d6a0207c16c1b42fbf670"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670">end</a> (void) const </td></tr>
+<tr class="memdesc:a912ef307a84d6a0207c16c1b42fbf670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the iterator that points to the end of this string.  <a href="#a912ef307a84d6a0207c16c1b42fbf670">More...</a><br /></td></tr>
+<tr class="separator:a912ef307a84d6a0207c16c1b42fbf670"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6564222bc9ccda1025b7a8bb28c16fc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a6564222bc9ccda1025b7a8bb28c16fc1">clear</a> (void)</td></tr>
+<tr class="memdesc:a6564222bc9ccda1025b7a8bb28c16fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears this string builder, reducing its size to 0.  <a href="#a6564222bc9ccda1025b7a8bb28c16fc1">More...</a><br /></td></tr>
+<tr class="separator:a6564222bc9ccda1025b7a8bb28c16fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7adc07287f88bc7ddeb1c5881f22fc"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a2a7adc07287f88bc7ddeb1c5881f22fc">appendEmpty</a> (size_t len)</td></tr>
+<tr class="memdesc:a2a7adc07287f88bc7ddeb1c5881f22fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an empty string to this string builder.  <a href="#a2a7adc07287f88bc7ddeb1c5881f22fc">More...</a><br /></td></tr>
+<tr class="separator:a2a7adc07287f88bc7ddeb1c5881f22fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a01ab00da8068ced3f75db6a40ab8c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a7a01ab00da8068ced3f75db6a40ab8c5">appendCopy</a> (const char *str)</td></tr>
+<tr class="memdesc:a7a01ab00da8068ced3f75db6a40ab8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a string to the end of this string builder.  <a href="#a7a01ab00da8068ced3f75db6a40ab8c5">More...</a><br /></td></tr>
+<tr class="separator:a7a01ab00da8068ced3f75db6a40ab8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf663755aede5f21a451aa07f68d0ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#adcf663755aede5f21a451aa07f68d0ea">appendCopy</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:adcf663755aede5f21a451aa07f68d0ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a string to the end of this string builder.  <a href="#adcf663755aede5f21a451aa07f68d0ea">More...</a><br /></td></tr>
+<tr class="separator:adcf663755aede5f21a451aa07f68d0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67564e30bc7f6513748f6f6651648cd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a67564e30bc7f6513748f6f6651648cd2">appendCopy</a> (const char *str, size_t len)</td></tr>
+<tr class="memdesc:a67564e30bc7f6513748f6f6651648cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a string to the end of this string builder.  <a href="#a67564e30bc7f6513748f6f6651648cd2">More...</a><br /></td></tr>
+<tr class="separator:a67564e30bc7f6513748f6f6651648cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907aea022f316775dfdf4325cdb8aa97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a907aea022f316775dfdf4325cdb8aa97">appendCopy</a> (const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;sb)</td></tr>
+<tr class="memdesc:a907aea022f316775dfdf4325cdb8aa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the entire content from another string builder to this string builder.  <a href="#a907aea022f316775dfdf4325cdb8aa97">More...</a><br /></td></tr>
+<tr class="separator:a907aea022f316775dfdf4325cdb8aa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a620e861479d7dbd2f1ec614acd6dd33a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a620e861479d7dbd2f1ec614acd6dd33a">appendCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbBegin, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbEnd)</td></tr>
+<tr class="memdesc:a620e861479d7dbd2f1ec614acd6dd33a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a range of characters from another string builder to this string builder.  <a href="#a620e861479d7dbd2f1ec614acd6dd33a">More...</a><br /></td></tr>
+<tr class="separator:a620e861479d7dbd2f1ec614acd6dd33a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12a9d0cbd143869ae570953788af4da7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a12a9d0cbd143869ae570953788af4da7">appendFree</a> (char *str)</td></tr>
+<tr class="memdesc:a12a9d0cbd143869ae570953788af4da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a string to the end of this string builder.  <a href="#a12a9d0cbd143869ae570953788af4da7">More...</a><br /></td></tr>
+<tr class="separator:a12a9d0cbd143869ae570953788af4da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc249e298ef896e312d7d89dbbe86a34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#adc249e298ef896e312d7d89dbbe86a34">appendFree</a> (char *str, size_t len)</td></tr>
+<tr class="memdesc:adc249e298ef896e312d7d89dbbe86a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a string to the end of this string builder.  <a href="#adc249e298ef896e312d7d89dbbe86a34">More...</a><br /></td></tr>
+<tr class="separator:adc249e298ef896e312d7d89dbbe86a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78768b5538920efa0cd9932cbc67c6be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a78768b5538920efa0cd9932cbc67c6be">appendPointer</a> (const char *str)</td></tr>
+<tr class="memdesc:a78768b5538920efa0cd9932cbc67c6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a constant string to the end of this string builder.  <a href="#a78768b5538920efa0cd9932cbc67c6be">More...</a><br /></td></tr>
+<tr class="separator:a78768b5538920efa0cd9932cbc67c6be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9e79fd474a11f6f86ff07346cdbd84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a0a9e79fd474a11f6f86ff07346cdbd84">appendPointer</a> (const char *str, size_t len)</td></tr>
+<tr class="memdesc:a0a9e79fd474a11f6f86ff07346cdbd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a constant string to the end of this string builder.  <a href="#a0a9e79fd474a11f6f86ff07346cdbd84">More...</a><br /></td></tr>
+<tr class="separator:a0a9e79fd474a11f6f86ff07346cdbd84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a169a3f90dc5f9e1534beed1e316b7059"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a169a3f90dc5f9e1534beed1e316b7059">appendPointer</a> (const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;sb)</td></tr>
+<tr class="memdesc:a169a3f90dc5f9e1534beed1e316b7059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an entire string builder to this string builder.  <a href="#a169a3f90dc5f9e1534beed1e316b7059">More...</a><br /></td></tr>
+<tr class="separator:a169a3f90dc5f9e1534beed1e316b7059"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fb3af38d52c470c06f125d7cbb1f175"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a5fb3af38d52c470c06f125d7cbb1f175">appendPointer</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbBegin, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbEnd)</td></tr>
+<tr class="memdesc:a5fb3af38d52c470c06f125d7cbb1f175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a range of characters from another string builder into this string builder.  <a href="#a5fb3af38d52c470c06f125d7cbb1f175">More...</a><br /></td></tr>
+<tr class="separator:a5fb3af38d52c470c06f125d7cbb1f175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a193677a4aaeda06ab0449022af97d8f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a193677a4aaeda06ab0449022af97d8f2">appendf</a> (const char *fmt,...)</td></tr>
+<tr class="memdesc:a193677a4aaeda06ab0449022af97d8f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a formatted string to this string builder.  <a href="#a193677a4aaeda06ab0449022af97d8f2">More...</a><br /></td></tr>
+<tr class="separator:a193677a4aaeda06ab0449022af97d8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8a8f1fac9dd5ff4858387523ff58aed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ad8a8f1fac9dd5ff4858387523ff58aed">vappendf</a> (const char *fmt, va_list argp)</td></tr>
+<tr class="memdesc:ad8a8f1fac9dd5ff4858387523ff58aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a formatted string to this string builder.  <a href="#ad8a8f1fac9dd5ff4858387523ff58aed">More...</a><br /></td></tr>
+<tr class="separator:ad8a8f1fac9dd5ff4858387523ff58aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd1398f7f651725ae8f10e00bda03fed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#abd1398f7f651725ae8f10e00bda03fed">appendftime</a> (const char *fmt, time_t time)</td></tr>
+<tr class="memdesc:abd1398f7f651725ae8f10e00bda03fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a formatted time string to this string builder.  <a href="#abd1398f7f651725ae8f10e00bda03fed">More...</a><br /></td></tr>
+<tr class="separator:abd1398f7f651725ae8f10e00bda03fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac84cbc88e8c45113674f620b46aae8c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ac84cbc88e8c45113674f620b46aae8c8">appendftime</a> (const char *fmt, const struct tm *tm)</td></tr>
+<tr class="memdesc:ac84cbc88e8c45113674f620b46aae8c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a formatted time string to this string builder.  <a href="#ac84cbc88e8c45113674f620b46aae8c8">More...</a><br /></td></tr>
+<tr class="separator:ac84cbc88e8c45113674f620b46aae8c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0a002dcfacb56d520caf4924ca6080"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#acb0a002dcfacb56d520caf4924ca6080">insertEmpty</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, size_t len)</td></tr>
+<tr class="memdesc:acb0a002dcfacb56d520caf4924ca6080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts an empty string into this string at the specified position.  <a href="#acb0a002dcfacb56d520caf4924ca6080">More...</a><br /></td></tr>
+<tr class="separator:acb0a002dcfacb56d520caf4924ca6080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01b1a45437c9778defaef1b9036faee1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a01b1a45437c9778defaef1b9036faee1">insertCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
+<tr class="memdesc:a01b1a45437c9778defaef1b9036faee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a01b1a45437c9778defaef1b9036faee1">More...</a><br /></td></tr>
+<tr class="separator:a01b1a45437c9778defaef1b9036faee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50682e4784646119757427c0d614de58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a50682e4784646119757427c0d614de58">insertCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const std::string &amp;str)</td></tr>
+<tr class="memdesc:a50682e4784646119757427c0d614de58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a50682e4784646119757427c0d614de58">More...</a><br /></td></tr>
+<tr class="separator:a50682e4784646119757427c0d614de58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a59d9f456971a2c4537df4a73a831a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a27a59d9f456971a2c4537df4a73a831a">insertCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str, size_t len)</td></tr>
+<tr class="memdesc:a27a59d9f456971a2c4537df4a73a831a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a27a59d9f456971a2c4537df4a73a831a">More...</a><br /></td></tr>
+<tr class="separator:a27a59d9f456971a2c4537df4a73a831a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad81b7e180a5305eed961af7047b79b48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ad81b7e180a5305eed961af7047b79b48">insertCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;sb)</td></tr>
+<tr class="memdesc:ad81b7e180a5305eed961af7047b79b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts an entire string builder into this string builder.  <a href="#ad81b7e180a5305eed961af7047b79b48">More...</a><br /></td></tr>
+<tr class="separator:ad81b7e180a5305eed961af7047b79b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40365c9c8e052834ac59e4e41ac59a57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a40365c9c8e052834ac59e4e41ac59a57">insertCopy</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbBegin, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbEnd)</td></tr>
+<tr class="memdesc:a40365c9c8e052834ac59e4e41ac59a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a range of characters from another string builder into this string builder.  <a href="#a40365c9c8e052834ac59e4e41ac59a57">More...</a><br /></td></tr>
+<tr class="separator:a40365c9c8e052834ac59e4e41ac59a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32288fb3a06ff0804d52f186ae275215"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a32288fb3a06ff0804d52f186ae275215">insertFree</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char *str)</td></tr>
+<tr class="memdesc:a32288fb3a06ff0804d52f186ae275215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#a32288fb3a06ff0804d52f186ae275215">More...</a><br /></td></tr>
+<tr class="separator:a32288fb3a06ff0804d52f186ae275215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0de5f82d47c386e2b88dbbfae07e15a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ab0de5f82d47c386e2b88dbbfae07e15a">insertFree</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char *str, size_t len)</td></tr>
+<tr class="memdesc:ab0de5f82d47c386e2b88dbbfae07e15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string builder at the specified iterator position.  <a href="#ab0de5f82d47c386e2b88dbbfae07e15a">More...</a><br /></td></tr>
+<tr class="separator:ab0de5f82d47c386e2b88dbbfae07e15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4767706496653af82d848c9e8714c2a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a4767706496653af82d848c9e8714c2a0">insertPointer</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
+<tr class="memdesc:a4767706496653af82d848c9e8714c2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a constant string into this string builder at the specified iterator position.  <a href="#a4767706496653af82d848c9e8714c2a0">More...</a><br /></td></tr>
+<tr class="separator:a4767706496653af82d848c9e8714c2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ca0190f28c3db329501454ad08d2ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a49ca0190f28c3db329501454ad08d2ea">insertPointer</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str, size_t len)</td></tr>
+<tr class="memdesc:a49ca0190f28c3db329501454ad08d2ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a constant string into this string builder at the specified iterator position.  <a href="#a49ca0190f28c3db329501454ad08d2ea">More...</a><br /></td></tr>
+<tr class="separator:a49ca0190f28c3db329501454ad08d2ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94bca6a52c7dd4e16b7159e21446171f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a94bca6a52c7dd4e16b7159e21446171f">insertPointer</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;sb)</td></tr>
+<tr class="memdesc:a94bca6a52c7dd4e16b7159e21446171f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts an entire string builer into this string builder.  <a href="#a94bca6a52c7dd4e16b7159e21446171f">More...</a><br /></td></tr>
+<tr class="separator:a94bca6a52c7dd4e16b7159e21446171f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2896a33a4182c1fb54772ffab3bd1d3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a2896a33a4182c1fb54772ffab3bd1d3b">insertPointer</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbBegin, const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;sbEnd)</td></tr>
+<tr class="memdesc:a2896a33a4182c1fb54772ffab3bd1d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a range of characters from another string builder into this string builder.  <a href="#a2896a33a4182c1fb54772ffab3bd1d3b">More...</a><br /></td></tr>
+<tr class="separator:a2896a33a4182c1fb54772ffab3bd1d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef910c25914f7324a0cfa4730f01b495"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#aef910c25914f7324a0cfa4730f01b495">insertf</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *fmt,...)</td></tr>
+<tr class="memdesc:aef910c25914f7324a0cfa4730f01b495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a formatted string to this string builder at a specified location.  <a href="#aef910c25914f7324a0cfa4730f01b495">More...</a><br /></td></tr>
+<tr class="separator:aef910c25914f7324a0cfa4730f01b495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae20445696f47f96b6600d1db4e3b073b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ae20445696f47f96b6600d1db4e3b073b">vinsertf</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *fmt, va_list argp)</td></tr>
+<tr class="memdesc:ae20445696f47f96b6600d1db4e3b073b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a formatted string to this string builder at a specified location.  <a href="#ae20445696f47f96b6600d1db4e3b073b">More...</a><br /></td></tr>
+<tr class="separator:ae20445696f47f96b6600d1db4e3b073b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6d1ee216e8614ebc9e084d7a6d598ea"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ad6d1ee216e8614ebc9e084d7a6d598ea">insertftime</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *fmt, time_t time)</td></tr>
+<tr class="memdesc:ad6d1ee216e8614ebc9e084d7a6d598ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a formatted time string to this string builder.  <a href="#ad6d1ee216e8614ebc9e084d7a6d598ea">More...</a><br /></td></tr>
+<tr class="separator:ad6d1ee216e8614ebc9e084d7a6d598ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b7ff34b03c6b014b8f0617b4ee4927"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ac3b7ff34b03c6b014b8f0617b4ee4927">insertftime</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *fmt, const struct tm *tm)</td></tr>
+<tr class="memdesc:ac3b7ff34b03c6b014b8f0617b4ee4927"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a formatted time string to this string builder.  <a href="#ac3b7ff34b03c6b014b8f0617b4ee4927">More...</a><br /></td></tr>
+<tr class="separator:ac3b7ff34b03c6b014b8f0617b4ee4927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a249ddcf4b85fb19e9defd9d1590dff59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a249ddcf4b85fb19e9defd9d1590dff59">erase</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, size_t len)</td></tr>
+<tr class="memdesc:a249ddcf4b85fb19e9defd9d1590dff59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases part of this string.  <a href="#a249ddcf4b85fb19e9defd9d1590dff59">More...</a><br /></td></tr>
+<tr class="separator:a249ddcf4b85fb19e9defd9d1590dff59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d5b9582fcd2a085fc5ccde6e32ccd68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a3d5b9582fcd2a085fc5ccde6e32ccd68">find</a> (char ch)</td></tr>
+<tr class="memdesc:a3d5b9582fcd2a085fc5ccde6e32ccd68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified character, returning an iterator that references the first instance of that character.  <a href="#a3d5b9582fcd2a085fc5ccde6e32ccd68">More...</a><br /></td></tr>
+<tr class="separator:a3d5b9582fcd2a085fc5ccde6e32ccd68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf7199c48d98b78b7a63f4154603805"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a0cf7199c48d98b78b7a63f4154603805">find</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, char ch)</td></tr>
+<tr class="memdesc:a0cf7199c48d98b78b7a63f4154603805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified character after a specified position, returning an iterator that references the first instance of that character starting from the given position.  <a href="#a0cf7199c48d98b78b7a63f4154603805">More...</a><br /></td></tr>
+<tr class="separator:a0cf7199c48d98b78b7a63f4154603805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304ff72a04fd0d37275b1fa1feb8ce55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a304ff72a04fd0d37275b1fa1feb8ce55">find</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:a304ff72a04fd0d37275b1fa1feb8ce55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified string, returning an iterator that references the first character in the string.  <a href="#a304ff72a04fd0d37275b1fa1feb8ce55">More...</a><br /></td></tr>
+<tr class="separator:a304ff72a04fd0d37275b1fa1feb8ce55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee2785f17ee78c96345d0ee9d133ff4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a2ee2785f17ee78c96345d0ee9d133ff4">find</a> (const char *str)</td></tr>
+<tr class="memdesc:a2ee2785f17ee78c96345d0ee9d133ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified string, returning an iterator that references the first character in the string.  <a href="#a2ee2785f17ee78c96345d0ee9d133ff4">More...</a><br /></td></tr>
+<tr class="separator:a2ee2785f17ee78c96345d0ee9d133ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75372ecddb3789516ad650975d7839fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#a75372ecddb3789516ad650975d7839fd">find</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const std::string &amp;str)</td></tr>
+<tr class="memdesc:a75372ecddb3789516ad650975d7839fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified string, returning an iterator that references the first character in the string.  <a href="#a75372ecddb3789516ad650975d7839fd">More...</a><br /></td></tr>
+<tr class="separator:a75372ecddb3789516ad650975d7839fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab79b715cf5fffec67d3aeabbdddc8ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#aab79b715cf5fffec67d3aeabbdddc8ee">find</a> (const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;pos, const char *str)</td></tr>
+<tr class="memdesc:aab79b715cf5fffec67d3aeabbdddc8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the string builder for a specified string, returning an iterator that references the first character in the string.  <a href="#aab79b715cf5fffec67d3aeabbdddc8ee">More...</a><br /></td></tr>
+<tr class="separator:aab79b715cf5fffec67d3aeabbdddc8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab50d5c9850c25ce159ef633812c57509"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_q_log_string_builder.html#ab50d5c9850c25ce159ef633812c57509">size</a> (void) const </td></tr>
 <tr class="memdesc:ab50d5c9850c25ce159ef633812c57509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the total size of the string builder in characters.  <a href="#ab50d5c9850c25ce159ef633812c57509">More...</a><br /></td></tr>
 <tr class="separator:ab50d5c9850c25ce159ef633812c57509"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,7 +258,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a950d7f6cffcdf2487e6ef2b56d6ef70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Foo. </p>
+<div class="textblock"><p>Provides functions for constructing a string as series of linked buffers, avoiding buffer copying on string expansion or insertion. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5b0937d4b3d74cfe1cbaf082a495310b"></a>
 <div class="memitem">
@@ -182,7 +275,32 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs a new string builder. </p>
-<p>The string is empty. </p>
+<p>The string builder is empty. </p>
+
+</div>
+</div>
+<a class="anchor" id="a4b8c69132731e98b7859c84790074867"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AQLogStringBuilder::AQLogStringBuilder </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a new string builder that contains exactly the content of another string builder. </p>
+<p>The content of the other string builder is entirely duplicated as if <a class="el" href="class_a_q_log_string_builder.html#a907aea022f316775dfdf4325cdb8aa97" title="Appends the entire content from another string builder to this string builder. ">appendCopy(const AQLogStringBuilder&amp;)</a> had been called on it, passed <code>other</code> as the only parameter. This can result in undue copying of memory if it is guaranteed that the other string builder will not go out of scope before this string builder goes out of scope. If this is the case it is recommended that a new string builder is constructed and then <a class="el" href="class_a_q_log_string_builder.html#a169a3f90dc5f9e1534beed1e316b7059" title="Appends an entire string builder to this string builder. ">appendPointer(const AQLogStringBuilder&amp;)</a> called on that new instance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other string builder to completly copy. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -205,7 +323,557 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a72934eed04034cdc612fa500a4cc9152"></a>
+<a class="anchor" id="a7a01ab00da8068ced3f75db6a40ab8c5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendCopy </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a string to the end of this string builder. </p>
+<p>The string is copied and after this function returns it may be discarded by the caller.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. The string is copied and managed internally from this point forwards. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adcf663755aede5f21a451aa07f68d0ea"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendCopy </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a string to the end of this string builder. </p>
+<p>The string is copied and after this function returns it may be discarded by the caller.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. The string is copied and managed internally from this point forwards. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a67564e30bc7f6513748f6f6651648cd2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::appendCopy </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a string to the end of this string builder. </p>
+<p>The string is copied and after this function returns it may be discarded by the caller.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. The string is copied and managed internally from this point forwards. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the string in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a907aea022f316775dfdf4325cdb8aa97"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendCopy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>sb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends the entire content from another string builder to this string builder. </p>
+<p>The character data is copied this string builder so after this function returns the other string builder may be discarded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sb</td><td>The string builder to copy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a620e861479d7dbd2f1ec614acd6dd33a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendCopy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbBegin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbEnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a range of characters from another string builder to this string builder. </p>
+<p>The characters are copied into this string builder so after this function returns the other string builder may be discarded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sbBegin</td><td>An iterator referencing the first character in the other string build from which the characters are to be appended. This may reference this string builder in order to duplicate a character range. </td></tr>
+    <tr><td class="paramname">sbEnd</td><td>An iterator reference one position past the last character in the other string builder that is to be appended. This must reference the same string builder as sbBegin or the behavior is undefined. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2a7adc07287f88bc7ddeb1c5881f22fc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * AQLogStringBuilder::appendEmpty </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends an empty string to this string builder. </p>
+<p>The string pointer is returned and can be filled in by the caller.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">len</td><td>The length of the string in bytes. If this is zero then no changes are made to the list and NULL is returned. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The newly appended buffer if len was greater than 0 or NULL if len was 0. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a193677a4aaeda06ab0449022af97d8f2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendf </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a formatted string to this string builder. </p>
+<p>The string is formatted using the standard printf-style formatting string and formatting arguments</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">...</td><td>The formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a12a9d0cbd143869ae570953788af4da7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendFree </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a string to the end of this string builder. </p>
+<p>The string must have been allocated with 'malloc' (NOTE: not 'new'). Ownership of the string, and responsibility for calling 'free' is taken by this class - the caller may not further access the string after this function has been called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. It must have been allocated with 'malloc' and ownership for the string is taken by this class. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adc249e298ef896e312d7d89dbbe86a34"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::appendFree </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a string to the end of this string builder. </p>
+<p>The string must have been allocated with 'malloc' (NOTE: not 'new'). Ownership of the string, and responsibility for calling 'free' is taken by this class - the caller may not further access the string after this function has been called.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. It must have been allocated with 'malloc' and ownership for the string is taken by this class. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the string in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abd1398f7f651725ae8f10e00bda03fed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendftime </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">time_t&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a formatted time string to this string builder. </p>
+<p>The time formatter uses the same rules as the strftime() function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">time</td><td>The time to format. This will be converted into a local time using the localtime() or similar function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac84cbc88e8c45113674f620b46aae8c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::appendftime </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct tm *&#160;</td>
+          <td class="paramname"><em>tm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a formatted time string to this string builder. </p>
+<p>The time formatter uses the same rules as the strftime() function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">tm</td><td>The broken-down time to format according to the formatting string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a78768b5538920efa0cd9932cbc67c6be"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendPointer </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a constant string to the end of this string builder. </p>
+<p>The string is not copied and must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. The string is not copied and must remain valid and unchanged so long as this object is valid and in scope. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0a9e79fd474a11f6f86ff07346cdbd84"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::appendPointer </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a constant string to the end of this string builder. </p>
+<p>The string is not copied and must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append. The string is not copied and must remain valid and unchanged so long as this object is valid and in scope. </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the string in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a169a3f90dc5f9e1534beed1e316b7059"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendPointer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>sb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends an entire string builder to this string builder. </p>
+<p>The characters are not copied and as such the other string builder must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sb</td><td>The string builder to append to this string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5fb3af38d52c470c06f125d7cbb1f175"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::appendPointer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbBegin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbEnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends a range of characters from another string builder into this string builder. </p>
+<p>The characters are not copied and as such the other string builder must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sbBegin</td><td>An iterator referencing the first character in the other string build from which the characters are to be appended. This may reference this string builder in order to duplicate a character range. </td></tr>
+    <tr><td class="paramname">sbEnd</td><td>An iterator reference one position past the last character in the other string builder that is to be appended. This must reference the same string builder as sbBegin or the behavior is undefined. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa4cc90a4934ccbd2fe3b452672eb3fde"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -217,7 +885,7 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -232,12 +900,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2c6b9a94c3e09e24b8bbb6c817993e80"></a>
+<a class="anchor" id="a6564222bc9ccda1025b7a8bb28c16fc1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::clear </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::clear </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -247,10 +915,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clears this string builder, reducing its size to 0. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a40ecb4a5253c7d6c6101d672382040fc"></a>
+<a class="anchor" id="a912ef307a84d6a0207c16c1b42fbf670"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -262,7 +931,7 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -277,14 +946,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a388d0baa548ac92e0d3ae7a912900dd7"></a>
+<a class="anchor" id="a249ddcf4b85fb19e9defd9d1590dff59"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::erase </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::erase </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -310,17 +979,51 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a496c3f3e3b22c1772c7d1ac283216540"></a>
+<a class="anchor" id="a3d5b9582fcd2a085fc5ccde6e32ccd68"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> AQLogStringBuilder::find </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the string builder for a specified character, returning an iterator that references the first instance of that character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ch</td><td>The character that is to be found. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the character or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the character was not found. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0cf7199c48d98b78b7a63f4154603805"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool AQLogStringBuilder::find </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">AQLogStringBuilder::iterator</a> AQLogStringBuilder::find </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -337,26 +1040,136 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Advances the passed iterator until the specified character is found or the end of the string is reached. </p>
+<p>Searches the string builder for a specified character after a specified position, returning an iterator that references the first instance of that character starting from the given position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>The iterator to advance. When this function returns this either points to the position of a character with value 'ch' or it points to <a class="el" href="class_a_q_log_string_builder.html#a40ecb4a5253c7d6c6101d672382040fc" title="Obtains the iterator that points to the end of this string. ">end()</a>. </td></tr>
+    <tr><td class="paramname">pos</td><td>The position where the search is to begin. </td></tr>
     <tr><td class="paramname">ch</td><td>The character that is to be found. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the character was found, or false if the character was not found. When true is returned pos points to the character, when false is returned pos points to <a class="el" href="class_a_q_log_string_builder.html#a40ecb4a5253c7d6c6101d672382040fc" title="Obtains the iterator that points to the end of this string. ">end()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the character or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the character was not found. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a6607cd87d5b2f7563a77414092771fa0"></a>
+<a class="anchor" id="a304ff72a04fd0d37275b1fa1feb8ce55"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> AQLogStringBuilder::find </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the string builder for a specified string, returning an iterator that references the first character in the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string that is to be found. If this argument is NULL or the empty string then the search fails, false is returned, and pos points to the end of the string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the first character in the string or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the string was not found. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2ee2785f17ee78c96345d0ee9d133ff4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> AQLogStringBuilder::find </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the string builder for a specified string, returning an iterator that references the first character in the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string that is to be found. If this argument is NULL or the empty string then the search fails, false is returned, and pos points to the end of the string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the first character in the string or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the string was not found. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a75372ecddb3789516ad650975d7839fd"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> AQLogStringBuilder::find </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches the string builder for a specified string, returning an iterator that references the first character in the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position where the search is to begin. </td></tr>
+    <tr><td class="paramname">str</td><td>The string that is to be found. If this argument is NULL or the empty string then the search fails, false is returned, and pos points to the end of the string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the first character in the string or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the string was not found. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aab79b715cf5fffec67d3aeabbdddc8ee"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool AQLogStringBuilder::find </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">AQLogStringBuilder::iterator</a> AQLogStringBuilder::find </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -373,19 +1186,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Advances the passed iterator until the specified string is found or the end of the string is reached. </p>
+<p>Searches the string builder for a specified string, returning an iterator that references the first character in the string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>The iterator to advance. When this function returns this either points to the position of the first character in a string equal to 'str' or it points to <a class="el" href="class_a_q_log_string_builder.html#a40ecb4a5253c7d6c6101d672382040fc" title="Obtains the iterator that points to the end of this string. ">end()</a>. </td></tr>
+    <tr><td class="paramname">pos</td><td>The position where the search is to begin. </td></tr>
     <tr><td class="paramname">str</td><td>The string that is to be found. If this argument is NULL or the empty string then the search fails, false is returned, and pos points to the end of the string builder. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the string was found, or false if the string was not found. When true is returned pos points to the first character of the string, when false is returned pos points to <a class="el" href="class_a_q_log_string_builder.html#a40ecb4a5253c7d6c6101d672382040fc" title="Obtains the iterator that points to the end of this string. ">end()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator that references the first character in the string or <a class="el" href="class_a_q_log_string_builder.html#a912ef307a84d6a0207c16c1b42fbf670" title="Obtains the iterator that points to the end of this string. ">end()</a> if the string was not found. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a852a59c01372a84dc23f360e6427ce34"></a>
+<a class="anchor" id="a01b1a45437c9778defaef1b9036faee1"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -393,9 +1206,9 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertCopy </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertCopy </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -426,17 +1239,63 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a9607946e8c1d0256f910b0e4d8a658e3"></a>
+<a class="anchor" id="a50682e4784646119757427c0d614de58"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertCopy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a string into this string builder at the specified iterator position. </p>
+<p>The string is copied and after this function returns it may be discarded by the caller.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The iterator where the string is to be inserted. The character currently at the iterator position is now moved to pos + len. The iterator itself is unchanged. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to insert. The string is copied and managed internally from this point forwards. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a27a59d9f456971a2c4537df4a73a831a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertCopy </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::insertCopy </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -469,17 +1328,107 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a1c6a6626e587b94d94427a928fe1ca76"></a>
+<a class="anchor" id="ad81b7e180a5305eed961af7047b79b48"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertCopy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>sb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts an entire string builder into this string builder. </p>
+<p>The characters are copied into this string builder so after this function returns the other string builder may be discarded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The iterator where the string is to be inserted. The character currently at the iterator position is now moved to pos + (sbEnd - sbBegin + 1). The iterator itself is unchanged. </td></tr>
+    <tr><td class="paramname">sb</td><td>The other string builder to insert into this string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a40365c9c8e052834ac59e4e41ac59a57"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::insertCopy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbBegin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbEnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a range of characters from another string builder into this string builder. </p>
+<p>The characters are copied into this string builder so after this function returns the other string builder may be discarded.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The iterator where the string is to be inserted. The character currently at the iterator position is now moved to pos + (sbEnd - sbBegin + 1). The iterator itself is unchanged. </td></tr>
+    <tr><td class="paramname">sbBegin</td><td>An iterator referencing the first character in the other string build from which the characters are to be inserted. This may reference this string builder in order to duplicate a character range. </td></tr>
+    <tr><td class="paramname">sbEnd</td><td>An iterator reference one position past the last character in the other string builder that is to be inserted. This must reference the same string builder as sbBegin or the behavior is undefined. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acb0a002dcfacb56d520caf4924ca6080"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">char * AQLogStringBuilder::insertEmpty </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -509,7 +1458,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a17a6379ca8bddcf48e1bfc33e76ece2d"></a>
+<a class="anchor" id="aef910c25914f7324a0cfa4730f01b495"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -517,9 +1466,61 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertFree </td>
+          <td class="memname">size_t AQLogStringBuilder::insertf </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a formatted string to this string builder at a specified location. </p>
+<p>The string is formatted using the standard printf-style formatting string and formatting arguments</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position where the formatted string is to be written. The first byte of the formatted string is placed at this location. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">...</td><td>The formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The total number of bytes inserted into the string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a32288fb3a06ff0804d52f186ae275215"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertFree </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -550,17 +1551,18 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a434125fd24dfeb4d2316c1e7b761bb75"></a>
+<a class="anchor" id="ab0de5f82d47c386e2b88dbbfae07e15a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertFree </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::insertFree </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -593,10 +1595,99 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a7c6feab5b52cc8e51588581676583414"></a>
+<a class="anchor" id="ad6d1ee216e8614ebc9e084d7a6d598ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AQLogStringBuilder::insertftime </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">time_t&#160;</td>
+          <td class="paramname"><em>time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a formatted time string to this string builder. </p>
+<p>The time formatter uses the same rules as the strftime() function and is inserted at the specified location.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position where the formatted time is to be written. The first byte of the formatted time is placed at this location. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">time</td><td>The time to format. This will be converted into a local time using the localtime() or similar function. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac3b7ff34b03c6b014b8f0617b4ee4927"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AQLogStringBuilder::insertftime </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const struct tm *&#160;</td>
+          <td class="paramname"><em>tm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a formatted time string to this string builder. </p>
+<p>The time formatter uses the same rules as the strftime() function and is inserted at the specified location.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position where the formatted time is to be written. The first byte of the formatted time is placed at this location. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">tm</td><td>The broken-down time to format according to the formatting string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4767706496653af82d848c9e8714c2a0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -604,9 +1695,9 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertPointer </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertPointer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -637,17 +1728,18 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a4a638f8c216fc773c002c72448ee12e9"></a>
+<a class="anchor" id="a49ca0190f28c3db329501454ad08d2ea"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AQLogStringBuilder::insertPointer </td>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::insertPointer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -680,6 +1772,96 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a94bca6a52c7dd4e16b7159e21446171f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::insertPointer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>sb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts an entire string builer into this string builder. </p>
+<p>The characters are not copied and as such the other string builder must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The iterator where the string is to be inserted. The character currently at the iterator position is now moved to pos + (sbEnd - sbBegin + 1). The iterator itself is unchanged. </td></tr>
+    <tr><td class="paramname">sb</td><td>The string builder to insert into this string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2896a33a4182c1fb54772ffab3bd1d3b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::insertPointer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbBegin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>sbEnd</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a range of characters from another string builder into this string builder. </p>
+<p>The characters are not copied and as such the other string builder must remain valid while this string builder is in scope.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The iterator where the string is to be inserted. The character currently at the iterator position is now moved to pos + (sbEnd - sbBegin + 1). The iterator itself is unchanged. </td></tr>
+    <tr><td class="paramname">sbBegin</td><td>An iterator referencing the first character in the other string build from which the characters are to be inserted. This may reference this string builder in order to duplicate a character range. </td></tr>
+    <tr><td class="paramname">sbEnd</td><td>An iterator reference one position past the last character in the other string builder that is to be inserted. This must reference the same string builder as sbBegin or the behavior is undefined. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
@@ -707,6 +1889,33 @@ Public Member Functions</h2></td></tr>
 
 <p>Obtains the number of individual I/O vectors that make up this string builder. </p>
 <dl class="section return"><dt>Returns</dt><dd>The number of I/O vectors. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4bd9baa0f20793beff0d0d59142fb33e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp; AQLogStringBuilder::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes this string builder so that it contains exactly the same data as another string builder. </p>
+<p>This results in this builder first being cleared then all the memory from the other builder being copied into this builder.</p>
+<p>This can result in undue copying of memory if it is guaranteed that the other string builder will not go out of scope before this string builder goes out of scope. If this is the case it is recommended that the functions <a class="el" href="class_a_q_log_string_builder.html#a6564222bc9ccda1025b7a8bb28c16fc1" title="Clears this string builder, reducing its size to 0. ">clear()</a> followed by <a class="el" href="class_a_q_log_string_builder.html#a169a3f90dc5f9e1534beed1e316b7059" title="Appends an entire string builder to this string builder. ">appendPointer(const AQLogStringBuilder&amp;)</a> are called on this string builder instead.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other string builder. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
 
 </div>
 </div>
@@ -793,6 +2002,87 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad8a8f1fac9dd5ff4858387523ff58aed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_q_log_string_builder.html">AQLogStringBuilder</a>&amp; AQLogStringBuilder::vappendf </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>argp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends a formatted string to this string builder. </p>
+<p>The string is formatted using the standard printf-style formatting string and formatting arguments</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">argp</td><td>The formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string builder. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae20445696f47f96b6600d1db4e3b073b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AQLogStringBuilder::vinsertf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_q_log_string_builder_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>argp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a formatted string to this string builder at a specified location. </p>
+<p>The string is formatted using the standard printf-style formatting string and formatting arguments</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position where the formatted string is to be written. The first byte of the formatted string is placed at this location. </td></tr>
+    <tr><td class="paramname">fmt</td><td>The string format. </td></tr>
+    <tr><td class="paramname">argp</td><td>The formatting arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The total number of bytes inserted into the string. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>AQLogStringBuilder.h</li>
 <li>AQLogStringBuilder.cpp</li>
@@ -800,7 +2090,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon May 9 2016 23:29:52 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2016 11:30:20 for AQLog by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

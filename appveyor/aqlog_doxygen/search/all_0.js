@@ -1,6 +1,12 @@
 var searchData=
 [
   ['addfilter',['addFilter',['../class_a_q_log_handler.html#a882b2e93da10233362bb07251a90e746',1,'AQLogHandler']]],
+  ['appendcopy',['appendCopy',['../class_a_q_log_string_builder.html#a7a01ab00da8068ced3f75db6a40ab8c5',1,'AQLogStringBuilder::appendCopy(const char *str)'],['../class_a_q_log_string_builder.html#adcf663755aede5f21a451aa07f68d0ea',1,'AQLogStringBuilder::appendCopy(const std::string &amp;str)'],['../class_a_q_log_string_builder.html#a67564e30bc7f6513748f6f6651648cd2',1,'AQLogStringBuilder::appendCopy(const char *str, size_t len)'],['../class_a_q_log_string_builder.html#a907aea022f316775dfdf4325cdb8aa97',1,'AQLogStringBuilder::appendCopy(const AQLogStringBuilder &amp;sb)'],['../class_a_q_log_string_builder.html#a620e861479d7dbd2f1ec614acd6dd33a',1,'AQLogStringBuilder::appendCopy(const iterator &amp;sbBegin, const iterator &amp;sbEnd)']]],
+  ['appendempty',['appendEmpty',['../class_a_q_log_string_builder.html#a2a7adc07287f88bc7ddeb1c5881f22fc',1,'AQLogStringBuilder']]],
+  ['appendf',['appendf',['../class_a_q_log_string_builder.html#a193677a4aaeda06ab0449022af97d8f2',1,'AQLogStringBuilder']]],
+  ['appendfree',['appendFree',['../class_a_q_log_string_builder.html#a12a9d0cbd143869ae570953788af4da7',1,'AQLogStringBuilder::appendFree(char *str)'],['../class_a_q_log_string_builder.html#adc249e298ef896e312d7d89dbbe86a34',1,'AQLogStringBuilder::appendFree(char *str, size_t len)']]],
+  ['appendftime',['appendftime',['../class_a_q_log_string_builder.html#abd1398f7f651725ae8f10e00bda03fed',1,'AQLogStringBuilder::appendftime(const char *fmt, time_t time)'],['../class_a_q_log_string_builder.html#ac84cbc88e8c45113674f620b46aae8c8',1,'AQLogStringBuilder::appendftime(const char *fmt, const struct tm *tm)']]],
+  ['appendpointer',['appendPointer',['../class_a_q_log_string_builder.html#a78768b5538920efa0cd9932cbc67c6be',1,'AQLogStringBuilder::appendPointer(const char *str)'],['../class_a_q_log_string_builder.html#a0a9e79fd474a11f6f86ff07346cdbd84',1,'AQLogStringBuilder::appendPointer(const char *str, size_t len)'],['../class_a_q_log_string_builder.html#a169a3f90dc5f9e1534beed1e316b7059',1,'AQLogStringBuilder::appendPointer(const AQLogStringBuilder &amp;sb)'],['../class_a_q_log_string_builder.html#a5fb3af38d52c470c06f125d7cbb1f175',1,'AQLogStringBuilder::appendPointer(const iterator &amp;sbBegin, const iterator &amp;sbEnd)']]],
   ['aqlog_2eh',['AQLog.h',['../_a_q_log_8h.html',1,'']]],
   ['aqlog_5fcritical',['AQLog_Critical',['../_a_q_log_8h.html#a5e368277a580830788201e6241c852a8',1,'AQLog.h']]],
   ['aqlog_5fdcritical',['AQLog_DCritical',['../_a_q_log_8h.html#ac8c651be2c82019107748faddfbf114a',1,'AQLog.h']]],
@@ -52,6 +58,6 @@ var searchData=
   ['aqloginitoutcome_5ft',['AQLogInitOutcome_t',['../_a_q_log_8h.html#a96d210396baecc2928b19280f06bc989',1,'AQLog.h']]],
   ['aqloglevel_5ft',['AQLogLevel_t',['../_a_q_log_8h.html#a2fa6b1fc3b6fbda13767965aac9f8421',1,'AQLog.h']]],
   ['aqlogrecord',['AQLogRecord',['../class_a_q_log_record.html',1,'']]],
-  ['aqlogstringbuilder',['AQLogStringBuilder',['../class_a_q_log_string_builder.html',1,'AQLogStringBuilder'],['../class_a_q_log_string_builder.html#a5b0937d4b3d74cfe1cbaf082a495310b',1,'AQLogStringBuilder::AQLogStringBuilder()']]],
+  ['aqlogstringbuilder',['AQLogStringBuilder',['../class_a_q_log_string_builder.html',1,'AQLogStringBuilder'],['../class_a_q_log_string_builder.html#a5b0937d4b3d74cfe1cbaf082a495310b',1,'AQLogStringBuilder::AQLogStringBuilder(void)'],['../class_a_q_log_string_builder.html#a4b8c69132731e98b7859c84790074867',1,'AQLogStringBuilder::AQLogStringBuilder(const AQLogStringBuilder &amp;other)']]],
   ['a_20fast_20lock_2dfree_20c_20_2f_20c_2b_2b_20logging_20system',['A Fast Lock-Free C / C++ Logging System',['../index.html',1,'']]]
 ];

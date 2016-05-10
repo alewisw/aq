@@ -91,8 +91,9 @@ public:
     // Removes a log handler from this log level hash.
     void removeHandler(AQLogHandler *handler);
 
-    // Handles the passed logging record, passing it to the appropriate log handlers.
-    void handle(const AQLogRecord& rec);
+    // Adds all the handlers that are going to handle a particular log record
+    // to the passed handler set.
+    void matchHandlers(const AQLogRecord& rec, std::set<AQLogHandler *>& handlers);
 
 private:
 

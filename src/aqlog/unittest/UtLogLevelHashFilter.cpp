@@ -66,10 +66,10 @@ TEST(given_InfoFilter_when_InfoMessageSubmitted_then_HandlerCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -82,10 +82,10 @@ TEST(given_InfoFilter_when_NoticeMessageSubmitted_then_HandlerCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -98,9 +98,10 @@ TEST(given_InfoFilter_when_DetailMessageSubmitted_then_HandlerNotCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -117,13 +118,12 @@ TEST(given_NoticeAndTwoInfoFilters_when_InfoMessageSubmitted_then_InfoHandlersCa
     hash.addHandler(&h3);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
-    REQUIRE(h2.record(0) == &rec);
-    REQUIRE(h2.record(1) == NULL);
-    REQUIRE(h3.record(0) == &rec);
-    REQUIRE(h3.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
+    REQUIRE((handlers.find(&h2) != handlers.end()));
+    REQUIRE((handlers.find(&h3) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -140,14 +140,12 @@ TEST(given_NoticeAndTwoInfoFilters_when_NoticeMessageSubmitted_then_AllHandlersC
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
-    REQUIRE(h2.record(0) == &rec);
-    REQUIRE(h2.record(1) == NULL);
-    REQUIRE(h3.record(0) == &rec);
-    REQUIRE(h3.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
+    REQUIRE((handlers.find(&h2) != handlers.end()));
+    REQUIRE((handlers.find(&h3) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -164,12 +162,10 @@ TEST(given_InfoAndTwoNoticeFilters_when_InfoMessageSubmitted_then_InfoHandlerCal
     hash.addHandler(&h3);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
-    REQUIRE(h2.record(0) == NULL);
-    REQUIRE(h3.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -182,10 +178,10 @@ TEST(given_InfoComponentFilter_when_MatchingInfoComponentSubmitted_then_HandlerC
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -198,10 +194,10 @@ TEST(given_InfoComponentFilter_when_MatchingNoticeComponentSubmitted_then_Handle
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -214,9 +210,10 @@ TEST(given_InfoComponentFilter_when_MatchingDetailComponentSubmitted_then_Handle
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -229,9 +226,10 @@ TEST(given_ComponentFilter_when_DifferentComponentSubmitted_then_HandlerNotCalle
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -244,10 +242,10 @@ TEST(given_InfoTagFilter_when_MatchingInfoTagSubmitted_then_HandlerCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -260,10 +258,10 @@ TEST(given_InfoTagFilter_when_MatchingNoticeTagSubmitted_then_HandlerCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -276,9 +274,10 @@ TEST(given_InfoTagFilter_when_MatchingDetailTagSubmitted_then_HandlerNotCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -291,9 +290,10 @@ TEST(given_TagFilter_when_DifferentTagSubmitted_then_HandlerNotCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -306,10 +306,10 @@ TEST(given_InfoFileFilter_when_MatchingInfoFileSubmitted_then_HandlerCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -322,10 +322,10 @@ TEST(given_InfoFileFilter_when_MatchingNoticeFileSubmitted_then_HandlerCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_NOTICE, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -338,9 +338,10 @@ TEST(given_InfoFileFilter_when_MatchingDetailFileSubmitted_then_HandlerNotCalled
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -353,9 +354,10 @@ TEST(given_FileFilter_when_DifferentFileSubmitted_then_HandlerNotCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -368,10 +370,10 @@ TEST(given_ComponentTagFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -384,9 +386,10 @@ TEST(given_ComponentTagFilter_when_MismatchComponentSubmitted_then_HandlerNotCal
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -399,9 +402,10 @@ TEST(given_ComponentTagFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -414,10 +418,10 @@ TEST(given_ComponentFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -430,9 +434,10 @@ TEST(given_ComponentFileFilter_when_MismatchComponentSubmitted_then_HandlerNotCa
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -445,9 +450,10 @@ TEST(given_ComponentFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -460,10 +466,10 @@ TEST(given_TagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -476,9 +482,10 @@ TEST(given_TagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalled)
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -491,9 +498,10 @@ TEST(given_TagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCalled)
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -506,10 +514,10 @@ TEST(given_ComponentTagFileFilter_when_MatchingRecordSubmitted_then_HandlerCalle
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -522,9 +530,10 @@ TEST(given_ComponentTagFileFilter_when_MismatchComponentSubmitted_then_HandlerNo
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -537,9 +546,10 @@ TEST(given_ComponentTagFileFilter_when_MismatchTagSubmitted_then_HandlerNotCalle
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -552,9 +562,10 @@ TEST(given_ComponentTagFileFilter_when_MismatchFileSubmitted_then_HandlerNotCall
     RandomHandlers rh(hash);
 
     AQLogRecord rec(AQLOG_LEVEL_INFO, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == NULL);
+    REQUIRE((handlers.find(&h1) == handlers.end()));
 }
 
 //------------------------------------------------------------------------------
@@ -569,10 +580,10 @@ TEST(given_HandlerHasMultipleFilters_when_MatchesAllFilters_then_HandlerCalledOn
     hash.addHandler(&h1);
 
     AQLogRecord rec(AQLOG_LEVEL_DETAIL, "comp_bar", "tag_bar", "file_bar");
-    hash.handle(rec);
+    set<AQLogHandler *> handlers;
+    hash.matchHandlers(rec, handlers);
 
-    REQUIRE(h1.record(0) == &rec);
-    REQUIRE(h1.record(1) == NULL);
+    REQUIRE((handlers.find(&h1) != handlers.end()));
 }
 
 

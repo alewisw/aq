@@ -235,18 +235,10 @@ void LogLevelHash::removeFilter(const AQLogFilter *filter)
 }
 
 //------------------------------------------------------------------------------
-void LogLevelHash::handle(const AQLogRecord& rec)
+void LogLevelHash::matchHandlers(const AQLogRecord& rec, set<AQLogHandler *>& handlers)
 {
-    set<AQLogHandler *> handlers;
-
     // Recursivly populate all the handlers for this log record.
     populateHandlers(handlers, rec, m_filters, 0);
-
-    // Execute all the handlers.
-    for (set<AQLogHandler *>::iterator it = handlers.begin(); it != handlers.end(); ++it)
-    {
-        (*it)->handle(rec);
-    }
 }
 
 //------------------------------------------------------------------------------

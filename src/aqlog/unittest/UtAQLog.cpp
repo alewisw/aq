@@ -90,7 +90,7 @@ static size_t savedSizeOfFile(const char *file)
 }
 
 //------------------------------------------------------------------------------
-TEST_SUITE_FIRST(UtAQLog);
+TEST_SUITE(UtAQLog);
 
 //------------------------------------------------------------------------------
 TEST(given_LogQueueCanOnlyContainTruncatedData_when_WriteLargeData_then_DataTruncated)

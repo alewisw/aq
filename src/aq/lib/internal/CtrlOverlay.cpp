@@ -152,14 +152,21 @@ uint32_t CtrlOverlay::availableSequentialPages(uint32_t headIdx, uint32_t tailId
         // Two possible blocks - one at the start and one at the end of the
         // queue.  Pick the largest noting that we must always have one
         // unused page.
-        uint32_t end = pageCount - headIdx - (tailIdx == 0 ? 1 : 0);
-        if (end + 1 > tailIdx)
+        if (tailIdx == 0)
         {
-            return end;
+            return pageCount - headIdx - 1;
         }
         else
         {
-            return tailIdx - 1;
+            uint32_t end = pageCount - headIdx;
+            if (end >= tailIdx)
+            {
+                return end;
+            }
+            else
+            {
+                return tailIdx - 1;
+            }
         }
     }
 }

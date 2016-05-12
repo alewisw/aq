@@ -95,6 +95,7 @@ public:
     // Construct a new test point action to execute on a particular queue.
     TestPointAction(Q& queue)
         : m_queue(queue)
+        , m_tp(0)
     {
 
     }

@@ -329,9 +329,9 @@ void Optarg::opt(char ch, std::vector<unsigned int>& value, const char *desc)
         do
         {
             rem++;
-            char *tmp;
+            char *tmp = NULL;
             unsigned int v = (unsigned int)strtoul(rem, &tmp, 10);
-            if (tmp == rem)
+            if (tmp == rem || tmp == NULL)
             {
                 break;
             }
@@ -340,7 +340,7 @@ void Optarg::opt(char ch, std::vector<unsigned int>& value, const char *desc)
                 value.push_back(v);
                 rem = tmp;
             }
-        } while (rem == NULL || *rem == ',' || *rem == ':' || *rem == ';');
+        } while (*rem == ',' || *rem == ':' || *rem == ';');
     }
 
     updateHelp(ch, desc, "<uint-list>", ss.str());

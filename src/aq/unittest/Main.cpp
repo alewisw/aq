@@ -55,7 +55,15 @@ int main(int argc, char* argv[])
 
     TestRunner testRunner(argc, argv);
 
-    return testRunner.run();
+    try
+    {
+        return testRunner.run();
+    }
+    catch (const exception& ex)
+    {
+        cerr << endl << endl << "**EXCEPTION** " << ex.what() << endl;
+        return 1;
+    }
 }
 
 

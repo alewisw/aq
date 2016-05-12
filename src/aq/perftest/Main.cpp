@@ -71,6 +71,9 @@ using namespace std;
 // Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
+// Runs the main loop internally.
+static int internalMain(int argc, char *argv[]);
+
 // Prints the result header.
 static void printTestHeader(size_t nameWidth);
 
@@ -124,6 +127,23 @@ static bool TestFullMemcpy = false;
 //------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
+    int res = 0;
+    try
+    {
+        res = internalMain(argc, argv);
+    }
+    catch (const exception& ex)
+    {
+        cerr << endl << endl << "**EXCEPTION** " << ex.what() << endl;
+        res = 1;
+    }
+    return res;
+}
+
+//------------------------------------------------------------------------------
+static int internalMain(int argc, char *argv[])
+{
+
     const int defaultThreadCounts[] = DEFAULT_THREAD_COUNTS;
     for (size_t i = 0; i < sizeof(defaultThreadCounts) / sizeof(defaultThreadCounts[0]); ++i)
     {

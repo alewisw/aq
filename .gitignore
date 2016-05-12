@@ -45,3 +45,5 @@ HashData.raw
 # Anything in a build directory.
 */build/
 build/
+cov-int/
+cov-int.zip

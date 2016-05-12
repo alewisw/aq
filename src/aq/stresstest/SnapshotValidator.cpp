@@ -208,6 +208,7 @@ void SnapshotValidator::validateRecordContent(const AQSnapshot& snap, size_t i,
         ss << "Tag \"" << tag << "\" encountered in snapshot but does not exist in consumed record set" << endl;
         dumpSnapshot(ss, snap, i);
         assertFailed(ss.str());
+        return;
     }
 
     size_t totalSize = 0;

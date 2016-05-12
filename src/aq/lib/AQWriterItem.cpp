@@ -58,7 +58,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)
 {
-    if (!isAllocated())
+    if (!isAllocated() || m_writer == NULL)
     {
         throw domain_error("Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.");
     }
@@ -96,7 +96,7 @@ bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)
 //------------------------------------------------------------------------------
 size_t AQWriterItem::currentOffset(void) const
 {
-    if (!isAllocated())
+    if (!isAllocated() || m_writer == NULL)
     {
         throw domain_error("Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.");
     }

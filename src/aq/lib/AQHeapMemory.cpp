@@ -58,7 +58,7 @@ AQHeapMemory::AQHeapMemory(size_t size)
 //------------------------------------------------------------------------------
 AQHeapMemory::~AQHeapMemory(void)
 {
-    delete m_mem;
+    delete[] m_mem;
 }
 
 

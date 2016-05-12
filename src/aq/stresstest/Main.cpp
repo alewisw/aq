@@ -123,6 +123,9 @@ enum ProduceConsumeState
 // Private Function and Class Declarations
 //------------------------------------------------------------------------------
 
+// Runs the main loop internally.
+static int internalMain(int argc, char *argv[]);
+
 // Runs the main produce/consume logic.
 static void produceConsume(AQReader &reader);
 
@@ -229,6 +232,22 @@ static vector<AQItem *> FreeReaderItems;
 
 //------------------------------------------------------------------------------
 int main(int argc, char* argv[])
+{
+    int res = 0;
+    try
+    {
+        res = internalMain(argc, argv);
+    }
+    catch (const exception& ex)
+    {
+        cerr << endl << endl << "**EXCEPTION** " << ex.what() << endl;
+        res = 1;
+    }
+    return res;
+}
+
+//------------------------------------------------------------------------------
+static int internalMain(int argc, char *argv[])
 {
     // Fill in the defaults for the page size allocation vector.
     static const size_t pageSizeAllocDefault[] = DEFAULT_PAGE_COUNT_ALLOC;

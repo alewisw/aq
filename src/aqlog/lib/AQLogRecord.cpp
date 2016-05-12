@@ -52,6 +52,9 @@ using namespace std;
 
 //------------------------------------------------------------------------------
 AQLogRecord::AQLogRecord(void)
+    : m_level(AQLOG_LEVEL_CRITICAL)
+    , m_overlay(NULL)
+    , m_processTimeMs(0)
 {
 }
 
@@ -59,6 +62,8 @@ AQLogRecord::AQLogRecord(void)
 AQLogRecord::AQLogRecord(AQLogLevel_t level, const char *componentId,
     const char *tagId, const char *file)
     : m_level(level)
+    , m_overlay(NULL)
+    , m_processTimeMs(0)
 {
     m_tierId[AQLOG_LOOKUP_TIER_COMPONENTID] = componentId;
     m_tierId[AQLOG_LOOKUP_TIER_TAGID] = tagId;

@@ -93,6 +93,12 @@ void TraceBuffer::write(const char *function, int line, Record::Context context,
     Record *rec = NULL;
     size_t idx;
 
+    // Don't try to log items when the control overlay was not provided.
+    if (ctrl == NULL)
+    {
+        item = NULL;
+    }
+
     if (m_recordCount < m_recordCapacity)
     {
         idx = m_recordCount++;

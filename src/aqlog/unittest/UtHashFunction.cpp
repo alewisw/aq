@@ -29,6 +29,17 @@
 // Private Macros
 //------------------------------------------------------------------------------
 
+#if ((AQLOG_TIER_2_MASK > AQLOG_TIER_1_MASK) && (AQLOG_TIER_2_MASK > AQLOG_TIER_0_MASK))
+#define MAX_TIER_MASK   AQLOG_TIER_2_MASK
+#define MAX_TIER_NAME   "AQLOG_TIER_2_MASK"
+#elif ((AQLOG_TIER_1_MASK > AQLOG_TIER_2_MASK) && (AQLOG_TIER_1_MASK > AQLOG_TIER_0_MASK))
+#define MAX_TIER_MASK   AQLOG_TIER_1_MASK
+#define MAX_TIER_NAME   "AQLOG_TIER_1_MASK"
+#else
+#define MAX_TIER_MASK   AQLOG_TIER_0_MASK
+#define MAX_TIER_NAME   "AQLOG_TIER_0_MASK"
+#endif
+
 
 
 
@@ -63,26 +74,13 @@ TEST_SUITE(UtHashFunction);
 //------------------------------------------------------------------------------
 TEST(given_HashFunction_when_Hash_then_FindUnique)
 {
-    uint32_t maxTierMask = AQLOG_TIER_0_MASK;
-    const char *maxTierName = "AQLOG_TIER_0_MASK";
-    if (AQLOG_TIER_1_MASK > maxTierMask)
-    {
-        maxTierMask = AQLOG_TIER_1_MASK;
-        maxTierName = "AQLOG_TIER_1_MASK";
-    }
-    if (AQLOG_TIER_2_MASK > maxTierMask)
-    {
-        maxTierMask = AQLOG_TIER_2_MASK;
-        maxTierName = "AQLOG_TIER_2_MASK";
-    }
-
     set<uint32_t> pending;
-    for (size_t i = 0; i <= maxTierMask; ++i)
+    for (size_t i = 0; i <= MAX_TIER_MASK; ++i)
     {
         pending.insert(i);
     }
 
-    set<string> *match = new set<string>[maxTierMask + 1];
+    set<string> *match = new set<string>[MAX_TIER_MASK + 1];
     HashFunction_fn hashFn = HashFunction::standard;
     string matchZeroZero;
     while (pending.size() > 0 || matchZeroZero.size() == 0)
@@ -104,7 +102,7 @@ TEST(given_HashFunction_when_Hash_then_FindUnique)
             ss << ch;
         }
         string s = ss.str();
-        uint32_t hash = hashFn(maxTierMask, s.c_str(), s.size(), false);
+        uint32_t hash = hashFn(MAX_TIER_MASK, s.c_str(), s.size(), false);
 
         if (hash == 0 && (s[s.size() - 1] & 0x0F) == 0)
         {
@@ -139,7 +137,7 @@ TEST(given_HashFunction_when_Hash_then_FindUnique)
     // Generate the output.
     size_t count = 0;
     file << "#define HASHIDX_0_MATCH00_MASKxF \"" << matchZeroZero << "\"" << endl;
-    for (uint32_t i = 0; i <= maxTierMask; ++i)
+    for (uint32_t i = 0; i <= MAX_TIER_MASK; ++i)
     {
         set<string>& v = match[i];
         char ch = 'A';
@@ -149,7 +147,7 @@ TEST(given_HashFunction_when_Hash_then_FindUnique)
             count++;
             if (i == 0)
             {
-                uint32_t rehash = hashFn(maxTierMask, (*it).c_str(), (*it).size(), true);
+                uint32_t rehash = hashFn(MAX_TIER_MASK, (*it).c_str(), (*it).size(), true);
                 file << "#define HASHIDX_" << i << "_" << ch << "_REHASH_IDX " << rehash << endl;
             }
         }
@@ -159,7 +157,7 @@ TEST(given_HashFunction_when_Hash_then_FindUnique)
     file << "#define HASHIDX_TABLE_COUNT " << count << endl;
     file << "const char *const HashIdxTable_g[HASHIDX_TABLE_COUNT] = " << endl;
     file << "{" << endl;
-    for (uint32_t i = 0; i <= maxTierMask; ++i)
+    for (uint32_t i = 0; i <= MAX_TIER_MASK; ++i)
     {
         set<string>& v = match[i];
         char ch = 'A';
@@ -176,20 +174,22 @@ TEST(given_HashFunction_when_Hash_then_FindUnique)
     file << "TEST(given_HashIdxConstants_when_Hashed_then_IndexesMatch)" << endl;
     file << "{" << endl;
     file << "    REQUIRE(1 == (HashFunction::standard(0xF, HASHIDX_0_MATCH00_MASKxF,  sizeof(HASHIDX_0_MATCH00_MASKxF) - 1, true)));" << endl;
-    for (uint32_t i = 0; i <= maxTierMask; ++i)
+    for (uint32_t i = 0; i <= MAX_TIER_MASK; ++i)
     {
         set<string>& v = match[i];
         char ch = 'A';
         for (set<string>::iterator it = v.begin(); it != v.end() && ch <= 'C'; ++it, ++ch)
         {
-            file << "    REQUIRE(" << i << " == (HashFunction::standard(" << maxTierName << ", HASHIDX_" << i << "_" << ch << ",  sizeof(HASHIDX_" << i << "_" << ch << ") - 1, false)));" << endl;
+            file << "    REQUIRE(" << i << " == (HashFunction::standard(" << MAX_TIER_NAME << ", HASHIDX_" << i << "_" << ch << ",  sizeof(HASHIDX_" << i << "_" << ch << ") - 1, false)));" << endl;
             if (i == 0)
             {
-                file << "    REQUIRE(HASHIDX_" << i << "_" << ch << "_REHASH_IDX == (HashFunction::standard(" << maxTierName << ", HASHIDX_" << i << "_" << ch << ",  sizeof(HASHIDX_" << i << "_" << ch << ") - 1, true)));" << endl;
+                file << "    REQUIRE(HASHIDX_" << i << "_" << ch << "_REHASH_IDX == (HashFunction::standard(" << MAX_TIER_NAME << ", HASHIDX_" << i << "_" << ch << ",  sizeof(HASHIDX_" << i << "_" << ch << ") - 1, true)));" << endl;
             }
         }
     }
     file << "}" << endl;
+
+    delete[] match;
 }
 
 //------------------------------------------------------------------------------

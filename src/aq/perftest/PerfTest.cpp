@@ -60,6 +60,11 @@ using namespace aq;
 PerfTest::PerfTest(const std::string& name, Timer::Ms_t minDurationMs) 
     : m_name(name)
     , m_minDurationMs(minDurationMs)
+    , m_firstMeasured(false)
+    , m_firstThreadEntryMs(0)
+    , m_lastThreadExitMs(0)
+    , m_iterationCount(0)
+    , m_totalDurationMs(0)
 {
 }
 

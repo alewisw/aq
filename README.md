@@ -24,7 +24,7 @@ These tests are run automatically through online CI services:
 
 | Operating System | CI Provider | Build | Status |
 | ---------------- | ----------- | ----- | ------ |
-|         | Coverity  | [Static Code Analysis]|(https://scan.coverity.com/projects/alewisw-aq) | [![Coverity Scan Build Status](https://scan.coverity.com/projects/8838/badge.svg)](https://scan.coverity.com/projects/alewisw-aq) |
+|         | Coverity  | [Static Code Analysis](https://scan.coverity.com/projects/alewisw-aq) | [![Coverity Scan Build Status](https://scan.coverity.com/projects/8838/badge.svg)](https://scan.coverity.com/projects/alewisw-aq) |
 | Linux   | Travis CI | [Unit & Stress Tests](https://travis-ci.org/alewisw/aq) | [![Build Status](https://travis-ci.org/alewisw/aq.svg?branch=master)](https://travis-ci.org/alewisw/aq) |
 | Linux   | Travis CI | [Unit Test Code Coverage](http://alewisw.github.io/aq/travisci/coverage/aq_unittest) | |
 | Linux   | Travis CI | [Stress Test Code Coverage](http://alewisw.github.io/aq/travisci/coverage/aq_stresstest) | |

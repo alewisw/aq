@@ -55,7 +55,7 @@ class IAQSharedMemory;
 // memory queue.
 namespace aqlog { class LogReader
 {
-private:
+public:
 
     // The maximum number of items to hold in the pending list.
     static const uint32_t PENDING_WINDOW_SIZE = 100;
@@ -65,8 +65,6 @@ private:
 
     // The maximum amount of time to delay an item in the pending list.
     static const uint32_t PENDING_MAXIMUM_WINDOW_MS = 200;
-
-public:
 
     // Constructs a new log reader that uses a shared memory region to
     // communicate with all of the log writers.  Only a single log reader can

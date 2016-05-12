@@ -41,6 +41,7 @@
     <ClCompile Include="UtLogLevelHashFilter.cpp" />
     <ClCompile Include="UtLogLevelHash.cpp" />
     <ClCompile Include="UtLogMemory.cpp" />
+    <ClCompile Include="UtLogReader.cpp" />
     <ClCompile Include="UtObjectLifecycle.cpp" />
   </ItemGroup>
   <ItemGroup>

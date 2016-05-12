@@ -61,7 +61,7 @@ typedef enum ACTION_EN
     ACTION_CORRUPT_CRC,
 
     // Create an incomplete record.
-    ACTION_INCOMPLETE,
+    ACTION_NO_COMMIT,
 
 } Action_en;
 
@@ -98,7 +98,7 @@ static AQLogRecord::PopulateOutcome truncateStringAndPopulate(AQLogRecord& rec,
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-TEST_SUITE_FIRST(UtAQLogRecord);
+TEST_SUITE(UtAQLogRecord);
 
 //------------------------------------------------------------------------------
 TEST(given_LogRecordNormal_when_Populate_Success)
@@ -152,6 +152,17 @@ TEST(given_LogRecordCorrupted_when_Populate_ErrorChecksum)
     AQLogRecord rec;
     setTestRecord(rec, data, ACTION_CORRUPT_CRC);
     REQUIRE(rec.populate() == AQLogRecord::POPULATE_ERROR_CHECKSUM);
+}
+
+//------------------------------------------------------------------------------
+TEST(given_LogRecordUncommitted_when_Populate_ErrorUncommitted)
+{
+    LogReaderTest log(AQLOG_LEVEL_INFO);
+    vector<char> data = getTestRecord(log);
+
+    AQLogRecord rec;
+    setTestRecord(rec, data, ACTION_NO_COMMIT);
+    REQUIRE(rec.populate() == AQLogRecord::POPULATE_ERROR_UNCOMMITTED);
 }
 
 //------------------------------------------------------------------------------
@@ -248,11 +259,9 @@ static void setTestRecord(AQLogRecord& rec, const vector<char>& data,
     CHECK(witem.write(&data[0], data.size()));
     unsigned char *ptr = &witem[0];
 
-    if (act == ACTION_INCOMPLETE)
+    if (act == ACTION_NO_COMMIT)
     {
-        AQSnapshot snap(reader);
-        REQUIRE(snap.size() > 0);
-        rec.aqItem() = snap[snap.size() - 1];
+        rec.aqItem() = witem;
     }
     else
     {

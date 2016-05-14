@@ -31,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="AQLog.h" />
     <ClInclude Include="AQLogFilter.h" />
+    <ClInclude Include="AQLogFormatter.h" />
     <ClInclude Include="AQLogHandler.h" />
     <ClInclude Include="AQLogRecord.h" />
     <ClInclude Include="AQLogStringBuilder.h" />

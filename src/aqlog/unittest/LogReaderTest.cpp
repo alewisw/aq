@@ -56,11 +56,10 @@ using namespace std;
 // Function and Class Implementation
 //------------------------------------------------------------------------------
 
-
 //------------------------------------------------------------------------------
 LogReaderTest::LogReaderTest(AQLogLevel_t level, string tier1, string tier2, 
     string tier3)
-    : m_sm(m_mem, sizeof(m_mem))
+    : m_sm(clearMemory(m_mem, sizeof(m_mem)), sizeof(m_mem))
     , m_logMem(m_sm)
     , m_handler(level, tier1, tier2, tier3)
     , reader(m_logMem.aqMemory())
@@ -273,6 +272,13 @@ void LogReaderTest::requireTruncatedMessageData(const AQLogRecord *rec, const ch
     REQUIRE(rec->isDataTruncated());
     REQUIRE(AQLOG_DATA_TRUNCATE_SIZE == rec->dataSize());
     REQUIRE(memcmp(rec->data(), data, AQLOG_DATA_TRUNCATE_SIZE) == 0);
+}
+
+//------------------------------------------------------------------------------
+void *LogReaderTest::clearMemory(void *mem, size_t memSize)
+{
+    memset(mem, 0, memSize);
+    return mem;
 }
 
 

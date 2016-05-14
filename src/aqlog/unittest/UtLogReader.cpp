@@ -94,6 +94,85 @@ TEST(given_RecordTimeT3_when_RecordTimeT1AndT2Submitted_then_RecordsReadInTimest
 }
 #endif
 
+//------------------------------------------------------------------------------
+#ifdef AQ_TEST_UNIT
+TEST(given_RecordTimeTFarInFuture_when_RecordsAtCurrentTimeConstantlySubmitted_then_FutureRecordReturnedAfterMaxHoldTime)
+{
+    uint32_t ms = 0;
+    LogReaderTest log(AQLOG_LEVEL_INFO);
+    TestHandler h;
+
+    Timestamp::fixTimestamp(2000000000);
+    AQLog_Info("Tfuture");
+    REQUIRE(log.reader.retrieve(ms) == NULL);
+    REQUIRE(ms == LogReader::PENDING_MINIMUM_WINDOW_MS);
+
+    for (size_t i = 0; i < 200; ++i)
+    {
+        Timestamp::fixTimestamp(i);
+        AQLog_Info("T%d", i);
+        Timer::sleep((LogReader::PENDING_MAXIMUM_WINDOW_MS + 99) / 100);
+        AQLogRecord *rec = log.reader.retrieve(ms);
+        if (rec != NULL && rec->message().toString() == "Tfuture")
+        {
+            return;
+        }
+    }
+    REQUIRE(false);
+}
+#endif
+
+//------------------------------------------------------------------------------
+TEST(given_RecordRetrieved_when_ReleaseRecordWithBadAddress_then_InvalidArgumentException)
+{
+    LogReaderTest log(AQLOG_LEVEL_INFO);
+
+    AQLog_Info("T");
+    AQLogRecord *rec = log.nextRecordAfterEmpty();
+    REQUIRE(rec != NULL);
+    REQUIRE_EXCEPTION(log.reader.release(&rec[1]), invalid_argument);
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RecordRetrieved_when_ReleaseNullRecord_then_InvalidArgumentException)
+{
+    LogReaderTest log(AQLOG_LEVEL_INFO);
+
+    AQLog_Info("T");
+    AQLogRecord *rec = log.nextRecordAfterEmpty();
+    REQUIRE(rec != NULL);
+    REQUIRE_EXCEPTION(log.reader.release(NULL), invalid_argument);
+}
+
+//------------------------------------------------------------------------------
+TEST(given_RecordCorrupted_when_LogReaderRetrieve_then_RecordNotRetrieved)
+{
+    LogReaderTest log(AQLOG_LEVEL_INFO);
+    static const char matchStr[] = "tag_corrupt_flag";
+
+    AQLog_TInfo(tag_corrupt_flag, "T");
+    IAQSharedMemory& aqm = log.aqMemory();
+    char *ptr = (char *)aqm.baseAddress();
+    bool corrupted = false;
+    for (size_t i = 0; i < aqm.size() - sizeof(matchStr); ++i)
+    {
+        if (memcmp(&ptr[i], matchStr, sizeof(matchStr)) == 0)
+        {
+            ptr[i + sizeof(matchStr) - 1] = 'x';
+            corrupted = true;
+            break;
+        }
+    }
+    CHECK(corrupted);
+    for (size_t i = 0; i < 3; ++i)
+    {
+        uint32_t ms;
+        AQLogRecord *rec = log.reader.retrieve(ms);
+        REQUIRE(rec == NULL);
+        Timer::sleep(ms);
+    }
+}
+
 
 
 //=============================== End of File ==================================

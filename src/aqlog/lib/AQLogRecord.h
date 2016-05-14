@@ -123,7 +123,7 @@ public:
     ~AQLogRecord(void);
 
 private:
-    // Duplication and asignment are not supported.
+    // Duplication and assignment are not supported.
     AQLogRecord(const AQLogRecord& other);
     AQLogRecord& operator=(const AQLogRecord& other);
 

@@ -131,6 +131,9 @@ public:
 
 private:
 
+    // Clears the passed memory and returns mem.
+    static void *clearMemory(void *mem, size_t memSize);
+
     // The log memory used in the m_sm field.
     uint32_t m_mem[AQLOG_HASH_TABLE_WORDS + 10000];
 
@@ -145,6 +148,9 @@ private:
 
 public:
 
+    // Gets the AQ memory region.
+    IAQSharedMemory& aqMemory(void) { return m_logMem.aqMemory(); }
+
     // The log reader.
     LogReader reader;
 
@@ -153,6 +159,8 @@ public:
 
     // The log - used to access information about the log state.
     AQWriter aq;
+
+
 
 };
 

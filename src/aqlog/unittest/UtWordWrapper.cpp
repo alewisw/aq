@@ -24,7 +24,7 @@
 // The number of newline combinations to test.
 #define NEWLINE_COMBO_COUNT             (sizeof(NewlineCombo) / sizeof(NewlineCombo_t))
 
-#define DUMP_ENABLED
+//#define DUMP_ENABLED
 
 #define SPACES_10                       "          "
 #define SPACES_100                      SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10 SPACES_10
@@ -108,8 +108,8 @@ static const NewlineCombo_t NewlineCombo[] =
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-TEST_SUITE_FIRST(UtWordWrapper);
-#if 0
+TEST_SUITE(UtWordWrapper);
+
 //------------------------------------------------------------------------------
 TEST(given_String_when_WordWrapUnlimitedCols_then_Unchanged)
 {
@@ -276,7 +276,7 @@ TEST(given_StringContainsWhitespaceAfter10Cols_when_WordWrap10Cols_then_WrapsAtS
             "ducimus"));
     }
 }
-#endif
+
 //------------------------------------------------------------------------------
 TEST(given_StringContainsWhitespaceBefore10Cols_when_WordWrap10Cols_then_WrapsBefore10Cols)
 {

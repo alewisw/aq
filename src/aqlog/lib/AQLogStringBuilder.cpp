@@ -447,7 +447,7 @@ AQLogStringBuilder& AQLogStringBuilder::erase(const iterator& pos, size_t len)
 }
 
 //------------------------------------------------------------------------------
-AQLogStringBuilder::iterator AQLogStringBuilder::find(const iterator& pos, char ch)
+AQLogStringBuilder::iterator AQLogStringBuilder::find(const iterator& pos, char ch) const
 {
     const iterator e = end();
     iterator it = pos;
@@ -459,7 +459,7 @@ AQLogStringBuilder::iterator AQLogStringBuilder::find(const iterator& pos, char 
 }
 
 //------------------------------------------------------------------------------
-AQLogStringBuilder::iterator AQLogStringBuilder::find(const iterator& pos, const char *str)
+AQLogStringBuilder::iterator AQLogStringBuilder::find(const iterator& pos, const char *str) const
 {
     // Get the length; refuse to match an empty string - move the iterator to
     // the end and return false.

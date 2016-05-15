@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - AQ Unit Test Code Coverage - aq/lib/AQ.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">aq/lib</a> - AQ.cpp<span style="font-size: 80%;"> (source / <a href="AQ.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">AQ Unit Test Code Coverage</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">43</td>
+            <td class="headerCovTableEntry">43</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2016-05-15 00:49:24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryHi">92.9 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">24</td>
+            <td class="headerCovTableEntry">34</td>
+            <td class="headerCovTableEntryLo">70.6 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : //==============================================================================</a>
+<span class="lineNum">       2 </span>                :            : // This Source Code Form is subject to the terms of the Mozilla Public
+<span class="lineNum">       3 </span>                :            : // License, v. 2.0.If a copy of the MPL was not distributed with this
+<span class="lineNum">       4 </span>                :            : // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+<span class="lineNum">       5 </span>                :            : //
+<span class="lineNum">       6 </span>                :            : //==============================================================================
+<span class="lineNum">       7 </span>                :            : 
+<span class="lineNum">       8 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">       9 </span>                :            : // Includes
+<span class="lineNum">      10 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      11 </span>                :            : 
+<span class="lineNum">      12 </span>                :            : #include &quot;AQ.h&quot;
+<span class="lineNum">      13 </span>                :            : #include &quot;AQItem.h&quot;
+<span class="lineNum">      14 </span>                :            : #include &quot;AQUnformattedException.h&quot;
+<span class="lineNum">      15 </span>                :            : #include &quot;IAQSharedMemory.h&quot;
+<span class="lineNum">      16 </span>                :            : 
+<span class="lineNum">      17 </span>                :            : #include &quot;CtrlOverlay.h&quot;
+<span class="lineNum">      18 </span>                :            : #include &quot;TestPointNotifier.h&quot;
+<span class="lineNum">      19 </span>                :            : 
+<span class="lineNum">      20 </span>                :            : #include &lt;sstream&gt;
+<span class="lineNum">      21 </span>                :            : #include &lt;stddef.h&gt;
+<span class="lineNum">      22 </span>                :            : 
+<span class="lineNum">      23 </span>                :            : using namespace std;
+<span class="lineNum">      24 </span>                :            : using namespace aq;
+<span class="lineNum">      25 </span>                :            : using namespace aqosa;
+<span class="lineNum">      26 </span>                :            : 
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : 
+<span class="lineNum">      29 </span>                :            : 
+<span class="lineNum">      30 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      31 </span>                :            : // Private Macros
+<span class="lineNum">      32 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      33 </span>                :            : 
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : 
+<span class="lineNum">      36 </span>                :            : 
+<span class="lineNum">      37 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      38 </span>                :            : // Private Type Definitions
+<span class="lineNum">      39 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      40 </span>                :            : 
+<span class="lineNum">      41 </span>                :            : 
+<span class="lineNum">      42 </span>                :            : 
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      45 </span>                :            : // Private Function and Class Declarations
+<span class="lineNum">      46 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      47 </span>                :            : 
+<span class="lineNum">      48 </span>                :            : 
+<span class="lineNum">      49 </span>                :            : 
+<span class="lineNum">      50 </span>                :            : 
+<span class="lineNum">      51 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      52 </span>                :            : // Variable Declarations
+<span class="lineNum">      53 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      54 </span>                :            : 
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : 
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      59 </span>                :            : // Function and Class Implementation
+<span class="lineNum">      60 </span>                :            : //------------------------------------------------------------------------------
+<a name="61"><span class="lineNum">      61 </span>                :            : </a>
+<span class="lineNum">      62 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      63 </span>                :<span class="lineCov">      17050 : AQ::AQ(int testPointCount, IAQSharedMemory&amp; sm, aq::TraceBuffer *trace)</span>
+<span class="lineNum">      64 </span>                :            :     : m_trace(trace)
+<span class="lineNum">      65 </span>                :            :     , m_sm(&amp;sm)
+<span class="lineNum">      66 </span>                :<span class="lineCov">      17050 :     , m_ctrl((CtrlOverlay *)sm.baseAddress())</span>
+<span class="lineNum">      67 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 1 was taken 17050 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">      17050 :     , m_tpn(new TestPointNotifier(testPointCount, this))</span>
+<span class="lineNum">      69 </span>                :            : #endif
+<span class="lineNum">      70 </span>                :            : {
+<span class="lineNum">      71 </span>                :<span class="lineCov">      17050 : }</span>
+<a name="72"><span class="lineNum">      72 </span>                :            : </a>
+<span class="lineNum">      73 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      74 </span>                :<span class="lineCov">          1 : AQ::AQ(const AQ&amp; other)</span>
+<span class="lineNum">      75 </span>                :            :     : m_trace(other.m_trace)
+<span class="lineNum">      76 </span>                :            :     , m_sm(other.m_sm)
+<span class="lineNum">      77 </span>                :            :     , m_ctrl(other.m_ctrl)
+<span class="lineNum">      78 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">      79 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     , m_tpn(new TestPointNotifier(other.m_tpn-&gt;testPointCount(), this))</span>
+<span class="lineNum">      80 </span>                :            : #endif
+<span class="lineNum">      81 </span>                :            : {
+<span class="lineNum">      82 </span>                :<span class="lineCov">          1 : }</span>
+<a name="83"><span class="lineNum">      83 </span>                :            : </a>
+<span class="lineNum">      84 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">      85 </span>                :<span class="lineCov">          2 : AQ&amp; AQ::operator=(const AQ&amp; other)</span>
+<span class="lineNum">      86 </span>                :            : {
+<span class="lineNum">      87 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     if (this != &amp;other)</span>
+<span class="lineNum">      88 </span>                :            :     {
+<span class="lineNum">      89 </span>                :<span class="lineCov">          2 :         m_trace = other.m_trace;</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">          2 :         m_sm = other.m_sm;</span>
+<span class="lineNum">      91 </span>                :<span class="lineCov">          2 :         m_ctrl = other.m_ctrl;</span>
+<span class="lineNum">      92 </span>                :            :     }
+<span class="lineNum">      93 </span>                :<span class="lineCov">          2 :     return *this;</span>
+<span class="lineNum">      94 </span>                :            : }
+<a name="95"><span class="lineNum">      95 </span>                :            : </a>
+<span class="lineNum">      96 </span>                :            : //-----------------------------------------------------------------------------
+<span class="lineNum">      97 </span>                :<span class="lineCov">      17051 : AQ::~AQ(void)</span>
+<span class="lineNum">      98 </span>                :            : {
+<span class="lineNum">      99 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 0 was taken 17051 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      17051 :     delete m_tpn;</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">      17051 :     m_tpn = NULL;</span>
+<span class="lineNum">     102 </span>                :            : #endif
+<span class="lineNum">     103 </span>        [<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 17051 times"> + </span>]:<span class="lineCov">      17051 : }</span>
+<a name="104"><span class="lineNum">     104 </span>                :            : </a>
+<span class="lineNum">     105 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     106 </span>                :<span class="lineCov">     987947 : bool AQ::isFormatted(void) const</span>
+<span class="lineNum">     107 </span>                :            : {
+<span class="lineNum">     108 </span>                :<span class="lineCov">     987947 :     size_t memSize = memorySize();</span>
+<span class="lineNum">     109 </span>[<span class="branchCov" title="Branch 0 was taken 987945 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 987943 times"> + </span>]:<span class="lineCov">     987947 :     if (m_ctrl == NULL || memSize &lt;   offsetof(CtrlOverlay, headerXref) </span>
+<span class="lineNum">     110 </span>                :            :                                     + sizeof(m_ctrl-&gt;headerXref))
+<span class="lineNum">     111 </span>                :            :     {
+<span class="lineNum">     112 </span>                :<span class="lineCov">          4 :         return false;</span>
+<span class="lineNum">     113 </span>                :            :     }
+<span class="lineNum">     114 </span>                :            :     else
+<span class="lineNum">     115 </span>                :            :     {
+<span class="lineNum">     116 </span>                :<span class="lineCov">     987947 :         return m_ctrl-&gt;isFormatted(memSize);</span>
+<span class="lineNum">     117 </span>                :            :     }
+<span class="lineNum">     118 </span>                :            : }
+<a name="119"><span class="lineNum">     119 </span>                :            : </a>
+<span class="lineNum">     120 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     121 </span>                :<span class="lineCov">      60332 : bool AQ::isExtendable(void) const</span>
+<span class="lineNum">     122 </span>                :            : {
+<span class="lineNum">     123 </span>[<span class="branchCov" title="Branch 1 was taken 60331 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 51732 times"> + </span><span class="branchCov" title="Branch 4 was taken 8599 times"> + </span>]:<span class="lineCov">      60332 :     return isFormatted() &amp;&amp; (m_ctrl-&gt;options &amp; OPTION_EXTENDABLE) != 0;</span>
+<span class="lineNum">     124 </span>                :            : }
+<a name="125"><span class="lineNum">     125 </span>                :            : </a>
+<span class="lineNum">     126 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     127 </span>                :<span class="lineCov">     996576 : size_t AQ::memorySize(void) const </span>
+<span class="lineNum">     128 </span>                :            : { 
+<span class="lineNum">     129 </span>                :<span class="lineCov">     996576 :     return m_sm-&gt;size();</span>
+<span class="lineNum">     130 </span>                :            : }
+<a name="131"><span class="lineNum">     131 </span>                :            : </a>
+<span class="lineNum">     132 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     133 </span>                :<span class="lineCov">        958 : size_t AQ::pageSize(void) const</span>
+<span class="lineNum">     134 </span>                :            : {
+<span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 1 was taken 957 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>]:<span class="lineCov">        958 :     return isFormatted() ? (1 &lt;&lt; m_ctrl-&gt;pageSizeShift) : 0;</span>
+<span class="lineNum">     136 </span>                :            : }
+<a name="137"><span class="lineNum">     137 </span>                :            : </a>
+<span class="lineNum">     138 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     139 </span>                :<span class="lineCov">     583643 : size_t AQ::pageCount(void) const</span>
+<span class="lineNum">     140 </span>                :            : {
+<span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 1 was taken 583638 times"> + </span><span class="branchCov" title="Branch 2 was taken 5 times"> + </span>]:<span class="lineCov">     583643 :     return isFormatted() ? m_ctrl-&gt;pageCount : 0;</span>
+<span class="lineNum">     142 </span>                :            : }
+<a name="143"><span class="lineNum">     143 </span>                :            : </a>
+<span class="lineNum">     144 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     145 </span>                :<span class="lineCov">        101 : size_t AQ::availableSize(void) const</span>
+<span class="lineNum">     146 </span>                :            : {
+<span class="lineNum">     147 </span>                :            :     return m_ctrl-&gt;availableSequentialPages(
+<span class="lineNum">     148 </span>                :            :            m_ctrl-&gt;queueRefToIndex(Atomic::read(&amp;m_ctrl-&gt;headRef)),
+<span class="lineNum">     149 </span>                :<span class="lineCov">        101 :            m_ctrl-&gt;queueRefToIndex(Atomic::read(&amp;m_ctrl-&gt;tailRef))) &lt;&lt; m_ctrl-&gt;pageSizeShift;</span>
+<span class="lineNum">     150 </span>                :            : }
+<a name="151"><span class="lineNum">     151 </span>                :            : </a>
+<span class="lineNum">     152 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     153 </span>                :<span class="lineCov">          6 : uint32_t AQ::claimContentionCount(void) const</span>
+<span class="lineNum">     154 </span>                :            : {
+<span class="lineNum">     155 </span>                :<span class="lineCov">          6 :     return m_ctrl-&gt;claimContention;</span>
+<span class="lineNum">     156 </span>                :            : }
+<a name="157"><span class="lineNum">     157 </span>                :            : </a>
+<span class="lineNum">     158 </span>                :            : //------------------------------------------------------------------------------
+<span class="lineNum">     159 </span>                :<span class="lineCov">     325993 : aq::CtrlOverlay *AQ::ctrlThrowOnUnformatted(const char *func) const</span>
+<span class="lineNum">     160 </span>                :            : {
+<span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 1 was taken 325991 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>]:<span class="lineCov">     325993 :     if (isFormatted())</span>
+<span class="lineNum">     162 </span>                :            :     {
+<span class="lineNum">     163 </span>                :<span class="lineCov">     325991 :         return m_ctrl;</span>
+<span class="lineNum">     164 </span>                :            :     }
+<span class="lineNum">     165 </span>                :            : 
+<span class="lineNum">     166 </span>                :<span class="lineCov">          2 :     ostringstream ss;</span>
+<span class="lineNum">     167 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          2 :     ss &lt;&lt; &quot;Cannot access MPAC queue in &quot; &lt;&lt; func &lt;&lt; &quot;: the queue is unformatted&quot;;</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 6 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<span class="lineNum">     168 </span>                :            : 
+<span class="lineNum">     169 </span>[<span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]:<span class="lineCov">          2 :     throw AQUnformattedException(ss.str());</span>
+<span class="lineNum">     170 </span>                :            : }
+<span class="lineNum">     171 </span>                :            : 
+<a name="172"><span class="lineNum">     172 </span>                :            : //------------------------------------------------------------------------------</a>
+<span class="lineNum">     173 </span>                :            : #ifdef AQ_TEST_POINT
+<span class="lineNum">     174 </span>                :<span class="lineCov">    1144180 : void AQ::testPoint(int tp)</span>
+<span class="lineNum">     175 </span>                :            : {
+<span class="lineNum">     176 </span>                :<span class="lineCov">    1144180 :     m_tpn-&gt;testPoint(tp);</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">    1144170 : }</span>
+<span class="lineNum">     178 </span>                :            : #endif
+<span class="lineNum">     179 </span>                :            : 
+<span class="lineNum">     180 </span>                :            : 
+<span class="lineNum">     181 </span>                :            : 
+<span class="lineNum">     182 </span>                :            : 
+<span class="lineNum">     183 </span>                :            : //=============================== End of File ==================================
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

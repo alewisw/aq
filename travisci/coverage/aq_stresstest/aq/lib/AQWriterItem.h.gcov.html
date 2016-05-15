@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-15 00:49:54</td>
+            <td class="headerValue">2016-05-15 05:19:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -138,12 +138,12 @@
 <span class="lineNum">      67 </span>                :            :     /**
 <a name="68"><span class="lineNum">      68 </span>                :            :      * Constructs a new item with no initial allocation.</a>
 <span class="lineNum">      69 </span>                :            :      */
-<span class="lineNum">      70 </span>                :<span class="lineCov">     663255 :     AQWriterItem(void)</span>
+<span class="lineNum">      70 </span>                :<span class="lineCov">     686293 :     AQWriterItem(void)</span>
 <span class="lineNum">      71 </span>                :            :         : AQItem()
 <span class="lineNum">      72 </span>                :            :         , m_writer(NULL) 
-<span class="lineNum">      73 </span>                :<span class="lineCov">     663255 :         , m_accumulator(0)</span>
+<span class="lineNum">      73 </span>                :<span class="lineCov">     686293 :         , m_accumulator(0)</span>
 <span class="lineNum">      74 </span>                :            :     {
-<span class="lineNum">      75 </span>                :<span class="lineCov">     662668 :     }</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">     686285 :     }</span>
 <span class="lineNum">      76 </span>                :            : 
 <span class="lineNum">      77 </span>                :            :     /**
 <span class="lineNum">      78 </span>                :            :      * Constructs a new item so that it is an exact copy of another item.  Note
@@ -190,7 +190,7 @@
 <span class="lineNum">     119 </span>                :            :      * is entirely up to the application to ensure that each item that must
 <a name="120"><span class="lineNum">     120 </span>                :            :      * be committed or released has the appropriate action taken.</a>
 <span class="lineNum">     121 </span>                :            :      */
-<span class="lineNum">     122 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 663254 times"> + </span>]:<span class="lineCov">    1326506 :     virtual ~AQWriterItem(void) { }</span>
+<span class="lineNum">     122 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 686292 times"> + </span>]:<span class="lineCov">    1372556 :     virtual ~AQWriterItem(void) { }</span>
 <span class="lineNum">     123 </span>                :            : 
 <span class="lineNum">     124 </span>                :            : protected:
 <span class="lineNum">     125 </span>                :            : 
@@ -221,7 +221,7 @@
 <span class="lineNum">     150 </span>                :            :      *
 <a name="151"><span class="lineNum">     151 </span>                :            :      * @param lkid The link identifier value to set for this item.</a>
 <span class="lineNum">     152 </span>                :            :      */
-<span class="lineNum">     153 </span>                :<span class="lineCov">     376437 :     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">     393025 :     void setLinkIdentifier(uint32_t lkid) { m_lkid = lkid; }</span>
 <span class="lineNum">     154 </span>                :            : 
 <span class="lineNum">     155 </span>                :            :     /**
 <span class="lineNum">     156 </span>                :            :      * Obtains a reference to one of the bytes within this item.  This
@@ -266,7 +266,7 @@
 <span class="lineNum">     195 </span>                :            :      * or the provided index is outside the range of bytes in this item then the
 <a name="196"><span class="lineNum">     196 </span>                :            :      * returned value is undefined.</a>
 <span class="lineNum">     197 </span>                :            :      */
-<span class="lineNum">     198 </span>                :<span class="lineCov">      10317 :     unsigned char&amp; operator[](size_t idx) { return mem()[idx]; }</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">      10289 :     unsigned char&amp; operator[](size_t idx) { return mem()[idx]; }</span>
 <span class="lineNum">     199 </span>                :            : 
 <span class="lineNum">     200 </span>                :            :     /**
 <span class="lineNum">     201 </span>                :            :      * Writes data into this item at its current write position.  The write
@@ -292,9 +292,9 @@
 <span class="lineNum">     221 </span>                :            :      * @throws std::invalid_argument If the mem argument was NULL and memSize was
 <a name="222"><span class="lineNum">     222 </span>                :            :      * any value other than 0.</a>
 <span class="lineNum">     223 </span>                :            :      */
-<span class="lineNum">     224 </span>                :<span class="lineCov">    1488288 :     bool write(const void *mem, size_t memSize)</span>
+<span class="lineNum">     224 </span>                :<span class="lineCov">    1550876 :     bool write(const void *mem, size_t memSize)</span>
 <span class="lineNum">     225 </span>                :            :     {
-<span class="lineNum">     226 </span>                :<span class="lineCov">    1488288 :         return write(currentOffset(), mem, memSize);</span>
+<span class="lineNum">     226 </span>                :<span class="lineCov">    1550876 :         return write(currentOffset(), mem, memSize);</span>
 <span class="lineNum">     227 </span>                :            :     }
 <span class="lineNum">     228 </span>                :            : 
 <span class="lineNum">     229 </span>                :            :     /**
@@ -511,7 +511,7 @@
 <span class="lineNum">     440 </span>                :            :      *
 <a name="441"><span class="lineNum">     441 </span>                :            :      * @returns The first item.  This is never NULL.</a>
 <span class="lineNum">     442 </span>                :            :      */
-<span class="lineNum">     443 </span>                :<span class="lineCov">     589509 :     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }</span>
+<span class="lineNum">     443 </span>                :<span class="lineCov">     615527 :     AQWriterItem *first(void) { return (AQWriterItem *)AQItem::first(); }</span>
 <span class="lineNum">     444 </span>                :            : 
 <span class="lineNum">     445 </span>                :            :     /**
 <span class="lineNum">     446 </span>                :            :      * Obtains a pointer to the last item in the linked list of items.  The 
@@ -520,7 +520,7 @@
 <span class="lineNum">     449 </span>                :            :      *
 <a name="450"><span class="lineNum">     450 </span>                :            :      * @returns The last item.  This is never NULL.</a>
 <span class="lineNum">     451 </span>                :            :      */
-<span class="lineNum">     452 </span>                :<span class="lineCov">    4980809 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     452 </span>                :<span class="lineCov">    5197105 :     AQWriterItem *last(void) { return (AQWriterItem *)AQItem::last(); }</span>
 <span class="lineNum">     453 </span>                :            : 
 <span class="lineNum">     454 </span>                :            :     /**
 <span class="lineNum">     455 </span>                :            :      * Obtains a pointer to the next item in the linked list of items.  If this
@@ -529,7 +529,7 @@
 <span class="lineNum">     458 </span>                :            :      * @returns The next item or NULL if there are no further items.  NULL is always
 <a name="459"><span class="lineNum">     459 </span>                :            :      * returned unless AQ::OPTION_EXTENDABLE is set.</a>
 <span class="lineNum">     460 </span>                :            :      */
-<span class="lineNum">     461 </span>                :<span class="lineCov">    2004368 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
+<span class="lineNum">     461 </span>                :<span class="lineCov">    2095724 :     AQWriterItem *next(void) { return (AQWriterItem *)AQItem::next(); }</span>
 <span class="lineNum">     462 </span>                :            : 
 <span class="lineNum">     463 </span>                :            :     /**
 <span class="lineNum">     464 </span>                :            :      * Obtains a pointer to the previous item in the linked list of items.  If this
@@ -556,7 +556,7 @@
 <span class="lineNum">     485 </span>                :            :      *
 <a name="486"><span class="lineNum">     486 </span>                :            :      * @returns The last item.  This is never NULL.</a>
 <span class="lineNum">     487 </span>                :            :      */
-<span class="lineNum">     488 </span>                :<span class="lineCov">    2976526 :     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }</span>
+<span class="lineNum">     488 </span>                :<span class="lineCov">    3101573 :     const AQWriterItem *last(void) const { return (const AQWriterItem *)AQItem::last(); }</span>
 <span class="lineNum">     489 </span>                :            :     
 <span class="lineNum">     490 </span>                :            :     /**
 <span class="lineNum">     491 </span>                :            :      * Obtains a read-only pointer to the next item in the linked list of items.  If this

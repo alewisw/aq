@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2016-05-15 00:49:54</td>
+            <td class="headerValue">2016-05-15 05:19:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">31</td>
-            <td class="headerCovTableEntry">71</td>
-            <td class="headerCovTableEntryLo">43.7 %</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">69</td>
+            <td class="headerCovTableEntryLo">46.4 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -127,59 +127,59 @@
 <span class="lineNum">      56 </span>                :            : //------------------------------------------------------------------------------
 <a name="57"><span class="lineNum">      57 </span>                :            : </a>
 <span class="lineNum">      58 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      59 </span>                :<span class="lineCov">    1488282 : bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)</span>
+<span class="lineNum">      59 </span>                :<span class="lineCov">    1550887 : bool AQWriterItem::write(size_t off, const void *mem, size_t memSize)</span>
 <span class="lineNum">      60 </span>                :            : {
-<span class="lineNum">      61 </span>[<span class="branchCov" title="Branch 1 was taken 1488288 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>][<span class="branchCov" title="Branch 3 was taken 2 times"> + </span><span class="branchCov" title="Branch 4 was taken 1488286 times"> + </span>]:<span class="lineCov">    1488282 :     if (!isAllocated() || m_writer == NULL)</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1488288 times"> + </span>]
+<span class="lineNum">      61 </span>[<span class="branchCov" title="Branch 1 was taken 1550895 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 1550895 times"> + </span>]:<span class="lineCov">    1550887 :     if (!isAllocated() || m_writer == NULL)</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1550897 times"> + </span>]
 <span class="lineNum">      62 </span>                :            :     {
 <span class="lineNum">      63 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :         throw domain_error(&quot;Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.&quot;);</span>
 <span class="lineNum">      64 </span>                :            :     }
-<span class="lineNum">      65 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1488288 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">    1488288 :     if (mem == NULL &amp;&amp; memSize != 0)</span>
+<span class="lineNum">      65 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1550897 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">    1550897 :     if (mem == NULL &amp;&amp; memSize != 0)</span>
 <span class="lineNum">      66 </span>                :            :     {
 <span class="lineNum">      67 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :         throw invalid_argument(&quot;Cannot write with mem set to NULL&quot;);</span>
 <span class="lineNum">      68 </span>                :            :     }
 <span class="lineNum">      69 </span>                :            : 
 <span class="lineNum">      70 </span>                :            :     // Find the item that is to be updated and set the offset to an offset into
 <span class="lineNum">      71 </span>                :            :     // that item.
-<span class="lineNum">      72 </span>                :<span class="lineCov">    1488288 :     AQWriterItem *item = writeAdvance(off, memSize);</span>
-<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 0 was taken 73386 times"> + </span><span class="branchCov" title="Branch 1 was taken 1414895 times"> + </span>]:<span class="lineCov">    1488281 :     if (item == NULL)</span>
+<span class="lineNum">      72 </span>                :<span class="lineCov">    1550897 :     AQWriterItem *item = writeAdvance(off, memSize);</span>
+<span class="lineNum">      73 </span>        [<span class="branchCov" title="Branch 0 was taken 70408 times"> + </span><span class="branchCov" title="Branch 1 was taken 1480487 times"> + </span>]:<span class="lineCov">    1550895 :     if (item == NULL)</span>
 <span class="lineNum">      74 </span>                :            :     {
-<span class="lineNum">      75 </span>                :<span class="lineCov">      73386 :         return 0;</span>
+<span class="lineNum">      75 </span>                :<span class="lineCov">      70408 :         return 0;</span>
 <span class="lineNum">      76 </span>                :            :     }
 <span class="lineNum">      77 </span>                :            : 
 <span class="lineNum">      78 </span>                :            :     // Perform the series of memcpy() operations to write into the item.
-<span class="lineNum">      79 </span>                :<span class="lineCov">    1414895 :     const unsigned char *buf = (const unsigned char *)mem;</span>
-<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 0 was taken 2004390 times"> + </span><span class="branchCov" title="Branch 1 was taken 1414886 times"> + </span>]:<span class="lineCov">    3419276 :     while (memSize &gt; 0)</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">    1480487 :     const unsigned char *buf = (const unsigned char *)mem;</span>
+<span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 0 was taken 2095924 times"> + </span><span class="branchCov" title="Branch 1 was taken 1480342 times"> + </span>]:<span class="lineCov">    3576266 :     while (memSize &gt; 0)</span>
 <span class="lineNum">      81 </span>                :            :     {
-<span class="lineNum">      82 </span>                :<span class="lineCov">    2004390 :         size_t avail = item-&gt;capacity() - off;</span>
-<span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 0 was taken 1397478 times"> + </span><span class="branchCov" title="Branch 1 was taken 606913 times"> + </span>]:<span class="lineCov">    2004391 :         if (avail &gt; memSize)</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">    2095924 :         size_t avail = item-&gt;capacity() - off;</span>
+<span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 0 was taken 1462380 times"> + </span><span class="branchCov" title="Branch 1 was taken 633580 times"> + </span>]:<span class="lineCov">    2095960 :         if (avail &gt; memSize)</span>
 <span class="lineNum">      84 </span>                :            :         {
-<span class="lineNum">      85 </span>                :<span class="lineCov">    1397478 :             avail = memSize;</span>
+<span class="lineNum">      85 </span>                :<span class="lineCov">    1462380 :             avail = memSize;</span>
 <span class="lineNum">      86 </span>                :            :         }
-<span class="lineNum">      87 </span>                :<span class="lineCov">    2004391 :         memcpy(&amp;item-&gt;m_mem[off], buf, avail);</span>
-<span class="lineNum">      88 </span>                :<span class="lineCov">    2004391 :         off = 0;</span>
-<span class="lineNum">      89 </span>                :<span class="lineCov">    2004391 :         buf += avail;</span>
-<span class="lineNum">      90 </span>                :<span class="lineCov">    2004391 :         memSize -= avail;</span>
-<span class="lineNum">      91 </span>                :<span class="lineCov">    2004391 :         item = item-&gt;next();</span>
+<span class="lineNum">      87 </span>                :<span class="lineCov">    2095960 :         memcpy(&amp;item-&gt;m_mem[off], buf, avail);</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">    2095960 :         off = 0;</span>
+<span class="lineNum">      89 </span>                :<span class="lineCov">    2095960 :         buf += avail;</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">    2095960 :         memSize -= avail;</span>
+<span class="lineNum">      91 </span>                :<span class="lineCov">    2095960 :         item = item-&gt;next();</span>
 <span class="lineNum">      92 </span>                :            :     }
-<span class="lineNum">      93 </span>                :<span class="lineCov">    1488272 :     return true;</span>
+<span class="lineNum">      93 </span>                :<span class="lineCov">    1550750 :     return true;</span>
 <span class="lineNum">      94 </span>                :            : }
 <a name="95"><span class="lineNum">      95 </span>                :            : </a>
 <span class="lineNum">      96 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">      97 </span>                :<span class="lineCov">    1488283 : size_t AQWriterItem::currentOffset(void) const</span>
+<span class="lineNum">      97 </span>                :<span class="lineCov">    1550867 : size_t AQWriterItem::currentOffset(void) const</span>
 <span class="lineNum">      98 </span>                :            : {
-<span class="lineNum">      99 </span>   [<span class="branchCov" title="Branch 1 was taken 1488287 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 1488287 times"> + </span>]:<span class="lineCov">    1488283 :     if (!isAllocated() || m_writer == NULL)</span>
-<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1488285 times"> + </span>]
+<span class="lineNum">      99 </span>   [<span class="branchCov" title="Branch 1 was taken 1550883 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 4 was taken 1550887 times"> + </span>]:<span class="lineCov">    1550867 :     if (!isAllocated() || m_writer == NULL)</span>
+<span class="lineNum">         </span>        [<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 1550884 times"> + </span>]
 <span class="lineNum">     100 </span>                :            :     {
 <span class="lineNum">     101 </span>[<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>][<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>]:<span class="lineNoCov">          0 :         throw domain_error(&quot;Cannot write to an AQWriterItem that has not been claimed() or has already been commit()'ed.&quot;);</span>
 <span class="lineNum">     102 </span>                :            :     }
 <span class="lineNum">     103 </span>                :            : 
-<span class="lineNum">     104 </span>                :<span class="lineCov">    1488285 :     size_t off = last()-&gt;m_accumulator;</span>
-<span class="lineNum">     105 </span>           [<span class="branchCov" title="Branch 1 was taken 1488284 times"> + </span>]:<span class="lineCov">    1488282 :     if (m_writer-&gt;isExtendable())</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">    1550884 :     size_t off = last()-&gt;m_accumulator;</span>
+<span class="lineNum">     105 </span>           [<span class="branchCov" title="Branch 1 was taken 1550878 times"> + </span>]:<span class="lineCov">    1550873 :     if (m_writer-&gt;isExtendable())</span>
 <span class="lineNum">     106 </span>                :            :     {
-<span class="lineNum">     107 </span>                :<span class="lineCov">    1488284 :         off += last()-&gt;m_memSize;</span>
+<span class="lineNum">     107 </span>                :<span class="lineCov">    1550878 :         off += last()-&gt;m_memSize;</span>
 <span class="lineNum">     108 </span>                :            :     }
-<span class="lineNum">     109 </span>                :<span class="lineCov">    1488285 :     return off;</span>
+<span class="lineNum">     109 </span>                :<span class="lineCov">    1550893 :     return off;</span>
 <span class="lineNum">     110 </span>                :            : }
 <a name="111"><span class="lineNum">     111 </span>                :            : </a>
 <span class="lineNum">     112 </span>                :            : //------------------------------------------------------------------------------
@@ -220,15 +220,15 @@
 <span class="lineNum">     147 </span>                :            : }
 <a name="148"><span class="lineNum">     148 </span>                :            : </a>
 <span class="lineNum">     149 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     150 </span>                :<span class="lineCov">    1488268 : AQWriterItem *AQWriterItem::writeAdvance(size_t&amp; off, size_t memSize)</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">    1550808 : AQWriterItem *AQWriterItem::writeAdvance(size_t&amp; off, size_t memSize)</span>
 <span class="lineNum">     151 </span>                :            : {
-<span class="lineNum">     152 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1488281 times"> + </span>]:<span class="lineCov">    1488268 :     if (!m_writer-&gt;isExtendable())</span>
+<span class="lineNum">     152 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1550860 times"> + </span>]:<span class="lineCov">    1550808 :     if (!m_writer-&gt;isExtendable())</span>
 <span class="lineNum">     153 </span>                :            :     {
 <span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :         return writeAdvanceNormal(off, memSize);</span>
 <span class="lineNum">     155 </span>                :            :     }
 <span class="lineNum">     156 </span>                :            :     else
 <span class="lineNum">     157 </span>                :            :     {
-<span class="lineNum">     158 </span>                :<span class="lineCov">    1488281 :         return writeAdvanceExtendable(off, memSize);</span>
+<span class="lineNum">     158 </span>                :<span class="lineCov">    1550860 :         return writeAdvanceExtendable(off, memSize);</span>
 <span class="lineNum">     159 </span>                :            :     }
 <span class="lineNum">     160 </span>                :            : }
 <a name="161"><span class="lineNum">     161 </span>                :            : </a>
@@ -258,17 +258,17 @@
 <span class="lineNum">     185 </span>                :            : }
 <a name="186"><span class="lineNum">     186 </span>                :            : </a>
 <span class="lineNum">     187 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     188 </span>                :<span class="lineCov">    1488280 : AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t&amp; off, size_t memSize)</span>
+<span class="lineNum">     188 </span>                :<span class="lineCov">    1550859 : AQWriterItem *AQWriterItem::writeAdvanceExtendable(size_t&amp; off, size_t memSize)</span>
 <span class="lineNum">     189 </span>                :            : {
-<span class="lineNum">     190 </span>                :<span class="lineCov">    1488280 :     AQWriterItem *last = this-&gt;last();</span>
+<span class="lineNum">     190 </span>                :<span class="lineCov">    1550859 :     AQWriterItem *last = this-&gt;last();</span>
 <span class="lineNum">     191 </span>                :            :     AQWriterItem *item;
-<span class="lineNum">     192 </span>                :<span class="lineCov">    1488287 :     size_t rtotal = 0;</span>
+<span class="lineNum">     192 </span>                :<span class="lineCov">    1550888 :     size_t rtotal = 0;</span>
 <span class="lineNum">     193 </span>                :            : 
 <span class="lineNum">     194 </span>                :            :     // Extendable item - find the item at offset 'off' from this item and
 <span class="lineNum">     195 </span>                :            :     // adjust off to an offset within that item.
-<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 1 was taken 860833 times"> + </span><span class="branchCov" title="Branch 2 was taken 627454 times"> + </span>]:<span class="lineCov">    1488287 :     if (off &lt; capacity())</span>
+<span class="lineNum">     196 </span>        [<span class="branchCov" title="Branch 1 was taken 895736 times"> + </span><span class="branchCov" title="Branch 2 was taken 655136 times"> + </span>]:<span class="lineCov">    1550888 :     if (off &lt; capacity())</span>
 <span class="lineNum">     197 </span>                :            :     {
-<span class="lineNum">     198 </span>                :<span class="lineCov">     860833 :         item = this;</span>
+<span class="lineNum">     198 </span>                :<span class="lineCov">     895736 :         item = this;</span>
 <span class="lineNum">     199 </span>                :            :     }
 <span class="lineNum">     200 </span>                :            :     else
 <span class="lineNum">     201 </span>                :            :     {
@@ -283,12 +283,12 @@
 <span class="lineNum">     210 </span>                :            :         //   (a) Item(S) #1, offset 30 --&gt; Item(W) #4, offset 14 --&gt; off + S(A) - W(A) = 30 +  0 - 16 = 14  
 <span class="lineNum">     211 </span>                :            :         //   (b) Item(S) #2, offset 26 --&gt; Item(W) #4, offset 14 --&gt; off + S(A) - W(A) = 26 +  4 - 16 = 14
 <span class="lineNum">     212 </span>                :            :         //   (c) Item(S) #3, offset 18 --&gt; Item(W) #4, offset 14 --&gt; off + S(A) - W(A) = 18 + 12 - 16 = 14
-<span class="lineNum">     213 </span>                :<span class="lineCov">     627454 :         off += m_accumulator;</span>
-<span class="lineNum">     214 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 627455 times"> + </span>]:<span class="lineCov">     627454 :         for (item = last; off &lt; item-&gt;m_accumulator; item = item-&gt;prev())</span>
+<span class="lineNum">     213 </span>                :<span class="lineCov">     655136 :         off += m_accumulator;</span>
+<span class="lineNum">     214 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 655142 times"> + </span>]:<span class="lineCov">     655136 :         for (item = last; off &lt; item-&gt;m_accumulator; item = item-&gt;prev())</span>
 <span class="lineNum">     215 </span>                :            :         {
 <span class="lineNum">     216 </span>                :<span class="lineNoCov">          0 :             rtotal += item-&gt;capacity();</span>
 <span class="lineNum">     217 </span>                :            :         }
-<span class="lineNum">     218 </span>                :<span class="lineCov">     627455 :         off -= item-&gt;m_accumulator;</span>
+<span class="lineNum">     218 </span>                :<span class="lineCov">     655142 :         off -= item-&gt;m_accumulator;</span>
 <span class="lineNum">     219 </span>                :            :     }
 <span class="lineNum">     220 </span>                :            : 
 <span class="lineNum">     221 </span>                :            :     // Determine if we have enough space or if we need to extend.  If we
@@ -310,18 +310,18 @@
 <span class="lineNum">     237 </span>                :            :     //   (b) Item(I) #5, offset 1, size  4 --&gt;       0 +    4 -   1 =  3    4 &gt;  3 ==&gt; EXTEND
 <span class="lineNum">     238 </span>                :            :     //   (d) Item(I) #4, offset 7, size 14 --&gt;       4 +   16 -   7 = 13   14 &gt; 13 ==&gt; EXTEND
 <span class="lineNum">     239 </span>                :            :     //   (f) Item(I) #1, offset 2, size 35 --&gt;      32 +    4 -   2 = 34   35 &gt; 34 ==&gt; EXTEND
-<span class="lineNum">     240 </span>                :<span class="lineCov">    1488288 :     rtotal += item-&gt;capacity();</span>
-<span class="lineNum">     241 </span>   [<span class="branchCov" title="Branch 0 was taken 1488288 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 666021 times"> + </span><span class="branchCov" title="Branch 3 was taken 822267 times"> + </span>]:<span class="lineCov">    1488287 :     if (rtotal &lt; off || memSize &gt; rtotal - off)</span>
+<span class="lineNum">     240 </span>                :<span class="lineCov">    1550878 :     rtotal += item-&gt;capacity();</span>
+<span class="lineNum">     241 </span>   [<span class="branchCov" title="Branch 0 was taken 1550897 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 685944 times"> + </span><span class="branchCov" title="Branch 3 was taken 864953 times"> + </span>]:<span class="lineCov">    1550890 :     if (rtotal &lt; off || memSize &gt; rtotal - off)</span>
 <span class="lineNum">     242 </span>                :            :     {
 <span class="lineNum">     243 </span>                :            :         // Extend the list.  This updates all sizes appropriatly.
-<span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 1 was taken 73386 times"> + </span><span class="branchCov" title="Branch 2 was taken 589509 times"> + </span>]:<span class="lineCov">     666020 :         if (!extend(memSize + off - rtotal))</span>
+<span class="lineNum">     244 </span>        [<span class="branchCov" title="Branch 1 was taken 70408 times"> + </span><span class="branchCov" title="Branch 2 was taken 615525 times"> + </span>]:<span class="lineCov">     685937 :         if (!extend(memSize + off - rtotal))</span>
 <span class="lineNum">     245 </span>                :            :         {
-<span class="lineNum">     246 </span>                :<span class="lineCov">      73386 :             return NULL;</span>
+<span class="lineNum">     246 </span>                :<span class="lineCov">      70408 :             return NULL;</span>
 <span class="lineNum">     247 </span>                :            :         }
 <span class="lineNum">     248 </span>                :            : 
 <span class="lineNum">     249 </span>                :            :         // The offset could be beyond the original last item - if that was the case we
 <span class="lineNum">     250 </span>                :            :         // need to adjust item to the last item, and offset appropriatly.
-<span class="lineNum">     251 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 589509 times"> + </span>]:<span class="lineCov">     589504 :         if (rtotal &lt; off)</span>
+<span class="lineNum">     251 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 615525 times"> + </span>]:<span class="lineCov">     615527 :         if (rtotal &lt; off)</span>
 <span class="lineNum">     252 </span>                :            :         {
 <span class="lineNum">     253 </span>                :<span class="lineNoCov">          0 :             off -= last-&gt;capacity();</span>
 <span class="lineNum">     254 </span>                :<span class="lineNoCov">          0 :             item = this-&gt;last();</span>
@@ -330,44 +330,44 @@
 <span class="lineNum">     257 </span>                :            :     else
 <span class="lineNum">     258 </span>                :            :     {
 <span class="lineNum">     259 </span>                :            :         // Update the size of the last item in the list if we reach into its content.
-<span class="lineNum">     260 </span>                :<span class="lineCov">     822267 :         size_t n = rtotal - off - memSize;</span>
-<span class="lineNum">     261 </span>                :<span class="lineCov">     822267 :         size_t c = last-&gt;capacity();</span>
-<span class="lineNum">     262 </span>        [<span class="branchCov" title="Branch 0 was taken 825393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     825393 :         size_t lastSize = n &lt; c ? (c - n) : 0;</span>
-<span class="lineNum">     263 </span>        [<span class="branchCov" title="Branch 0 was taken 825393 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     825393 :         if (last-&gt;m_memSize &lt; lastSize)</span>
+<span class="lineNum">     260 </span>                :<span class="lineCov">     864953 :         size_t n = rtotal - off - memSize;</span>
+<span class="lineNum">     261 </span>                :<span class="lineCov">     864953 :         size_t c = last-&gt;capacity();</span>
+<span class="lineNum">     262 </span>        [<span class="branchCov" title="Branch 0 was taken 864957 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     864957 :         size_t lastSize = n &lt; c ? (c - n) : 0;</span>
+<span class="lineNum">     263 </span>           [<span class="branchCov" title="Branch 0 was taken 864962 times"> + </span>]:<span class="lineCov">     864957 :         if (last-&gt;m_memSize &lt; lastSize)</span>
 <span class="lineNum">     264 </span>                :            :         {
-<span class="lineNum">     265 </span>                :<span class="lineCov">     825393 :             last-&gt;m_memSize = lastSize;</span>
+<span class="lineNum">     265 </span>                :<span class="lineCov">     864962 :             last-&gt;m_memSize = lastSize;</span>
 <span class="lineNum">     266 </span>                :            :         }
 <span class="lineNum">     267 </span>                :            :     }
-<span class="lineNum">     268 </span>                :<span class="lineCov">    1488283 :     return item;</span>
+<span class="lineNum">     268 </span>                :<span class="lineCov">    1550892 :     return item;</span>
 <span class="lineNum">     269 </span>                :            : }
 <a name="270"><span class="lineNum">     270 </span>                :            : </a>
 <span class="lineNum">     271 </span>                :            : //------------------------------------------------------------------------------
-<span class="lineNum">     272 </span>                :<span class="lineCov">     662894 : bool AQWriterItem::extend(size_t memSize)</span>
+<span class="lineNum">     272 </span>                :<span class="lineCov">     685917 : bool AQWriterItem::extend(size_t memSize)</span>
 <span class="lineNum">     273 </span>                :            : {
-<span class="lineNum">     274 </span>        [<span class="branchCov" title="Branch 1 was taken 662894 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     662894 :     AQWriterItem *newItem = new AQWriterItem;</span>
-<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 1 was taken 73386 times"> + </span><span class="branchCov" title="Branch 2 was taken 589509 times"> + </span>]:<span class="lineCov">     662894 :     if (!m_writer-&gt;claim(*newItem, memSize))</span>
+<span class="lineNum">     274 </span>        [<span class="branchCov" title="Branch 1 was taken 685925 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">     685917 :     AQWriterItem *newItem = new AQWriterItem;</span>
+<span class="lineNum">     275 </span>        [<span class="branchCov" title="Branch 1 was taken 70399 times"> + </span><span class="branchCov" title="Branch 2 was taken 615527 times"> + </span>]:<span class="lineCov">     685925 :     if (!m_writer-&gt;claim(*newItem, memSize))</span>
 <span class="lineNum">     276 </span>                :            :     {
 <span class="lineNum">     277 </span>                :            :         // Not enough space available.
-<span class="lineNum">     278 </span>        [<span class="branchCov" title="Branch 0 was taken 73386 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      73386 :         delete newItem;</span>
-<span class="lineNum">     279 </span>                :<span class="lineCov">      73386 :         return false;</span>
+<span class="lineNum">     278 </span>           [<span class="branchCov" title="Branch 0 was taken 70405 times"> + </span>]:<span class="lineCov">      70399 :         delete newItem;</span>
+<span class="lineNum">     279 </span>                :<span class="lineCov">      70408 :         return false;</span>
 <span class="lineNum">     280 </span>                :            :     }
 <span class="lineNum">     281 </span>                :            : 
-<span class="lineNum">     282 </span>                :<span class="lineCov">     589509 :     AQWriterItem *first = this-&gt;first();</span>
-<span class="lineNum">     283 </span>                :<span class="lineCov">     589509 :     AQWriterItem *last = this-&gt;last();</span>
+<span class="lineNum">     282 </span>                :<span class="lineCov">     615527 :     AQWriterItem *first = this-&gt;first();</span>
+<span class="lineNum">     283 </span>                :<span class="lineCov">     615527 :     AQWriterItem *last = this-&gt;last();</span>
 <span class="lineNum">     284 </span>                :            : 
 <span class="lineNum">     285 </span>                :            :     // Attach the new item to the end of the list.
-<span class="lineNum">     286 </span>                :<span class="lineCov">     589508 :     newItem-&gt;m_first = first;</span>
-<span class="lineNum">     287 </span>                :<span class="lineCov">     589508 :     newItem-&gt;m_prev = last;</span>
-<span class="lineNum">     288 </span>                :<span class="lineCov">     589508 :     last-&gt;m_next = newItem;</span>
-<span class="lineNum">     289 </span>                :<span class="lineCov">     589508 :     first-&gt;m_prev = newItem;</span>
+<span class="lineNum">     286 </span>                :<span class="lineCov">     615518 :     newItem-&gt;m_first = first;</span>
+<span class="lineNum">     287 </span>                :<span class="lineCov">     615518 :     newItem-&gt;m_prev = last;</span>
+<span class="lineNum">     288 </span>                :<span class="lineCov">     615518 :     last-&gt;m_next = newItem;</span>
+<span class="lineNum">     289 </span>                :<span class="lineCov">     615518 :     first-&gt;m_prev = newItem;</span>
 <span class="lineNum">     290 </span>                :            : 
 <span class="lineNum">     291 </span>                :            :     // Adjust the sizes of the now next-to-last and last item.
-<span class="lineNum">     292 </span>                :<span class="lineCov">     589508 :     last-&gt;m_memSize = last-&gt;capacity();</span>
-<span class="lineNum">     293 </span>                :<span class="lineCov">     589509 :     newItem-&gt;m_accumulator = last-&gt;m_accumulator + last-&gt;m_memSize;</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">     615518 :     last-&gt;m_memSize = last-&gt;capacity();</span>
+<span class="lineNum">     293 </span>                :<span class="lineCov">     615526 :     newItem-&gt;m_accumulator = last-&gt;m_accumulator + last-&gt;m_memSize;</span>
 <span class="lineNum">     294 </span>                :            : 
-<span class="lineNum">     295 </span>                :<span class="lineCov">     589509 :     newItem-&gt;m_memSize = memSize;</span>
+<span class="lineNum">     295 </span>                :<span class="lineCov">     615526 :     newItem-&gt;m_memSize = memSize;</span>
 <span class="lineNum">     296 </span>                :            : 
-<span class="lineNum">     297 </span>                :<span class="lineCov">     662895 :     return true;</span>
+<span class="lineNum">     297 </span>                :<span class="lineCov">     685934 :     return true;</span>
 <span class="lineNum">     298 </span>                :            : }
 <span class="lineNum">     299 </span>                :            : 
 <span class="lineNum">     300 </span>                :            : 

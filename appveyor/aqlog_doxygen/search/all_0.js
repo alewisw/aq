@@ -54,6 +54,8 @@ var searchData=
   ['aqlog_5fttrace',['AQLog_TTrace',['../_a_q_log_8h.html#ac4b46be91490da1401b4ef4cf620e7a7',1,'AQLog.h']]],
   ['aqlog_5ftwarning',['AQLog_TWarning',['../_a_q_log_8h.html#ad30c83ba95e62b9a99ae24d8d973294e',1,'AQLog.h']]],
   ['aqlog_5fwarning',['AQLog_Warning',['../_a_q_log_8h.html#acbf36bab2fcc2bf112a55c62a6a6ff88',1,'AQLog.h']]],
+  ['aqlogconsumer',['AQLogConsumer',['../class_a_q_log_consumer.html',1,'AQLogConsumer'],['../class_a_q_log_consumer.html#a06cbcef0badba9c907ed9ea31dadae23',1,'AQLogConsumer::AQLogConsumer()']]],
+  ['aqlogformatter',['AQLogFormatter',['../class_a_q_log_formatter.html',1,'AQLogFormatter'],['../class_a_q_log_formatter.html#ad83856afc43e82af97d528ee6bcf849a',1,'AQLogFormatter::AQLogFormatter()']]],
   ['aqloghandler',['AQLogHandler',['../class_a_q_log_handler.html',1,'AQLogHandler'],['../class_a_q_log_handler.html#ae6f6b042dbc2ec1176a976553ce9ec09',1,'AQLogHandler::AQLogHandler()']]],
   ['aqloginitoutcome_5ft',['AQLogInitOutcome_t',['../_a_q_log_8h.html#a96d210396baecc2928b19280f06bc989',1,'AQLog.h']]],
   ['aqloglevel_5ft',['AQLogLevel_t',['../_a_q_log_8h.html#a2fa6b1fc3b6fbda13767965aac9f8421',1,'AQLog.h']]],

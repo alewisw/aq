@@ -43,7 +43,7 @@
 //------------------------------------------------------------------------------
 
 // Used to obtain process and thread identifiers.
-namespace aqosa  class ProcessIdentifier
+namespace aqosa { class ProcessIdentifier
 {
 private:
 

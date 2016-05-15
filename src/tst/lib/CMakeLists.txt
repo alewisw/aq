@@ -1,5 +1,5 @@
 
-include_directories(. linux ../../aq/lib ../../aq/lib/internal ../../aq/lib/internal/linux)
+include_directories(. linux ../../aq/lib ../../aq/lib/internal ../../aq/lib/internal/linux ../../aqosa/lib ../../aqosa/lib/linux)
 set(SOURCE
     AQStrawMan.cpp
     Optarg.cpp

@@ -8,7 +8,7 @@ ProjectRootRelative=./
 
 [CMake][CMake Build Directory 0]
 Build Directory Path=file:///home/nas/Share/aq/build
-Build Type=Debug
+Build Type=Performance
 CMake Binary=file:///usr/bin/cmake
 Environment Profile=
 Extra Arguments=
@@ -83,6 +83,7 @@ Name=aq_unittest
 Type=Native Application
 
 [Launch][Launch Configuration 4][Data]
+Configured from ProjectItem=AQ,src,aq,unittest,aq_unittest
 Project Target=AQ,src,aq,unittest,aq_unittest
 Working Directory=file:///home/nas/Share/aq/build/src/aq/unittest/
 isExecutable=false

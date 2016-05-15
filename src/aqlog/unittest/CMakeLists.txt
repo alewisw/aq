@@ -1,5 +1,5 @@
 
-include_directories(. ../../tst/lib ../../tst/lib/linux  ../..aqosa/lib ../..aqosa/lib/linux ../lib ../lib/internal ../lib/internal/linux)
+include_directories(. ../../tst/lib ../../tst/lib/linux  ../../aqosa/lib ../../aqosa/lib/linux ../lib ../lib/internal ../lib/internal/linux)
 set(SOURCE
     Main.cpp
     UtMacroTricks.cpp

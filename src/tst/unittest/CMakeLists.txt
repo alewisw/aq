@@ -1,5 +1,5 @@
 
-include_directories(. ../lib ../lib/linux)
+include_directories(. ../lib ../lib/linux ../../aqosa/lib ../../aqosa/lib/linux)
 set(SOURCE
     Main.cpp
     UtTest.cpp

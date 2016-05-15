@@ -27,6 +27,7 @@
     <ClCompile Include="internal\LogMemory.cpp" />
     <ClCompile Include="internal\LogReader.cpp" />
     <ClCompile Include="internal\windows\AQLogRecord_windows.cpp" />
+    <ClCompile Include="internal\WordWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQLog.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="internal\LogLevelHash.h" />
     <ClInclude Include="internal\LogMemory.h" />
     <ClInclude Include="internal\LogReader.h" />
+    <ClInclude Include="internal\WordWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

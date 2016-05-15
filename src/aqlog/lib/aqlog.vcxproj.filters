@@ -31,6 +31,9 @@
     <ClInclude Include="internal\DefaultFormatter.h">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="internal\WordWrapper.h">
+      <Filter>internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AQLogHandler.cpp" />
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="AQLogConsumer.cpp" />
     <ClCompile Include="internal\DefaultFormatter.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="internal\WordWrapper.cpp">
       <Filter>internal</Filter>
     </ClCompile>
   </ItemGroup>

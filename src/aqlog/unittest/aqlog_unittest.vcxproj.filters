@@ -17,6 +17,7 @@
     <ClCompile Include="DataSets.cpp" />
     <ClCompile Include="UtObjectLifecycle.cpp" />
     <ClCompile Include="UtLogReader.cpp" />
+    <ClCompile Include="UtWordWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />

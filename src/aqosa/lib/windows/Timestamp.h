@@ -1,5 +1,5 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef TIMESTAMP_H
+#define TIMESTAMP_H
 //==============================================================================
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0.If a copy of the MPL was not distributed with this
@@ -12,6 +12,8 @@
 //------------------------------------------------------------------------------
 
 #include <Windows.h>
+
+#include <stdint.h>
 
 
 
@@ -41,68 +43,62 @@
 // Exported Function and Class Declarations
 //------------------------------------------------------------------------------
 
-// Defines functions for measuring the passing of time.
-namespace aq { class Timer
+// Used to obtain a timestamp.
+namespace aqosa { class Timestamp
 {
 private:
 
     // Constructor is not defined - this is a utility class.
-    Timer(void);
+    Timestamp(void);
 
 public:
 
-    // Represents a millisecond timer value.
-    typedef DWORD Ms_t;
-
-    // Returns the current millisecond timer - used to start timing a duration.
-    static Ms_t start(void)
+    // Returns the UNIX timestamp in nanoseconds since 1 January 1970.
+    static inline uint64_t now(void)
     {
 #ifdef AQ_TEST_UNIT
-        return m_fixClock ? m_fixClockMs : GetTickCount();
-#else
-        return GetTickCount();
-#endif
-    }
-
-    // Returns the number of milliseconds that have elapsed since a starting time.
-    static Ms_t elapsed(Ms_t startMs)
-    {
-        return start() - startMs;
-    }
-
-    // Sleeps for the given period in milliseconds.
-    static void sleep(Ms_t ms)
-    {
-#ifdef AQ_TEST_UNIT
-        if (m_fixClock)
+        if (m_fixTimestamp != 0)
         {
-            m_fixClockMs += ms;
+            return m_fixTimestamp;
         }
-        else
-        {
-            Sleep(ms);
-        }
-#else
-        Sleep(ms);
 #endif
+        FILETIME ft;
+
+        GetSystemTimeAsFileTime(&ft);
+
+        // FILETIME is a 64-bit value representing the number of 100-nanosecond 
+        // intervals since January 1, 1601 (UTC).
+        //
+        // We need to convert into number of nanoseconds since 1970.  First construct
+        // it as a uint64_t.
+        uint64_t t = (uint64_t)ft.dwLowDateTime | ((uint64_t)ft.dwHighDateTime << 32);
+
+        // Now move to offset from 1970.  Constant taken from:
+        //  https://msdn.microsoft.com/en-us/library/windows/desktop/ms724228(v=vs.85).aspx
+        t -= 116444736000000000ULL;
+
+        // Finally convert to nanoseconds before returning (is in 100's of nano
+        // seconds so multiply by 100).
+        return t * 100ULL;
     }
 
     // Sets the clock to return the fixed value 'ms'.  Used for unit tests.
 #ifdef AQ_TEST_UNIT
-    static void fixClock(Ms_t ms)
+    static void fixTimestamp(uint64_t ts)
     {
-        m_fixClock = true;
-        m_fixClockMs = ms;
+        m_fixTimestamp = ts;
     }
 
 private:
 
-    // Set to true if the clock value has been fixed.
-    static bool m_fixClock;
+    // Set to non-zero to give a fixed timestamp.
+    static uint64_t m_fixTimestamp;
+#else
+public:
+    static void fixTimestamp(uint64_t ts) { }
 
-    // The fixed clock value in miliseconds.
-    static Ms_t m_fixClockMs;
 #endif
+
 
 };}
 

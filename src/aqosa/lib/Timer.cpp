@@ -11,6 +11,9 @@
 
 #include "Timer.h"
 
+namespace aqosa
+{
+
 
 
 
@@ -41,10 +44,10 @@
 
 #ifdef AQ_TEST_UNIT
 //------------------------------------------------------------------------------
-bool aq::Timer::m_fixClock = false;
+bool Timer::m_fixClock = false;
 
 //------------------------------------------------------------------------------
-aq::Timer::Ms_t aq::Timer::m_fixClockMs = 0;
+uint32_t Timer::m_fixClockMs = 0;
 #endif
 
 
@@ -57,4 +60,5 @@ aq::Timer::Ms_t aq::Timer::m_fixClockMs = 0;
 
 
 
+}
 //=============================== End of File ==================================

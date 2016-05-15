@@ -11,6 +11,9 @@
 
 #include "Timestamp.h"
 
+namespace aqosa
+{
+
 
 
 
@@ -42,7 +45,7 @@
 #ifdef AQ_TEST_UNIT
 
 //------------------------------------------------------------------------------
-uint64_t aqlog::Timestamp::m_fixTimestamp = 0;
+uint64_t Timestamp::m_fixTimestamp = 0;
 
 #endif
 
@@ -56,4 +59,5 @@ uint64_t aqlog::Timestamp::m_fixTimestamp = 0;
 
 
 
+}
 //=============================== End of File ==================================

@@ -13,6 +13,7 @@
 
 #include "Timer.h"
 
+using namespace aqosa;
 using namespace std;
 
 
@@ -79,7 +80,7 @@ AQLogRecord::~AQLogRecord(void)
 AQLogRecord::PopulateOutcome AQLogRecord::populate(void)
 {
     m_message.clear();
-    m_processTimeMs = aq::Timer::start();
+    m_processTimeMs = Timer::start();
 
     // Check the item - make sure it is valid.
     if (!m_item.isCommitted())

@@ -17,6 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 
+using namespace aqosa;
 using namespace std;
 
 
@@ -103,9 +104,9 @@ void SnapshotTaker::run(void)
 //------------------------------------------------------------------------------
 void SnapshotTaker::takeSnapshot(void)
 {
-    Timer::Ms_t startMs = Timer::start();
+    uint32_t startMs = Timer::start();
     AQSnapshot *snapshot = new AQSnapshot(m_queue, m_trace);
-    Timer::Ms_t elapsedMs = Timer::elapsed(startMs);
+    uint32_t elapsedMs = Timer::elapsed(startMs);
 
     // Count the number of complete records in the snapshot.
     unsigned int completeCount = 0;

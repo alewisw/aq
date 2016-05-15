@@ -19,6 +19,8 @@
 
 #include "Prng.h"
 
+using namespace aqosa;
+
 
 
 
@@ -58,7 +60,7 @@
 RandomHandlers::RandomHandlers(LogLevelHash& hash, AQLogLevel_t maxLevel, size_t n)
     : m_hash(hash)
 {
-    generate(aq::Timer::start(), hash, maxLevel, n);
+    generate(Timer::start(), hash, maxLevel, n);
 }
 
 //------------------------------------------------------------------------------

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="windows">
+      <UniqueIdentifier>{8c4acd48-8228-4c6d-8d3a-80f853123bec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="windows\Atomic.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\ProcessIdentifier.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\Timer.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\Timestamp.h">
+      <Filter>windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ProcessIdentifier.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Timestamp.cpp" />
+  </ItemGroup>
+</Project>

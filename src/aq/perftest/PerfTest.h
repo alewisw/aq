@@ -60,7 +60,7 @@ class PerfTest
 protected:
 
     // Constructs a new performance test with no threads.
-    PerfTest(const std::string& name, aq::Timer::Ms_t minDurationMs = PERF_TEST_DEFAULT_MIN_DURATION_MS);
+    PerfTest(const std::string& name, uint32_t minDurationMs = PERF_TEST_DEFAULT_MIN_DURATION_MS);
 
 private:
     // No copy or assignment permitted.
@@ -201,7 +201,7 @@ private:
     std::string m_name;
 
     // The mininmum run-time in milliseconds.
-    aq::Timer::Ms_t m_minDurationMs;
+    uint32_t m_minDurationMs;
 
     // The set of threads.
     std::vector<PerfThread *> m_threads;
@@ -214,16 +214,16 @@ private:
     bool m_firstMeasured;
 
     // The time when the first thread entered.
-    aq::Timer::Ms_t m_firstThreadEntryMs;
+    uint32_t m_firstThreadEntryMs;
 
     // The time when the last thread exited.
-    aq::Timer::Ms_t m_lastThreadExitMs;
+    uint32_t m_lastThreadExitMs;
 
     // The number of iterations performed.
     unsigned long m_iterationCount;
 
     // The total duration from all iterations.
-    aq::Timer::Ms_t m_totalDurationMs;
+    uint32_t m_totalDurationMs;
 
     // Called in the thread 'threadNum' to run the test for that thread.
     void runThread(size_t threadNum);
@@ -231,7 +231,7 @@ private:
 public:
 
     // Sets the test duration in milliseconds.
-    void setDurationMs(aq::Timer::Ms_t ms) { m_minDurationMs = ms; }
+    void setDurationMs(uint32_t ms) { m_minDurationMs = ms; }
 
     // Runs this test.
     void run(void);
@@ -262,7 +262,7 @@ public:
     virtual unsigned long totalOperationCount(void) const { return m_iterationCount; }
 
     // Gets the total duration of all runs in this test.
-    aq::Timer::Ms_t totalDurationMs(void) const { return m_totalDurationMs; }
+    uint32_t totalDurationMs(void) const { return m_totalDurationMs; }
 
     // Gets a description of the configuration of this test.
     virtual std::string config(void) const;

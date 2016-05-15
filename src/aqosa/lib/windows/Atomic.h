@@ -11,7 +11,13 @@
 // Includes
 //------------------------------------------------------------------------------
 
+#include <Windows.h>
+#include <intrin.h>
+
 #include <stdint.h>
+
+#pragma intrinsic(_InterlockedAnd)
+#pragma intrinsic(_InterlockedOr)
 
 
 
@@ -20,8 +26,8 @@
 // Exported Macros
 //------------------------------------------------------------------------------
 
-// Define this to relay on GCC __sync operations exclusivly.
-#define AQ_ATOMIC_ALWAYS_USE_SYNC
+// Define this to relay on Windows InterlockedXYZ() operations exclusivly.
+//#define AQ_ATOMIC_ALWAYS_USE_INTERLOCKED
 
 
 
@@ -45,7 +51,24 @@
 //------------------------------------------------------------------------------
 
 // Defines atomic operations that are safe across threads and processes.
-class Atomic
+//
+// We relay on two statements from Microsoft to guarantee correctness; namely:
+//
+// (1) According to the MSDN 'Interlocked Variable Access' page:
+//         https://msdn.microsoft.com/en-us/library/windows/desktop/ms684122(v=vs.85).aspx
+//     Simple reads and writes to properly-aligned 32-bit variables are 
+//     atomic operations. In other words, you will not end up with only one
+//     portion of the variable updated; all bits are updated in an atomic
+//     fashion.
+//
+// (2) According to the MSDN 'MemoryBarrier()' page:
+//         https://msdn.microsoft.com/en-us/library/windows/desktop/ms684208(v=vs.85).aspx
+//     With Visual Studio 2003, volatile to volatile references are ordered;
+//     the compiler will not re-order volatile variable access.  With Visual
+//     Studio 2005, the compiler also uses acquire semantics for read 
+//     operations on volatile variables and release semantics for write 
+//     operations on volatile variables (when supported by the CPU).
+namespace aqosa { class Atomic
 {
 private:
 
@@ -63,19 +86,27 @@ public:
     // thus only if the returned value equals 'comparand' the change was made.
     static inline uint32_t cmpXchg(volatile uint32_t *dest, uint32_t exchange, uint32_t comparand)
     {
-        return __sync_val_compare_and_swap (dest, comparand, exchange);
+        volatile LONG *ldest = (volatile LONG *)dest;
+        LONG lexchange = (LONG)exchange;
+        LONG lcomparand = (LONG)comparand;
+
+        return (uint32_t)InterlockedCompareExchange(ldest, lexchange, lcomparand);
     }
 
     // Peforms an atomic increment by '1' on 'dest'.
     static inline uint64_t increment(volatile uint64_t *dest)
     {
-        return __sync_add_and_fetch(dest, 1);
+        volatile LONGLONG *ldest = (volatile LONGLONG *)dest;
+
+        return InterlockedIncrement64(ldest);
     }
 
     // Peforms an atomic increment by '1' on 'dest'.
     static inline uint32_t increment(volatile uint32_t *dest)
     {
-        return __sync_add_and_fetch(dest, 1);
+        volatile LONG *ldest = (volatile LONG *)dest;
+
+        return InterlockedIncrement(ldest);
     }
 
     // Performs an atomic read of the passed memory location, returning the 
@@ -85,8 +116,9 @@ public:
     // guarantee ordering.
     static inline uint32_t read(volatile uint32_t *src)
     {
-#ifdef AQ_ATOMIC_ALWAYS_USE_SYNC
-        return __sync_add_and_fetch(src, 0);
+#ifdef AQ_ATOMIC_ALWAYS_USE_INTERLOCKED
+        volatile LONG *lsrc = (volatile LONG *)src;
+        return (uint32_t)_InterlockedOr(lsrc, 0);
 #else
         return *src;
 #endif
@@ -98,10 +130,11 @@ public:
     // guarantee ordering.
     static inline void write(volatile uint32_t *dest, uint32_t value)
     {
-#ifdef AQ_ATOMIC_ALWAYS_USE_SYNC
-        __sync_synchronize();
-        *dest = value;
-        __sync_synchronize();
+#ifdef AQ_ATOMIC_ALWAYS_USE_INTERLOCKED
+        volatile LONG *ldest = (volatile LONG *)dest;
+        LONG lvalue = (LONG)value;
+
+        InterlockedExchange(ldest, lvalue);
 #else
         *dest = value;
 #endif
@@ -109,14 +142,24 @@ public:
 
     // Performs an atomic 'OR' of the passed memory location with the bits in 
     // 'mask'.
-    //
-    // TODO: Is this used?
     static inline void bitwiseOr(volatile uint32_t *dest, uint32_t mask)
     {
-        __sync_or_and_fetch(dest, mask);
+        volatile LONG *ldest = (volatile LONG *)dest;
+        LONG lmask = (LONG)mask;
+        _InterlockedOr(ldest, lmask);
     }
 
-};
+    // Performs an atomic 'AND' of the passed memory location with the bits in 
+    // 'mask'.
+    static inline void bitwiseAnd(volatile uint32_t *dest, uint32_t mask)
+    {
+        volatile LONG *ldest = (volatile LONG *)dest;
+        LONG lmask = (LONG)mask;
+        _InterlockedAnd(ldest, lmask);
+    }
+
+};}
+
 
 
 

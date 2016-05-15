@@ -13,6 +13,8 @@
 
 #include "Timer.h"
 
+using namespace aqosa;
+
 
 
 
@@ -52,7 +54,7 @@
 int main(int argc, char* argv[])
 {
 #ifdef AQ_TEST_UNIT
-    aq::Timer::fixClock(0);
+    Timer::fixClock(0);
 #endif
 
     TestRunner testRunner(argc, argv);

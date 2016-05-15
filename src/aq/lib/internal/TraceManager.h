@@ -111,7 +111,7 @@ public:
     TraceBuffer *createBuffer(const std::string &id, size_t recordCapacity = 0);
 
     // Obtains the next trace order number from this trace manager.
-    uint64_t nextOrderNumber(void) { return Atomic::increment(&m_order); }
+    uint64_t nextOrderNumber(void) { return aqosa::Atomic::increment(&m_order); }
 
     // Writes the trace buffers to the passed output stream.
     void write(std::ostream& os) const;

@@ -11,6 +11,8 @@
 
 #include "ProcessIdentifier.h"
 
+namespace aqosa
+{
 
 
 
@@ -42,16 +44,16 @@
 #ifdef AQ_TEST_UNIT
 
 //------------------------------------------------------------------------------
-bool aqlog::ProcessIdentifier::m_fix = false;
+bool ProcessIdentifier::m_fix = false;
 
 //------------------------------------------------------------------------------
-std::string aqlog::ProcessIdentifier::m_fixProcessName;
+std::string ProcessIdentifier::m_fixProcessName;
 
 //------------------------------------------------------------------------------
-uint32_t aqlog::ProcessIdentifier::m_fixProcessId;
+uint32_t ProcessIdentifier::m_fixProcessId;
 
 //------------------------------------------------------------------------------
-uint32_t aqlog::ProcessIdentifier::m_fixThreadId;
+uint32_t ProcessIdentifier::m_fixThreadId;
 
 #endif
 
@@ -65,4 +67,5 @@ uint32_t aqlog::ProcessIdentifier::m_fixThreadId;
 
 
 
+}
 //=============================== End of File ==================================

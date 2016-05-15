@@ -11,8 +11,11 @@
 
 #include "LogReader.h"
 
+#include "Timer.h"
+
 #include <stdexcept>
 
+using namespace aqosa;
 using namespace std;
 
 namespace aqlog
@@ -105,7 +108,7 @@ AQLogRecord *LogReader::retrieve(uint32_t& maxRecallMs)
                 list<AQLogRecord *>::iterator it = m_pending.begin();
                 while (it != m_pending.end()
                     && rec->timestampNs() < (*it)->timestampNs()
-                    && aq::Timer::elapsed((*it)->processTimeMs()) < PENDING_MAXIMUM_WINDOW_MS)
+                    && Timer::elapsed((*it)->processTimeMs()) < PENDING_MAXIMUM_WINDOW_MS)
                 {
                     it++;
                 }
@@ -120,7 +123,7 @@ AQLogRecord *LogReader::retrieve(uint32_t& maxRecallMs)
     {
         rec = m_pending.back();
         if (   m_pending.size() == PENDING_WINDOW_SIZE 
-            || aq::Timer::elapsed(rec->processTimeMs()) > PENDING_MINIMUM_WINDOW_MS)
+            || Timer::elapsed(rec->processTimeMs()) > PENDING_MINIMUM_WINDOW_MS)
         {
             m_pending.pop_back();
             m_outstanding.insert(rec);
@@ -134,7 +137,7 @@ AQLogRecord *LogReader::retrieve(uint32_t& maxRecallMs)
     // Finally calculate the recall time.
     if (m_pending.size() > 0)
     {
-        maxRecallMs = aq::Timer::elapsed(m_pending.back()->processTimeMs());
+        maxRecallMs = Timer::elapsed(m_pending.back()->processTimeMs());
         if (maxRecallMs >= PENDING_MINIMUM_WINDOW_MS)
         {
             maxRecallMs = 0;

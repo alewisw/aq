@@ -25,6 +25,7 @@
 #include <stdexcept>
 
 using namespace aqlog;
+using namespace aqosa;
 using namespace std;
 
 

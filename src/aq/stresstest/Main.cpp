@@ -31,6 +31,7 @@
 #include <fstream>
 #include <sstream>
 
+using namespace aqosa;
 using namespace std;
 
 
@@ -215,7 +216,7 @@ static unsigned long long StatRetreiveSuccess = 0;
 static unsigned long long StatRetreiveFailure = 0;
 static unsigned long long StatRecordComplete = 0;
 static unsigned long long StatRecordIncomplete = 0;
-static Timer::Ms_t StatMaxConsumePeriodMs = 0;
+static uint32_t StatMaxConsumePeriodMs = 0;
 
 // The circular queue of received records.
 static SnapshotValidator *SnapValidator;
@@ -379,7 +380,7 @@ static int internalMain(int argc, char *argv[])
 //------------------------------------------------------------------------------
 static void produceConsume(AQReader &reader)
 {
-    Timer::Ms_t prev = 0;
+    uint32_t prev = 0;
     bool first = true;
 
     // Start all the producers and snapshot takers for this run.
@@ -394,7 +395,7 @@ static void produceConsume(AQReader &reader)
 
     // Run the reader for the consumption time.
     ProduceConsumeState state = ProduceConsumeRunning;
-    Timer::Ms_t start = Timer::start();
+    uint32_t start = Timer::start();
     AQItem *item = NULL;
     do
     {
@@ -405,7 +406,7 @@ static void produceConsume(AQReader &reader)
             {
                 item = allocReaderItem();
             }
-            Timer::Ms_t now = Timer::start();
+            uint32_t now = Timer::start();
             bool res = reader.retrieve(*item);
             if (first)
             {
@@ -413,7 +414,7 @@ static void produceConsume(AQReader &reader)
             }
             else
             {
-                Timer::Ms_t elapsed = now - prev;
+                uint32_t elapsed = now - prev;
                 if (elapsed > StatMaxConsumePeriodMs)
                 {
                     StatMaxConsumePeriodMs = elapsed;

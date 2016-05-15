@@ -12,13 +12,14 @@
 //------------------------------------------------------------------------------
 
 #include <stdint.h>
-#include <time.h>
+
+#include <Windows.h>
 
 
 
 
 //------------------------------------------------------------------------------
-// Exported MaAQ_TEST_TRACEcros
+// Exported Macros
 //------------------------------------------------------------------------------
 
 
@@ -43,7 +44,7 @@
 //------------------------------------------------------------------------------
 
 // Defines functions for measuring the passing of time.
-namespace aq { class Timer
+namespace aqosa { class Timer
 {
 private:
 
@@ -52,35 +53,24 @@ private:
 
 public:
 
-    // Represents a millisecond timer value.
-    typedef uint32_t Ms_t;
-
     // Returns the current millisecond timer - used to start timing a duration.
-    static Ms_t start(void)
+    static uint32_t start(void)
     {
-        struct timespec ts;
-        
-        clock_gettime(CLOCK_MONOTONIC, &ts);
-        uint64_t nsCount = (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-        uint32_t tickCount = (uint32_t)((nsCount / 1000000ULL) & 0xFFFFFFFF);
-        
-        
 #ifdef AQ_TEST_UNIT
-        return m_fixClock ? m_fixClockMs : tickCount;
+        return m_fixClock ? m_fixClockMs : (uint32_t)GetTickCount();
 #else
-        return tickCount;
+        return (uint32_t)GetTickCount();
 #endif
     }
 
     // Returns the number of milliseconds that have elapsed since a starting time.
-    static Ms_t elapsed(Ms_t startMs)
+    static uint32_t elapsed(uint32_t startMs)
     {
         return start() - startMs;
     }
 
     // Sleeps for the given period in milliseconds.
-    // TODO: Should we move this into testlib?  Only used in unit tests and is duplicated inside WorkerThread.
-    static void sleep(Ms_t ms)
+    static void sleep(uint32_t ms)
     {
 #ifdef AQ_TEST_UNIT
         if (m_fixClock)
@@ -88,19 +78,17 @@ public:
             m_fixClockMs += ms;
         }
         else
-#endif
         {
-            struct timespec ts;
-            
-            ts.tv_sec = ms / 1000;
-            ts.tv_nsec = (ms % 1000) * 1000000;
-            nanosleep(&ts, NULL);
+            Sleep(ms);
         }
+#else
+        Sleep(ms);
+#endif
     }
 
     // Sets the clock to return the fixed value 'ms'.  Used for unit tests.
 #ifdef AQ_TEST_UNIT
-    static void fixClock(Ms_t ms)
+    static void fixClock(uint32_t ms)
     {
         m_fixClock = true;
         m_fixClockMs = ms;
@@ -112,7 +100,7 @@ private:
     static bool m_fixClock;
 
     // The fixed clock value in miliseconds.
-    static Ms_t m_fixClockMs;
+    static uint32_t m_fixClockMs;
 #endif
 
 };}

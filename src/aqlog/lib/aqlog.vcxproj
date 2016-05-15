@@ -16,32 +16,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AQLog.cpp" />
+    <ClCompile Include="AQLogConsumer.cpp" />
     <ClCompile Include="AQLogFilter.cpp" />
     <ClCompile Include="AQLogHandler.cpp" />
     <ClCompile Include="AQLogRecord.cpp" />
     <ClCompile Include="AQLogStringBuilder.cpp" />
+    <ClCompile Include="internal\DefaultFormatter.cpp" />
     <ClCompile Include="internal\HashFunction.cpp" />
     <ClCompile Include="internal\LogLevelHash.cpp" />
     <ClCompile Include="internal\LogMemory.cpp" />
     <ClCompile Include="internal\LogReader.cpp" />
-    <ClCompile Include="internal\ProcessIdentifier.cpp" />
-    <ClCompile Include="internal\Timestamp.cpp" />
     <ClCompile Include="internal\windows\AQLogRecord_windows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQLog.h" />
+    <ClInclude Include="AQLogConsumer.h" />
     <ClInclude Include="AQLogFilter.h" />
     <ClInclude Include="AQLogFormatter.h" />
     <ClInclude Include="AQLogHandler.h" />
     <ClInclude Include="AQLogRecord.h" />
     <ClInclude Include="AQLogStringBuilder.h" />
+    <ClInclude Include="internal\DefaultFormatter.h" />
     <ClInclude Include="internal\HashFunction.h" />
     <ClInclude Include="internal\LogLevelHash.h" />
     <ClInclude Include="internal\LogMemory.h" />
     <ClInclude Include="internal\LogReader.h" />
-    <ClInclude Include="internal\windows\Atomic.h" />
-    <ClInclude Include="internal\windows\ProcessIdentifier.h" />
-    <ClInclude Include="internal\windows\Timestamp.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -105,7 +104,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -134,7 +133,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -171,7 +170,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aq\lib;..\..\aq\lib\internal;..\..\aq\lib\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>

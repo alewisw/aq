@@ -25,6 +25,7 @@
 
 using namespace std;
 using namespace aq;
+using namespace aqosa;
 
 
 
@@ -523,7 +524,7 @@ bool AQReader::walk(AQItem *item)
             }
             else if (!m_pstate[currTail].timerExpired)
             {
-                Timer::Ms_t elapsedMs = Timer::elapsed(m_pstate[currTail].timerStartMs);
+                uint32_t elapsedMs = Timer::elapsed(m_pstate[currTail].timerStartMs);
                 if (elapsedMs > c->commitTimeoutMs)
                 {
                     m_pstate[currTail].timerExpired = 1;

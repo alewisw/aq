@@ -30,6 +30,7 @@
 #include "Timer.h"
 
 using namespace aqlog;
+using namespace aqosa;
 
 
 

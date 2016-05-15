@@ -20,6 +20,7 @@
 
 #include "Timer.h"
 
+using namespace aqosa;
 using namespace std;
 
 
@@ -87,7 +88,7 @@ AQLogRecord *LogReaderTest::nextRecordAfterEmpty(void)
     uint32_t maxRecallMs;
     AQLogRecord *rec = reader.retrieve(maxRecallMs);
     CHECK(rec == NULL);
-    aq::Timer::sleep(maxRecallMs + 25);
+    Timer::sleep(maxRecallMs + 25);
     rec = reader.retrieve(maxRecallMs);
     REQUIRE(rec != NULL);
     return rec;
@@ -107,7 +108,7 @@ AQLogRecord *LogReaderTest::nextLevelRecord(AQLogLevel_t level)
             {
                 return NULL;
             }
-            aq::Timer::sleep(maxRecallMs + 25);
+            Timer::sleep(maxRecallMs + 25);
             sleepCount++;
         }
         else

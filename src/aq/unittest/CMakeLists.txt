@@ -1,5 +1,5 @@
 
-include_directories(. ../../tst/lib ../../tst/lib/linux ../lib ../lib/internal ../lib/internal/linux)
+include_directories(. ../../tst/lib ../../tst/lib/linux ../..aqosa/lib ../..aqosa/lib/linux ../lib ../lib/internal ../lib/internal/linux)
 set(SOURCE
     AQTest.cpp
     Main.cpp
@@ -24,4 +24,4 @@ set(SOURCE
     UtWriterItem.cpp
    )
 add_executable(aq_unittest ${SOURCE})
-target_link_libraries(aq_unittest aq tst rt)
+target_link_libraries(aq_unittest aq aqosa tst rt)

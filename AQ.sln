@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aqlog_unittest", "src\aqlog
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jsoncpp", "src\jsoncpp\jsoncpp.vcxproj", "{6FA06B29-CB65-4DBC-85B4-9582849B4565}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aqosa", "src\aqosa\lib\aqosa.vcxproj", "{63D112CB-A93E-43E7-818A-69A6EFBB2428}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -94,6 +96,12 @@ Global
 		{6FA06B29-CB65-4DBC-85B4-9582849B4565}.Performance|x86.Build.0 = Performance|Win32
 		{6FA06B29-CB65-4DBC-85B4-9582849B4565}.Release|x86.ActiveCfg = Release|Win32
 		{6FA06B29-CB65-4DBC-85B4-9582849B4565}.Release|x86.Build.0 = Release|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Debug|x86.ActiveCfg = Debug|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Debug|x86.Build.0 = Debug|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Performance|x86.ActiveCfg = Performance|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Performance|x86.Build.0 = Performance|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Release|x86.ActiveCfg = Release|Win32
+		{63D112CB-A93E-43E7-818A-69A6EFBB2428}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

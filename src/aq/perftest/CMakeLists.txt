@@ -1,5 +1,5 @@
 
-include_directories(. ../../tst/lib ../../tst/lib/linux ../lib ../lib/internal ../lib/internal/linux)
+include_directories(. ../../tst/lib ../../tst/lib/linux ../..aqosa/lib ../..aqosa/lib/linux ../lib ../lib/internal ../lib/internal/linux)
 set(SOURCE
     AQProvider.cpp
     ClaimCommitTest.cpp
@@ -15,4 +15,4 @@ set(SOURCE
     ThreadOverheadTest.cpp
    )
 add_executable(aq_perftest ${SOURCE})
-target_link_libraries(aq_perftest aq tst pthread rt)
+target_link_libraries(aq_perftest aq aqosa tst pthread rt)

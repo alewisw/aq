@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 using namespace std;
-using namespace aq;
+using namespace aqosa;
 
 
 
@@ -57,7 +57,7 @@ using namespace aq;
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-PerfTest::PerfTest(const std::string& name, Timer::Ms_t minDurationMs) 
+PerfTest::PerfTest(const std::string& name, uint32_t minDurationMs) 
     : m_name(name)
     , m_minDurationMs(minDurationMs)
     , m_firstMeasured(false)

@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 
+using namespace aqosa;
 using namespace std;
 
 
@@ -134,7 +135,7 @@ void Producer::writeItem(void)
 
     // Claim all the item buffers we need.
     size_t pageSize = m_producerGen.pageSize();
-    Timer::Ms_t startMs = 0;
+    uint32_t startMs = 0;
     for (unsigned int i = 0; i < outstanding; ++i)
     {
         // Generate the item.
@@ -266,7 +267,7 @@ void Producer::writeItem(void)
     {
         m_writer.commit(*m_items[i]);
     }
-    Timer::Ms_t durationMs = Timer::elapsed(startMs);
+    uint32_t durationMs = Timer::elapsed(startMs);
 
     incrementStat(StatisticTotalCycles);
     incrementStat(StatisticTotalCycleTimeMs, durationMs);

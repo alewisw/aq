@@ -28,10 +28,9 @@
     <ClCompile Include="internal\CtrlOverlay.cpp" />
     <ClCompile Include="internal\LinkedItemProcessor.cpp" />
     <ClCompile Include="internal\TestPointNotifier.cpp" />
-    <ClCompile Include="internal\Timer.cpp" />
     <ClCompile Include="internal\TraceBuffer.cpp" />
     <ClCompile Include="internal\TraceManager.cpp" />
-    <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp" />
+    <ClCompile Include="internal\windows\AQWriterItem_windows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQExternMemory.h" />
@@ -51,8 +50,6 @@
     <ClInclude Include="internal\TestPointNotifier.h" />
     <ClInclude Include="internal\TraceBuffer.h" />
     <ClInclude Include="internal\TraceManager.h" />
-    <ClInclude Include="internal\windows\Atomic.h" />
-    <ClInclude Include="internal\windows\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -116,7 +113,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>AQ_TEST_UNIT;AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -145,7 +142,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>AQ_TEST_TRACE;AQ_TEST_POINT; _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -182,7 +179,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions> _CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;.\internal;.\internal\windows;..\..\aqosa\lib;..\..\aqosa\lib\windows</AdditionalIncludeDirectories>
       <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
       <AssemblerListingLocation>$(SolutionDir)build\$(Configuration)\$(ProjectName)\asm\</AssemblerListingLocation>
       <BufferSecurityCheck>true</BufferSecurityCheck>

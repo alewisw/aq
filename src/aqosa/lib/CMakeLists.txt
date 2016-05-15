@@ -1,5 +1,5 @@
 
-include_directories(. internal internal/linux ../..aqosa/lib ../..aqosa/lib/linux)
+include_directories(. linux)
 set(SOURCE
     AQ.cpp
     AQHeapMemory.cpp
@@ -14,8 +14,9 @@ set(SOURCE
     internal/CtrlOverlay.cpp
     internal/LinkedItemProcessor.cpp
     internal/TestPointNotifier.cpp
+    internal/Timer.cpp
     internal/TraceBuffer.cpp
     internal/TraceManager.cpp
-    internal/linux/AQWriterItem_linux.cpp
+    internal/linux/AQWriterItem_vprintf.cpp
    )
-add_library(aq STATIC ${SOURCE})
+add_library(aqosa STATIC ${SOURCE})

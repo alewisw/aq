@@ -19,9 +19,6 @@
     <ClCompile Include="internal\TestPointNotifier.cpp">
       <Filter>internal</Filter>
     </ClCompile>
-    <ClCompile Include="internal\Timer.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
     <ClCompile Include="internal\TraceBuffer.cpp">
       <Filter>internal</Filter>
     </ClCompile>
@@ -29,11 +26,11 @@
       <Filter>internal</Filter>
     </ClCompile>
     <ClCompile Include="AQWriterItem.cpp" />
-    <ClCompile Include="Internal\Windows\AQWriterItem_vprintf.cpp">
-      <Filter>internal\windows</Filter>
-    </ClCompile>
     <ClCompile Include="AQHeapMemory.cpp" />
     <ClCompile Include="AQSharedMemoryWindow.cpp" />
+    <ClCompile Include="internal\windows\AQWriterItem_windows.cpp">
+      <Filter>internal\windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AQItem.h" />
@@ -43,12 +40,6 @@
     <ClInclude Include="AQWriter.h" />
     <ClInclude Include="AQSnapshot.h" />
     <ClInclude Include="AQUnformattedException.h" />
-    <ClInclude Include="internal\windows\Atomic.h">
-      <Filter>internal\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="internal\windows\Timer.h">
-      <Filter>internal\windows</Filter>
-    </ClInclude>
     <ClInclude Include="internal\Crc32.h">
       <Filter>internal</Filter>
     </ClInclude>

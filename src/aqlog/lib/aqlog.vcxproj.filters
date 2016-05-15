@@ -25,17 +25,12 @@
     <ClInclude Include="internal\LogMemory.h">
       <Filter>internal</Filter>
     </ClInclude>
-    <ClInclude Include="internal\windows\Atomic.h">
-      <Filter>internal\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="internal\windows\ProcessIdentifier.h">
-      <Filter>internal\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="internal\windows\Timestamp.h">
-      <Filter>internal\windows</Filter>
-    </ClInclude>
     <ClInclude Include="AQLogStringBuilder.h" />
     <ClInclude Include="AQLogFormatter.h" />
+    <ClInclude Include="AQLogConsumer.h" />
+    <ClInclude Include="internal\DefaultFormatter.h">
+      <Filter>internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AQLogHandler.cpp" />
@@ -54,15 +49,13 @@
     <ClCompile Include="internal\LogMemory.cpp">
       <Filter>internal</Filter>
     </ClCompile>
-    <ClCompile Include="internal\ProcessIdentifier.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
-    <ClCompile Include="internal\Timestamp.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
     <ClCompile Include="AQLogStringBuilder.cpp" />
     <ClCompile Include="internal\windows\AQLogRecord_windows.cpp">
       <Filter>internal\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="AQLogConsumer.cpp" />
+    <ClCompile Include="internal\DefaultFormatter.cpp">
+      <Filter>internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

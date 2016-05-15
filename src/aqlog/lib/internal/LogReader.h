@@ -15,8 +15,6 @@
 
 #include "AQReader.h"
 
-#include "Timer.h"
-
 #include <deque>
 #include <list>
 #include <set>
